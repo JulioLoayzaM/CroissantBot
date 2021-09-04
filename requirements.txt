@@ -1,0 +1,6 @@
+asyncpraw==7.3.0
+discord.py[voice]==1.7.3
+packaging>=20.9
+python-dotenv==0.18.0
+streamlink==2.3.0
+youtube-dl==2021.6.6

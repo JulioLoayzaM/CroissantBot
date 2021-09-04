@@ -1,0 +1,11 @@
+# dev files
+__pycache__/
+.vscode/
+test/
+# cache directories
+music_cache/
+memes/
+logs/
+# private files
+rsc/.*
+.env
