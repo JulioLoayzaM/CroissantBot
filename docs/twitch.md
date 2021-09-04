@@ -12,7 +12,7 @@ This Cog enables the bot's Twitch livestream-checking capabilities. It uses  Twi
   pip3 install -U requests
   ```
 
-- However, to use the API we need the **Client ID** and **Secret**. To get them, follow Step 1 of this [getting started guide](https://dev.twitch.tv/docs/api/#step-1-register-an-application).
+- However, to use the API we need the **Client ID** and **Secret**. To get them, follow Step 1 of this [getting started guide](https://dev.twitch.tv/docs/api/#step-1-register-an-application). Fill `TW_CLIENT_ID` and `TW_CLIENT_SECRET` with these values.
 
 - Then, we need an **Access Token**. There are three ways to get one:
 
