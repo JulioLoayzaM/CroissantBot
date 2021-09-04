@@ -310,6 +310,9 @@ def check_token():
 	# Refresh token if status 401 (means missing or invalid token)
 	# or if token is about to expire.
 	if (status == 401) or (TW_EXPIRES_IN < 200):
+
+		logger.info(f"Current {PURPLE}TW_TOKEN{ENDC} is invalid, getting a new one.")
+		logger.debug(f"Status: {status}, TW_EXPIRES_IN: {TW_EXPIRES_IN}, message: \"{data.get('message', 'no message')}\"")
 		
 		client_id = os.getenv('TW_CLIENT_ID')
 		client_secret = os.getenv('TW_CLIENT_SECRET')
@@ -640,8 +643,8 @@ def main():
 			check_twitch.start()
 			enabled_cogs += f", {PURPLE}twitch{ENDC}"
 		else:
-			logger.warning("Can't enable {PURPLE}twitch{ENDC} cog, unloading extension.")
-			bot.unload_extension('Twitch')
+			logger.warning(f"Can't enable {PURPLE}twitch{ENDC} cog, unloading extension.")
+			bot.unload_extension('cogs.twitch')
 
 	if YOUTUBE_ENABLED:
 		bot.load_extension("cogs.youtube")
