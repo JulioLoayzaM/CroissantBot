@@ -139,6 +139,7 @@ For an example on how this works, see the [music cog](cogs/music.py), which has 
 
 - [ ] One command for music - fuse play/play_from
 - [ ] Rotate the log files
+- [ ] Translation of docs
 - [ ] Switch from `youtube-dl` to `yt-dlp`
 - [ ] Get the stream's thumbnail with `ytdl(p)`
 - [ ] Move from `requests` to `aiohttp`
@@ -148,7 +149,6 @@ For an example on how this works, see the [music cog](cogs/music.py), which has 
 ## Considering
 
 - [ ] Moderation commands
-- [ ] Translation of docs
 - [ ] Colour-coding embeds
 - [ ] Way to disable other cogs
 - [ ] Make this repo a template?
