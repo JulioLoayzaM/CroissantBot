@@ -3,7 +3,7 @@
 <p align="center">
     <a href="//www.python.org/"><img src="https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54"></a>
     <a href="//github.com/JulioLoayzaM/CroissantBot/releases"><img src="https://img.shields.io/github/v/release/JulioLoayzaM/CroissantBot?sort=semver"></a>
-    <a href="//github.com/JulioLoayzaM/CroissantBot/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/JulioLoayzaM/CroissantBot"></a>
+    <a href="//github.com/JulioLoayzaM/CroissantBot/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/JulioLoayzaM/CroissantBot?style=flat"></a>
 </p>
 
 CroissantBot is a Discord bot written in Python using the [`discord.py` rewrite](https://github.com/Rapptz/discord.py).
