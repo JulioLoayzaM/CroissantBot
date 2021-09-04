@@ -4,7 +4,7 @@
 # Uses the requests library and Twitch's API to get the information.
 
 
-# Copyright (C) 2021 Julio Loayza
+# Copyright (C) 2021 JulioLoayzaM
 #
 # You may use, distribute and modify this code under
 # the terms of the MIT license.

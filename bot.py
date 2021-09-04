@@ -8,7 +8,7 @@
 # Includes some commands: exit, ping, test and version.
 
 
-# Copyright (C) 2021 Julio Loayza
+# Copyright (C) 2021 JulioLoayzaM
 #
 # You may use, distribute and modify this code under
 # the terms of the MIT license.
