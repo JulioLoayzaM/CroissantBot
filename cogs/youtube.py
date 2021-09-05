@@ -121,8 +121,11 @@ class Youtube(commands.Cog):
 			# print to stdout so try/except it is.
 			try:
 				streams = streamlink.streams(channel)
+			except streamlink.PluginError as pe:
+				logging.getLogger('streamlink.plugin.youtube').warning("Error raised while checking a stream, skipping to next one.")
+				logging.getLogger('streamlink.plugin.youtube').debug(f"Channel: {channel}\nError:\n{pe}")
 			except Exception as e:
-				logger.warning("Error raised while checking a stream, skipping to next one.")
+				logger.debug("Error raised while checking a stream, skipping to next one.")
 				logger.debug(f"Channel: {channel}\nError:\n{e}")
 
 			# If no streams are returned, streamer is Offline
