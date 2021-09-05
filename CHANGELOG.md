@@ -1,5 +1,16 @@
 # Changelog
 
+## CroissantBot 1.0.2 (2021-09-05)
+
+The Spanish patch. :)
+
+### Patch highlights
+
+- added: Spanish version of docs, LICENSE and README
+- added: reference to Spanish version in README
+- updated: improvements to the docs
+- updated: streamlink.PluginError is now logged with streamlink.plugin.youtube to streamlink.log
+
 ## CroissantBot 1.0.1 (2021-09-05)
 
 CroissantBot's first patch!
