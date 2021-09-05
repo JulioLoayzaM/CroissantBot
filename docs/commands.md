@@ -2,7 +2,7 @@
 
 Lists of all available commands.
 
-Use the `help` command to get a list of all *available* commands in the current context: some commands are guild-only, meaning they can't be used in DMs (eg. music commands). Others can only be used by the bot's owner (eg. `exit` to stop the bot).
+Use the `help` command to get a list of all available commands *in the current context*: some commands are guild-only, meaning they can't be used in DMs (eg. music commands). Others can only be used by the bot's owner (eg. `exit` to stop the bot).
 
 ### bot.py
 

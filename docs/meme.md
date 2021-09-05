@@ -14,7 +14,7 @@ This Cog enables the bot's meme-sending capabilities. It uses `asyncpraw`, or th
 
   - A Reddit account: to create a new account, head to [reddit.com](https://www.reddit.com/). You can create an account without providing an email address (just omit it), but be aware this means **there's no way to recover the account if the password is lost**.
   - A Client ID and Secret: see [this guide](https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps).
-  - A User Agent: this Cog already generates one following the format provided by [reddit's API guide](https://github.com/reddit-archive/reddit/wiki/API). Thus, I recommend letting the bot take care of that with the information provided by `.env`. Note that the `APP_VERSION` is set arbitrarily.
+  - A User Agent: this Cog already generates one following the format provided by [Reddit's API guide](https://github.com/reddit-archive/reddit/wiki/API). Thus, I recommend letting the bot take care of that with the information provided by `.env`. Note that the `APP_VERSION` is set arbitrarily; for now it is the same as the bot's version.
   
 - Finally, create a directory to store the memes and list files, and set `MEME_DIR` in `.env` accordingly.
 

@@ -20,7 +20,7 @@ This Cog contains miscellaneous commands.
     Alice shot Bob.
     ```
   
-  - `KILL_COUNT` is a JSON file that keeps track of how many times a user used the command on someone on that server. At first, it should at least contain an empty dictionary `{}`. It uses the following format:
+  - `KILL_COUNT` is a JSON file that keeps track of how many times a user used the command on someone on that server. When creating the bot it should at least contain an empty dictionary `{}`. It uses the following format:
   
     ```json
     {

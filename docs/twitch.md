@@ -2,7 +2,7 @@
 
 This Cog enables the bot's Twitch livestream-checking capabilities. It uses  Twitch's API to get the information needed.
 
-**NOTE**: This Cog can be disabled by setting `ENABLE_TW` to an empty string `""` in `.env`.
+**NOTE**: This Cog can be disabled by setting the `ENABLE_TW` variable in `.env` to an empty string `""` or by commenting it (put a `#` before).
 
 ## Requirements
 
@@ -18,7 +18,7 @@ This Cog enables the bot's Twitch livestream-checking capabilities. It uses  Twi
 
   - The easiest one is letting the bot take care of it. Just uncomment `TW_TOKEN`: the bot checks the token validity when starting, so the empty token will generate an error and the bot will automatically try to get a new token.
 
-  - To manually get the token, the Twitch CLI is an option. [Step 2](https://dev.twitch.tv/docs/api/#step-2-authentication-using-the-twitch-cli) of the aforementioned guide explains how to use it.
+  - However, if the automatic way fails there are two manual ways to get it. The Twitch CLI is one option. [Step 2](https://dev.twitch.tv/docs/api/#step-2-authentication-using-the-twitch-cli) of the aforementioned guide explains how to use it.
 
   - Finally, a simple script (based on [this Stack Overflow answer](https://stackoverflow.com/a/66536359)) can be used instead of downloading the CLI:
 
@@ -48,7 +48,7 @@ This Cog enables the bot's Twitch livestream-checking capabilities. It uses  Twi
     {"access_token": "132456789abcdefgh", "expires_in": 3600, "token_type": "bearer"}
     ```
 
-  > Note that API tokens expire, as shown by the `expires_in` field in the example above. App access tokens (the ones used by the bot) are valid for 60 days and can't be refreshed. Instead, when the token is about to or has already expired, the bot gets a new one and stores it in the `.env` file.
+    > Note that API tokens expire, as shown by the `expires_in` field in the example above. App access tokens (the ones used by the bot) are valid for 60 days and can't be refreshed. Instead, when the token is about to or has already expired, the bot gets a new one and stores it in the `.env` file.
 
 - We must set the `TW_FILE` variable in `.env`. It represents the path to a JSON file that stores the IDs of the Discord users to notify and the Twitch channels to check for each one.
 

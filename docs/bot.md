@@ -16,7 +16,6 @@ A guide on how to create the bot on Discord and add it to a server.
   pip3 install -U packaging
   ```
 
-  
 
 ## Creating the bot
 

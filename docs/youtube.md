@@ -45,4 +45,4 @@ This Cog enables the bot's YouTube livestream-checking capabilities. It uses `st
 
   Fill it with the corresponding information and set `YT_FILE` in `.env`. The Discord user's ID can be found by right-clicking the user's name.
 
-- Finally, the Cog implicitly uses `TW_FREQUENCY`, which indicates how often the bot checks the streams, in minutes. This is used in `bot.py`, and thus shared with `twitch.py`. If need be, just create `YT_FREQUENCY` in `.env` and make the appropriate changes in `bot.py`.
+- Finally, the Cog implicitly uses `TW_FREQUENCY`, which indicates how often the bot checks the streams, in minutes. This is used in `bot.py` and is shared with `twitch.py`. If need be, just create `YT_FREQUENCY` in `.env` and make the appropriate changes in `bot.py`.
