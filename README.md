@@ -9,7 +9,7 @@
 CroissantBot is a Discord bot written in Python using the [`discord.py` rewrite](https://github.com/Rapptz/discord.py).
 
 While the bot itself is not openly available, its code is.
-This repo aims to be a sort of template to accelerate the creation of a new bot, allowing anyone\* to clone it, fill in the blanks with [its documentation](docs/) and run it on their machine.
+This repo aims to be a template to ease the creation of a new bot, allowing anyone\* to clone it, fill in the blanks with [its documentation](docs/) and run it on their machine.
 
 *some Python experience is recommended.
 
@@ -51,7 +51,7 @@ Most commands depend on a *cog*, an extension used to group commands. For exampl
 
 The bot uses a `.env` file. This allows to put all credentials in one place, instead of placing them in the source code, and allows to easily turn on and off some features.
 
-For example, the `twitch` and `youtube` cogs can be disabled ([see below](README.md#disabling-cogs)). *It is recommended to do so* if you are not planning to use them, in order to avoid setting them up. You can enable them later on.
+For example, the `twitch` and `youtube` cogs can be disabled ([see below](README.md#disabling-cogspartial-installation)). *It is recommended to do so* if you are not planning to use them, in order to avoid setting them up. You can enable them later on.
 
 The **bot's default prefix** is `!`. You can change it in `.env`.
 
@@ -59,14 +59,14 @@ The **bot's default prefix** is `!`. You can change it in `.env`.
 
 I've tested the bot with `Python 3.6.9` in Ubuntu 18.04 and `Python 3.6.1` in Windows 10 using the following packages:
 
-| Package             | Usage                                                | Tested version |
-| ------------------- | ---------------------------------------------------- | -------------- |
-| `discord.py[voice]` | API wrapper for Discord with voice support           | `1.7.3`        |
-| `python-dotenv`     | To store API keys and other secrets in a `.env` file | `0.18.0`       |
-| `youtube-dl`        | To get music from YouTube                            | `2021.6.6`     |
-| `asyncpraw`         | Python Reddit API Wrapper, to get memes from Reddit  | `7.3.0`        |
-| `streamlink`        | To check for YouTube livestreams                     | `2.3.0`        |
-| `packaging`         | To check the bot's current version                   | `20.9`         |
+| Package             | Usage                                                        | Tested version |
+| ------------------- | ------------------------------------------------------------ | -------------- |
+| `discord.py[voice]` | API wrapper for Discord with voice support                   | `1.7.3`        |
+| `python-dotenv`     | To store API keys and other secrets in a `.env` file         | `0.18.0`       |
+| `youtube-dl`        | To get music from YouTube                                    | `2021.6.6`     |
+| `asyncpraw`         | Asynchronous Python Reddit API Wrapper, to get memes from Reddit | `7.3.0`        |
+| `streamlink`        | To check for YouTube livestreams                             | `2.3.0`        |
+| `packaging`         | To check the bot's current version                           | `20.9`         |
 
 ### Full installation
 
@@ -87,7 +87,7 @@ I've tested the bot with `Python 3.6.9` in Ubuntu 18.04 and `Python 3.6.1` in Wi
 
 - Get the necessary credentials for the required cogs: [meme](docs/meme.md), [misc](docs/misc.md) and [music](docs/music.md).
 
-  - If enabled, get the credentials for the optional cogs: [twitch](docs/twitch.md) and/or [youtube](docs/youtube.md). If using the `music` cog, install `ffmpeg` using a package manager or through its [the download page](https://www.ffmpeg.org/download.html).
+  - If enabled, get the credentials for the optional cogs: [twitch](docs/twitch.md) and/or [youtube](docs/youtube.md). If using the `music` cog, install `FFmpeg` using a package manager or through its [the download page](https://www.ffmpeg.org/download.html).
 
 - Use them to fill [`.env.example`](.env.example).
 
@@ -99,15 +99,15 @@ I've tested the bot with `Python 3.6.9` in Ubuntu 18.04 and `Python 3.6.1` in Wi
 
   - Linux/macOS:
 
-  ```
-  python3 bot.py
-  ```
+    ```
+    python3 bot.py
+    ```
 
   - Windows:
 
-  ```
-  python bot.py
-  ```
+    ```
+    python bot.py
+    ```
 
 ### Disabling cogs/partial installation
 
