@@ -5,6 +5,7 @@
     <a href="//github.com/JulioLoayzaM/CroissantBot/releases"><img src="https://img.shields.io/github/v/release/JulioLoayzaM/CroissantBot?sort=semver&style=flat"></a>
     <a href="//github.com/JulioLoayzaM/CroissantBot/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/JulioLoayzaM/CroissantBot?style=flat"></a>
 </p>
+> La documentación también está disponible en [Español](docs/es/).
 
 CroissantBot is a Discord bot written in Python using the [`discord.py` rewrite](https://github.com/Rapptz/discord.py).
 
