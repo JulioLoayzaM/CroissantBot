@@ -141,7 +141,7 @@ For an example on how this works, see the [music cog](cogs/music.py), which has 
 ## To-do
 
 - [ ] One command for music - fuse play/play_from
-- [ ] Rotate the log files
+- [x] Rotate the log files
 - [ ] Switch from `youtube-dl` to `yt-dlp`
 - [ ] Get the stream's thumbnail with `ytdl(p)`
 - [ ] Move from `requests` to `aiohttp`
