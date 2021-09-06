@@ -210,7 +210,10 @@ async def check_version(ctx, option: str="local"):
 			return
 
 		else:
-			em = discord.Embed(title=f"This bot's current version is {local_ver}")
+			em = discord.Embed(
+				title=f"This bot's current version is {local_ver}",
+				description=f"Use `{BOT_PREFIX}version remote` to check for updates."
+			)
 			await ctx.send(embed=em)
 
 	elif option == "remote":
@@ -226,7 +229,7 @@ async def check_version(ctx, option: str="local"):
 			title = "Bot versions"
 			message = ""
 			message += f"Current: couldn't get the bot's current version\n"
-			message += f"Remote : {remote_ver}\n\n"
+			message += f"Remote: {remote_ver}\n\n"
 			message += "Check out the repo at https://github.com/JulioLoayzaM/CroissantBot,\n"
 			message += "or the changelog at https://github.com/JulioLoayzaM/CroissantBot/releases"
 			em = discord.Embed(title=title, description=message)
@@ -237,11 +240,11 @@ async def check_version(ctx, option: str="local"):
 			title = "Bot versions"
 			message = ""
 			message += f"Current: {local_ver}\n"
-			message += f"Remote : {remote_ver}\n\n"
+			message += f"Remote: {remote_ver}\n\n"
 
 			# MAYBE: add support for release candidates?
 			if local_ver == remote_ver:
-				message += "Nothing to do, the bot's up to date!"
+				message += "Nothing to do, the bot's up to date!\n"
 
 			elif local_ver < remote_ver:
 
