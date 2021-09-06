@@ -17,6 +17,7 @@
 
 
 import os
+import time
 import random
 import asyncio
 import logging
@@ -30,6 +31,7 @@ import discord
 from discord.ext import commands
 from discord.ext.tasks import loop
 
+from logging.handlers import TimedRotatingFileHandler
 from dotenv import load_dotenv, set_key
 from packaging import version
 
@@ -173,12 +175,7 @@ async def test(ctx):
 	Test function.
 	The idea is to not have many different test functions but replace the contents of this one as needed.
 	"""
-	logger.debug("This is a test.")
-	title = "Title"
-	message = ""
-	message += "Check out the repo at https://github.com/JulioLoayzaM/CroissantBot,\n"
-	message += "or the changelog at https://github.com/JulioLoayzaM/CroissantBot/releases"
-	await ctx.send(embed=discord.Embed(title=title, description=message))
+	logger.info("This is a test.")
 
 
 @bot.command(
@@ -573,17 +570,17 @@ def setup_loggers():
 	standard_handler.setFormatter(CustomFormatter())
 
 	# Handler - writes INFO logging to file
-	info_handler = logging.FileHandler(LOG_INFO_FILE)
+	info_handler = TimedRotatingFileHandler(LOG_INFO_FILE, when='midnight', backupCount=7)
 	info_handler.setLevel(logging.INFO)
 	info_handler.setFormatter(CustomFormatter())
 
 	# Handler - writes DEBUG logging to file
-	debug_handler = logging.FileHandler(LOG_DEBUG_FILE)
+	debug_handler = TimedRotatingFileHandler(LOG_DEBUG_FILE, when='midnight', backupCount=7)
 	debug_handler.setLevel(logging.DEBUG)
 	debug_handler.setFormatter(CustomFormatter())
 	
 	# Handler - writes DEBUG discord logging to file
-	discord_debug_handler = logging.FileHandler(LOG_DISCORD_FILE)
+	discord_debug_handler = TimedRotatingFileHandler(LOG_DISCORD_FILE, when='midnight', backupCount=7)
 	discord_debug_handler.setLevel(logging.DEBUG)
 	discord_debug_handler.setFormatter(CustomFormatter())
 
@@ -603,7 +600,7 @@ def fix_logger():
 	"""
 
 	# Move streamlink logs to a file
-	streamlink_handler = logging.FileHandler(LOG_STREAMLINK_FILE)
+	streamlink_handler = TimedRotatingFileHandler(LOG_STREAMLINK_FILE, when='midnight', backupCount=7)
 	streamlink_handler.setLevel(logging.WARNING)
 	logging.getLogger('streamlink').addHandler(streamlink_handler)
 
