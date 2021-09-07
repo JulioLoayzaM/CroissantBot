@@ -68,6 +68,7 @@ if YOUTUBE_ENABLED:
 LOG_INFO_FILE    = os.getenv('LOG_INFO')
 LOG_DEBUG_FILE   = os.getenv('LOG_DEBUG')
 LOG_DISCORD_FILE = os.getenv('LOG_DISCORD')
+LOG_COUNT = int(os.getenv('LOG_COUNT'))
 
 
 # Colours for formatting console text - almost deprecated with the introduction of logging
@@ -587,17 +588,17 @@ def setup_loggers():
 	standard_handler.setFormatter(CustomFormatter())
 
 	# Handler - writes INFO logging to file
-	info_handler = TimedRotatingFileHandler(LOG_INFO_FILE, when='midnight', backupCount=7)
+	info_handler = TimedRotatingFileHandler(LOG_INFO_FILE, when='midnight', backupCount=LOG_COUNT)
 	info_handler.setLevel(logging.INFO)
 	info_handler.setFormatter(CustomFormatter())
 
 	# Handler - writes DEBUG logging to file
-	debug_handler = TimedRotatingFileHandler(LOG_DEBUG_FILE, when='midnight', backupCount=7)
+	debug_handler = TimedRotatingFileHandler(LOG_DEBUG_FILE, when='midnight', backupCount=LOG_COUNT)
 	debug_handler.setLevel(logging.DEBUG)
 	debug_handler.setFormatter(CustomFormatter())
 	
 	# Handler - writes DEBUG discord logging to file
-	discord_debug_handler = TimedRotatingFileHandler(LOG_DISCORD_FILE, when='midnight', backupCount=7)
+	discord_debug_handler = TimedRotatingFileHandler(LOG_DISCORD_FILE, when='midnight', backupCount=LOG_COUNT)
 	discord_debug_handler.setLevel(logging.DEBUG)
 	discord_debug_handler.setFormatter(CustomFormatter())
 
@@ -617,7 +618,7 @@ def fix_logger():
 	"""
 
 	# Move streamlink logs to a file
-	streamlink_handler = TimedRotatingFileHandler(LOG_STREAMLINK_FILE, when='midnight', backupCount=7)
+	streamlink_handler = TimedRotatingFileHandler(LOG_STREAMLINK_FILE, when='midnight', backupCount=LOG_COUNT)
 	streamlink_handler.setLevel(logging.WARNING)
 	logging.getLogger('streamlink').addHandler(streamlink_handler)
 
