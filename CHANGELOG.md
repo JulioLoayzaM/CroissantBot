@@ -1,5 +1,17 @@
 # Changelog
 
+## CroissantBot 1.0.3 (2021-09-07)
+
+Logs and versions.
+
+### Patch highlights
+
+- added: time-rotating logs, with a rollover at midnight
+- added: `LOG_COUNT` to indicate how many days of logs to keep
+- added: small section on `bot.md` about logs
+- updated: better embeds for `check_version` (new format + colour-coded)
+- fixed: an error caused by a missing continue when `streamlink` raises a `PluginError`
+
 ## CroissantBot 1.0.2 (2021-09-05)
 
 The Spanish patch. :)
