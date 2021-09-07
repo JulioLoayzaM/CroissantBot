@@ -199,19 +199,19 @@ async def check_version(ctx, option: str="local"):
 		output = result.stdout.decode('utf-8').rstrip()
 		local_ver = version.parse(output)
 	except Exception as e:
-		logger.error("Error getting current bot version.")
+		logger.warning("Error getting current bot version, ignoring.")
 		logger.debug(f"Error:\n{e}")
 		local_ver = None
 
 	if option == "local":
 
 		if local_ver is None:
-			await ctx.send("Couldn't get local version.")
+			await ctx.send("Could not get local version.")
 			return
 
 		else:
 			em = discord.Embed(
-				title=f"This bot's current version is {local_ver}",
+				title=f"The bot's current version is {local_ver}",
 				description=f"Use `{BOT_PREFIX}version remote` to check for updates."
 			)
 			await ctx.send(embed=em)
@@ -225,49 +225,63 @@ async def check_version(ctx, option: str="local"):
 		latest = request.json()
 		remote_ver = version.parse(latest['tag_name'])
 
+		# Determine the embed's colour first - the colour has to be set
+		# during initialization, but that would mean creating the embed
+		# and adding the version fields on every case.
 		if local_ver is None:
-			title = "Bot versions"
-			message = ""
-			message += f"Current: couldn't get the bot's current version\n"
-			message += f"Remote: {remote_ver}\n\n"
-			message += "Check out the repo at https://github.com/JulioLoayzaM/CroissantBot,\n"
-			message += "or the changelog at https://github.com/JulioLoayzaM/CroissantBot/releases"
-			em = discord.Embed(title=title, description=message)
+			colour = discord.Colour.red()
+		else:
+			if local_ver == remote_ver:
+				colour = discord.Colour.green()
+			elif local_ver < remote_ver:
+				colour = discord.Colour.gold()
+			else:
+				colour = discord.Colour.teal()
+
+		# Create the embed with the colour
+		em = discord.Embed(colour=colour)
+
+		if local_ver is None:
+
+			em.add_field(name="Current version", value="Could not get the current version", inline=True)
+			em.add_field(name="Latest version", value=f"{remote_ver}", inline=True)
+			em.add_field(name="Changelog", value=f"https://github.com/JulioLoayzaM/CroissantBot/releases", inline=False)
 			await ctx.send(embed=em)
 
 		else:
 
-			title = "Bot versions"
-			message = ""
-			message += f"Current: {local_ver}\n"
-			message += f"Remote: {remote_ver}\n\n"
+			em.add_field(name="Current version", value=f"{local_ver}", inline=True)
+			em.add_field(name="Latest version", value=f"{remote_ver}", inline=True)
 
 			# MAYBE: add support for release candidates?
 			if local_ver == remote_ver:
-				message += "Nothing to do, the bot's up to date!\n"
+				em.add_field(name="Status", value="Nothing to do, the bot's up to date!", inline=False)
 
 			elif local_ver < remote_ver:
 
 				if local_ver.major < remote_ver.major:
-					message += "A new **major** version is available.\n"
-					message += "**Warning:** a major update may contain breaking changes.\n"
-					message += "Please check the changelog first, then use `git pull` to update.\n\n"
+					status_message = "A new **major** version is available.\n"
+					status_message += "**Warning:** a major update may contain breaking changes.\n"
+					status_message += "Please check the changelog first, then use `git pull` to update."
+					em.add_field(name="Status", value=status_message, inline=False)
 
 				elif local_ver.minor < remote_ver.minor:
-					message += "A new **minor** version is available. Use `git pull` to update.\n\n"
+					status_message = "A new **minor** version is available. Use `git pull` to update."
+					em.add_field(name="Status", value=status_message, inline=False)
 
 				else:
-					message += "A new **patch** is available. Use `git pull` to update.\n\n"
+					status_message = "A new **patch** is available. Use `git pull` to update."
+					em.add_field(name="Status", value=status_message, inline=False)
 
-				message += f"Release description:\n{latest['body']}\n\n"
+				em.add_field(name="Release notes", value=f"{latest.get('body')}", inline=False)
 
 			else:
-				message += "Your version is newer than source! How'd you do that?\n"
-				message += "(If you believe this to be an error, don't hesitate to report it on the repo below!\n\n)"
+				status_message = "Your version is more recent than mine! How'd you do that?\n"
+				status_message += "(If you believe this to be an error, don't hesitate to report it in the repo below!)"
+				em.add_field(name="Status", value=status_message, inline=False)
 
-			message += "Check out the repo at https://github.com/JulioLoayzaM/CroissantBot,\n"
-			message += "or the changelog at https://github.com/JulioLoayzaM/CroissantBot/releases"
-			em = discord.Embed(title=title, description=message)
+			changelog_url = "https://github.com/JulioLoayzaM/CroissantBot/releases"
+			em.add_field(name="Changelog", value=changelog_url, inline=False)
 
 			await ctx.send(embed=em)
 
