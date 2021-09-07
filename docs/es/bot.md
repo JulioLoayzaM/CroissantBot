@@ -15,6 +15,12 @@ Una guía sobre como crear el bot en Discord y añadirlo a un servidor.
   ```
   pip3 install -U packaging
   ```
+  
+- Crea la carpeta `logs` y los cuatro archivos de registro correspondientes: `info.log`, `debug.log`, `discord.log` y `streamlink.log`. Luego, retira el comentario `#` de las variables en `.env`.
+
+  El bot usará estos archivos como base y rotará los registros a medianoche. Esto significa que los registros del día se guardarán en un archivo separado y el archivo actual será reiniciado. Por defecto, el bot conserva los registros de los últimos 7 días, como indicado por `LOG_COUNT`.
+
+  > Solo se necesita `streamlink.log` cuando se usa el cog de `youtube`, pero es mejor crearlo ahora que preguntarse por qué el bot no encuentra el archivo.
 
 ## Crear el bot
 
