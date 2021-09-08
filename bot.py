@@ -139,8 +139,8 @@ async def close_connection(ctx):
 		res = twitch.close_session()
 		if res:
 			logger.debug(f"{PURPLE}twitch.session{ENDC} closed.")
-	else:
-		logger.error(f"Could not close requests session.")
+	elif TWITCH_ENABLED:
+		logger.error(f"Could not close {PURPLE}twitch.session{ENDC}.")
 
 	logger.debug(f"{WARNING}Bot disconnecting...{ENDC}")
 
