@@ -11,6 +11,7 @@
 # See the LICENSE file for more details.
 
 
+import aiofiles
 import random
 import json
 import logging
@@ -175,8 +176,8 @@ class Misc(commands.Cog):
 						# the kill in case of failure
 						# MAYBE: add more try-catch statements to separate the different IOErrors possible
 
-						with open(KILL_MESSAGES_FILE, 'r') as file:
-							lines = file.readlines()
+						async with aiofiles.open(KILL_MESSAGES_FILE, 'r') as file:
+							lines = await file.readlines()
 
 						line = random.choice(lines)
 						line = line.rstrip('\n')
