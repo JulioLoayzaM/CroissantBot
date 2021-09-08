@@ -12,7 +12,8 @@
 # See the LICENSE file for more details.
 
 
-import requests
+import asyncio
+import aiohttp
 import logging
 import json
 
@@ -28,8 +29,6 @@ TWITCH_API_ENDPOINT = "https://api.twitch.tv/helix/streams?user_login="
 
 TW_CID = getenv('TW_CLIENT_ID')
 
-RES_SESSION = requests.Session()
-
 # 'CroissantBot' logger
 logger = None
 
@@ -37,6 +36,7 @@ class Twitch(commands.Cog):
 
 	def __init__(self, bot: commands.Bot):
 		self.bot = bot
+		self.session: aiohttp.ClientSession = None
 
 
 	def checkUser(self, userID: str, token: str) -> bool:
@@ -123,7 +123,7 @@ class Twitch(commands.Cog):
 		return status
 
 
-	def check_users(self, prev_status: Dict[str, bool], streamers: Dict[str, List[str]], token: str) -> Tuple[Dict[str, Embed], Dict[str, bool]]:
+	async def check_users(self, prev_status: Dict[str, bool], streamers: Dict[str, List[str]], token: str) -> Tuple[Dict[str, Embed], Dict[str, bool]]:
 		"""
 		Checks the status of streamers and sends a message to a determined user if the streamer just got online.
 
@@ -143,6 +143,9 @@ class Twitch(commands.Cog):
 			'Authorization': f'Bearer {token}'
 		}
 
+		if self.session is None:
+			self.session = aiohttp.ClientSession()
+
 		# messages:
 		# {
 		#	'discord_user': [embed_1, embed_2, ...]
@@ -154,21 +157,20 @@ class Twitch(commands.Cog):
 		url = TWITCH_API_ENDPOINT + "&user_login=".join(streamers.keys())
 
 		try:
-			req = RES_SESSION.get(url, headers=headers)
+			async with self.session.get(url, headers=headers) as response:
+				jsondata = await response.json()
 		except Exception as e:
-			logger.error("Error in GET request.")
+			logger.error(f"Error GETting twitch streamers info.")
 			logger.debug(f"Unexpected exception:\n{e}")
 			logger.warning("Skipping current check.")
 			return (None, prev_status)
-
-		jsondata = req.json()
 
 		error = jsondata.get('error')
 
 		if error is not None:
 			status = jsondata.get('status')
 			message = jsondata.get('message')
-			logger.error("Can't reach API endpoint.")
+			logger.error("Can't reach Twitch API endpoint.")
 
 			# 401 means missing or invalid access token - return and get another token during the next check
 			logger.debug(f"Status {status}: {error}:{message}")
@@ -221,11 +223,11 @@ class Twitch(commands.Cog):
 		return messages, prev_status
 
 
-	def close_session(self) -> bool:
+	async def close_session(self) -> bool:
 		"""
 		Closes the requests session. Called on bot exit.
 		"""
-		RES_SESSION.close()
+		await self.session.close()
 		return True
 
 

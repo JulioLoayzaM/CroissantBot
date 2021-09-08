@@ -136,7 +136,7 @@ async def close_connection(ctx):
 	res = False
 	twitch = bot.get_cog('Twitch')
 	if twitch is not None:
-		res = twitch.close_session()
+		res = await twitch.close_session()
 		if res:
 			logger.debug(f"{PURPLE}twitch.session{ENDC} closed.")
 	elif TWITCH_ENABLED:
@@ -443,7 +443,7 @@ async def check_twitch():
 		logger.warning("TW_TOKEN refresh failed, skipping current check.")
 		return
 
-	messages, TW_PREV_STATUS = twitch.check_users(TW_PREV_STATUS, TW_STREAMERS, TW_TOKEN)
+	messages, TW_PREV_STATUS = await twitch.check_users(TW_PREV_STATUS, TW_STREAMERS, TW_TOKEN)
 
 	if messages is None:
 		logger.warning("Error checking twitch, waiting for next iteration.")
