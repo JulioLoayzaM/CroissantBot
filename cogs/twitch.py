@@ -39,34 +39,6 @@ class Twitch(commands.Cog):
 		self.session: aiohttp.ClientSession = None
 
 
-	def checkUser(self, userID: str, token: str) -> bool:
-		"""
-		Deprecated.
-		Checks if a single streamer is online.
-
-		Parameters:
-			- userID: a Twitch ID to check.
-			- token: a valid Twitch API app access token.
-		Returns:
-			- True if online, False otherwise.
-		"""
-		url = f"{TWITCH_API_ENDPOINT}{userID}"
-
-		try:
-			req = RES_SESSION.get(url, headers={'Client-ID' : TW_CID,'Authorization': f'Bearer {token}'})
-			jsondata = req.json()
-			if 'stream' in jsondata:
-				if jsondata['stream'] is not None: #stream is online
-					return True
-				else:
-					return False
-
-		except Exception as e:
-			logger.error("Error in request.")
-			logger.debug(f"Unexpected exception:\n{e}")
-			return False
-
-
 	def init_streamers(self, ids: Dict[str, List[str]]) -> Dict[str, Set[str]]:
 		"""
 		Reverses ids: the streamers become the keys, the recipients become the values.
