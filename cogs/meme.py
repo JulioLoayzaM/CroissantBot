@@ -14,7 +14,8 @@
 
 
 import asyncio
-import requests
+import aiofiles
+import aiohttp
 import asyncpraw
 import logging
 import discord
@@ -91,10 +92,11 @@ class Meme(commands.Cog):
 			try:
 				new = True
 
-				with open(list_file, 'r+') as file:
-
+				# Use 'a+' because with aiofiles 'w+' can't read the file
+				async with aiofiles.open(list_file, 'a+') as file:
+					await file.seek(0)
 					# We check the list to see if this meme was already sent to this guild
-					for line in file.readlines():
+					async for line in file:
 						line = line.rstrip('\n')
 						if line == url:
 							new = False
@@ -103,8 +105,8 @@ class Meme(commands.Cog):
 					# If the meme is not on the list, add it
 					if new:
 						# Go to end to append filename
-						file.seek(0, 2)
-						file.write(f"{url}\n")
+						await file.seek(0, 2)
+						await file.write(f"{url}\n")
 
 					# If the meme is on the list, skip to next
 					else:
@@ -112,8 +114,8 @@ class Meme(commands.Cog):
 
 			except IOError as ioe:
 
-				logger.error("Could not check is post is already downloaded.")
-				logger.debug("IOError:\n{ioe}")
+				logger.warning(f"Couldn't check is meme is already in {list_file}.")
+				logger.debug(f"IOError:\n{ioe}")
 				logger.warning("Ignoring error, proceeding.")
 
 			# Get the filename, the same one as on the link.
@@ -137,9 +139,15 @@ class Meme(commands.Cog):
 
 				try:
 
-					img_data = requests.get(url).content
-					with open(filename, 'wb') as handler:
-						handler.write(img_data)
+					async with aiohttp.ClientSession() as session:
+						async with session.get(url) as response:
+							if response.status == 200:
+								async with aiofiles.open(filename, mode='wb') as img_file:
+									await img_file.write(await response.read())
+							else:
+								logger.warning(f"Error while getting meme.")
+								logger.debug(f"Received status {response.status}, reason: {response.reason}")
+								continue
 
 					logger.debug(f"{meme_file} downloaded.")
 
