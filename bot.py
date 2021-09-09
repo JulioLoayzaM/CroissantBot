@@ -135,16 +135,6 @@ async def close_connection(ctx):
 	else:
 		logger.error(f"Could not get cog 'Music'.")
 
-	# Close the Twitch aiohttp.ClientSession
-	res = False
-	twitch = bot.get_cog('Twitch')
-	if twitch is not None:
-		res = await twitch.close_session()
-		if res:
-			logger.debug(f"{PURPLE}twitch.session{ENDC} closed.")
-	elif TWITCH_ENABLED:
-		logger.error(f"Could not close {PURPLE}twitch.session{ENDC}.")
-
 	# Close the global aiohttp.ClientSession
 	await SESSION.close()
 	logger.debug(f"aiohttp.ClientSession closed.")
