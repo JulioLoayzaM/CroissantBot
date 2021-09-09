@@ -200,10 +200,20 @@ async def check_version(ctx, option: str="local"):
 	# Get the local version: uses Git to check the latest (annotated) tag,
 	# so it's not possible to get local version if the repo wasn't cloned.
 	try:
-		result = subprocess.run(['git', 'describe', '--abbrev=0'], stdout=subprocess.PIPE)
-		# output is a Bytes object, and has a newline at the end
-		output = result.stdout.decode('utf-8').rstrip()
+		proc = await asyncio.create_subprocess_shell(
+					'git describe --abbrev=0',
+					stdout=asyncio.subprocess.PIPE,
+					stderr=asyncio.subprocess.PIPE
+				)
+		stdout, stderr = await proc.communicate()
+
+		if stdout:
+			output = stdout.decode('utf-8').rstrip()
+		else:
+			raise Exception(f"stdout is empty: {stdout}\nstderr: {stderr}")
+
 		local_ver = version.parse(output)
+
 	except Exception as e:
 		logger.warning("Error getting current bot version, ignoring.")
 		logger.debug(f"Error:\n{e}")
