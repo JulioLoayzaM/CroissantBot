@@ -452,7 +452,7 @@ async def check_twitch():
 		logger.warning("TW_TOKEN refresh failed, skipping current check.")
 		return
 
-	messages, TW_PREV_STATUS = await twitch.check_users(TW_PREV_STATUS, TW_STREAMERS, TW_TOKEN)
+	messages, TW_PREV_STATUS = await twitch.check_users(TW_PREV_STATUS, TW_STREAMERS, TW_TOKEN, SESSION)
 
 	if messages is None:
 		logger.warning("Error checking twitch, waiting for next iteration.")

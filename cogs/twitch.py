@@ -36,7 +36,6 @@ class Twitch(commands.Cog):
 
 	def __init__(self, bot: commands.Bot):
 		self.bot = bot
-		self.session: aiohttp.ClientSession = None
 
 
 	def init_streamers(self, ids: Dict[str, List[str]]) -> Dict[str, Set[str]]:
@@ -95,7 +94,7 @@ class Twitch(commands.Cog):
 		return status
 
 
-	async def check_users(self, prev_status: Dict[str, bool], streamers: Dict[str, List[str]], token: str) -> Tuple[Dict[str, Embed], Dict[str, bool]]:
+	async def check_users(self, prev_status: Dict[str, bool], streamers: Dict[str, List[str]], token: str, session: aiohttp.ClientSession) -> Tuple[Dict[str, Embed], Dict[str, bool]]:
 		"""
 		Checks the status of streamers and sends a message to a determined user if the streamer just got online.
 
@@ -103,6 +102,7 @@ class Twitch(commands.Cog):
 			- prev_status: the last known status of the streamers as bool.
 			- streamers: the streamers to check and the corresponding users to notify.
 			- token: a valid Twitch API app access token.
+			- session: an aiohttp session to perform the requests with.
 		Returns:
 			- messages: the Embeds to be sent, the keys are the discord users.
 			- prev_status: updated streamers' status.
@@ -115,9 +115,6 @@ class Twitch(commands.Cog):
 			'Authorization': f'Bearer {token}'
 		}
 
-		if self.session is None:
-			self.session = aiohttp.ClientSession()
-
 		# messages:
 		# {
 		#	'discord_user': [embed_1, embed_2, ...]
@@ -129,7 +126,7 @@ class Twitch(commands.Cog):
 		url = TWITCH_API_ENDPOINT + "&user_login=".join(streamers.keys())
 
 		try:
-			async with self.session.get(url, headers=headers) as response:
+			async with session.get(url, headers=headers) as response:
 				jsondata = await response.json()
 		except Exception as e:
 			logger.error(f"Error GETting twitch streamers info.")
@@ -193,14 +190,6 @@ class Twitch(commands.Cog):
 			prev_status[streamer] = (streamer in online_streamers)
 
 		return messages, prev_status
-
-
-	async def close_session(self) -> bool:
-		"""
-		Closes the requests session. Called on bot exit.
-		"""
-		await self.session.close()
-		return True
 
 
 
