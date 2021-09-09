@@ -649,6 +649,14 @@ def fix_logger():
 	logging.addLevelName(logging.CRITICAL, 'CRITICAL')
 
 
+async def create_session():
+	"""
+	Creates the global aiohttp.session, mainly to avoid a DeprecationWarning.
+	"""
+	global SESSION
+	SESSION = aiohttp.ClientSession()
+
+
 def main(loop: asyncio.AbstractEventLoop):
 	"""
 	Sets up the bot's start:
@@ -658,7 +666,6 @@ def main(loop: asyncio.AbstractEventLoop):
 		- Starts their corresponding check function 
 		- Starts running the bot
 	"""
-	global SESSION
 
 	bot.load_extension("cogs.misc")
 	bot.load_extension("cogs.music")
@@ -671,7 +678,7 @@ def main(loop: asyncio.AbstractEventLoop):
 
 	logger.debug(f"{WARNING}Setting up bot...{ENDC}")
 
-	SESSION = aiohttp.ClientSession()
+	loop.run_until_complete(create_session())
 
 	logger.debug(f"Created aiohttp.ClientSession.")
 
