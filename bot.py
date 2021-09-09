@@ -20,9 +20,9 @@ import os
 import time
 import random
 import asyncio
+import aiohttp
 import logging
 import json
-import requests
 import subprocess
 
 from customformatter import CustomFormatter
@@ -94,6 +94,9 @@ TW_STREAMERS   = dict()
 YT_PREV_STATUS = dict()
 YT_STREAMERS   = dict()
 
+# Persistent session
+SESSION: aiohttp.ClientSession = None
+
 # Loggers
 logger = None
 discord_logger = None
@@ -132,7 +135,7 @@ async def close_connection(ctx):
 	else:
 		logger.error(f"Could not get cog 'Music'.")
 
-	# Close requests session
+	# Close the Twitch aiohttp.ClientSession
 	res = False
 	twitch = bot.get_cog('Twitch')
 	if twitch is not None:
@@ -142,10 +145,12 @@ async def close_connection(ctx):
 	elif TWITCH_ENABLED:
 		logger.error(f"Could not close {PURPLE}twitch.session{ENDC}.")
 
-	logger.debug(f"{WARNING}Bot disconnecting...{ENDC}")
+	# Close the global aiohttp.ClientSession
+	await SESSION.close()
+	logger.debug(f"aiohttp.ClientSession closed.")
 
+	# Close the bot
 	await bot.close()
-
 	logger.info(f"{GREEN}Bot offline.{ENDC}\n")
 
 	logging.shutdown()
@@ -222,9 +227,11 @@ async def check_version(ctx, option: str="local"):
 		# Get remote version
 		remote_api_url = "https://api.github.com/repos/JulioLoayzaM/CroissantBot/releases/latest"
 		header = {'Accept': "application/vnd.github.v3+json"}
-		request = requests.get(remote_api_url, headers=header)
-		latest = request.json()
-		remote_ver = version.parse(latest['tag_name'])
+
+		async with SESSION.get(remote_api_url, headers=header) as response:
+			latest: dict = await response.json()
+
+		remote_ver = version.parse(latest.get('tag_name'))
 
 		# Determine the embed's colour first - the colour has to be set
 		# during initialization, but that would mean creating the embed
@@ -300,7 +307,7 @@ async def check_version(ctx, option: str="local"):
 		await ctx.send(embed=em)
 
 
-def check_token():
+async def check_token():
 	"""
 	Check the validity of TW_TOKEN. If expired or has less than 200 seconds of validity,
 	gets a new one, updates the global and .env variables.
@@ -313,10 +320,11 @@ def check_token():
 	global TW_EXPIRES_IN
 
 	# Check token validity
+	validate_url = 'https://id.twitch.tv/oauth2/validate'
 	headers = {'Authorization': f"OAuth {TW_TOKEN}"}
-	response = requests.get('https://id.twitch.tv/oauth2/validate', headers=headers)
 
-	data: dict = response.json()
+	async with SESSION.get(validate_url, headers=headers) as response:
+		data: dict = await response.json()
 
 	status = data.get('status')
 	# If it can't read the expiration time, assume invalid token.
@@ -332,14 +340,15 @@ def check_token():
 		client_id = os.getenv('TW_CLIENT_ID')
 		client_secret = os.getenv('TW_CLIENT_SECRET')
 
+		token_url = 'https://id.twitch.tv/oauth2/token'
 		body = {
 			'client_id': client_id,
 			'client_secret': client_secret,
 			'grant_type': "client_credentials"
 		}
 
-		token_response = requests.post('https://id.twitch.tv/oauth2/token', body)
-		token_data = token_response.json()
+		async with SESSION.post(token_url, data=body) as token_response:
+			token_data = token_response.json()
 
 		new_token = token_data.get('access_token', None)
 
@@ -361,7 +370,7 @@ def check_token():
 
 	return True
 
-def init_twitch() -> bool:
+async def init_twitch() -> bool:
 	"""
 	Initializes tw_prev_status and tw_streamers.
 	Runs the token validity check.
@@ -393,7 +402,7 @@ def init_twitch() -> bool:
 		return False
 
 	# Check the token when starting the bot to get the expiration time
-	token_status = check_token()
+	token_status = await check_token()
 
 	if not token_status:
 		logger.error(f"Could not check validity of TW_TOKEN.")
@@ -435,7 +444,7 @@ async def check_twitch():
 	TW_EXPIRES_IN -= TW_FREQUENCY*60
 
 	if TW_EXPIRES_IN < 200:
-		check = check_token()
+		check = await check_token()
 	else:
 		check = True
 
@@ -630,7 +639,7 @@ def fix_logger():
 	logging.addLevelName(logging.CRITICAL, 'CRITICAL')
 
 
-def main():
+def main(loop: asyncio.AbstractEventLoop):
 	"""
 	Sets up the bot's start:
 		- Loads the required cogs: misc, music and meme	
@@ -639,6 +648,7 @@ def main():
 		- Starts their corresponding check function 
 		- Starts running the bot
 	"""
+	global SESSION
 
 	bot.load_extension("cogs.misc")
 	bot.load_extension("cogs.music")
@@ -651,10 +661,15 @@ def main():
 
 	logger.debug(f"{WARNING}Setting up bot...{ENDC}")
 
+	SESSION = aiohttp.ClientSession()
+
+	logger.debug(f"Created aiohttp.ClientSession.")
+
 	# Load the twitch and youtube cogs if enabled
 	if TWITCH_ENABLED:
 		bot.load_extension("cogs.twitch")
-		if init_twitch():
+		twitch_initiated = loop.run_until_complete(init_twitch())
+		if twitch_initiated:
 			check_twitch.start()
 			enabled_cogs += f", {PURPLE}twitch{ENDC}"
 		else:
@@ -679,4 +694,6 @@ def main():
 
 
 if __name__ == "__main__":
-	main()
+	loop = asyncio.get_event_loop()
+	main(loop)
+	loop.close()
