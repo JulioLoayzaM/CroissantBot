@@ -2,9 +2,10 @@
 
 <p align="center">
     <a href="//www.python.org/"><img src="https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54"></a>
-    <a href="//github.com/JulioLoayzaM/CroissantBot/releases"><img src="https://img.shields.io/github/v/release/JulioLoayzaM/CroissantBot?sort=semver&style=flat"></a>
+    <a href="//github.com/JulioLoayzaM/CroissantBot/releases"><img src="https://img.shields.io/github/v/release/JulioLoayzaM/CroissantBot?sort=semver"></a>
     <a href="//github.com/JulioLoayzaM/CroissantBot/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/JulioLoayzaM/CroissantBot?style=flat"></a>
 </p>
+
 
 > La documentación también está disponible en [Español](docs/es/).
 
@@ -143,7 +144,7 @@ For an example on how this works, see the [music cog](cogs/music.py), which has 
 - [x] Rotate the log files
 - [ ] Switch from `youtube-dl` to `yt-dlp`
 - [ ] Get the stream's thumbnail with `ytdl(p)`
-- [ ] Move from `requests` to `aiohttp`
+- [x] Move from `requests` to `aiohttp`
 - [ ] Test music streaming instead of downloading
 - [ ] Auto-connect to channel when using `play`
 
