@@ -895,7 +895,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
 		loop = loop or asyncio.get_event_loop()
 
-		metadata = ytdl.extract_info(url, download=False)
+		metadata = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=False))
 
 		duration = metadata['duration']
 		if duration > MAX_DURATION:
