@@ -133,11 +133,21 @@ async def close_connection(ctx):
 		if res:
 			logger.debug(f"{VOICE} stop_all executed.")
 	else:
-		logger.error(f"Could not get cog 'Music'.")
+		logger.error(f"Couldn't get cog 'Music'.")
+
+	# Close the meme aiohttp.ClientSession
+	res = False
+	meme = bot.get_cog('Meme')
+	if meme is not None:
+		res = await meme.close_session()
+		if res:
+			logger.debug("Meme aiohttp.ClientSession closed.")
+	else:
+		logger.error("Couldn't get cog 'Meme'.")
 
 	# Close the global aiohttp.ClientSession
 	await SESSION.close()
-	logger.debug(f"aiohttp.ClientSession closed.")
+	logger.debug(f"Global aiohttp.ClientSession closed.")
 
 	# Close the bot
 	await bot.close()
