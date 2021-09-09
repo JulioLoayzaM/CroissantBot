@@ -44,15 +44,17 @@ MEME_DIR = os.getenv("MEME_DIR")
 # the function is called with the same sub we may get the same exact list,
 # just to get the next meme. If the command is used often, the limit
 # should be increased or a better way to fetch memes implemented.
-item_limit = 10
+ITEM_LIMIT = 10
 
 # The 'CroissantBot' logger
 logger = None
+
 
 class Meme(commands.Cog):
 	
 	def __init__(self, bot: commands.Bot):
 		self.bot = bot
+		self.session = None
 
 
 	async def get_meme(self, sub: str, name: str) -> Union[str, None]:
@@ -61,6 +63,9 @@ class Meme(commands.Cog):
 		'name' is either the guild's name or the private channel's ID. This allows to keep a list of
 		already sent memes for each one.
 		"""
+
+		if self.session is None:
+			self.session = aiohttp.ClientSession()
 
 		reddit = asyncpraw.Reddit(
 			client_id     = CLIENT_ID, 
@@ -79,7 +84,7 @@ class Meme(commands.Cog):
 		# to send to this guild/DM.
 		filename = "Empty"
 
-		async for meme in subreddit.hot(limit=item_limit):
+		async for meme in subreddit.hot(limit=ITEM_LIMIT):
 
 			url = meme.url
 
@@ -139,15 +144,14 @@ class Meme(commands.Cog):
 
 				try:
 
-					async with aiohttp.ClientSession() as session:
-						async with session.get(url) as response:
-							if response.status == 200:
-								async with aiofiles.open(filename, mode='wb') as img_file:
-									await img_file.write(await response.read())
-							else:
-								logger.warning(f"Error while getting meme.")
-								logger.debug(f"Received status {response.status}, reason: {response.reason}")
-								continue
+					async with self.session.get(url) as response:
+						if response.status == 200:
+							async with aiofiles.open(filename, mode='wb') as img_file:
+								await img_file.write(await response.read())
+						else:
+							logger.warning(f"Error while getting meme.")
+							logger.debug(f"Received status {response.status}, reason: {response.reason}")
+							continue
 
 					logger.debug(f"{meme_file} downloaded.")
 
@@ -211,6 +215,19 @@ class Meme(commands.Cog):
 				logger.debug(f"Unexpected exception:\n{e}")
 				logger.debug(f"Output:\n{output}")
 				await ctx.send("An error ocurred, please try again.")
+
+
+	async def close_session(self) -> bool:
+		"""
+		Closes the aiohttp.session, called on bot exit.
+
+		Returns:
+			- True if it closed the session, False otherwise.
+		"""
+		if self.session is not None:
+			await self.session.close()
+			return True
+		return False
 
 
 
