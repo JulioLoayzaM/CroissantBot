@@ -487,6 +487,8 @@ class Music(commands.Cog):
 		if not self.info:
 			return False
 
+		# MAYBE: remove stop and disconnect since bot.close calls disconnect
+		# and disconnect calls stop.
 		for gid in self.info:
 
 			info = self.info[gid]
