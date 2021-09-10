@@ -191,9 +191,7 @@ Este proyecto está disponible bajo la licencia MIT. Ver [LICENSE.md](./../../LI
 
 ## Contribuir
 
-El feedback es bienvenido: comparte sugerencias, ideas de nuevas funciones e informes de errores [abriendo un 'issue'](https://docs.github.com/es/issues/tracking-your-work-with-issues/creating-an-issue). ¿Preguntas? Puedes abrir un 'issue' para hacerla.
-
-Las contribuciones al código también son bienvenidas, solo realiza un fork del repositorio y crea [un pull request](https://docs.github.com/es/github/collaborating-with-pull-requests).
+Todas las contribuciones son bienvenidas, para más información lee [CONTRIBUIR](CONTRIBUIR.md).
 
 ## Versionado
 
