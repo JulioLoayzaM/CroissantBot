@@ -169,9 +169,7 @@ This project is available under the MIT license. See the [LICENSE.md](LICENSE.md
 
 ## Contributing
 
-Feedback is welcome: share suggestions, feature ideas and bug reports by [opening an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue). Have a question? You can open an issue for that too.
-
-Code contributions are also welcome, just fork the repo and [create a pull request](https://docs.github.com/en/github/collaborating-with-pull-requests).
+All contributions are welcome, see [CONTRIBUTING](.github/CONTRIBUTING.md).
 
 ## Versioning
 
