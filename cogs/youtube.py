@@ -40,18 +40,18 @@ class Youtube(commands.Cog):
 		Reverses ids: the streamers become the keys, the values of streamers become the keys' values,
 		the recipients are added to the values.
 
-		Returns:
-			- a dict following the template:
+		Parameters:
+			- ids: a dict following the template:
 				{
 					'streamer_name': {
 						'nickname': "streamer_nickname",
 						'url': "streamer_channel",
-						'recipients': {
-							"discord_user_1",
-							"discord_user_2"
-						}
 					}
 				}
+		Returns:
+			- a dict following the same template as above, but adding a
+				'recipients' field, which has a list of all discord users
+				to notify about that channel.
 		"""
 
 		result: Dict[str, Dict[str, Union[str, List[str]]]] = dict()
@@ -75,6 +75,8 @@ class Youtube(commands.Cog):
 		"""
 		Initializes the streamers' status to False/offline.
 
+		Parameters:
+			- streamers: the dict returned by init_streamers.
 		Returns:
 			- a dict following the template:
 				{

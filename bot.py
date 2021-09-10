@@ -119,7 +119,7 @@ async def on_ready():
 	help="Closes the bot, only usable by owner"
 )
 @commands.is_owner()
-async def close_connection(ctx):
+async def close_connection(ctx: commands.Context):
 	"""
 	Closes the bot's connection.
 	Cleans the voice clients, the requests session and logging.
@@ -160,7 +160,7 @@ async def close_connection(ctx):
 	name="ping",
 	help="Pings the bot"
 )
-async def ping_back(ctx):
+async def ping_back(ctx: commands.Context):
 	"""
 	Simple ping command. Has a mini easter egg.
 	"""
@@ -176,7 +176,7 @@ async def ping_back(ctx):
 	help="Test different functions"
 )
 @commands.is_owner()
-async def test(ctx):
+async def test(ctx: commands.Context):
 	"""
 	Test function.
 	The idea is to not have many different test functions but replace the contents of this one as needed.
@@ -190,11 +190,17 @@ async def test(ctx):
 	aliases=['ver']
 )
 @commands.is_owner()
-async def check_version(ctx, option: str="local"):
+async def check_version(ctx: commands.Context, option: str="local"):
 	"""
-	Checks the current bot version. Can check the latest release on GitHub,
-	if not up to date shows what type of update (major|minor|patch) is available
-	and
+	Checks the current bot version.
+	Can check the latest release on GitHub.	If the bot's not up to date,
+	it shows what type of update (major|minor|patch) is available, the
+	corresponding release notes, and a link to the releases page.
+
+	Parameters:
+		- option: 'local' to check only the bot's current version,
+			'remote' to check the current version and the repo's latest version.
+			'local' by default.
 	"""
 
 	# Get the local version: uses Git to check the latest (annotated) tag,
@@ -317,7 +323,7 @@ async def check_version(ctx, option: str="local"):
 		await ctx.send(embed=em)
 
 
-async def check_token():
+async def check_token() -> bool:
 	"""
 	Check the validity of TW_TOKEN. If expired or has less than 200 seconds of validity,
 	gets a new one, updates the global and .env variables.
@@ -563,9 +569,12 @@ async def check_youtube_before():
 
 
 @bot.event
-async def on_command_error(ctx, error):
+async def on_command_error(ctx: commands.Context, error: commands.CommandError):
 	"""
 	Catches commands' errors, defines corresponding responses.
+
+	Parameters:
+		- error: a raised CommandError, not a 'normal' exception.
 	"""
 
 	if isinstance(error, commands.CommandNotFound):

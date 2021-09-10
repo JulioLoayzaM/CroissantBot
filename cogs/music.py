@@ -46,7 +46,7 @@ from cogs.queue import SongQueue
 from cogs.song import Song
 
 from dotenv import load_dotenv
-from typing import Tuple
+from typing import Tuple, Union
 
 
 # Colours and string for some coloured output
@@ -212,6 +212,9 @@ class Music(commands.Cog):
 		"""
 		This function searches youtube and passes the first result URL to play_from,
 		which handles the creation of a Song and its queueing.
+
+		Parameter:
+			- query: the query to search for in youtube.
 		"""
 
 		# to use search instead of passing an url, prepend 'ytsearch:' to the search terms
@@ -222,9 +225,12 @@ class Music(commands.Cog):
 		await self.play_from(ctx, url)
 
 
-	async def get_queue(self, ctx: commands.Context):
+	async def get_queue(self, ctx: commands.Context) -> Union[SongQueue, None]:
 		"""
-		Returns the corresponding queue, None if not connected to a voice channel in the context's guild.
+		Gets the current context queue.
+
+		Returns:
+			- the corresponding queue, None if not connected to a voice channel.
 		"""
 		guild_id = ctx.message.guild.id
 
@@ -246,6 +252,9 @@ class Music(commands.Cog):
 		"""
 		This function is in charge of downloading the audio, creating the Song instance and queueing the song.
 		Additionally, if no song is playing it calls play_song() to start streaming.
+
+		Parameters:
+			- url: the URL to play from, not a search query.
 		"""
 
 		if url is None:
@@ -307,17 +316,24 @@ class Music(commands.Cog):
 
 	async def play_song(self, ctx: commands.Context):
 		"""
-		Function in charge of actually playing a song.
-		It assumes three things:
-			- the songs in the queue are already downloaded
-			- if a song is playing and we called play_song anyway, we want to skip the song
-			- the bot is actually connected to a voice channel
+		Higher function, calls play_next and sends the message it receives.
 		"""
 
 		guild = ctx.message.guild
 		vc: discord.VoiceClient = guild.voice_client
 
-		def play_next():
+		def play_next() -> Tuple[Union[str, None], Union[discord.Embed, None]]:
+			"""
+			Function in charge of actually playing a song.
+			It assumes three things:
+				- the songs in the queue are already downloaded
+				- if a song is playing and we called play_song anyway, we want to skip the song
+				- the bot is actually connected to a voice channel
+
+			Returns:
+				- an error message if an error occured, None otherwise
+				- None if an error occured, an Embed with the song info otherwise
+			"""
 
 			# Have to manually get the queue
 			gid = ctx.message.guild.id
@@ -520,6 +536,9 @@ class Music(commands.Cog):
 		"""
 		If the queue is not empty and the client is playing/paused, skips a certain number n of songs.
 		In practice, it calls queue.skip(n-1) and stops the current client since the next song will play directly.
+
+		Parameters:
+			- index: the number of songs to skip, 1 by default.
 		"""
 
 		if index < 1:
@@ -556,6 +575,10 @@ class Music(commands.Cog):
 	async def remove(self, ctx: commands.Context, index: int = 0):
 		"""
 		Removes a song from the queue if the queue exists and the index is correct.
+
+		Parameters:
+			- index: where the song to remove is in the queue. 0 by default,
+				this means no song is removed.
 		"""
 
 		if index < 1:
@@ -600,6 +623,10 @@ class Music(commands.Cog):
 		Moves the song at index1 to index2 if possible.
 		Note: user's list starts at 1, for checks and operations the indexes are given
 			as passed by the user.
+
+		Parameters:
+			- index1: where the song currently is.
+			- index2: where the song is going to be.
 		"""
 
 		queue: SongQueue = await self.get_queue(ctx)
@@ -634,6 +661,9 @@ class Music(commands.Cog):
 		"""
 		Performs a youtube search and returns the top 5 results.
 		Allows the user to easily get more options without having to open youtube when play()'s result isn't satisfying.
+
+		Parameters:
+			- search: the query to search for in youtube.
 		"""
 
 		search_results: list = ytdl.extract_info(f"ytsearch5:{search}", download=False)['entries']
@@ -724,6 +754,10 @@ class Music(commands.Cog):
 	async def volume(self, ctx: commands.Context, volume: int = -1):
 		"""
 		Changes the current volume through the source and updates self.info for future sources.
+
+		Parameters:
+			- volume: the volume to set, -1 by default to avoid changing it.
+				Ranges from 0 to 100.
 		"""
 
 		gid = ctx.message.guild.id
@@ -883,14 +917,17 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		self.thumbnail: str  = song.thumbnail
 
 	@classmethod
-	async def from_url(cls, url: str, *, loop=None) -> Tuple[str]:
+	async def from_url(cls, url: str, *, loop: asyncio.AbstractEventLoop=None) -> Tuple[str]:
 		"""
 		Downloads a song from its URL.
 
+		Parameters:
+			- url: the url to download from.
+			- loop: the EventLoop to use.
 		Returns:
-			- The downloaded file's path
-			- The title of the video
-			- The thumbnail's address
+			- The downloaded file's path.
+			- The title of the video.
+			- The thumbnail's URL.
 		"""
 
 		loop = loop or asyncio.get_event_loop()

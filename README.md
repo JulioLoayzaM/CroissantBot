@@ -76,7 +76,7 @@ I've tested the bot with `Python 3.6.9` in Ubuntu 18.04 and `Python 3.6.1` in Wi
 - If you have a GitHub account, [clone the repo](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository).
   - If not, create one or check [the releases page](https://github.com/JulioLoayzaM/CroissantBot/releases) to get the latest one.
 
-  > Cloning the repo is recommended in order to use Git to easily update the bot.
+    > Cloning the repo is recommended in order to use Git to easily update the bot.
 
 - Install Python 3.6+: use your package manager or head over to [the download page](https://www.python.org/downloads/).
 

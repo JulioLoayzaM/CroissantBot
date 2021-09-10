@@ -74,7 +74,7 @@ He probado el bot con `Python 3.6.9` en Ubuntu 18.04 y con `Python 3.6.1` en Win
 
   - Si no, puedes crear una o dirigirte a [la página de lanzamientos](https://github.com/JulioLoayzaM/CroissantBot/releases) para obtener la última versión.
 
-  > Se recomienda clonar el bot para poder actualizarlo fácilmente con Git.
+    > Se recomienda clonar el bot para poder actualizarlo fácilmente con Git.
 
 - Instala Python 3.6+: usa un 'package manager' o dirígete a [la página de descargas](https://www.python.org/downloads/).
 

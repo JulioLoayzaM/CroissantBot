@@ -42,17 +42,25 @@ class Twitch(commands.Cog):
 		"""
 		Reverses ids: the streamers become the keys, the recipients become the values.
 
+		Parameters:
+			- the dict containing the users to notify and the respective channels to check.
+				{
+					"discord_user": [
+						"twitch_channel_1",
+						"twitch_channel_2"
+					]
+				}
 		Returns:
 			- a dict following the template:
 				{
-					"twitch_user_1": {
+					"twitch_user_1": [
 						"discord_user_1",
 						"discord_user_2"
-					},
-					"twitch_user_2": {
+					],
+					"twitch_user_2": [
 						"discord_user_1",
 						"discord_user_3"
-					}
+					]
 				}
 		"""
 		streamers = dict()
@@ -77,6 +85,8 @@ class Twitch(commands.Cog):
 		"""
 		Initializes the streamers' status as False/offline.
 
+		Parameters:
+			- streamers: the dict returned by init_streamers.
 		Returns:
 			- a dict following the template:
 				{

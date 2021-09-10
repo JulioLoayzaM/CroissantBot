@@ -54,6 +54,10 @@ class Misc(commands.Cog):
 		Adds two integers, with some easter eggs.
 		Simple example of Converters: they cast num1/num2 to int
 		and throw an error if unsuccessful.
+
+		Parameters:
+			- num1: an int to add.
+			- num2: idem.
 		"""
 		if (num1 == 2) and (num2 == 2):
 			r = random.randint(1,3)
@@ -114,17 +118,21 @@ class Misc(commands.Cog):
 		"""
 		Sends a random phrase if a user is selected. If the calling user is selected, sends a (hardcoded) suicide message.
 		Tracks how many times someone has killed a specific member or themselves in the current guild.
-		The format used for the kill_count file is:
-		{
-			'guild_id': {
-				'killer_id': {
-					'victim_id': count
-				}
-			}
-		}
-		Note: guild_id, killer_id and victim_id are strings.
-		For suicide_count, the {victim_id:count} pair is replaced by the suicide count.
+
+		Parameters:
+			- member: the discord member to use for the message. None by default.
+				The user must be in the same guild - that's why intents.members is needed.
 		"""
+		# The format used for the kill_count file is:
+		# {
+		# 	'guild_id': {
+		# 		'killer_id': {
+		# 			'victim_id': count
+		# 		}
+		# 	}
+		# }
+		# Note: guild_id, killer_id and victim_id are strings.
+		# For suicide_count, the {victim_id:count} pair is replaced by the suicide count.
 
 		global kill_count
 
@@ -230,7 +238,10 @@ class Misc(commands.Cog):
 	async def kill_count(self, ctx: commands.Context, member: discord.Member = None):
 		"""
 		Checks kill_count (and loads from json if necessary) then sends stats for calling user.
-		Can pass a member as argument to check stats against that member.
+
+		Parameters:
+			- member: the user to search for in the calling user's count. None by default.
+				If None, display the whole user's count in that server.
 		"""
 
 		global kill_count

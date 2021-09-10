@@ -60,8 +60,15 @@ class Meme(commands.Cog):
 	async def get_meme(self, sub: str, name: str) -> Union[str, None]:
 		"""
 		Downloads a meme from a given subreddit and returns the path to the downloaded file.
-		'name' is either the guild's name or the private channel's ID. This allows to keep a list of
-		already sent memes for each one.
+
+		Parameters:
+			- sub: the subreddit from which memes are taken.
+			- name: either the guild's name or the private channel's ID. This allows to
+				keep a list of already sent memes for each one.
+		Returns:
+			- the path to the file if the meme was successfully/already downloaded,
+				the string 'Empty' if it couldn't find new posts on the selected subreddit
+				or None if the meme couldn't be downloaded.
 		"""
 
 		if self.session is None:
@@ -179,6 +186,9 @@ class Meme(commands.Cog):
 	async def send_meme(self, ctx: commands.Context, sub: str="memes"):
 		"""
 		Sends a meme returned by get_meme.
+
+		Parameters:
+			- sub: the subreddit to get the meme from, 'memes' by default.
 		"""
 
 		chtype = str(ctx.channel.type)
