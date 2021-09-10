@@ -1,5 +1,18 @@
 # Changelog
 
+## CroissantBot 1.0.5 (2021-09-10)
+
+CONTRIBUTING and docstrings overhaul.
+
+### Patch highlights
+
+- added: CONTRIBUTING, and its Spanish version CONTRIBUIR.
+- added: pull requests, bug reports and feature requests templates.
+- added: table of contents to README and LEEME.
+- added: reference to CONTRIBUTING and CONTRIBUIR in README and LEEME respectively.
+- updated: docstrings overhaul to adhere to the new code guidelines set in CONTRIBUTING.
+- fixed: created `bot.create_session` to avoid `aiohttp`'s DeprecationWarning for not creating the session with `async`.
+
 ## CroissantBot 1.0.4 (2021-09-09)
 
 The `async` patch, featuring `aiohttp` and `aiofiles`.
