@@ -16,6 +16,27 @@ This repo aims to be a template to ease the creation of a new bot, allowing anyo
 
 *some Python experience is recommended.
 
+## Table of contents
+- [Important info](#important-info)
+- [Features](#features)
+	- [Music player](#music-player)
+	- [Memes](#memes)
+	- [Kill messages](#kill-messages)
+	- [Livestream status](#livestream-status)
+	- [Logging](#logging)
+- [How to run](#how-to-run)
+	- [Dependencies](#dependencies)
+	- [Full installation](#full-installation)
+	- [Disabling cogs/partial installation](#disabling-cogspartial-installation)
+	- [Keeping the bot online](#keeping-the-bot-online)
+	- [Modifying the code](#modifying-the-code)
+- [To-do](#to-do)
+- [Considering](#considering)
+- [Origin](#origin)
+- [License](#license)
+- [Contributing](#contributing)
+- [Versioning](#versioning)
+
 ## Important info
 
 The development of `discord.py` [has ended](https://gist.github.com/Rapptz/4a2f62751b9600a31a0d3c78100287f1), in part due to the new `Message.content` privileged intent.
@@ -28,23 +49,23 @@ For now, I'll continue working on this bot as if nothing happened.
 
 > For a list of all commands, [check the docs](docs/commands.md).
 
-#### Music player
+### Music player
 
 Play music from YouTube in voice chat. Supports playback on different servers simultaneously, with a queue for each one.
 
-#### Memes
+### Memes
 
 Get memes from Reddit. Keeps track of memes sent to each server to avoid duplicates.
 
-#### Kill messages
+### Kill messages
 
 Sends a message targeting a specified server member. Keeps count of kills in each server. Messages not included.
 
-#### Livestream status
+### Livestream status
 
 Sometimes Twitch's notifications are unreliable, so the bot can notify users about new streams through DMs. It works with YouTube streams as well. **This feature can be disabled.**
 
-#### Logging
+### Logging
 
 Outputs basic information and errors to `stdout`. Debug information is logged to a file. It should allow to at least pinpoint which function has caused an error.
 

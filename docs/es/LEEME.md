@@ -13,6 +13,29 @@ Este repositorio apunta a ser una plantilla para facilitar la creación de un nu
 
 *se recomienda algo de experiencia con Python
 
+<!-- omit in toc -->
+## Índice
+
+- [Información importante](#información-importante)
+- [Características](#características)
+	- [Reproductor de música](#reproductor-de-música)
+	- [Memes](#memes)
+	- [Mensajes](#mensajes)
+	- [Estado de transmisiones en vivo](#estado-de-transmisiones-en-vivo)
+	- [Registros](#registros)
+- [Como usarlo](#como-usarlo)
+	- [Dependencias](#dependencias)
+	- [Instalación completa](#instalación-completa)
+	- [Desactivando cogs/instalación parcial](#desactivando-cogsinstalación-parcial)
+	- [Mantener el bot en línea](#mantener-el-bot-en-línea)
+	- [Modificar el código](#modificar-el-código)
+- [Por hacer](#por-hacer)
+- [Considerando](#considerando)
+- [Origen](#origen)
+- [Licencia](#licencia)
+- [Contribuir](#contribuir)
+- [Versionado](#versionado)
+
 ## Información importante
 
 El desarrollo de `discord.py` [se detuvo por completo](https://gist.github.com/Rapptz/4a2f62751b9600a31a0d3c78100287f1), en parte por la introducción del nuevo `Message.content` 'privileged intent'.
@@ -25,23 +48,23 @@ Por ahora, seguiré trabajando en el bot como si nada hubiera pasado.
 
 > Para una lista de todos los comandos, ver [la documentación](commands.md).
 
-#### Reproductor de música
+### Reproductor de música
 
 Reproduce música de YouTube en canales de voz. Permite reproducir en varios servidos simultáneamente, con una cola para cada uno.
 
-#### Memes
+### Memes
 
 Saca memes de Reddit. Mantiene un registro de los memes enviados a cada servidor para evitar duplicados.
 
-#### Mensajes
+### Mensajes
 
 Manda un mensaje
 
-#### Estado de transmisiones en vivo
+### Estado de transmisiones en vivo
 
 A veces las notificaciones de Twitch no son fiables, así que el bot puede notificar a usuarios de nuevas transmisiones por mensaje privado. También funciona con transmisiones de YouTube. **Esta característica puede ser desactivada.**
 
-#### Registros
+### Registros
 
 Transmite información básica y errores por `stdout`. Información de depuración (debug) es registrada en un archivo. Debería permitir de al menos encontrar que función causó un error.
 
