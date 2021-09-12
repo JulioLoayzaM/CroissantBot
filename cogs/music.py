@@ -203,28 +203,6 @@ class Music(commands.Cog):
 			await ctx.send("The bot is not connected to a voice channel.")
 
 
-	@commands.command(
-		aliases=['p'],
-		help="Plays first search result from youtube. For URLs, use `play_from`"
-	)
-	@commands.guild_only()
-	async def play(self, ctx: commands.Context, *, query: str):
-		"""
-		This function searches youtube and passes the first result URL to play_from,
-		which handles the creation of a Song and its queueing.
-
-		Parameter:
-			- query: the query to search for in youtube.
-		"""
-
-		# to use search instead of passing an url, prepend 'ytsearch:' to the search terms
-		# to search for more than one video, prepend 'ytsearchx:' with x being the number of videos
-		video = ytdl.extract_info(f"ytsearch:{query}", download=False)['entries'][0]
-		url = video['webpage_url']
-
-		await self.play_from(ctx, url)
-
-
 	async def get_queue(self, ctx: commands.Context) -> Union[SongQueue, None]:
 		"""
 		Gets the current context queue.
@@ -244,74 +222,75 @@ class Music(commands.Cog):
 
 
 	@commands.command(
-		aliases=['pf'],
+		aliases=['p'],
 		help=f"Plays a song from an URL. Use `{BOT_PREFIX}search_youtube <query>` to get a list of related links"
 	)
 	@commands.guild_only()
-	async def play_from(self, ctx: commands.Context, url: str = None):
+	async def play(self, ctx: commands.Context, query):
 		"""
-		This function is in charge of downloading the audio, creating the Song instance and queueing the song.
+		This function searches youtube and passes the first result URL to play_from,
+		and is in charge of downloading the audio, creating the Song instance and queueing the song.
 		Additionally, if no song is playing it calls play_song() to start streaming.
 
 		Parameters:
-			- url: the URL to play from, not a search query.
+			- query: the query to search for in youtube.
 		"""
 
-		if url is None:
-			await ctx.send(f"You have to provide a youtube url. Use `{BOT_PREFIX}play <query>` to search and play from youtube directly.")
-		
-		else:
+		# To avoid clutter, we edit the user's message to suppress the embed
+		msg = ctx.message
+		await msg.edit(suppress=True)
 
-			# To avoid clutter, we edit the user's message to suppress the embed
-			msg = ctx.message
-			await msg.edit(suppress=True)
+		# to use search instead of passing an url, prepend 'ytsearch:' to the search terms
+		# to search for more than one video, prepend 'ytsearchx:' with x being the number of videos
+		video = ytdl.extract_info(f"ytsearch:{query}", download=False)['entries'][0]
+		url = video['webpage_url']
 
-			try :
-				guild = ctx.message.guild
-				vc = guild.voice_client
+		try :
+			guild = ctx.message.guild
+			vc = guild.voice_client
 
-				queue = await self.get_queue(ctx)
+			queue = await self.get_queue(ctx)
 
-				if queue is None:
-					await ctx.send("The bot is not connected to a voice channel.")
-					return
-
-				# MAYBE: from_url should return a Song directly
-				filename, title, thumbnail = await YTDLSource.from_url(url, loop=self.bot.loop)
-
-				# Create an instance of Song
-				song = Song(title, filename, url, thumbnail)
-
-				queue.push(song)
-
-				# If a song is playing or paused but not stopped, send a message
-				# to indicate the song is queued
-				if vc.is_playing() or vc.is_paused():
-					dem = {
-						"title": "Queued:",
-						"description": f"{title} - <{url}>",
-						"colour": ctx.author.color
-					}
-					em = discord.Embed.from_dict(dem)
-					em.set_thumbnail(url=thumbnail)
-					await ctx.send(embed=em)
-
-				# If no song is playing, we call play_song to start the queue
-				else:
-					await self.play_song(ctx)
-
-			except MaxDurationError as mde:
-				await ctx.send(f"The song is too long (> {int(MAX_DURATION/60)} min), please try another link.")
-
-			except discord.DiscordException as de:
-				await ctx.send(f"The bot is not connected to a voice channel, use `{BOT_PREFIX}join`.")
-				logger.warning(f"The bot is probably not connected to a voice channel.")
-				logger.debug(f"discord.DiscordException:\n{de}")
-
-			except Exception as e:
-				logger.error(f"Couldn't play song.")
-				logger.debug(f"Unexpected exception:\n{e}")
+			if queue is None:
 				await ctx.send("The bot is not connected to a voice channel.")
+				return
+
+			# MAYBE: from_url should return a Song directly
+			filename, title, thumbnail = await YTDLSource.from_url(url, loop=self.bot.loop)
+
+			# Create an instance of Song
+			song = Song(title, filename, url, thumbnail)
+
+			queue.push(song)
+
+			# If a song is playing or paused but not stopped, send a message
+			# to indicate the song is queued
+			if vc.is_playing() or vc.is_paused():
+				dem = {
+					"title": "Queued:",
+					"description": f"{title} - <{url}>",
+					"colour": ctx.author.color
+				}
+				em = discord.Embed.from_dict(dem)
+				em.set_thumbnail(url=thumbnail)
+				await ctx.send(embed=em)
+
+			# If no song is playing, we call play_song to start the queue
+			else:
+				await self.play_song(ctx)
+
+		except MaxDurationError as mde:
+			await ctx.send(f"The song is too long (> {int(MAX_DURATION/60)} min), please try another link.")
+
+		except discord.DiscordException as de:
+			await ctx.send(f"The bot is not connected to a voice channel, use `{BOT_PREFIX}join`.")
+			logger.warning(f"The bot is probably not connected to a voice channel.")
+			logger.debug(f"discord.DiscordException:\n{de}")
+
+		except Exception as e:
+			logger.error(f"Couldn't play song.")
+			logger.debug(f"Unexpected exception:\n{e}")
+			await ctx.send("The bot is not connected to a voice channel.")
 
 
 	async def play_song(self, ctx: commands.Context):
