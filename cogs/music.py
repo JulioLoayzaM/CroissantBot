@@ -228,7 +228,7 @@ class Music(commands.Cog):
 	@commands.guild_only()
 	async def play(self, ctx: commands.Context, query):
 		"""
-		This function searches youtube and passes the first result URL to play_from,
+		This function searches youtube and passes the first result URL to play,
 		and is in charge of downloading the audio, creating the Song instance and queueing the song.
 		Additionally, if no song is playing it calls play_song() to start streaming.
 
@@ -293,6 +293,18 @@ class Music(commands.Cog):
 			await ctx.send("The bot is not connected to a voice channel.")
 
 
+	@commands.command(
+	aliases=['pf'],
+	help=f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play`."
+	)
+	@commands.guild_only()
+	async def play_from(self, ctx: commands.Context):
+		"""
+		Function to notify previous users that the command is now deprecated.
+		"""
+		await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play`.")
+
+
 	async def play_song(self, ctx: commands.Context):
 		"""
 		Higher function, calls play_next and sends the message it receives.
@@ -326,7 +338,7 @@ class Music(commands.Cog):
 			# If song is None, it means that the queue is empty
 			if song is None:
 				vc.stop()
-				return f"The queue is empty, use `{BOT_PREFIX}play` or `{BOT_PREFIX}play_from` to start playing music.", None
+				return f"The queue is empty, use `{BOT_PREFIX}play`", None
 
 			# Skipping a song if one is playing or paused
 			if vc.is_playing() or vc.is_paused():
@@ -386,7 +398,7 @@ class Music(commands.Cog):
 				voice_client.pause()
 
 			else:
-				await ctx.send(f"The bot is not currently playing something, try `{BOT_PREFIX}play` or `{BOT_PREFIX}play_from`.")
+				await ctx.send(f"The bot is not currently playing something, try `{BOT_PREFIX}play`")
 
 		else:
 			await ctx.send(f"The bot is not connected to a voice channel, try `{BOT_PREFIX}join`.")
@@ -424,7 +436,7 @@ class Music(commands.Cog):
 
 			else:
 				await ctx.send("The bot was not playing something and the queue is empty.")
-		
+
 		else:
 			await ctx.send(f"The bot is not connected to a voice channel, try `{BOT_PREFIX}join`.")
 
@@ -863,7 +875,7 @@ class Music(commands.Cog):
 				# I don't know if there's a way to get the context, so manual stopping,
 				# clearing queue and leaving it is
 				if vc.is_connected():
-					
+
 					gid = member.guild.id
 					queue = self.info[gid]['queue']
 					channel = self.info[gid]['channel']
