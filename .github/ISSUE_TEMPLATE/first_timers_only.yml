@@ -1,0 +1,43 @@
+name: First timers only
+description: A beginners-friendly issue, with proposed steps towards a solution.
+labels: first-timers-only
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Hi! This is a first-timers-only issue.
+
+        This means it's aimed towards people who haven't contributed to open source before, or are just starting to.
+        As such, it is a relatively simple issue, so newcomers can focus more on the process of contributing rather than the complexity of the issue.
+
+        If that's you, keep reading to find more about the problem, the expected solution, and any proposed steps towards that solution.
+  - type: input
+    attributes:
+      label: The problem
+      description: >
+        A simple summary of what the problem is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: The solution
+      description: >
+        A simple summary of the proposed solution.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: How to implement it
+      description: >
+        The proposed steps on how to implement the proposed solution.
+        Try to avoid leaving big logical gaps between instructions.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Conclusion
+      description: >
+        Wrap up, reiterate that whoever wants to take on the issue can ask for help about anything. Make people feel welcome. :)
+    validations:
+      required: true
+
