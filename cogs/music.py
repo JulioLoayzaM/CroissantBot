@@ -39,6 +39,7 @@ import asyncio
 import logging
 import os
 
+
 import discord
 from discord.ext import commands
 
@@ -47,6 +48,7 @@ from cogs.song import Song
 
 from dotenv import load_dotenv
 from typing import Tuple, Union
+
 
 
 # Colours and string for some coloured output
@@ -239,15 +241,17 @@ class Music(commands.Cog):
 			await ctx.send(f"You have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>.")
 			return
 
-
 		# To avoid clutter, we edit the user's message to suppress the embed
 		msg = ctx.message
 		await msg.edit(suppress=True)
 
-		# to use search instead of passing an url, prepend 'ytsearch:' to the search terms
-		# to search for more than one video, prepend 'ytsearchx:' with x being the number of videos
-		video = ytdl.extract_info(f"ytsearch:{query}", download=False)['entries'][0]
-		url = video['webpage_url']
+		# Checks if query is a valid url, if not we search youtube for the query
+		if validate_url(query) is False:
+			video = ytdl.extract_info(f"ytsearch:{query}", download=False)['entries'][0]
+			query = video['webpage_url']
+
+		# We know the query must be a valid url
+		url = query
 
 		try :
 			guild = ctx.message.guild
@@ -964,6 +968,25 @@ class YTDLSource(discord.PCMVolumeTransformer):
 			- A string containing the source's song title and URL.
 		"""
 		return f"{self.song.title} - {self.song.url}"
+
+
+def validate_url(url):
+	"""
+	Checks to see if url has any valid extractors for youtube_dl
+
+	Parameters:
+		- url: the url to search for extractors.
+
+	Returns:
+		-True, if site has dedicated extractor
+		-False, if site has no dedicated extractor
+	"""
+	extractors = youtube_dl.extractor.gen_extractors()
+	for e in extractors:
+		if e.suitable(url) and e.IE_NAME != 'generic':
+            # Site has dedicated extractor
+			return True
+	return False
 
 
 def setup(bot):
