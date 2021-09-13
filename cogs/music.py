@@ -302,12 +302,21 @@ class Music(commands.Cog):
 	help=f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play`."
 	)
 	@commands.guild_only()
-	async def play_from(self, ctx: commands.Context):
+	async def play_from(self, ctx: commands.Context, url: str=None):
 		"""
 		Function to notify previous users that the command is now deprecated.
-		"""
-		await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play`.")
+		and passes the url, if given, to the actual play function.
 
+		Parameters:
+			- url: the url to search for in youtube.
+		"""
+		if url == None:
+			await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play` next time.")
+			await ctx.send(f"Also, you have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>.")
+			return
+
+		await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play` next time.")
+		await self.play(ctx, url)
 
 	async def play_song(self, ctx: commands.Context):
 		"""
