@@ -235,7 +235,7 @@ class Music(commands.Cog):
 		Parameters:
 			- query: the query to search for in youtube.
 		"""
-		if query == None:
+		if query is None:
 			await ctx.send(f"You have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>.")
 			return
 
@@ -310,7 +310,7 @@ class Music(commands.Cog):
 		Parameters:
 			- url: the url to search for in youtube.
 		"""
-		if url == None:
+		if url is None:
 			await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play` next time.")
 			await ctx.send(f"Also, you have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>.")
 			return
