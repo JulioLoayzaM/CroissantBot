@@ -301,6 +301,7 @@ class Music(commands.Cog):
 	aliases=['pf'],
 	help=f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play`."
 	)
+	@commands.guild_only()
 	async def play_from(self, ctx: commands.Context):
 		"""
 		Function to notify previous users that the command is now deprecated.
