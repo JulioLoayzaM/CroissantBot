@@ -226,7 +226,7 @@ class Music(commands.Cog):
 		help=f"Plays a song from an URL. Use `{BOT_PREFIX}search_youtube <query>` to get a list of related links"
 	)
 	@commands.guild_only()
-	async def play(self, ctx: commands.Context, query):
+	async def play(self, ctx: commands.Context, query: str=None):
 		"""
 		This function searches youtube and passes the first result URL to play,
 		and is in charge of downloading the audio, creating the Song instance and queueing the song.
@@ -235,6 +235,10 @@ class Music(commands.Cog):
 		Parameters:
 			- query: the query to search for in youtube.
 		"""
+		if query == None:
+			await ctx.send(f"You have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>.")
+			return
+
 
 		# To avoid clutter, we edit the user's message to suppress the embed
 		msg = ctx.message
@@ -297,7 +301,6 @@ class Music(commands.Cog):
 	aliases=['pf'],
 	help=f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play`."
 	)
-	@commands.guild_only()
 	async def play_from(self, ctx: commands.Context):
 		"""
 		Function to notify previous users that the command is now deprecated.
