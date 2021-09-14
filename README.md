@@ -167,7 +167,7 @@ For an example on how this works, see the [music cog](cogs/music.py), which has 
 - [ ] Get the stream's thumbnail with `ytdl(p)`
 - [x] Move from `requests` to `aiohttp`
 - [ ] Test music streaming instead of downloading
-- [ ] Auto-connect to channel when using `play`
+- [x] Auto-connect to channel when using `play`
 
 ## Considering
 
