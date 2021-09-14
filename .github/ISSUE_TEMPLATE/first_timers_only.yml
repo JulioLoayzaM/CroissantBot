@@ -4,8 +4,9 @@ labels: first-timers-only
 body:
   - type: textarea
     attributes:
+      label: Introduction
       description: |
-        A welcome message, do not modify.
+        A welcome message, do not modify unless needed.
       value: >
         Hi! This is a [`first-timers-only`](https://www.firsttimersonly.com/) issue.
 
