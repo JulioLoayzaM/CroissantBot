@@ -7,7 +7,7 @@ body:
       label: Introduction
       description: |
         A welcome message, do not modify unless needed.
-      value: >
+      value: |
         Hi! This is a [`first-timers-only`](https://www.firsttimersonly.com/) issue.
 
         It's aimed towards people who haven't contributed to open source before, or are just starting to.
@@ -17,21 +17,22 @@ body:
   - type: textarea
     attributes:
       label: The problem
-      description: >
+      description: |
         A simple summary of what the problem is.
     validations:
       required: true
   - type: textarea
     attributes:
       label: The solution
-      description: >
+      description: |
         A simple summary of the proposed solution.
+        The specific steps should go in the next section.
     validations:
       required: true
   - type: textarea
     attributes:
       label: How to implement it
-      description: >
+      description: |
         The proposed steps on how to implement the proposed solution.
         You can use a task list to format the steps.
       value: |
@@ -51,9 +52,8 @@ body:
   - type: textarea
     attributes:
       label: Conclusion
-      description: >
-        Wrap up, reiterate that whoever wants to take on the issue can ask for help about anything.
-        Make people feel welcome.
+      description: |
+        Wrap up, reiterate that whoever wants to take on the issue can ask for help about anything. Make people feel welcome.
         An example is provided, you can modify it.
       value: |
         That's it. :)
