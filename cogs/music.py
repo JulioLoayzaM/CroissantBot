@@ -978,7 +978,8 @@ async def validate_url(url):
 		- url: the url to search for extractors.
 
 	Returns:
-		-extractor, if site has dedicated extractor
+		-True, if site has dedicated extractor
+		-False, if site has no dedicated extractor
 
 	"""
 	e = youtube_dl.extractor.get_info_extractor('Youtube')
