@@ -246,7 +246,7 @@ class Music(commands.Cog):
 		await msg.edit(suppress=True)
 
 		# Checks if query is a valid url, if not we search youtube for the query
-		if validate_url(query) is False:
+		if not await validate_url(query):
 			video = ytdl.extract_info(f"ytsearch:{query}", download=False)['entries'][0]
 			query = video['webpage_url']
 
@@ -970,7 +970,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		return f"{self.song.title} - {self.song.url}"
 
 
-def validate_url(url):
+async def validate_url(url):
 	"""
 	Checks to see if url has any valid extractors for youtube_dl
 
@@ -978,15 +978,11 @@ def validate_url(url):
 		- url: the url to search for extractors.
 
 	Returns:
-		-True, if site has dedicated extractor
-		-False, if site has no dedicated extractor
+		-extractor, if site has dedicated extractor
+
 	"""
-	extractors = youtube_dl.extractor.gen_extractors()
-	for e in extractors:
-		if e.suitable(url) and e.IE_NAME != 'generic':
-            # Site has dedicated extractor
-			return True
-	return False
+	e = youtube_dl.extractor.get_info_extractor('Youtube')
+	return e.suitable(url)
 
 
 def setup(bot):
