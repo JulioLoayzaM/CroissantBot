@@ -238,7 +238,7 @@ class Music(commands.Cog):
 			- query: the query to search for in youtube.
 		"""
 		if query is None:
-			await ctx.send(f"You have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>.")
+			await ctx.send(f"You have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>`.")
 			return
 
 		# To avoid clutter, we edit the user's message to suppress the embed
@@ -316,7 +316,7 @@ class Music(commands.Cog):
 		"""
 		if url is None:
 			await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play` next time.")
-			await ctx.send(f"Also, you have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>.")
+			await ctx.send(f"Also, you have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>`.")
 			return
 
 		await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play` next time.")
@@ -970,7 +970,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		return f"{self.song.title} - {self.song.url}"
 
 
-async def validate_url(url):
+async def validate_url(url: str) -> bool:
 	"""
 	Checks to see if url has any valid extractors for youtube_dl
 
@@ -978,8 +978,8 @@ async def validate_url(url):
 		- url: the url to search for extractors.
 
 	Returns:
-		-True, if site has dedicated extractor
-		-False, if site has no dedicated extractor
+		- True, if site has dedicated extractor
+		- False, if site has no dedicated extractor
 
 	"""
 	e = youtube_dl.extractor.get_info_extractor('Youtube')
