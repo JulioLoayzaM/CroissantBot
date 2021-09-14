@@ -322,6 +322,18 @@ class Music(commands.Cog):
 		await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play` next time.")
 		await self.play(ctx, url)
 
+
+	@play.before_invoke
+	@play_from.before_invoke
+	async def ensure_voice(self, ctx: commands.Context):
+		"""
+		Checks if the bot is connected to the voice channel before playing.
+		If not connected, calls join.
+		"""
+		if ctx.voice_client is None:
+			await self.join(ctx)
+
+
 	async def play_song(self, ctx: commands.Context):
 		"""
 		Higher function, calls play_next and sends the message it receives.
