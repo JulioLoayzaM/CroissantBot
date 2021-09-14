@@ -263,11 +263,7 @@ class Music(commands.Cog):
 				await ctx.send("The bot is not connected to a voice channel.")
 				return
 
-			# MAYBE: from_url should return a Song directly
-			filename, title, thumbnail = await YTDLSource.from_url(url, loop=self.bot.loop)
-
-			# Create an instance of Song
-			song = Song(title, filename, url, thumbnail)
+			song = await YTDLSource.from_url(url, loop=self.bot.loop)
 
 			queue.push(song)
 
@@ -276,11 +272,11 @@ class Music(commands.Cog):
 			if vc.is_playing() or vc.is_paused():
 				dem = {
 					"title": "Queued:",
-					"description": f"{title} - <{url}>",
+					"description": f"{song.title} - <{song.url}>",
 					"colour": ctx.author.color
 				}
 				em = discord.Embed.from_dict(dem)
-				em.set_thumbnail(url=thumbnail)
+				em.set_thumbnail(url=song.thumbnail)
 				await ctx.send(embed=em)
 
 			# If no song is playing, we call play_song to start the queue
@@ -937,7 +933,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		self.thumbnail: str  = song.thumbnail
 
 	@classmethod
-	async def from_url(cls, url: str, *, loop: asyncio.AbstractEventLoop=None) -> Tuple[str]:
+	async def from_url(cls, url: str, *, loop: asyncio.AbstractEventLoop=None) -> Song:
 		"""
 		Downloads a song from its URL.
 
@@ -945,9 +941,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 			- url: the url to download from.
 			- loop: the EventLoop to use.
 		Returns:
-			- The downloaded file's path.
-			- The title of the video.
-			- The thumbnail's URL.
+			- The corresponding (new) Song instance.
 		"""
 
 		loop = loop or asyncio.get_event_loop()
@@ -972,7 +966,8 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		if not os.path.exists(filename):
 			await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=True))
 
-		return filename, metadata['title'], metadata['thumbnail']
+		song = Song(metadata['title'], filename, url, metadata['thumbnail'])
+		return song
 
 	async def get_song_info(self) -> str:
 		"""
