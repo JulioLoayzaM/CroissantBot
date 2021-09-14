@@ -2,12 +2,14 @@ name: First timers only
 description: A beginners-friendly issue, with proposed steps towards a solution.
 labels: first-timers-only
 body:
-  - type: markdown
+  - type: textarea
     attributes:
+      description: |
+        A welcome message, do not modify.
       value: >
         Hi! This is a [`first-timers-only`](https://www.firsttimersonly.com/) issue.
 
-        This means it's aimed towards people who haven't contributed to open source before, or are just starting to.
+        It's aimed towards people who haven't contributed to open source before, or are just starting to.
         As such, it is a relatively simple issue, so newcomers can focus more on the process of contributing rather than the complexity of the issue.
 
         If that's you, keep reading to find more about the problem, the expected solution, and any proposed steps towards that solution.
@@ -30,14 +32,37 @@ body:
       label: How to implement it
       description: >
         The proposed steps on how to implement the proposed solution.
-        Try to avoid leaving big logical gaps between instructions.
+        You can use a task list to format the steps.
+      value: |
+        - [ ] First, **claim the issue** by commenting below. If someone else has claimed it, ask if they've opened a pull request already and if they're stuck -- maybe you can help them solve a problem or move it along!
+        - [ ] Take a look at [CONTRIBUTING](https://github.com/JulioLoayzaM/CroissantBot/blob/main/.github/CONTRIBUTING.md) for guidelines, and at [README](https://github.com/JulioLoayzaM/CroissantBot/blob/main/README.md) for some context.
+        - [ ] Clone the repo if you haven't already.
+        - [ ] Create a new branch, preferably with a descriptive such as [INSERT BRANCH NAME HERE].
     validations:
       required: true
   - type: textarea
     attributes:
+      label: Additional info
+      description: |
+        Anything that doesn't fit with the implementation's steps: some extra context, recommendations, etc.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
       label: Conclusion
       description: >
-        Wrap up, reiterate that whoever wants to take on the issue can ask for help about anything. Make people feel welcome. :)
+        Wrap up, reiterate that whoever wants to take on the issue can ask for help about anything.
+        Make people feel welcome.
+        An example is provided, you can modify it.
+      value: |
+        That's it. :)
+
+        I said it is a simple issue, but it can be fairly overwhelming if you don't have much or any experience with `git`, `discord.py`, or even the `asyncio` library.
+        Feel free to ask for help at any point, even (or specially) at the beginning.
+        Remember, the idea of this issue is to help people get the hang of contributing to projects; the problem itself is just an entertaining mean to that end.
+
+        One last thing: I'd appreciate to have some update on your progress, at most a week after making the claim, even if it's to say you're still working on it.
+        That way I can know whether to maintain your assignment or if I should assign it to someone else.
     validations:
       required: true
 
