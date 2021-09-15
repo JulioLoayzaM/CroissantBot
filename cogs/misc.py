@@ -195,8 +195,10 @@ class Misc(commands.Cog):
 
 						# If kill_count is empty we load the json copy, which may be empty as well
 						if not kill_count:
-							with open(KILL_COUNT_FILE, 'r') as f:
-								kill_count = json.load(f)
+							async with aiofiles.open(KILL_COUNT_FILE, 'r') as f:
+								content = await f.read()
+							if content:
+								kill_count = json.loads(content)
 
 						if gid not in kill_count:
 							kill_count[gid] = dict()
@@ -249,8 +251,10 @@ class Misc(commands.Cog):
 		# Check is kill_count is empty, load from the json if it's the case
 		if not kill_count:
 			try:
-				with open(KILL_COUNT_FILE, 'r') as f:
-					kill_count = json.load(f)
+				async with aiofiles.open(KILL_COUNT_FILE, 'r') as f:
+					content = await f.read()
+				if content:
+					kill_count = json.loads(content)
 			except IOError as ie:
 				logger.error(f"Couldn't read {KILL_COUNT_FILE}")
 				logger.debug(f"IOError:\n{ie}")
