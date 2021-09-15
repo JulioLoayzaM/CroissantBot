@@ -27,7 +27,7 @@ You can [open an issue](https://github.com/JulioLoayzaM/CroissantBot/issues) and
 
 All contributions are welcome: share suggestions, feature ideas and bug reports by [opening an issue](https://github.com/JulioLoayzaM/CroissantBot/issues).
 
-Code contributions are also welcome, just fork the repo and [create a pull request](https://github.com/JulioLoayzaM/CroissantBot/pulls).
+Code contributions are also welcome, fork the repo and [create a pull request](https://github.com/JulioLoayzaM/CroissantBot/pulls).
 
 See below for more information.
 
@@ -49,8 +49,9 @@ Some things to consider before submitting code:
    - In general, functions must be type-hinted and have a clear description in its docstring.
    - Don't hesitate to comment: if there are too many (unnecessary) comments, they can be cleaned before merging.
    - Remember, [explicit is better than implicit](https://www.python.org/dev/peps/pep-0020/#the-zen-of-python): descriptive names should be used, one-liners should be avoided.
+   - Use tabs.
 2. Test your changes.
-3. Begin your commit message with an action: added|removed|updated|fixed.
+3. Begin your commit message with an action: add|remove|change|fix|deprecate.
 
 ### Command example
 
@@ -103,14 +104,25 @@ In `bot.check_token`, we use two different URLs: instead of calling them `url1` 
 
 ## Contributing code
 
-For something that is bigger than a one or two line fix:
+The following guide was adapted from https://github.com/MarcDiethelm/contributing/blob/master/README.md:
 
-1. Fork the code.
-2. Make changes in your fork, preferably in a new branch (eg. `translation`).
-3. When the changes include code, make sure to adhere to the [code guidelines](#code-guidelines) and to test your code.
-4. If everything looks fine, create a pull request and wait for review.
+- Create a personal fork of the project on GitHub.
+- Clone the fork on your local machine. Your remote repo on GitHub is called `origin`.
+- Add the original repository as a remote called `upstream`.
+- If you created your fork a while ago be sure to **pull upstream changes** into your local repository.
+- Create a new branch to work on! Branch from `develop`, preferably with a distinctive name such as `develop/translation`.
+- Implement/fix your feature, comment your code.
+- Follow the code style of the project: see the [code guidelines](#code-guidelines).
+- Add or change the documentation as needed.
+- Squash your commits into a single commit with git's [interactive rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase). Create a new branch if necessary.
+- Push your branch to your fork on GitHub, the remote `origin`.
+- From your fork open a pull request in the `develop` branch.
+- …
+- If the maintainer requests further changes just push them to your branch. The PR will be updated automatically.
+- Once the pull request is approved and merged you can pull the changes from `upstream` to your local repo and delete
+your extra branch(es).
 
-Else, you should be able to edit a file directly on GitHub.
+For more information on the related commands, you can check this gist: https://gist.github.com/adamloving/5690951.
 
 ## Code review process
 
@@ -122,7 +134,7 @@ All tags/releases are to be signed by me.
 
 ### Security disclosures
 
-I'm not expecting to deal with security issues, but if you do find one, create an issue with the title '[security] contact required' and **do not** post any info about it.
+If you find a security issue, **do not open an issue**. Email me at croissantbot[dot]jlm[at]gmail[dot]com.
 
 ### Regular bugs
 

@@ -27,7 +27,7 @@ Puedes [abrir un issue](https://github.com/JulioLoayzaM/CroissantBot/issues) y u
 
 Todas las contribuciones son bienvenidas: comparte sugerencias, ideas de nuevas características y reporte de bugs [abriendo un issue](https://github.com/JulioLoayzaM/CroissantBot/issues).
 
-Contribuciones de código también son bienvenidas, solo haz un fork del repositorio y [crea un pull request](https://github.com/JulioLoayzaM/CroissantBot/pulls).
+Contribuciones de código también son bienvenidas, haz un fork del repositorio y [crea un pull request](https://github.com/JulioLoayzaM/CroissantBot/pulls).
 
 Sigue leyendo para más información.
 
@@ -49,8 +49,9 @@ Algunas cosas para considerar antes de enviar código:
    - En general, las funciones deben estar 'type-hinted' (indicio de tipo) y tener una descripción clara en el 'docstring'.
    - No dudes en añadir comentarios: si hubieron demasiados comentarios (innecesarios), pueden ser limpiados antes del merge.
    - Recuerda, [explícito es mejor que implícito](https://www.python.org/dev/peps/pep-0020/#the-zen-of-python): usar nombres descriptivos, evitar 'one-liners'.
+   - Usa tabulaciones.
 2. Pon a prueba tus cambios.
-3. Comienza el mensaje del commit con una acción: added|removed|updated|fixed.
+3. Comienza el mensaje del commit con una acción: add|remove|changed|fix|deprecate (añade|quita|cambia|arregla|discontinua).
 
 ### Ejemplo de comando
 
@@ -103,14 +104,24 @@ En `bot.check_token`, usamos dos URL diferentes: en vez de llamarlos `url1` y `u
 
 ## Contribuir código
 
-Para algo que requiera más de un par de líneas de código:
+La siguiente guía está basada en https://github.com/MarcDiethelm/contributing/blob/master/README.md:
 
-1. Haz un fork del código.
-2. Efectúa los cambios en tu fork, de preferencia en una rama ('branch') nueva (por ejemplo `traduccion`).
-3. Cuando los cambios incluyen código, asegúrate de seguir las [guías de código](#guías-de-código) y de probar tu código.
-4. Si todo parece en orden, crea un pull request y espera la revisión.
+- Crea un fork personal del proyecto en GitHub.
+- Clona el fork en tu computadora personal. Tu repositorio remoto en GitHub se llama `origin`.
+- Añade el repositorio original como un remoto llamado `upstream`.
+- Si ya creaste un fork hace tiempo, asegúrate de **'pull' los cambios de** `upstream` a tu repositorio local.
+- Crea una nueva branch a partir de `develop` en la cual trabajar. Ponle un nombre distintivo como `develop/traduccion`.
+- Implementa o arregla tu función, comenta tu código.
+- Sigue el estilo de código del proyecto: consulta las [guías de código](#guías-de-código).
+- Añade o modifica la documentación según sea necesario.
+- Combina ('squash') los commits en uno sólo con la [herramienta rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase) de `git`. Crea una nueva 'branch' si necesario.
+- Push la branch a tu fork en GitHub, el remoto `origin`.
+- Desde tu fork, abre un pull request en el branch `develop`.
+- …
+- Si el mantenedor pide cambios adicionales, solo haz un push a tu branch, el pull request se actualizará automáticamente.
+- Una vez que el pull request sea aprobado y combinado, puedes pull los cambios de `upstream` a tu repositorio local y eliminar la(s) branch extra.
 
-Sino, para cambios cortos deberías poder editar el archivo directamente desde GitHub.
+Para más información sobre los comandos relacionados, puedes ver este gist (en inglés): https://gist.github.com/adamloving/5690951.
 
 ## Proceso de revisión
 
@@ -122,7 +133,7 @@ Todos los tags/releases deben ser firmados por mi.
 
 ### Divulgación de seguridad
 
-No espero lidiar con problemas de seguridad, pero si fueras a encontrar uno, abre un issue con el título '[seguridad] contacto necesario' y **no** pongas ninguna información al respecto.
+Si encuentras un problema de seguridad, **no abras un issue**. Envíame un correo electrónico a croissantbot[punto]jlm[arroba]gmail[punto]com.
 
 ### Bugs estándar
 
