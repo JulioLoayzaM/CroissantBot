@@ -141,13 +141,13 @@ async def close_connection(ctx: commands.Context):
 	if meme is not None:
 		res = await meme.close_session()
 		if res:
-			logger.debug("Meme aiohttp.ClientSession closed.")
+			logger.debug(f"{WARNING}Meme aiohttp.ClientSession closed.{ENDC}")
 	else:
 		logger.error("Couldn't get cog 'Meme'.")
 
 	# Close the global aiohttp.ClientSession
 	await SESSION.close()
-	logger.debug(f"Global aiohttp.ClientSession closed.")
+	logger.debug(f"{WARNING}Global aiohttp.ClientSession closed.{ENDC}")
 
 	# Close the bot
 	await bot.close()
