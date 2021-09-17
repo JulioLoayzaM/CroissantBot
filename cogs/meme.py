@@ -73,6 +73,9 @@ class Meme(commands.Cog):
 
 		if self.session is None:
 			self.session = aiohttp.ClientSession()
+			WARNING = '\033[93m'
+			ENDC = '\033[0m'
+			logger.debug(f"{WARNING}Created meme aiohttp.ClientSession.{ENDC}")
 
 		reddit = asyncpraw.Reddit(
 			client_id     = CLIENT_ID, 
