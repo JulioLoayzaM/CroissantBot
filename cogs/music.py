@@ -964,7 +964,7 @@ class Music(commands.Cog):
 				cpt = 1
 				message = ""
 				for song in songs:
-					message = message.join(f"{cpt}. {song.get('title')}\n")
+					message += f"{cpt}. {song.get('title')}\n"
 					cpt += 1
 
 				name = member.display_name
