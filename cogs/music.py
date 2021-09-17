@@ -34,10 +34,12 @@
 # DEALINGS IN THE SOFTWARE.
 
 
-import youtube_dl
+import aiofiles
 import asyncio
+import json
 import logging
 import os
+import youtube_dl
 
 
 import discord
@@ -47,7 +49,7 @@ from cogs.queue import SongQueue
 from cogs.song import Song
 
 from dotenv import load_dotenv
-from typing import Tuple, Union
+from typing import Tuple, Union, List, Dict
 
 
 
@@ -62,8 +64,12 @@ load_dotenv()
 MAX_DURATION = int(os.getenv('MAX_DURATION'))
 # Directory in which music is downloaded
 SAVE_DIR = os.getenv('MUSIC_DIR')
+# Name of the file in which the list of favourites is kept - 'rsc/favourite_songs.json' by default
+FAV_LIST_FILE = f"rsc/{os.getenv('MUSIC_FAV_LIST', 'favourite_songs.json')}"
 
 BOT_PREFIX = os.getenv('BOT_PREFIX')
+
+FAV_LIST = None
 
 # 'CroissantBot' logger
 logger = None
@@ -879,6 +885,287 @@ class Music(commands.Cog):
 			await ctx.send(f"Moved the bot to {user_channel.name}")
 
 
+	@commands.group(
+		name="favourites",
+		aliases=["fav", "favorites"],
+		help="Base command for managing your list of favourite songs."
+	)
+	async def favourites(self, ctx: commands.Context):
+		"""
+		Base command for managing favourite songs.
+
+		Loads the list of favourites from FAV_LIST_FILE during the first call.
+		"""
+		global FAV_LIST
+
+		# First verify a subcommand has been used.
+		if ctx.invoked_subcommand is None:
+			await ctx.send("You have to use a subcommand:")
+			await ctx.send_help(self.favourites)
+			return
+
+		# Then load the lists if needed.
+		if FAV_LIST is None:
+
+			try:
+				async with aiofiles.open(FAV_LIST_FILE, 'r') as file:
+					content = await file.read()
+
+				if content:
+					FAV_LIST = json.loads(content)
+				else:
+					FAV_LIST = dict()
+
+			except IOError as ioe:
+				logger.warning(f"Could not open \"{FAV_LIST_FILE}\", maybe the file doesn't exist: ignoring.")
+				logger.debug(f"IOError:\n{ioe}")
+				FAV_LIST = dict()
+
+			except Exception as e:
+				logger.error(f"Could not load \"{FAV_LIST_FILE}\".")
+				logger.debug(f"Unexpected exception:\n{e}")
+				await ctx.send("A problem occurred while loading your list, please try again.")
+				return
+
+	@favourites.command(
+		name="list",
+		help="Displays your list of favourites: if an index is specified, shows that song's info"
+	)
+	async def fav_list(self, ctx: commands.Context, index: int=0):
+		"""
+		Subcommand to display the list of an user's favourite songs.
+
+		Parameters:
+			- index: if less than or equal to zero, it displays the whole list. If greater than zero,
+				it displays the song with that index in the list with more info.
+		"""
+		member: discord.Member = ctx.message.author
+		member_id: str = str(member.id)
+
+		songs = FAV_LIST.get(member_id, None)
+
+		if songs is not None:
+
+			if len(songs) == 0:
+
+				name = member.display_name
+				if name[-1] == 's':
+					title = f"{name}' list"
+				else:
+					title = f"{name}'s list"
+
+				em = discord.Embed(title=title, description="Your list is empty.")
+
+				await ctx.send(embed=em)
+				return
+
+			if index <= 0:
+
+				cpt = 1
+				message = ""
+				for song in songs:
+					message = message.join(f"{cpt}. {song.get('title')}\n")
+					cpt += 1
+
+				name = member.display_name
+				if name[-1] == 's':
+					title = f"{name}' list"
+				else:
+					title = f"{name}'s list"
+
+				em = discord.Embed(
+					title=title,
+					description=message,
+					colour=member.colour
+				)
+
+				await ctx.send(embed=em)
+
+			else:
+
+				if index > len(songs):
+
+					await ctx.send(f"There's no song with that index! Your list has {len(songs)} songs.")
+
+				else:
+
+					song = songs[index-1]
+
+					name = member.display_name
+					if name[-1] == 's':
+						title = f"From {name}' list"
+					else:
+						title = f"From {name}'s list"
+
+					em = discord.Embed(title=title)
+					em.add_field(name="Title", value=song.get('title'), inline=False)
+					em.add_field(name="URL", value=song.get('url'))
+					em.set_thumbnail(url=song.get('thumbnail'))
+
+					await ctx.send(embed=em)
+
+		else:
+			await ctx.send(f"You haven't saved any songs yet, use `{BOT_PREFIX}favourites add <song URL>` or `{BOT_PREFIX}favourites now` to add one.")
+
+	@favourites.command(
+		name="add",
+		help="Saves a song to your list from its URL"
+	)
+	async def fav_add(self, ctx: commands.Context, url: str=None):
+		"""
+		Saves a song to the user's list: uses from_url to get the title and the thumbnail's URL.
+
+		Parameters:
+			- url: the URL of the song to save.
+		"""
+		global FAV_LIST
+
+		if url is None:
+			await ctx.send("You have to provide a URL.")
+			return
+
+		try:
+			# Suppress the embed to avoid clutter.
+			msg: discord.Message = ctx.message
+			await msg.edit(suppress=True)
+
+			song = await YTDLSource.from_url(url, download=False)
+			info = dict()
+			info['title'] = song.title
+			info['url'] = song.url
+			info['thumbnail'] = song.thumbnail
+
+			member: discord.Member = ctx.message.author
+			member_id: str = str(member.id)
+
+			songs = FAV_LIST.get(member_id, None)
+
+			if songs is not None:
+				songs.append(info)
+			else:
+				songs = [info]
+				FAV_LIST[member_id] = songs
+
+			dump = json.dumps(FAV_LIST)
+			async with aiofiles.open(FAV_LIST_FILE, 'w') as file:
+				await file.write(dump)
+
+			em = discord.Embed(description=f"Added \"{info.get('title')}\" to your list.")
+
+			await ctx.send(embed=em)
+
+		except MaxDurationError:
+			await ctx.send("The song is too long to be played, so it can't be saved.")
+
+		except Exception as e:
+			logger.error("Could not add a song to list of favourites.")
+			logger.debug(f"Exception:\n{e}")
+			await ctx.send("An error occurred while saving the song, please try again.")
+
+	@favourites.command(
+		name="remove",
+		help="Removes a song frmo your list by its index, 0 means no song is removed"
+	)
+	async def fav_remove(self, ctx: commands.Context, index: int=0):
+		"""
+		Remove a song from the user's list by its index.
+
+		Parameters:
+			- index: the index of the song to remove, 0 by default to avoid removing anything.
+		"""
+		global FAV_LIST
+
+		if index <= 0:
+			await ctx.send(f"You have to select a valid index. Use `{BOT_PREFIX}favourites list` to check your list.")
+			return
+
+		member_id: str = str(ctx.message.author.id)
+		songs: List[Dict[str, str]] = FAV_LIST.get(member_id, None)
+
+		if songs is None:
+			await ctx.send(f"You haven't saved any songs yet.")
+			return
+
+		if index > len(songs):
+			await ctx.send(f"You have to select a valid index: there's only {len(songs)} songs in your list.")
+			return
+
+		song = songs.pop(index-1)
+
+		try:
+			with open(FAV_LIST_FILE, 'w') as file:
+				json.dump(FAV_LIST, file)
+			# print(1)
+			# dump: str = str(json.dumps(FAV_LIST))
+			# print(2)
+			async with aiofiles.open(FAV_LIST_FILE, 'w') as file:
+			# 	print(type(dump), dump)
+				await file.write(FAV_LIST)
+			# 	print(4)
+
+			message = f"Removed \"{song.get('title')}\" from your list."
+			em = discord.Embed(description=message)
+			await ctx.send(embed=em)
+
+		except Exception as e:
+			logger.error("Couldn't save favourites list after removing a song.")
+			logger.debug(f"Exception:\n{e}")
+
+	@favourites.command(
+		name="now",
+		help="Saves the currently playing song to your list"
+	)
+	async def fav_now(self, ctx: commands.Context):
+		"""
+		Saves the currently playing song from self.info.source.
+		"""
+		global FAV_LIST
+
+		gid = ctx.message.guild.id
+
+		if gid not in self.info:
+			await ctx.send("The bot is not connected to a voice channel.")
+			return
+
+		info = self.info.get(gid)
+		source: YTDLSource = info.get('source')
+
+		if source is not None:
+			
+			member_id: str = str(ctx.message.author.id)
+
+			songs = FAV_LIST.get(member_id, None)
+
+			song = dict()
+			song['title'] = source.title
+			song['url'] = source.url
+			song['thumbnail'] = source.thumbnail
+
+			if songs is not None:
+				songs.append(song)
+			else:
+				songs = [song]
+				FAV_LIST[member_id] = songs
+
+			try:
+				dump = json.dumps(FAV_LIST)
+				async with aiofiles.open(FAV_LIST_FILE, 'w') as file:
+					await file.write(dump)
+
+				em = discord.Embed(description=f"Added \"{song.get('title')}\"to your list.")
+
+				await ctx.send(embed=em)
+
+			except Exception as e:
+				logger.error("Could not save a song to FAV_LIST_FILE.")
+				logger.debug(f"Exception:\n{e}")
+				await ctx.send("An error occurred while saving the song, please try again.")
+
+		else:
+
+			await ctx.send(f"The bot is not playing something at the moment, try `{BOT_PREFIX}play <song>`.")
+
+
 	@commands.Cog.listener('on_voice_state_update')
 	async def on_empty_channel(self, member: discord.Member, before: discord.VoiceState, after: discord.VoiceState):
 		"""
@@ -933,13 +1220,14 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		self.thumbnail: str  = song.thumbnail
 
 	@classmethod
-	async def from_url(cls, url: str, *, loop: asyncio.AbstractEventLoop=None) -> Song:
+	async def from_url(cls, url: str, *, loop: asyncio.AbstractEventLoop=None, download: bool=True) -> Song:
 		"""
 		Downloads a song from its URL.
 
 		Parameters:
 			- url: the url to download from.
 			- loop: the EventLoop to use.
+			- download: whether the song should be downloaded.
 		Returns:
 			- The corresponding (new) Song instance.
 		"""
@@ -963,7 +1251,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		filename = ytdl.prepare_filename(metadata)
 
 		# If it isn't already there, download it
-		if not os.path.exists(filename):
+		if download and not os.path.exists(filename):
 			await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=True))
 
 		song = Song(metadata['title'], filename, url, metadata['thumbnail'])
