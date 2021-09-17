@@ -107,7 +107,7 @@ class Meme(commands.Cog):
 			try:
 				new = True
 
-				# Use 'a+' because with aiofiles 'w+' can't read the file
+				# Using 'a+' because we don't want to truncate the file if it exists.
 				async with aiofiles.open(list_file, 'a+') as file:
 					await file.seek(0)
 					# We check the list to see if this meme was already sent to this guild
