@@ -689,7 +689,7 @@ def main(loop: asyncio.AbstractEventLoop):
 
 	loop.run_until_complete(create_session())
 
-	logger.debug(f"Created aiohttp.ClientSession.")
+	logger.debug(f"{WARNING}Created global aiohttp.ClientSession.{ENDC}")
 
 	# Load the twitch and youtube cogs if enabled
 	if TWITCH_ENABLED:
