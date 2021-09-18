@@ -546,7 +546,7 @@ async def check_youtube():
 		logger.warning("yt_streamers is empty, possible initialization error: stopping.")
 		return
 
-	messages, YT_PREV_STATUS = youtube.check_users(YT_PREV_STATUS, YT_STREAMERS)
+	messages, YT_PREV_STATUS =await youtube.check_users(YT_PREV_STATUS, YT_STREAMERS)
 
 	for user_id in messages:
 
