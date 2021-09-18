@@ -11,7 +11,7 @@
 #
 # See the LICENSE file for more details.
 
-
+import asyncio
 import json
 import logging
 import streamlink
@@ -94,7 +94,7 @@ class Youtube(commands.Cog):
 		return status
 
 
-	def check_users(self, prev_status: Dict[str, bool], streamers: Dict[str, Dict[str, Union[str, Set[str]]]]) -> Tuple[Dict[str, List[Embed]], Dict[str, bool]]:
+	async def check_users(self, prev_status: Dict[str, bool], streamers: Dict[str, Dict[str, Union[str, Set[str]]]]) -> Tuple[Dict[str, List[Embed]], Dict[str, bool]]:
 		"""
 		Checks the status of streamers and sends a message to a determined user if the streamer just got online.
 
@@ -112,6 +112,8 @@ class Youtube(commands.Cog):
 		# }
 		messages: Dict[str, List[Embed]] = dict()
 
+		loop = asyncio.get_event_loop()
+
 		for streamer in streamers.keys():
 
 			streamer_info = streamers[streamer]
@@ -122,7 +124,7 @@ class Youtube(commands.Cog):
 			# (it does for a protected video) but I already had an error
 			# print to stdout so try/except it is.
 			try:
-				streams = streamlink.streams(channel)
+				streams = await loop.run_in_executor(None, streamlink.streams, channel)
 			except streamlink.PluginError as pe:
 				logging.getLogger('streamlink.plugin.youtube').warning("Error raised while checking a stream, skipping to next one.")
 				logging.getLogger('streamlink.plugin.youtube').debug(f"Channel: {channel}\nError:\n{pe}")
