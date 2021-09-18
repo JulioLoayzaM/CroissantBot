@@ -546,7 +546,7 @@ async def check_youtube():
 		logger.warning("yt_streamers is empty, possible initialization error: stopping.")
 		return
 
-	messages, YT_PREV_STATUS =await youtube.check_users(YT_PREV_STATUS, YT_STREAMERS)
+	messages, YT_PREV_STATUS = await youtube.check_users(YT_PREV_STATUS, YT_STREAMERS)
 
 	for user_id in messages:
 
@@ -647,7 +647,7 @@ def fix_logger():
 
 	# Move streamlink logs to a file
 	streamlink_handler = TimedRotatingFileHandler(LOG_STREAMLINK_FILE, when='midnight', backupCount=LOG_COUNT)
-	streamlink_handler.setLevel(logging.WARNING)
+	streamlink_handler.setLevel(logging.DEBUG)
 	logging.getLogger('streamlink').addHandler(streamlink_handler)
 
 	# Restores the uppercase in levelnames

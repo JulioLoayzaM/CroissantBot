@@ -15,6 +15,7 @@ import asyncio
 import json
 import logging
 import streamlink
+import youtube_dl
 
 from os import getenv
 from dotenv import load_dotenv
@@ -31,8 +32,9 @@ logger = None
 
 class Youtube(commands.Cog):
 
-	def __init__(self, bot: commands.Bot):
+	def __init__(self, bot: commands.Bot, ydl: youtube_dl.YoutubeDL):
 		self.bot = bot
+		self.ydl = ydl
 
 
 	def init_streamers(self, ids: Dict[str, Dict[str, Dict[str, Union[str, List[str]]]]]) -> Dict[str, Dict[str, Union[str, Set[str]]]]:
@@ -112,13 +114,14 @@ class Youtube(commands.Cog):
 		# }
 		messages: Dict[str, List[Embed]] = dict()
 
-		loop = asyncio.get_event_loop()
+		loop = self.bot.loop or asyncio.get_event_loop()
 
 		for streamer in streamers.keys():
 
 			streamer_info = streamers[streamer]
 
 			channel = streamer_info['url']
+			channel += "/live"
 
 			# streamlink.streams should not raise an error for a stream,
 			# (it does for a protected video) but I already had an error
@@ -171,13 +174,20 @@ class Youtube(commands.Cog):
 
 				nickname = streamer_info['nickname']
 
-				message = f"{stream_url}"
+				metadata = await loop.run_in_executor(None, lambda: self.ydl.extract_info(stream_url, download=False))
+
+				stream_title = metadata.get('title')
+
+				stream_thumbnail = metadata.get('thumbnail')
+
+				message = f"{stream_title}\n{stream_url}"
 
 				# Create the embed to be sent
 				em = Embed(
 					title=f"{nickname} is streaming",
 					description=message
 				)
+				em.set_thumbnail(url=stream_thumbnail)
 
 				for recipient in streamer_info['recipients']:
 					# Append the embed or create the list if it's the first one
@@ -193,4 +203,20 @@ class Youtube(commands.Cog):
 def setup(bot):
 	global logger
 	logger = logging.getLogger("CroissantBot")
-	bot.add_cog(Youtube(bot))
+
+	ytdl_options = {
+		'nooverwrites': True,
+		'restrictfilenames': True,
+		'noplaylist': True,
+		'nocheckcertificate': True,
+		'ignoreerrors': False,
+		'logtostderr': False,
+		'quiet': True,
+		'no_warnings': True,
+		'default_search': 'auto',
+		'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
+	}
+
+	ydl = youtube_dl.YoutubeDL(ytdl_options)
+
+	bot.add_cog(Youtube(bot, ydl))
