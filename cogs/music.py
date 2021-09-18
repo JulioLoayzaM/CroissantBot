@@ -1165,6 +1165,38 @@ class Music(commands.Cog):
 
 			await ctx.send(f"The bot is not playing something at the moment, try `{BOT_PREFIX}play <song>`.")
 
+	@favourites.command(
+		name="play",
+		help="Plays a song from your list by its index"
+	)
+	async def fav_play(self, ctx: commands.Context, index: int=0):
+		"""
+		Play a song from the user's list by passing its URL to self.play.
+
+		Parameters:
+			- index: the index of the song to play, 0 by default.
+		"""
+
+		if index <= 0:
+			await ctx.send("You have to provide a valid index.")
+			return
+
+		member_id: str = str(ctx.message.author.id)
+		songs = FAV_LIST.get(member_id, None)
+
+		if songs is None:
+			await ctx.send(f"You haven't saved a song yet, you cas use `{BOT_PREFIX}favourites add <URL>` or `{BOT_PREFIX}favourites now`.")
+			return
+
+		if index > len(songs):
+			await ctx.send(f"You have to provide a valid index, your list only has {len(songs)} songs.")
+			return
+
+		song = songs[index-1]
+
+		url = song.get('url')
+		await self.play(ctx, url)
+
 
 	@commands.Cog.listener('on_voice_state_update')
 	async def on_empty_channel(self, member: discord.Member, before: discord.VoiceState, after: discord.VoiceState):
