@@ -1067,7 +1067,7 @@ class Music(commands.Cog):
 
 	@favourites.command(
 		name="remove",
-		help="Removes a song frmo your list by its index, 0 means no song is removed"
+		help="Removes a song from your list by its index, 0 means no song is removed"
 	)
 	async def fav_remove(self, ctx: commands.Context, index: int=0):
 		"""
@@ -1118,6 +1118,7 @@ class Music(commands.Cog):
 		name="now",
 		help="Saves the currently playing song to your list"
 	)
+	@commands.guild_only()
 	async def fav_now(self, ctx: commands.Context):
 		"""
 		Saves the currently playing song from self.info.source.
@@ -1172,6 +1173,7 @@ class Music(commands.Cog):
 		name="play",
 		help="Plays a song from your list by its index"
 	)
+	@commands.guild_only()
 	async def fav_play(self, ctx: commands.Context, index: int=0):
 		"""
 		Play a song from the user's list by passing its URL to self.play.
