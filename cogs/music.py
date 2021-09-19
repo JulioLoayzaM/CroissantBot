@@ -231,7 +231,7 @@ class Music(commands.Cog):
 
 	@commands.command(
 		aliases=['p'],
-		help=f"Plays a song from an URL. Use `{BOT_PREFIX}search_youtube <query>` to get a list of related links"
+		help=f"Plays a song from an URL or a search query, use `{BOT_PREFIX}search_youtube <query>` to get more results"
 	)
 	@commands.guild_only()
 	async def play(self, ctx: commands.Context, query: str=None):
