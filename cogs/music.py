@@ -251,9 +251,12 @@ class Music(commands.Cog):
 		msg = ctx.message
 		await msg.edit(suppress=True)
 
+		loop = self.bot.loop or asyncio.get_event_loop()
+
 		# Checks if query is a valid url, if not we search youtube for the query
 		if not await validate_url(query):
-			video = ytdl.extract_info(f"ytsearch:{query}", download=False)['entries'][0]
+			info = await loop.run_in_executor(None, lambda: ytdl.extract_info(f"ytsearch:{query}", download=False))
+			video = info['entries'][0]
 			query = video['webpage_url']
 
 		# We know the query must be a valid url
