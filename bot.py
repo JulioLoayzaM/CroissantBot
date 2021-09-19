@@ -581,8 +581,11 @@ async def on_command_error(ctx: commands.Context, error: commands.CommandError):
 		em = discord.Embed(title="Error", description=f"Command not found, try `{BOT_PREFIX}help`", color=ctx.author.color)
 		await ctx.send(embed=em)
 
-	elif isinstance(error, commands.errors.CheckFailure):
-		await ctx.send("You do not have permission to use that command.")
+	elif isinstance(error, commands.NoPrivateMessage):
+		await ctx.send("You can't use that command in DMs.")
+
+	elif isinstance(error, commands.CheckFailure):
+		await ctx.send("You don't have permission to use that command.")
 
 	else:
 		logger.error(f"Unexpected command error:\n{error}")
