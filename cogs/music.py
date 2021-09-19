@@ -1096,15 +1096,9 @@ class Music(commands.Cog):
 		song = songs.pop(index-1)
 
 		try:
-			with open(FAV_LIST_FILE, 'w') as file:
-				json.dump(FAV_LIST, file)
-			# print(1)
-			# dump: str = str(json.dumps(FAV_LIST))
-			# print(2)
+			dump = json.dumps(FAV_LIST)
 			async with aiofiles.open(FAV_LIST_FILE, 'w') as file:
-			# 	print(type(dump), dump)
-				await file.write(FAV_LIST)
-			# 	print(4)
+				await file.write(dump)
 
 			message = f"Removed \"{song.get('title')}\" from your list."
 			em = discord.Embed(description=message)
