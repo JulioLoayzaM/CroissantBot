@@ -29,7 +29,7 @@ Troy Sherlock - @TroySherlock:
 
 SURAJITSHAW - @SURAJITSHAW:
 
-- changed: `Twitch.check_users` is now `async`, `streamlink.streams` is run with `run_in_executor`.
+- changed: `Twitch.check_users` is now `async`, `streamlink.streams` is run with `run_in_executor` (#4).
 
 ### Patch notes
 
