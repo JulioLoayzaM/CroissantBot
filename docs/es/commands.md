@@ -51,3 +51,17 @@ Otros ('owner-only') solo pueden ser usados por el dueño del bot (por ejemplo `
 | `skip`           | `s`             | Salta `index` número de canciones, 1 por defecto             |
 | `stop`           |                 | Detiene la canción en reproducción (o pausada) y borra la cola |
 | `volume`         | `vol`           | Cambia el volumen, rango: 0-100                              |
+
+#### Subcomandos de `favourites`
+
+*Nuevo en la versión 1.1.0*
+
+| Comando      | Descripción                                                  | Comentario                            |
+| ------------ | ------------------------------------------------------------ | ------------------------------------- |
+| `favourites` | Comando de base para administrar las canciones favoritas     |                                       |
+| `list`       | Muestra la lista de tus canciones favoritas: puedes obtener información más detallada seleccionando una canción por su índice | Subcomando                            |
+| `add`        | Guarda una canción a tu lista a partir de su URL             | Subcomando                            |
+| `remove`     | Quita una canción de tu lista a partir de su índice, 0 significa que no se elimina ninguna canción | Subcomando                            |
+| `now`        | Guarda la canción en curso de reproducción a tu lista        | Subcomando, solo usable en servidores |
+| `play`       | Reproduce una canción de tu lista a partir de su índice      | Subcomando, solo usable en servidores |
+

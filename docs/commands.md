@@ -50,3 +50,17 @@ Use the `help` command to get a list of all available commands *in the current c
 | `skip`           | `s`             | Skips `index` number of songs, 1 by default                  |
 | `stop`           |                 | Stops the currently playing (or paused) song and clears the queue |
 | `volume`         | `vol`           | Changes the volume, range: 0-100                             |
+
+#### `favourites` subcommands
+
+*New in version 1.1.0*
+
+| Command      | Description                                                  | Comment                |
+| ------------ | ------------------------------------------------------------ | ---------------------- |
+| `favourites` | Base command for managing favourite songs                    |                        |
+| `list`       | Displays your list of favourites: if an index is specified, shows that song's info | Subcommand             |
+| `add`        | Saves a song to your list from its URL                       | Subcommand             |
+| `remove`     | Removes a song from your list by its index, 0 means no song is removed | Subcommand             |
+| `now`        | Saves the currently playing song to your list                | Subcommand, guild-only |
+| `play`       | Plays a song from your list by its index                     | Subcommand, guild-only |
+

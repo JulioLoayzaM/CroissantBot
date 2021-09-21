@@ -16,6 +16,9 @@ This Cog contains the bot's music-playing commands.
 
 - `MUSIC_DIR` indicates where to download the music. Create the directory and set the variable accordingly.
 
+- *New in version 1.1.0*
+  `MUSIC_FAV_LIST` is the name of the JSON file where the list of each user's favourite songs are saved. This file is kept in `rsc/`. The name is `favourite_songs.json` by default.
+
 ## How it works
 
 The bot uses `youtube-dl` to download the video and extracts the audio using `FFmpeg`. This means the songs take drive space. It also means that playing a song for the first time may take a bit while the download finishes. But if this cache isn't cleared, the next time the same song is requested there should be no delay in playing it.
