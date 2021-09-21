@@ -13,12 +13,13 @@ This Cog enables the bot's YouTube livestream-checking capabilities. It uses `st
   ```
 
 - *New in version 1.1.0*
+  
   The `yt_dlp` package, which can be installed with `pip`:
-
+  
   ```
   pip3 install -U yt-dlp
   ```
-
+  
   > For backwards compatibility with the pre-v1.1.0 `music` cog, the `youtube-dl` package can be used. However its use in this bot is deprecated and installing `yt-dlp` is recommended.
   
 - The `YT_FILE` variable in `.env` must be set. It represents the path to a JSON file which contains the IDs of the Discord users to notify and the info of the streamers to check.
