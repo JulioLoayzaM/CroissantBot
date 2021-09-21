@@ -1,5 +1,45 @@
 # Changelog
 
+## CroissantBot 1.1.0 (2021-09-21)
+
+CroissantBot's first minor version update!
+
+Now, the `play` command is all you need to play music, and can even tell the bot to join your voice channel! `yt-dlp` begins to replace `youtube-dl` but since it's a [minor version](https://semver.org/#spec-item-7), backwards compatibility is maintained.
+
+And thanks to Troy Sherlock and SURAJITSHAW for their contributions. :)
+
+### Version 1.1.0 highlights
+
+Julio Loayza - @JulioLoayzaM:
+
+- added: `favourites` group of commands to manage a list of favourite songs.
+  - See the list of commands in [commands.md](docs/commands.md#favourites-subcommands) and more info about the file used in [music.md](docs/music.md).
+- added: `yt-dlp` to replace `youtube-dl`.
+  - changed: the `youtube` cog now uses `yt-dlp` (or `youtube-dl`) to get a stream's title and thumbnail.
+  - deprecated: `youtube-dl`, but backwards compatibility is maintained for the time being.
+  - More info: [README](README.md#dependencies), [music.md](docs/music.md#requirements) and [youtube.md](docs/youtube.md#requirements).
+- added: `ensure_voice` to auto-connect the bot to a voice channel when using `play`.
+- added: 'Code of Conduct' and 'Código de Conducta'.
+
+Troy Sherlock - @TroySherlock:
+
+- changed: merged `play` and `play_from` commands into `play` (#2).
+  - deprecated: the `play_from` command.
+- added: `validate_url` to check if a `play` query is a URL.
+
+SURAJITSHAW - @SURAJITSHAW:
+
+- changed: `Twitch.check_users` is now `async`, `streamlink.streams` is run with `run_in_executor`.
+
+### Patch notes
+
+Julio Loayza - @JulioLoayzaM:
+
+- changed: `Music.play` YouTube search is run with `run_in_executor`.
+- changed: using `aiofiles.open` when possible.
+- changed: better list of steps to follow in CONTRIBUTING.
+- changed: pull request and issues templates.
+
 ## CroissantBot 1.0.5 (2021-09-10)
 
 CONTRIBUTING and docstrings overhaul.
@@ -58,7 +98,7 @@ CroissantBot's first patch!
 
 ### Patch highlights
 
-- fixed: a fatal error that occured when `TW_TOKEN` could not be refreshed
+- fixed: a fatal error that occurred when `TW_TOKEN` could not be refreshed
 - added: more info is logged when `TW_TOKEN` is invalid
 
 ## CroissantBot 1.0.0 (2021-09-04)
