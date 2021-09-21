@@ -35,14 +35,14 @@ Use the `help` command to get a list of all available commands *in the current c
 
 | Command          | Aliases         | Help                                                         |
 | ---------------- | --------------- | ------------------------------------------------------------ |
-| `join`           | `j`             | Tells the bot to join your current voice channel             |
+| `join`           | `j`             | Tells the bot to join your current voice channel<br /><br />*New in version 1.1.0*<br />The bot can join your voice channel automatically when using `play` |
 | `leave`          |                 | Tells the bot to disconnect from its current voice channel   |
 | `move`           | `m`             | Moves a song's position in the queue                         |
 | `move_here`      | `mh`            | Moves the bot to your voice channel if the bot's current channel is empty |
 | `now_playing`    | `now`           | Displays the currently playing song                          |
 | `pause`          |                 | Pauses the currently playing song                            |
-| `play`           | `p`             | Plays first search result from youtube. For URLs, use `play_from` |
-| `play_from`      | `pf`            | Plays a song from an URL. Use `search_youtube` to get a list of related links |
+| `play`           | `p`             | Plays a song from an URL or a search query, use `search_youtube <query>` to get more results |
+| `play_from`      | `pf`            | *Deprecated since version 1.1.0*<br />Plays a song from an URL. Use `search_youtube` to get a list of related links |
 | `remove`         |                 | Removes a song from the queue through its `index`, 0 means no song is selected |
 | `resume`         | `res`           | Resumes a paused song                                        |
 | `search_youtube` | `yt`, `youtube` | Shows a list of the top 5 results of your search from youtube |

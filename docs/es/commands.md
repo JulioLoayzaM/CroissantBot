@@ -36,14 +36,14 @@ Otros ('owner-only') solo pueden ser usados por el dueño del bot (por ejemplo `
 
 | Comandos         | Aliases         | Descripción                                                  |
 | ---------------- | --------------- | ------------------------------------------------------------ |
-| `join`           | `j`             | Indica al bot que se una a tu canal de voz actual            |
+| `join`           | `j`             | Indica al bot que se una a tu canal de voz actual<br /><br />*Nuevo en la versión 1.1.0*<br />El bot puede unirse automáticamente a tu canal de voz usando `play` |
 | `leave`          |                 | Indica al bot que se desconecte de su canal de voz actual    |
 | `move`           | `m`             | Mueve la posición de una canción en la cola                  |
 | `move_here`      | `mh`            | Mueve el bot a tu canal de voz actual si el canal del bot está vacío |
 | `now_playing`    | `now`           | Muestra la canción en reproducción                           |
 | `pause`          |                 | Pausa la canción en reproducción                             |
-| `play`           | `p`             | Reproduce el primer resultado de búsqueda de YouTube. Para links, usar `play_from` |
-| `play_from`      | `pf`            | Reproduce una canción a partir de un link. Usa `search_youtube` para obtener una lista de resultados |
+| `play`           | `p`             | Reproduce una canción a partir de su URL o el primer resultado de búsqueda de YouTube, usa `search_youtube <busqueda>` para obtener más resultados |
+| `play_from`      | `pf`            | *En desuso desde la versión 1.1.0*<br />Reproduce una canción a partir de un link. Usa `search_youtube` para obtener una lista de resultados |
 | `remove`         |                 | Quita una canción de la cola por su índice ('index'), 0 significa que ninguna canción es seleccionada |
 | `resume`         | `res`           | Reanuda una canción pausada                                  |
 | `search_youtube` | `yt`, `youtube` | Muestra una lista de los primeros 5 resultados de YouTube de tu búsqueda |
