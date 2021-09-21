@@ -42,8 +42,10 @@ import os
 
 try:
 	import yt_dlp as yt_dl
+	yt_version = 'yt-dlp'
 except:
 	import youtube_dl as yt_dl
+	yt_version = 'youtube-dl'
 
 import discord
 from discord.ext import commands
@@ -58,6 +60,7 @@ from typing import Tuple, Union, List, Dict
 
 # Colours and string for some coloured output
 BLUE = '\033[94m'
+WARNING = '\033[93m'
 ENDC = '\033[0m'
 VOICE = f"{BLUE}[voice]{ENDC}"
 
@@ -1317,4 +1320,9 @@ async def validate_url(url: str) -> bool:
 def setup(bot):
 	global logger
 	logger = logging.getLogger("CroissantBot")
+
+	logger.debug(f"{WARNING}Youtube downloader:{ENDC} {yt_version}")
+	if yt_version == 'youtube-dl':
+		print(f"The use of the 'youtube-dl' package is deprecated in this bot since version 1.1.0. Consider installing 'yt-dlp' instead.")
+
 	bot.add_cog(Music(bot))
