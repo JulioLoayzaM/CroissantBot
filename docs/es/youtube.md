@@ -1,6 +1,6 @@
 # youtube.py
 
-Este Cog contiene las funciones para buscar streams en YouTube. Utiliza `streamlink` para obtener la información necesaria.
+Este Cog contiene las funciones para buscar streams en YouTube. Utiliza `streamlink` para obtener el URL del stream y `yt_dlp` para obtener el título y la miniatura.
 
 **NOTA:** Este Cog puede ser desactivado asignando una cadena vacía `""` o comentando (añadiendo un numeral `#`) la variable `ENABLE_YT` en `.env`.
 
@@ -12,6 +12,15 @@ Este Cog contiene las funciones para buscar streams en YouTube. Utiliza `streaml
   pip3 install -U streamlink
   ```
 
+- *Nuevo en la versión 1.1.0*
+  El paquete `yt_dlp`, instalable con `pip`:
+
+  ```
+  pip3 install -U yt-dlp
+  ```
+
+  > Para mantener la compatibilidad con el cog `music` pre-v1.1.0, el paquete `youtube-dl` puede ser utilizado. Sin embargo, puede que su uso sea obsoleto en futuras versiones del bot, así que se recomienda instalar `yt-dlp`.
+  
 - Asigna la variable `YT_FILE` en `.env`. Esta apunta a un archivo JSON que contiene las ID de los usuarios de Discord por notificar y la información de los streamers a revisar.
 
   El formato usado por `YT_FILE` es el siguiente:
