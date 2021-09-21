@@ -318,16 +318,37 @@ async def check_version(ctx: commands.Context, option: str="local"):
 				status_message += "(If you believe this to be an error, don't hesitate to report it in the repo below!)"
 				em.add_field(name="Status", value=status_message, inline=False)
 
-			changelog_url = "https://github.com/JulioLoayzaM/CroissantBot/releases"
-			em.add_field(name="Changelog", value=changelog_url, inline=False)
+				em.add_field(name="Repo", value="https://github.com/JulioLoayzaM/CroissantBot", inline=False)
 
 			await ctx.send(embed=em)
+
+	elif option == 'notes':
+
+		remote_api_url = "https://api.github.com/repos/JulioLoayzaM/CroissantBot/releases/latest"
+		header = {'Accept': "application/vnd.github.v3+json"}
+
+		async with SESSION.get(remote_api_url, headers=header) as response:
+			latest: dict = await response.json()
+
+		remote_ver = version.parse(latest.get('tag_name'))
+
+		title = f"CroissantBot version {remote_ver} release notes:"
+
+		body = latest.get('body')
+
+		em = discord.Embed(title=title, description=body)
+
+		changelog_url = "https://github.com/JulioLoayzaM/CroissantBot/releases"
+		em.add_field(name="Changelog", value=changelog_url, inline=False)
+
+		await ctx.send(embed=em)
 
 	else:
 
 		message = ""
 		message += "- `local`: default, shows the bot's current version\n"
 		message += "- `remote`: shows both the current and the latest version, with some extra info if available.\n"
+		message += "- `notes`: shows the release notes of the latest version.\n"
 		message += "- anything else: shows this help message."
 		em = discord.Embed(
 			title="Version options",
