@@ -672,12 +672,16 @@ async def create_session():
 def main(loop: asyncio.AbstractEventLoop):
 	"""
 	Sets up the bot's start:
-		- Loads the required cogs: misc, music and meme	
 		- Sets up the loggers
+		- Loads the required cogs: misc, music and meme	
 		- Loads the twitch and youtube cogs if enabled through .env
 		- Starts their corresponding check function 
 		- Starts running the bot
 	"""
+
+	setup_loggers()
+
+	logger.debug(f"{WARNING}Setting up bot...{ENDC}")
 
 	bot.load_extension("cogs.misc")
 	bot.load_extension("cogs.music")
@@ -685,10 +689,6 @@ def main(loop: asyncio.AbstractEventLoop):
 
 	# A string to log which cogs got loaded
 	enabled_cogs = "misc, music, meme"
-
-	setup_loggers()
-
-	logger.debug(f"{WARNING}Setting up bot...{ENDC}")
 
 	loop.run_until_complete(create_session())
 
