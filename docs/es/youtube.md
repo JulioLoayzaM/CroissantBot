@@ -13,12 +13,13 @@ Este Cog contiene las funciones para buscar streams en YouTube. Utiliza `streaml
   ```
 
 - *Nuevo en la versión 1.1.0*
+  
   El paquete `yt_dlp`, instalable con `pip`:
-
+  
   ```
   pip3 install -U yt-dlp
   ```
-
+  
   > Para mantener la compatibilidad con el cog `music` pre-v1.1.0, el paquete `youtube-dl` puede ser utilizado. Sin embargo, puede que su uso sea obsoleto en futuras versiones del bot, así que se recomienda instalar `yt-dlp`.
   
 - Asigna la variable `YT_FILE` en `.env`. Esta apunta a un archivo JSON que contiene las ID de los usuarios de Discord por notificar y la información de los streamers a revisar.
