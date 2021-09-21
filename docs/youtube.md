@@ -1,6 +1,6 @@
 # youtube.py
 
-This Cog enables the bot's YouTube livestream-checking capabilities. It uses `streamlink` to get the information needed.
+This Cog enables the bot's YouTube livestream-checking capabilities. It uses `streamlink` to get the stream's URL and `yt_dlp` to get the stream's title and thumbnail.
 
 **NOTE**: This Cog can be disabled by setting `ENABLE_YT` to an empty string `""` in `.env`.
 
@@ -12,6 +12,15 @@ This Cog enables the bot's YouTube livestream-checking capabilities. It uses `st
   pip3 install -U streamlink
   ```
 
+- *New in version 1.1.0*
+  The `yt_dlp` package, which can be installed with `pip`:
+
+  ```
+  pip3 install -U yt-dlp
+  ```
+
+  > For backwards compatibility with the pre-v1.1.0 `music` cog, the `youtube-dl` package can be used. However its use in this bot is deprecated and installing `yt-dlp` is recommended.
+  
 - The `YT_FILE` variable in `.env` must be set. It represents the path to a JSON file which contains the IDs of the Discord users to notify and the info of the streamers to check.
 
   The format to use for `YT_FILE` is as follows:

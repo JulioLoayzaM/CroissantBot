@@ -87,10 +87,11 @@ I've tested the bot with `Python 3.6.9` in Ubuntu 18.04 and `Python 3.6.1` in Wi
 | ------------------- | ------------------------------------------------------------ | -------------- |
 | `discord.py[voice]` | API wrapper for Discord with voice support                   | `1.7.3`        |
 | `python-dotenv`     | To store API keys and other secrets in a `.env` file         | `0.18.0`       |
-| `youtube-dl`        | To get music from YouTube                                    | `2021.6.6`     |
 | `asyncpraw`         | Asynchronous Python Reddit API Wrapper, to get memes from Reddit | `7.3.0`        |
 | `streamlink`        | To check for YouTube livestreams                             | `2.3.0`        |
 | `packaging`         | To check the bot's current version                           | `20.9`         |
+| `yt-dlp`            | *New in version 1.1.0*<br />To get music and livestream information from YouTube | `2021.9.2`     |
+| `youtube-dl`        | *Deprecated since version 1.1.0*<br />To get music from YouTube | `2021.6.6`     |
 
 ### Full installation
 
@@ -144,7 +145,7 @@ Disabling a cog means its `.env` variables are not required:
 - In the case of the `twitch` cog, it allows to skip the setup needed to use the Twitch API.
 - As for the `youtube` cog, disabling it means its dependency `streamlink` is not required.
 
-> Despite the name, it's the `music` cog and not the `youtube` one that uses `youtube-dl`, so don't forget to install it!
+> The `music` cog also uses `yt-dlp` so don't forget to install it even if when disabling the `youtube` cog!
 
 ### Keeping the bot online
 
@@ -163,8 +164,8 @@ For an example on how this works, see the [music cog](cogs/music.py), which has 
 
 - [x] One command for music - fuse play/play_from
 - [x] Rotate the log files
-- [ ] Switch from `youtube-dl` to `yt-dlp`
-- [ ] Get the stream's thumbnail with `ytdl(p)`
+- [x] Switch from `youtube-dl` to `yt-dlp`
+- [x] Get the stream's thumbnail with `ytdl(p)`
 - [x] Move from `requests` to `aiohttp`
 - [ ] Test music streaming instead of downloading
 - [x] Auto-connect to channel when using `play`

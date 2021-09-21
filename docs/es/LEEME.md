@@ -86,10 +86,11 @@ He probado el bot con `Python 3.6.9` en Ubuntu 18.04 y con `Python 3.6.1` en Win
 | ------------------- | ------------------------------------------------------------ | --------------- |
 | `discord.py[voice]` | API wrapper para Discord con soporte para voz                | `1.7.3`         |
 | `python-dotenv`     | Para guardar llaves de API y otros secretos en un archivo `.env` | `0.18.0`        |
-| `youtube-dl`        | Para obtener música de YouTube                               | `2021.6.6`      |
 | `asyncpraw`         | Asynchronous Python Reddit API Wrapper, para obtener memes de Reddit | `7.3.0`         |
 | `streamlink`        | Para chequear transmisiones en vivo de YouTube               | `2.3.0`         |
 | `packaging`         | Para comprobar la versión del bot                            | `20.9`          |
+| `yt-dlp`            | *Nuevo en la versión 1.1.0*<br />Para obtener música e información de transmisiones en vivo de YouTube | `2021.9.2`      |
+| `youtube-dl`        | *En desuso desde la versión 1.1.0*<br />Para obtener música de YouTube | `2021.6.6`      |
 
 ### Instalación completa
 
@@ -145,7 +146,7 @@ Desactivar un cog significa que sus variables `.env` no son requeridas:
 
 - En cuando al cog `youtube`, desactivarlo significa que su dependencia `streamlink` no es necesaria.
 
-  > A pesar del nombre, es el cog `music` y no el cog `youtube` que utiliza `youtube-dl`, así que no olvides instalarlo!
+  > El cog `music` también utiliza `yt-dlp` así que no olvides instalarlo incluso si desactivas el cog `youtube`!
 
 ### Mantener el bot en línea
 
@@ -162,13 +163,13 @@ Para un ejemplo de cómo funciona esto, ver el [cog de música](./../../cogs/mus
 
 ## Por hacer
 
-- [ ] Un comando para música - combinar `play`/`play_from`
+- [x] Un comando para música - combinar `play`/`play_from`
 - [x] Turnar los registros
-- [ ] Pasar de `youtube-dl` a `yt-dlp`
-- [ ] Obtener la miniatura de una transmisión con `ytdl(p)`
+- [x] Pasar de `youtube-dl` a `yt-dlp`
+- [x] Obtener la miniatura de una transmisión con `ytdl(p)`
 - [x] Pasar de `requests` a `aiohttp`
 - [ ] Probar trasmitir música en lugar de descargarla
-- [ ] Conectar automáticamente a un canal de voz al usar `play`
+- [x] Conectar automáticamente a un canal de voz al usar `play`
 
 ## Considerando
 
