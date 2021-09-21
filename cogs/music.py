@@ -39,8 +39,11 @@ import asyncio
 import json
 import logging
 import os
-import youtube_dl
 
+try:
+	import yt_dlp as yt_dl
+except:
+	import youtube_dl as yt_dl
 
 import discord
 from discord.ext import commands
@@ -76,10 +79,10 @@ logger = None
 
 
 # Used to suppress useless errors apparently
-youtube_dl.utils.bug_reports_message = lambda: ''
+yt_dl.utils.bug_reports_message = lambda: ''
 
 
-ytdl_format_options = {
+YTDL_FORMAT_OPTIONS = {
 	'outtmpl': f'{SAVE_DIR}/%(title)s-%(id)s.%(ext)s',
 	'nooverwrites': True,
 	'format': 'bestaudio/best',
@@ -98,7 +101,7 @@ ffmpeg_options = {
 	'options': '-vn'
 }
 
-ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
+ytdl = yt_dl.YoutubeDL(YTDL_FORMAT_OPTIONS)
 
 
 class Music(commands.Cog):
@@ -1298,17 +1301,16 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
 async def validate_url(url: str) -> bool:
 	"""
-	Checks to see if url has any valid extractors for youtube_dl
+	Checks to see if url has any valid extractors for yt_dlp/youtube_dl.
 
 	Parameters:
 		- url: the url to search for extractors.
 
 	Returns:
-		- True, if site has dedicated extractor
-		- False, if site has no dedicated extractor
+		- True if site has dedicated extractor, False otherwise.
 
 	"""
-	e = youtube_dl.extractor.get_info_extractor('Youtube')
+	e = yt_dl.extractor.get_info_extractor('Youtube')
 	return e.suitable(url)
 
 
