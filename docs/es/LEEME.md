@@ -50,7 +50,7 @@ Por ahora, seguiré trabajando en el bot como si nada hubiera pasado.
 
 ### Reproductor de música
 
-Reproduce música de YouTube en canales de voz. Permite reproducir en varios servidos simultáneamente, con una cola para cada uno.
+Reproduce música de YouTube en canales de voz. Permite reproducir en varios servidos simultáneamente, con una cola para cada uno. Guarda tus canciones favoritas en una lista.
 
 ### Memes
 

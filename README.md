@@ -51,7 +51,7 @@ For now, I'll continue working on this bot as if nothing happened.
 
 ### Music player
 
-Play music from YouTube in voice chat. Supports playback on different servers simultaneously, with a queue for each one.
+Play music from YouTube in voice chat. Supports playback on different servers simultaneously, with a queue for each one. Saves your favourite songs in a list.
 
 ### Memes
 
