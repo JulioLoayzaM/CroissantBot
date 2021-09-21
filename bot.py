@@ -297,7 +297,21 @@ async def check_version(ctx: commands.Context, option: str="local"):
 					status_message = "A new **patch** is available. Use `git pull` to update."
 					em.add_field(name="Status", value=status_message, inline=False)
 
-				em.add_field(name="Release notes", value=f"{latest.get('body')}", inline=False)
+				# Extract the message before the patch notes
+				body: str = latest.get('body')
+				# The notes start with an H2 header
+				index = body.index('##')
+				release_message = body[:index]
+				# The message should contain a couple of newlines at the end - just in case,
+				# we get rid of them and add new ones.
+				release_message = release_message.rstrip('\r\n')
+				release_message += "\n\n"
+				release_message += f"Read the release notes in the changelog below or use `{BOT_PREFIX}version notes` to get them here."
+
+				em.add_field(name="Release message", value=f"{release_message}", inline=False)
+
+				changelog_url = "https://github.com/JulioLoayzaM/CroissantBot/releases"
+				em.add_field(name="Changelog", value=changelog_url, inline=False)
 
 			else:
 				status_message = "Your version is more recent than mine! How'd you do that?\n"
