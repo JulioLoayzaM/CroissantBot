@@ -15,7 +15,10 @@ import asyncio
 import json
 import logging
 import streamlink
-import youtube_dl
+try:
+	import yt_dlp as yt_dl
+except:
+	import youtube_dl as yt_dl
 
 from os import getenv
 from dotenv import load_dotenv
@@ -32,7 +35,7 @@ logger = None
 
 class Youtube(commands.Cog):
 
-	def __init__(self, bot: commands.Bot, ydl: youtube_dl.YoutubeDL):
+	def __init__(self, bot: commands.Bot, ydl: yt_dl.YoutubeDL):
 		self.bot = bot
 		self.ydl = ydl
 
@@ -217,6 +220,6 @@ def setup(bot):
 		'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
 	}
 
-	ydl = youtube_dl.YoutubeDL(ytdl_options)
+	ydl = yt_dl.YoutubeDL(ytdl_options)
 
 	bot.add_cog(Youtube(bot, ydl))
