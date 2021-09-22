@@ -10,7 +10,7 @@ Small fix for `version`, better `ping`.
   - fix: Now `version remote` only shows the message before the notes.
   - add: The full notes can be shown with `version notes`.
 - changed: the `ping` command now returns the latency.
-- changed: the `play_from` and `poggers` command are hidden.
+- changed: the `play_from` and `poggers` command are now hidden.
 
 ## CroissantBot 1.1.0 (2021-09-21)
 
