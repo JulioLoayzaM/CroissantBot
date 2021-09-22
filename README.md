@@ -8,7 +8,7 @@
 
 
 
-> La documentación también está disponible en [Español](docs/es/).
+> La documentación está disponible en [Español](docs/es/).
 
 CroissantBot is a Discord bot written in Python using the [`discord.py` rewrite](https://github.com/Rapptz/discord.py).
 

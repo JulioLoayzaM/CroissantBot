@@ -195,12 +195,15 @@ async def check_version(ctx: commands.Context, option: str="local"):
 	Checks the current bot version.
 	Can check the latest release on GitHub.	If the bot's not up to date,
 	it shows what type of update (major|minor|patch) is available, the
-	corresponding release notes, and a link to the releases page.
+	corresponding release message, and a link to the releases page.
+	Can also get the full release notes with 'notes' option.
 
 	Parameters:
-		- option: 'local' to check only the bot's current version,
-			'remote' to check the current version and the repo's latest version.
-			'local' by default.
+		- option:
+			'local' to check only the bot's current version,
+			'remote' to check the current version and the repo's latest version,
+			'notes' to get the full release notes.
+			Defaults to 'local'.
 	"""
 
 	# Get the local version: uses Git to check the latest (annotated) tag,
