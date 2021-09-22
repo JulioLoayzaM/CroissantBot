@@ -313,8 +313,9 @@ class Music(commands.Cog):
 
 
 	@commands.command(
-	aliases=['pf'],
-	help=f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play`."
+		aliases=['pf'],
+		help=f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play`.",
+		hidden=True
 	)
 	@commands.guild_only()
 	async def play_from(self, ctx: commands.Context, url: str=None):

@@ -72,7 +72,7 @@ class Misc(commands.Cog):
 			if result == 42:
 				await ctx.send("42, the answer to the ultimate question of life, the universe, and everything")
 			else:
-				await ctx.send(num1 + num2)
+				await ctx.send(result)
 
 	@add_two.error
 	async def add_two_error(self, ctx: commands.Context, error):
@@ -80,7 +80,10 @@ class Misc(commands.Cog):
 			await ctx.send("`add` takes two integers as arguments.")
 
 
-	@commands.command()
+	@commands.command(
+		name="poggers",
+		hidden=True
+	)
 	@commands.guild_only()
 	async def poggers(self, ctx: commands.Context):
 		"""
