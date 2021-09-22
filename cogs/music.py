@@ -1322,7 +1322,7 @@ def setup(bot):
 	global logger
 	logger = logging.getLogger("CroissantBot")
 
-	logger.debug(f"{WARNING}Youtube downloader:{ENDC} {yt_version}")
+	logger.debug(f"{WARNING}Youtube downloader:{ENDC} {yt_version}.")
 	if yt_version == 'youtube-dl':
 		print(f"The use of the 'youtube-dl' package is deprecated in this bot since version 1.1.0. Consider installing 'yt-dlp' instead.")
 

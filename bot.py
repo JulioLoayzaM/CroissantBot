@@ -141,13 +141,13 @@ async def close_connection(ctx: commands.Context):
 	if meme is not None:
 		res = await meme.close_session()
 		if res:
-			logger.debug(f"{WARNING}Meme aiohttp.ClientSession closed.{ENDC}")
+			logger.debug(f"{WARNING}Closed:{ENDC} Meme aiohttp.ClientSession.")
 	else:
 		logger.error("Couldn't get cog 'Meme'.")
 
 	# Close the global aiohttp.ClientSession
 	await SESSION.close()
-	logger.debug(f"{WARNING}Global aiohttp.ClientSession closed.{ENDC}")
+	logger.debug(f"{WARNING}Closed:{ENDC} Global aiohttp.ClientSession.")
 
 	# Close the bot
 	await bot.close()
@@ -732,7 +732,7 @@ def main(loop: asyncio.AbstractEventLoop):
 
 	loop.run_until_complete(create_session())
 
-	logger.debug(f"{WARNING}Created global aiohttp.ClientSession.{ENDC}")
+	logger.debug(f"{WARNING}Created:{ENDC} Global aiohttp.ClientSession.")
 
 	# Load the twitch and youtube cogs if enabled
 	if TWITCH_ENABLED:
