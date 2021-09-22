@@ -24,7 +24,7 @@ Use the `help` command to get a list of all available commands *in the current c
 | Command      | Aliases       | Description                                                  | Comments                                 |
 | ------------ | ------------- | ------------------------------------------------------------ | ---------------------------------------- |
 | `add`        |               | Adds two integers                                            | Basic example of `discord.py` converters |
-| `poggers`    |               | Responds with a poggers emote, if available                  | Guild-only                               |
+| `poggers`    |               | Responds with a poggers emote, if available                  | Guild-only, hidden                       |
 | `croissant`  |               | Sends a gif                                                  | 🥐                                        |
 | `kill`       |               | Kill your enemies (and your friends)                         | Guild-only                               |
 | `kill_count` | `count`, `kc` | Shows your kill count, can specify a user to check your stats against them | Guild-only                               |
@@ -42,7 +42,7 @@ Use the `help` command to get a list of all available commands *in the current c
 | `now_playing`    | `now`           | Displays the currently playing song                          |
 | `pause`          |                 | Pauses the currently playing song                            |
 | `play`           | `p`             | Plays a song from an URL or a search query, use `search_youtube <query>` to get more results |
-| `play_from`      | `pf`            | *Deprecated since version 1.1.0*<br />Plays a song from an URL. Use `search_youtube` to get a list of related links |
+| `play_from`      | `pf`            | *Deprecated since version 1.1.0*<br />Plays a song from an URL, use `search_youtube` to get a list of related links. Hidden since version 1.1.1. |
 | `remove`         |                 | Removes a song from the queue through its `index`, 0 means no song is selected |
 | `resume`         | `res`           | Resumes a paused song                                        |
 | `search_youtube` | `yt`, `youtube` | Shows a list of the top 5 results of your search from youtube |

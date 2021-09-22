@@ -25,7 +25,7 @@ Otros ('owner-only') solo pueden ser usados por el dueño del bot (por ejemplo `
 | Comandos     | Aliases       | Descripción                                                  | Comentarios                                        |
 | ------------ | ------------- | ------------------------------------------------------------ | -------------------------------------------------- |
 | `add`        |               | Suma dos números enteros                                     | Ejemplo básico de los 'converters' de `discord.py` |
-| `poggers`    |               | Responde con un emote poggers, si existe                     | Solo usable en servidores                          |
+| `poggers`    |               | Responde con un emote poggers, si existe                     | Solo usable en servidores, oculto                  |
 | `croissant`  |               | Manda un gif                                                 | 🥐                                                  |
 | `kill`       |               | Mata a tus enemigos (y a tus amigos)                         | Solo usable en servidores                          |
 | `kill_count` | `count`, `kc` | Muestra tu recuento de muertes, se puede especificar un usuario para mostrar tu recuento en contra suya | Solo usable en servidores                          |
@@ -43,7 +43,7 @@ Otros ('owner-only') solo pueden ser usados por el dueño del bot (por ejemplo `
 | `now_playing`    | `now`           | Muestra la canción en reproducción                           |
 | `pause`          |                 | Pausa la canción en reproducción                             |
 | `play`           | `p`             | Reproduce una canción a partir de su URL o el primer resultado de búsqueda de YouTube, usa `search_youtube <busqueda>` para obtener más resultados |
-| `play_from`      | `pf`            | *En desuso desde la versión 1.1.0*<br />Reproduce una canción a partir de un link. Usa `search_youtube` para obtener una lista de resultados |
+| `play_from`      | `pf`            | *En desuso desde la versión 1.1.0*<br />Reproduce una canción a partir de un link, usa `search_youtube` para obtener una lista de resultados. Oculto desde la versión 1.1.1. |
 | `remove`         |                 | Quita una canción de la cola por su índice ('index'), 0 significa que ninguna canción es seleccionada |
 | `resume`         | `res`           | Reanuda una canción pausada                                  |
 | `search_youtube` | `yt`, `youtube` | Muestra una lista de los primeros 5 resultados de YouTube de tu búsqueda |
