@@ -165,10 +165,12 @@ async def ping_back(ctx: commands.Context):
 	Simple ping command. Has a mini easter egg.
 	"""
 	r = random.randint(1,3)
-	if r == 1:
-		await ctx.send(":ping_pong:")
-	else:
-		await ctx.send("pong")
+	name = "Latency:ping_pong:" if r == 1 else "Latency"
+
+	em = discord.Embed()
+	em.add_field(name=name, value=f"{round(bot.latency*1000)} ms")
+
+	await ctx.send(embed=em)
 
 
 @bot.command(
