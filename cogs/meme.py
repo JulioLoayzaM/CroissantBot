@@ -34,9 +34,12 @@ USERNAME      = os.getenv("REDDIT_USERNAME")
 PASSWORD      = os.getenv("REDDIT_PASSWORD")
 APP_VERSION   = os.getenv("REDDIT_APP_VERSION")
 
-# Directory containing the memes and lists
+# Directory containing the lists
 # "./memes" by default - "." is the directory contaning bot.py
 MEME_DIR = os.getenv("MEME_DIR")
+
+# Whether to download the memes or not, False by default.
+DOWNLOAD = bool(os.getenv('MEME_DOWNLOAD', False))
 
 # The number of memes the bot will fetch when called.
 # AFAIK, we can only set how many items to fetch, meaning each time
@@ -131,6 +134,10 @@ class Meme(commands.Cog):
 				logger.debug(f"IOError:\n{ioe}")
 				logger.warning("Ignoring error, proceeding.")
 
+			if not DOWNLOAD:
+				await reddit.close()
+				return url
+
 			# Get the filename, the same one as on the link.
 			# For example: https://i.redd.it/thisisnotameme.jpg
 			temp = url.split('/')
@@ -213,7 +220,12 @@ class Meme(commands.Cog):
 
 		else:
 			try:
-				await ctx.send(file=discord.File(output))
+				if not DOWNLOAD:
+					em = discord.Embed()
+					em.set_image(url=output)
+					await ctx.send(embed=em)
+				else:
+					await ctx.send(file=discord.File(output))
 
 			except discord.HTTPException as he:
 				logger.error(f"{output} is too big to send")
@@ -242,4 +254,11 @@ class Meme(commands.Cog):
 def setup(bot):
 	global logger
 	logger = logging.getLogger("CroissantBot")
+
+	WARNING   = '\033[93m'
+	ENDC      = '\033[0m'
+
+	status = "ON" if DOWNLOAD else "OFF"
+	logger.debug(f"{WARNING}Meme download:{ENDC} {status}.")
+
 	bot.add_cog(Meme(bot))
