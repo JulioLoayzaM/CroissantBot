@@ -1,5 +1,17 @@
 # Changelog
 
+## CroissantBot 1.1.1 (2021-09-22)
+
+Small fix for `version`, better `ping`.
+
+### Patch notes
+
+- fixed: last version's notes were so long, they didn't fit in an Embed's field!
+  - fix: Now `version remote` only shows the message before the notes.
+  - add: The full notes can be shown with `version notes`.
+- changed: the `ping` command now returns the latency.
+- changed: the `play_from` and `poggers` command are hidden.
+
 ## CroissantBot 1.1.0 (2021-09-21)
 
 CroissantBot's first minor version update!
