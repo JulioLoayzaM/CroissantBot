@@ -39,11 +39,11 @@ suicide_count = dict()
 # 'CroissantBot' logger
 logger = None
 
+
 class Misc(commands.Cog):
 
 	def __init__(self, bot: commands.Bot):
 		self.bot = bot
-
 
 	@commands.command(
 		name="add",
@@ -60,7 +60,7 @@ class Misc(commands.Cog):
 			- num2: idem.
 		"""
 		if (num1 == 2) and (num2 == 2):
-			r = random.randint(1,3)
+			r = random.randint(1, 3)
 			if r == 1:
 				await ctx.send(":fish:")
 			elif r == 2:
@@ -70,7 +70,7 @@ class Misc(commands.Cog):
 		else:
 			result = num1 + num2
 			if result == 42:
-				await ctx.send("42, the answer to the ultimate question of life, the universe, and everything")
+				await ctx.send("42, the answer to the ultimate question of life, the universe, and everything")  # noqa: 501
 			else:
 				await ctx.send(result)
 
@@ -78,7 +78,6 @@ class Misc(commands.Cog):
 	async def add_two_error(self, ctx: commands.Context, error):
 		if isinstance(error, commands.BadArgument):
 			await ctx.send("`add` takes two integers as arguments.")
-
 
 	@commands.command(
 		name="poggers",
@@ -94,14 +93,13 @@ class Misc(commands.Cog):
 		emojis = await guild.fetch_emojis()
 
 		for emoji in emojis:
-			
+
 			if emoji.name == "poggers":
 
 				await ctx.send(emoji)
 				return
 
 		await ctx.send("This server doesn't have a poggers emote")
-
 
 	@commands.command(
 		help="🥐"
@@ -112,15 +110,15 @@ class Misc(commands.Cog):
 		"""
 		await ctx.send(file=discord.File(CROISSANT_PATH))
 
-
 	@commands.command(
 		help="Kill your enemies (and your friends)"
 	)
 	@commands.guild_only()
 	async def kill(self, ctx: commands.Context, member: discord.Member = None):
 		"""
-		Sends a random phrase if a user is selected. If the calling user is selected, sends a (hardcoded) suicide message.
-		Tracks how many times someone has killed a specific member or themselves in the current guild.
+		Sends a random phrase if a user is selected. If the calling user is selected,
+		sends a (hardcoded) suicide message. Tracks how many times someone has killed
+		a specific member or themselves in the current guild.
 
 		Parameters:
 			- member: the discord member to use for the message. None by default.
@@ -209,7 +207,8 @@ class Misc(commands.Cog):
 						# Get the count for this guild
 						current_count = kill_count[gid]
 
-						# If killer is not in current_count, we create its victims dict and add the current victim
+						# If killer is not in current_count, we create its victims dict
+						# and add the current victim
 						if killer not in current_count:
 							tmp = dict()
 							tmp[victim] = 1
@@ -227,13 +226,12 @@ class Misc(commands.Cog):
 							json.dump(kill_count, f)
 
 					except IOError as ie:
-						logger.error(f"Error while updating count.")
+						logger.error("Error while updating count.")
 						logger.debug(f"IOError:\n{ie}")
 
 					except Exception as e:
-						logger.error(f"Error while updating count.")
+						logger.error("Error while updating count.")
 						logger.debug(f"Unexpected exception:\n{e}")
-
 
 	@commands.command(
 		aliases=['count', 'kc'],
@@ -305,10 +303,13 @@ class Misc(commands.Cog):
 
 			# Else show the count against the specified user
 			else:
-				em = discord.Embed(title=killer_name, description=f"You've killed **{victim_name}** {kname_count[victim_id]} times.", colour=ctx.author.colour)
+				em = discord.Embed(
+					title=killer_name,
+					description=f"You've killed **{victim_name}** {kname_count[victim_id]} times.",
+					colour=ctx.author.colour
+				)
 
 			await ctx.send(embed=em)
-
 
 
 def setup(bot):

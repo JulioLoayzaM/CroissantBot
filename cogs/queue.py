@@ -14,15 +14,14 @@
 from .song import Song
 from typing import List, Tuple, Union
 
+
 class SongQueue():
 
 	def __init__(self):
 		self.songs = []
 
-
 	def push(self, song: Song):
 		self.songs.append(song)
-
 
 	def pop(self, index: int = 1) -> Union[Song, None]:
 		"""
@@ -31,7 +30,7 @@ class SongQueue():
 
 		if len(self.songs) > 0:
 			if 1 <= index <= len(self.songs):
-				return self.songs.pop(index-1)
+				return self.songs.pop(index - 1)
 
 		return None
 
@@ -76,7 +75,7 @@ class SongQueue():
 			return False, "The queue is empty."
 
 		elif 1 <= index <= len(self.songs):
-			song = self.songs.pop(index-1)
+			song = self.songs.pop(index - 1)
 			if song is not None:
 				return True, f"{song.title}"
 			else:
@@ -103,9 +102,9 @@ class SongQueue():
 			return "The queue was empty, added in first place."
 
 		# we use size+1 because Music.move removes a song first
-		elif 1 <= index <= len(self.songs)+1:
+		elif 1 <= index <= len(self.songs) + 1:
 			# insert song at index using slice indexing
-			self.songs[index-1:index-1] = [song]
+			self.songs[index - 1:index - 1] = [song]
 			return f"Moved \"{song.title}\" to position {index}."
 
 		else:
@@ -123,7 +122,7 @@ class SongQueue():
 		Raises:
 			- IndexError if indexes out of range
 		"""
-		
+
 		if self.is_empty():
 			return "The queue is empty, can't move."
 
@@ -137,8 +136,7 @@ class SongQueue():
 			try:
 				res = self.insert(song, index2)
 			except IndexError as e:
-				print(f"[ERROR]: IndexError")
-				print(f"{e}\n")
+				print(f"Queue: IndexError, {e}")
 				return None
 			return res
 
@@ -149,11 +147,12 @@ class SongQueue():
 		"""
 
 		"""
-		if (index > len(self.songs)-1) or (index < 0):
+		if (index > len(self.songs) - 1) or (index < 0):
 			raise IndexError
 		else:
 			song = self.songs[index]
 			return song
+
 
 class EmptyQueueError(Exception):
 	"""

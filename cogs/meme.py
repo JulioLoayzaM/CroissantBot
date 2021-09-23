@@ -13,7 +13,6 @@
 # See the LICENSE file for more details.
 
 
-import asyncio
 import aiofiles
 import aiohttp
 import asyncpraw
@@ -51,11 +50,10 @@ logger = None
 
 
 class Meme(commands.Cog):
-	
+
 	def __init__(self, bot: commands.Bot):
 		self.bot = bot
 		self.session = None
-
 
 	async def get_meme(self, sub: str, name: str) -> Union[str, None]:
 		"""
@@ -78,8 +76,8 @@ class Meme(commands.Cog):
 			logger.debug(f"{WARNING}Created:{ENDC} Meme aiohttp.ClientSession.")
 
 		reddit = asyncpraw.Reddit(
-			client_id     = CLIENT_ID, 
-			client_secret = CLIENT_SECRET, 
+			client_id     = CLIENT_ID,
+			client_secret = CLIENT_SECRET,
 			username      = USERNAME,
 			password      = PASSWORD,
 			user_agent    = f"python/requests:{CLIENT_ID}:v{APP_VERSION} (by /u/{USERNAME})"
@@ -159,7 +157,7 @@ class Meme(commands.Cog):
 							async with aiofiles.open(filename, mode='wb') as img_file:
 								await img_file.write(await response.read())
 						else:
-							logger.warning(f"Error while getting meme.")
+							logger.warning("Error while getting meme.")
 							logger.debug(f"Received status {response.status}, reason: {response.reason}")
 							continue
 
@@ -170,7 +168,7 @@ class Meme(commands.Cog):
 
 				except Exception as e:
 
-					logger.error(f"Could not write image file.")
+					logger.error("Could not write image file.")
 					logger.debug(f"Unexpected exception:\n{e}")
 					# Return None to indicate there's been a problem during download,
 					# close the instance before leaving.
@@ -181,12 +179,11 @@ class Meme(commands.Cog):
 
 		return filename
 
-
 	@commands.command(
 		name="meme",
 		help="Sends meme from subreddit, r/memes by default"
 	)
-	async def send_meme(self, ctx: commands.Context, sub: str="memes"):
+	async def send_meme(self, ctx: commands.Context, sub: str = "memes"):
 		"""
 		Sends a meme returned by get_meme.
 
@@ -224,11 +221,10 @@ class Meme(commands.Cog):
 				await ctx.send("The meme was too big to send, please try again.")
 
 			except Exception as e:
-				logger.error(f"Couldn't send meme")
+				logger.error("Couldn't send meme")
 				logger.debug(f"Unexpected exception:\n{e}")
 				logger.debug(f"Output:\n{output}")
 				await ctx.send("An error ocurred, please try again.")
-
 
 	async def close_session(self) -> bool:
 		"""
@@ -241,7 +237,6 @@ class Meme(commands.Cog):
 			await self.session.close()
 			return True
 		return False
-
 
 
 def setup(bot):

@@ -1,0 +1,25 @@
+[flake8]
+
+ignore =
+	# reindents everything
+	E101,
+	# reindents everything
+	E111,
+	# multiple spaces before operator
+	E221,
+	# multiple spaces after ':'
+	E241,
+	# unexpected spaces
+	E251,
+	# block comment should start with '# '
+	E265,
+	# indentation contains tabs
+	W191
+
+exclude =
+	__pycache__,
+	test,
+	.git,
+	.env
+
+max-line-length = 90

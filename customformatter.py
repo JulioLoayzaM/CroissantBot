@@ -6,6 +6,7 @@
 
 import logging
 
+
 class CustomFormatter(logging.Formatter):
 	"""
 	Custom logging formatter to colour-code the levels.

@@ -12,12 +12,11 @@
 # See the LICENSE file for more details.
 
 import asyncio
-import json
 import logging
 import streamlink
 try:
 	import yt_dlp as yt_dl
-except:
+except:  # noqa: 722
 	import youtube_dl as yt_dl
 
 from os import getenv
@@ -33,17 +32,20 @@ YT_FILE = getenv('YT_FILE')
 # 'CroissantBot' logger
 logger = None
 
+
 class Youtube(commands.Cog):
 
 	def __init__(self, bot: commands.Bot, ydl: yt_dl.YoutubeDL):
 		self.bot = bot
 		self.ydl = ydl
 
-
-	def init_streamers(self, ids: Dict[str, Dict[str, Dict[str, Union[str, List[str]]]]]) -> Dict[str, Dict[str, Union[str, Set[str]]]]:
+	def init_streamers(
+		self,
+		ids: Dict[str, Dict[str, Dict[str, Union[str, List[str]]]]]
+	) -> Dict[str, Dict[str, Union[str, Set[str]]]]:
 		"""
-		Reverses ids: the streamers become the keys, the values of streamers become the keys' values,
-		the recipients are added to the values.
+		Reverses ids: the streamers become the keys, the values of streamers
+		become the keys' values, the recipients are added to the values.
 
 		Parameters:
 			- ids: a dict following the template:
@@ -75,8 +77,10 @@ class Youtube(commands.Cog):
 
 		return result
 
-
-	def init_status(self, streamers: Dict[str, Dict[str, Union[str, Set[str]]]]) -> Dict[str, bool]:
+	def init_status(
+		self,
+		streamers: Dict[str, Dict[str, Union[str, Set[str]]]]
+	) -> Dict[str, bool]:
 		"""
 		Initializes the streamers' status to False/offline.
 
@@ -98,10 +102,14 @@ class Youtube(commands.Cog):
 
 		return status
 
-
-	async def check_users(self, prev_status: Dict[str, bool], streamers: Dict[str, Dict[str, Union[str, Set[str]]]]) -> Tuple[Dict[str, List[Embed]], Dict[str, bool]]:
+	async def check_users(
+		self,
+		prev_status: Dict[str, bool],
+		streamers: Dict[str, Dict[str, Union[str, Set[str]]]]
+	) -> Tuple[Dict[str, List[Embed]], Dict[str, bool]]:
 		"""
-		Checks the status of streamers and sends a message to a determined user if the streamer just got online.
+		Checks the status of streamers and sends a message to a determined user
+		if the streamer just got online.
 
 		Parameters:
 			- prev_status: the last known status of the streamers as bool.
@@ -132,8 +140,12 @@ class Youtube(commands.Cog):
 			try:
 				streams = await loop.run_in_executor(None, streamlink.streams, channel)
 			except streamlink.PluginError as pe:
-				logging.getLogger('streamlink.plugin.youtube').warning("Error raised while checking a stream, skipping to next one.")
-				logging.getLogger('streamlink.plugin.youtube').debug(f"Channel: {channel}\nError:\n{pe}")
+				logging.getLogger('streamlink.plugin.youtube').warning(
+					"Error raised while checking a stream, skipping to next one."
+				)
+				logging.getLogger('streamlink.plugin.youtube').debug(
+					f"Channel: {channel}\nError:\n{pe}"
+				)
 				continue
 			except Exception as e:
 				logger.debug("Error raised while checking a stream, skipping to next one.")
@@ -168,7 +180,7 @@ class Youtube(commands.Cog):
 				# example: https://something......../id/videoid.X/......
 				# where X is a number, but not part of the ID
 				start = url.find('/id/')
-				tmp = url[start+4:]
+				tmp = url[start + 4:]
 				end = tmp.find('.')
 
 				stream_id = tmp[:end]
@@ -177,7 +189,9 @@ class Youtube(commands.Cog):
 
 				nickname = streamer_info['nickname']
 
-				metadata = await loop.run_in_executor(None, lambda: self.ydl.extract_info(stream_url, download=False))
+				metadata = await loop.run_in_executor(
+					None, lambda: self.ydl.extract_info(stream_url, download=False)
+				)
 
 				stream_title = metadata.get('title')
 
@@ -202,7 +216,6 @@ class Youtube(commands.Cog):
 		return messages, prev_status
 
 
-
 def setup(bot):
 	global logger
 	logger = logging.getLogger("CroissantBot")
@@ -217,7 +230,7 @@ def setup(bot):
 		'quiet': True,
 		'no_warnings': True,
 		'default_search': 'auto',
-		'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
+		'source_address': '0.0.0.0'  # bind to ipv4 since ipv6 addresses cause issues sometimes
 	}
 
 	ydl = yt_dl.YoutubeDL(ytdl_options)

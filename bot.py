@@ -17,13 +17,11 @@
 
 
 import os
-import time
 import random
 import asyncio
 import aiohttp
 import logging
 import json
-import subprocess
 
 from customformatter import CustomFormatter
 
@@ -133,7 +131,7 @@ async def close_connection(ctx: commands.Context):
 		if res:
 			logger.debug(f"{VOICE} stop_all executed.")
 	else:
-		logger.error(f"Couldn't get cog 'Music'.")
+		logger.error("Couldn't get cog 'Music'.")
 
 	# Close the meme aiohttp.ClientSession
 	res = False
@@ -164,7 +162,7 @@ async def ping_back(ctx: commands.Context):
 	"""
 	Simple ping command. Has a mini easter egg.
 	"""
-	r = random.randint(1,3)
+	r = random.randint(1, 3)
 	name = "Latency:ping_pong:" if r == 1 else "Latency"
 
 	em = discord.Embed()
@@ -181,7 +179,8 @@ async def ping_back(ctx: commands.Context):
 async def test(ctx: commands.Context):
 	"""
 	Test function.
-	The idea is to not have many different test functions but replace the contents of this one as needed.
+	The idea is to not have many different test functions
+	but change the contents of this one as needed.
 	"""
 	logger.info("This is a test.")
 
@@ -192,7 +191,7 @@ async def test(ctx: commands.Context):
 	aliases=['ver']
 )
 @commands.is_owner()
-async def check_version(ctx: commands.Context, option: str="local"):
+async def check_version(ctx: commands.Context, option: str = "local"):
 	"""
 	Checks the current bot version.
 	Can check the latest release on GitHub.	If the bot's not up to date,
@@ -212,10 +211,10 @@ async def check_version(ctx: commands.Context, option: str="local"):
 	# so it's not possible to get local version if the repo wasn't cloned.
 	try:
 		proc = await asyncio.create_subprocess_shell(
-					'git describe --abbrev=0',
-					stdout=asyncio.subprocess.PIPE,
-					stderr=asyncio.subprocess.PIPE
-				)
+			'git describe --abbrev=0',
+			stdout=asyncio.subprocess.PIPE,
+			stderr=asyncio.subprocess.PIPE
+		)
 		stdout, stderr = await proc.communicate()
 
 		if stdout:
@@ -246,7 +245,7 @@ async def check_version(ctx: commands.Context, option: str="local"):
 	elif option == "remote":
 
 		# Get remote version
-		remote_api_url = "https://api.github.com/repos/JulioLoayzaM/CroissantBot/releases/latest"
+		remote_api_url = "https://api.github.com/repos/JulioLoayzaM/CroissantBot/releases/latest"  # noqa: 501
 		header = {'Accept': "application/vnd.github.v3+json"}
 
 		async with SESSION.get(remote_api_url, headers=header) as response:
@@ -272,19 +271,43 @@ async def check_version(ctx: commands.Context, option: str="local"):
 
 		if local_ver is None:
 
-			em.add_field(name="Current version", value="Could not get the current version", inline=True)
-			em.add_field(name="Latest version", value=f"{remote_ver}", inline=True)
-			em.add_field(name="Changelog", value=f"https://github.com/JulioLoayzaM/CroissantBot/releases", inline=False)
+			em.add_field(
+				name="Current version",
+				value="Could not get the current version",
+				inline=True
+			)
+			em.add_field(
+				name="Latest version",
+				value=f"{remote_ver}",
+				inline=True
+			)
+			em.add_field(
+				name="Changelog",
+				value="https://github.com/JulioLoayzaM/CroissantBot/releases",
+				inline=False
+			)
 			await ctx.send(embed=em)
 
 		else:
 
-			em.add_field(name="Current version", value=f"{local_ver}", inline=True)
-			em.add_field(name="Latest version", value=f"{remote_ver}", inline=True)
+			em.add_field(
+				name="Current version",
+				value=f"{local_ver}",
+				inline=True
+			)
+			em.add_field(
+				name="Latest version",
+				value=f"{remote_ver}",
+				inline=True
+			)
 
 			# MAYBE: add support for release candidates?
 			if local_ver == remote_ver:
-				em.add_field(name="Status", value="Nothing to do, the bot's up to date!", inline=False)
+				em.add_field(
+					name="Status",
+					value="Nothing to do, the bot's up to date!",
+					inline=False
+				)
 
 			elif local_ver < remote_ver:
 
@@ -311,25 +334,43 @@ async def check_version(ctx: commands.Context, option: str="local"):
 				# we get rid of them and add new ones.
 				release_message = release_message.rstrip('\r\n')
 				release_message += "\n\n"
-				release_message += f"Read the release notes in the changelog below or use `{BOT_PREFIX}version notes` to get them here."
+				release_message += f"Read the release notes with `{BOT_PREFIX}version notes` "
+				release_message += "or in the changelog below."
 
-				em.add_field(name="Release message", value=f"{release_message}", inline=False)
+				em.add_field(
+					name="Release message",
+					value=f"{release_message}",
+					inline=False
+				)
 
 				changelog_url = "https://github.com/JulioLoayzaM/CroissantBot/releases"
-				em.add_field(name="Changelog", value=changelog_url, inline=False)
+				em.add_field(
+					name="Changelog",
+					value=changelog_url,
+					inline=False
+				)
 
 			else:
 				status_message = "Your version is more recent than mine! How'd you do that?\n"
-				status_message += "(If you believe this to be an error, don't hesitate to report it in the repo below!)"
-				em.add_field(name="Status", value=status_message, inline=False)
+				status_message += "(If you believe this to be an error, "
+				status_message += "don't hesitate to report it in the repo below!)"
+				em.add_field(
+					name="Status",
+					value=status_message,
+					inline=False
+				)
 
-				em.add_field(name="Repo", value="https://github.com/JulioLoayzaM/CroissantBot", inline=False)
+				em.add_field(
+					name="Repo",
+					value="https://github.com/JulioLoayzaM/CroissantBot",
+					inline=False
+				)
 
 			await ctx.send(embed=em)
 
 	elif option == 'notes':
 
-		remote_api_url = "https://api.github.com/repos/JulioLoayzaM/CroissantBot/releases/latest"
+		remote_api_url = "https://api.github.com/repos/JulioLoayzaM/CroissantBot/releases/latest"  # noqa: 501
 		header = {'Accept': "application/vnd.github.v3+json"}
 
 		async with SESSION.get(remote_api_url, headers=header) as response:
@@ -351,8 +392,9 @@ async def check_version(ctx: commands.Context, option: str="local"):
 	else:
 
 		message = ""
-		message += "- `local`: default, shows the bot's current version\n"
-		message += "- `remote`: shows both the current and the latest version, with some extra info if available.\n"
+		message += "- `local`: default, shows the bot's current version.\n"
+		message += "- `remote`: shows the current and the latest version, \
+			indicates if an update is available.\n"
 		message += "- `notes`: shows the release notes of the latest version.\n"
 		message += "- anything else: shows this help message."
 		em = discord.Embed(
@@ -391,8 +433,9 @@ async def check_token() -> bool:
 	if (status == 401) or (TW_EXPIRES_IN < 200):
 
 		logger.info(f"Current {PURPLE}TW_TOKEN{ENDC} is invalid, getting a new one.")
-		logger.debug(f"Status: {status}, TW_EXPIRES_IN: {TW_EXPIRES_IN}, message: \"{data.get('message', 'no message')}\"")
-		
+		logger.debug(f"Status: {status}, TW_EXPIRES_IN: {TW_EXPIRES_IN}")
+		logger.debug(f"Message: {data.get('message', 'no message')}")
+
 		client_id = os.getenv('TW_CLIENT_ID')
 		client_secret = os.getenv('TW_CLIENT_SECRET')
 
@@ -425,6 +468,7 @@ async def check_token() -> bool:
 		TW_TOKEN = new_token
 
 	return True
+
 
 async def init_twitch() -> bool:
 	"""
@@ -461,7 +505,7 @@ async def init_twitch() -> bool:
 	token_status = await check_token()
 
 	if not token_status:
-		logger.error(f"Could not check validity of TW_TOKEN.")
+		logger.error("Could not check validity of TW_TOKEN.")
 		return False
 
 	TW_STREAMERS = twitch.init_streamers(ids)
@@ -480,6 +524,7 @@ async def init_twitch() -> bool:
 
 	return True
 
+
 @loop(minutes=TW_FREQUENCY)
 async def check_twitch():
 	"""
@@ -497,7 +542,7 @@ async def check_twitch():
 		return
 
 	# TW_FREQUENCY minutes have passed
-	TW_EXPIRES_IN -= TW_FREQUENCY*60
+	TW_EXPIRES_IN -= TW_FREQUENCY * 60
 
 	if TW_EXPIRES_IN < 200:
 		check = await check_token()
@@ -508,7 +553,9 @@ async def check_twitch():
 		logger.warning("TW_TOKEN refresh failed, skipping current check.")
 		return
 
-	messages, TW_PREV_STATUS = await twitch.check_users(TW_PREV_STATUS, TW_STREAMERS, TW_TOKEN, SESSION)
+	messages, TW_PREV_STATUS = await twitch.check_users(
+		TW_PREV_STATUS, TW_STREAMERS, TW_TOKEN, SESSION
+	)
 
 	if messages is None:
 		logger.warning("Error checking twitch, waiting for next iteration.")
@@ -523,6 +570,7 @@ async def check_twitch():
 
 			await user.send(embed=message)
 			logger.debug(f"{PURPLE}TW Notif{ENDC} sent to {user.name}: \"{message.title}\"")
+
 
 @check_twitch.before_loop
 async def check_twitch_before():
@@ -563,6 +611,7 @@ def init_youtube():
 
 	YT_PREV_STATUS = youtube.init_status(YT_STREAMERS)
 
+
 @loop(minutes=TW_FREQUENCY)
 async def check_youtube():
 	"""
@@ -598,6 +647,7 @@ async def check_youtube():
 			await user.send(embed=message)
 			logger.debug(f"{PURPLE}YT Notif{ENDC} sent to {user.name}: \"{message.title}\"")
 
+
 @check_youtube.before_loop
 async def check_youtube_before():
 	"""
@@ -618,7 +668,11 @@ async def on_command_error(ctx: commands.Context, error: commands.CommandError):
 	"""
 
 	if isinstance(error, commands.CommandNotFound):
-		em = discord.Embed(title="Error", description=f"Command not found, try `{BOT_PREFIX}help`", color=ctx.author.color)
+		em = discord.Embed(
+			title="Error",
+			description=f"Command not found, try `{BOT_PREFIX}help`",
+			color=ctx.author.color
+		)
 		await ctx.send(embed=em)
 
 	elif isinstance(error, commands.NoPrivateMessage):
@@ -629,7 +683,6 @@ async def on_command_error(ctx: commands.Context, error: commands.CommandError):
 
 	else:
 		logger.error(f"Unexpected command error:\n{error}")
-
 
 
 def setup_loggers():
@@ -659,17 +712,29 @@ def setup_loggers():
 	standard_handler.setFormatter(CustomFormatter())
 
 	# Handler - writes INFO logging to file
-	info_handler = TimedRotatingFileHandler(LOG_INFO_FILE, when='midnight', backupCount=LOG_COUNT)
+	info_handler = TimedRotatingFileHandler(
+		LOG_INFO_FILE,
+		when='midnight',
+		backupCount=LOG_COUNT
+	)
 	info_handler.setLevel(logging.INFO)
 	info_handler.setFormatter(CustomFormatter())
 
 	# Handler - writes DEBUG logging to file
-	debug_handler = TimedRotatingFileHandler(LOG_DEBUG_FILE, when='midnight', backupCount=LOG_COUNT)
+	debug_handler = TimedRotatingFileHandler(
+		LOG_DEBUG_FILE,
+		when='midnight',
+		backupCount=LOG_COUNT
+	)
 	debug_handler.setLevel(logging.DEBUG)
 	debug_handler.setFormatter(CustomFormatter())
-	
+
 	# Handler - writes DEBUG discord logging to file
-	discord_debug_handler = TimedRotatingFileHandler(LOG_DISCORD_FILE, when='midnight', backupCount=LOG_COUNT)
+	discord_debug_handler = TimedRotatingFileHandler(
+		LOG_DISCORD_FILE,
+		when='midnight',
+		backupCount=LOG_COUNT
+	)
 	discord_debug_handler.setLevel(logging.DEBUG)
 	discord_debug_handler.setFormatter(CustomFormatter())
 
@@ -684,12 +749,16 @@ def setup_loggers():
 
 def fix_logger():
 	"""
-	Fixes some annoyances caused by streamlink's logging, namely writing unused error messages
-	to STDOUT and changing the levelnames to lowercase.
+	Fixes some annoyances caused by streamlink's logging, namely writing unused
+	error messages to STDOUT and changing the levelnames to lowercase.
 	"""
 
 	# Move streamlink logs to a file
-	streamlink_handler = TimedRotatingFileHandler(LOG_STREAMLINK_FILE, when='midnight', backupCount=LOG_COUNT)
+	streamlink_handler = TimedRotatingFileHandler(
+		LOG_STREAMLINK_FILE,
+		when='midnight',
+		backupCount=LOG_COUNT
+	)
 	streamlink_handler.setLevel(logging.DEBUG)
 	logging.getLogger('streamlink').addHandler(streamlink_handler)
 
@@ -713,9 +782,9 @@ def main(loop: asyncio.AbstractEventLoop):
 	"""
 	Sets up the bot's start:
 		- Sets up the loggers
-		- Loads the required cogs: misc, music and meme	
+		- Loads the required cogs: misc, music and meme
 		- Loads the twitch and youtube cogs if enabled through .env
-		- Starts their corresponding check function 
+		- Starts their corresponding check function
 		- Starts running the bot
 	"""
 

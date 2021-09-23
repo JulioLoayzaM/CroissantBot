@@ -12,10 +12,8 @@
 # See the LICENSE file for more details.
 
 
-import asyncio
 import aiohttp
 import logging
-import json
 
 from os import getenv
 from typing import Dict, Tuple, List, Set
@@ -32,11 +30,11 @@ TW_CID = getenv('TW_CLIENT_ID')
 # 'CroissantBot' logger
 logger = None
 
+
 class Twitch(commands.Cog):
 
 	def __init__(self, bot: commands.Bot):
 		self.bot = bot
-
 
 	def init_streamers(self, ids: Dict[str, List[str]]) -> Dict[str, Set[str]]:
 		"""
@@ -80,7 +78,6 @@ class Twitch(commands.Cog):
 
 		return streamers
 
-
 	def init_status(self, streamers: Dict[str, Set[str]]) -> Dict[str, bool]:
 		"""
 		Initializes the streamers' status as False/offline.
@@ -103,10 +100,16 @@ class Twitch(commands.Cog):
 
 		return status
 
-
-	async def check_users(self, prev_status: Dict[str, bool], streamers: Dict[str, List[str]], token: str, session: aiohttp.ClientSession) -> Tuple[Dict[str, Embed], Dict[str, bool]]:
+	async def check_users(
+		self,
+		prev_status: Dict[str, bool],
+		streamers: Dict[str, List[str]],
+		token: str,
+		session: aiohttp.ClientSession
+	) -> Tuple[Dict[str, Embed], Dict[str, bool]]:
 		"""
-		Checks the status of streamers and sends a message to a determined user if the streamer just got online.
+		Checks the status of streamers and sends a message to a determined user
+		if the streamer just got online.
 
 		Parameters:
 			- prev_status: the last known status of the streamers as bool.
@@ -121,7 +124,7 @@ class Twitch(commands.Cog):
 		"""
 
 		headers = {
-			'Client-ID' : TW_CID,
+			'Client-ID': TW_CID,
 			'Authorization': f'Bearer {token}'
 		}
 
@@ -139,7 +142,7 @@ class Twitch(commands.Cog):
 			async with session.get(url, headers=headers) as response:
 				jsondata = await response.json()
 		except Exception as e:
-			logger.error(f"Error GETting twitch streamers info.")
+			logger.error("Error GETting twitch streamers info.")
 			logger.debug(f"Unexpected exception:\n{e}")
 			logger.warning("Skipping current check.")
 			return (None, prev_status)
@@ -151,11 +154,11 @@ class Twitch(commands.Cog):
 			message = jsondata.get('message')
 			logger.error("Can't reach Twitch API endpoint.")
 
-			# 401 means missing or invalid access token - return and get another token during the next check
+			# 401 means missing or invalid access token:
+			# return and get another token during the next check
 			logger.debug(f"Status {status}: {error}:{message}")
 			logger.warning("Skipping current check.")
 			return (None, prev_status)
-
 
 		# data is a list of streams
 		data = jsondata.get('data', list())
@@ -176,7 +179,8 @@ class Twitch(commands.Cog):
 
 			stream_url = f"https://www.twitch.tv/{streamer}"
 
-			# example: https://static-cdn.jtvnw.net/previews-ttv/live_user_username-{width}x{height}.jpg
+			# example:
+			# https://static-cdn.jtvnw.net/previews-ttv/live_user_username-{width}x{height}.jpg
 			temp: str = stream['thumbnail_url']
 			# Since we don't need/want to specify the width/height, we remove it from the url
 			thumbnail: str = temp.replace("-{width}x{height}", "")
@@ -200,7 +204,6 @@ class Twitch(commands.Cog):
 			prev_status[streamer] = (streamer in online_streamers)
 
 		return messages, prev_status
-
 
 
 def setup(bot):
