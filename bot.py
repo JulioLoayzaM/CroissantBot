@@ -161,12 +161,40 @@ async def close_connection(ctx: commands.Context):
 async def ping_back(ctx: commands.Context):
 	"""
 	Simple ping command. Has a mini easter egg.
+	If the bot is connected to a voice channel, sends the current and average latency.
 	"""
 	r = random.randint(1, 3)
+	# Mini easter egg
 	name = "Latency:ping_pong:" if r == 1 else "Latency"
 
 	em = discord.Embed()
-	em.add_field(name=name, value=f"{round(bot.latency*1000)} ms")
+	em.add_field(
+		name=name,
+		value=f"{round(bot.latency * 1000)} ms",
+		inline=False
+	)
+
+	music = bot.get_cog('Music')
+
+	if music is not None:
+
+		res = await music.get_latency(ctx)
+
+		if res is not None:
+
+			latency, average = res
+
+			if latency != float('inf'):
+				em.add_field(
+					name="Voice latency",
+					value=f"{round(latency * 1000)} ms"
+				)
+
+			if average != float('inf'):
+				em.add_field(
+					name="Voice average latency",
+					value=f"{round(average * 1000)} ms"
+				)
 
 	await ctx.send(embed=em)
 

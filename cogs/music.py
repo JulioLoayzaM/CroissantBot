@@ -1248,6 +1248,25 @@ class Music(commands.Cog):
 					vc.cleanup()
 					logger.debug(f"{VOICE} Left \"{channel}\"")
 
+	async def get_latency(self, ctx: commands.Context) -> Union[Tuple[float, float], None]:
+		"""
+		Gets the voice latency to be used by ping.
+
+		Returns:
+			- the current latency and the average of last 20 heartbeats,
+				or None if the bot is not connected.
+		"""
+
+		vc = ctx.message.guild.voice_client
+
+		if vc is None:
+			return None
+
+		if vc.is_connected:
+			return (vc.latency, vc.average_latency)
+		else:
+			return None
+
 
 class MaxDurationError(Exception):
 	"""Raised when video length is greater than MAX_DURATION."""
