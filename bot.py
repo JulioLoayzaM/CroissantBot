@@ -109,7 +109,14 @@ bot = commands.Bot(command_prefix=BOT_PREFIX, intents=intents)
 
 @bot.event
 async def on_ready():
+	"""
+	Informs when the bot is connected, logs the guilds it's currently connected to.
+	"""
 	logger.info(f"{GREEN}{bot.user.name} online and connected to Discord.{ENDC}")
+	guilds = ""
+	for guild in bot.guilds:
+		guilds += guild.name + ', '
+	logger.debug(f"{GREEN}Connected to:{ENDC} {guilds[:-2]}.")
 
 
 @bot.command(
@@ -712,6 +719,17 @@ async def on_command_error(ctx: commands.Context, error: commands.CommandError):
 
 	else:
 		logger.error(f"Unexpected command error:\n{error}")
+
+
+@bot.event
+async def on_guild_join(guild: discord.Guild):
+	"""
+	Logs any new guilds the bot has joined.
+
+	Parameters:
+		- the joined guild.
+	"""
+	logger.debug(f"Joined a guild: {guild.name}.")
 
 
 def setup_loggers():
