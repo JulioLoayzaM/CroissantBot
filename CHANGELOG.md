@@ -1,5 +1,17 @@
 # Changelog
 
+## CroissantBot 1.1.2 (2021-09-28)
+
+Source code met `flake8`, `ping` now shows latency, guild names are now logged.
+
+### Patch notes
+
+- added: using `ping` when the bot is connected to a voice channel shows its latency.
+- added: `on_guild_join`, logs any newly joined guild.
+- added: `on_ready` now logs the list of currently joined guilds.
+- added: `exit` now sends a message before closing the bot.
+- changed: every `.py` file has gone through `flake8`.
+
 ## CroissantBot 1.1.1 (2021-09-22)
 
 Small fix for `version`, better `ping`.
