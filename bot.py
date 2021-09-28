@@ -69,7 +69,7 @@ LOG_DISCORD_FILE = os.getenv('LOG_DISCORD')
 LOG_COUNT = int(os.getenv('LOG_COUNT'))
 
 
-# Colours for formatting console text - almost deprecated with the introduction of logging
+# Colours for formatting console text
 HEADER    = '\033[95m'
 BLUE      = '\033[94m'
 CYAN      = '\033[96m'
@@ -86,7 +86,7 @@ VOICE = f"{BLUE}[voice]{ENDC}"
 
 
 # Create global variables for check_twitch/youtube
-# Initialized with init_twitch/youtube
+# Initialized by init_twitch/youtube
 TW_PREV_STATUS = dict()
 TW_STREAMERS   = dict()
 YT_PREV_STATUS = dict()
@@ -147,6 +147,7 @@ async def close_connection(ctx: commands.Context):
 	await SESSION.close()
 	logger.debug(f"{WARNING}Closed:{ENDC} Global aiohttp.ClientSession.")
 
+	await ctx.send("I'm leaving!")
 	# Close the bot
 	await bot.close()
 	logger.info(f"{GREEN}Bot offline.{ENDC}\n")
@@ -156,7 +157,7 @@ async def close_connection(ctx: commands.Context):
 
 @bot.command(
 	name="ping",
-	help="Pings the bot"
+	help="Pings the bot, shows its current latency"
 )
 async def ping_back(ctx: commands.Context):
 	"""
