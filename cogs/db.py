@@ -130,6 +130,32 @@ class DatabaseConnection():
 		if result != "INSERT 0 1":
 			raise DbInsertError("Could not insert a song.", result, values)
 
+	async def get_song_id(
+		self,
+		song: Song
+	) -> Union[int, None]:
+		"""
+		Get the database ID of a song.
+
+		:param song:
+			The song to search for.
+		:type song: Song
+
+		:return:
+			The ID of the song if it exists, None otherwise.
+		:rtype: Union[int, None]
+		"""
+
+		query = """
+			SELECT song_id
+			FROM songs
+			WHERE url = $1;
+		"""
+
+		song_id: Union[int, None] = await self.conn.fetchval(query, song.url)
+
+		return song_id
+
 	async def song_exists(
 		self,
 		song: Song
@@ -245,7 +271,7 @@ class DatabaseConnection():
 		:rtype: str
 		"""
 
-		if not self.playlist_exists(playlist_title, user_id):
+		if not await self.playlist_exists(playlist_title, user_id):
 			try:
 				self.create_playlist(playlist_title, user_id)
 			except DbInsertError as error:
@@ -254,7 +280,7 @@ class DatabaseConnection():
 				self.logger.debug(rest)
 				return "An error occured while creating the playlist."
 
-		if not self.song_exists(song):
+		if not await self.song_exists(song):
 			try:
 				self.insert_song(song)
 			except DbInsertError as error:
@@ -263,7 +289,7 @@ class DatabaseConnection():
 				self.logger.debug(rest)
 				return "An error occured while adding the song."
 
-		if not self.song_matches_playlist(song, playlist_title, user_id):
+		if not await self.song_matches_playlist(song, playlist_title, user_id):
 			try:
 				self.match_song_to_playlist(song, playlist_title, user_id)
 			except DbInsertError as error:
@@ -273,6 +299,39 @@ class DatabaseConnection():
 				return "An error occured while adding the song."
 
 		return f"Added {song.title} to {playlist_title}."
+
+	async def get_playlist_id(
+		self,
+		playlist_title: str,
+		owner_id: str
+	) -> Union[int, None]:
+		"""
+		Get the database ID of a playlist.
+
+		:param playlist_title:
+			The title of the playlist to search for.
+		:type playlist_title: str
+
+		:param owner_id:
+			The ID of the owner of the playlist.
+		:type owner_id: str
+
+		:return:
+			The ID of the playlist if it exists, None otherwise.
+		:rtype: Union[int, None]
+		"""
+
+		query = """
+			SELECT list_id
+			FROM playlists
+			WHERE title = $1 AND owner_id = $2;
+		"""
+
+		values = (playlist_title, owner_id)
+
+		playlist_id: Union[int, None] = await self.conn.fetchval(query, *values)
+
+		return playlist_id
 
 	async def playlist_exists(
 		self,
