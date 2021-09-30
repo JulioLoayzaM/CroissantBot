@@ -107,7 +107,7 @@ class DatabaseConnection():
 	async def insert_song(
 		self,
 		song: Song
-	) -> bool:
+	):
 		"""
 		Inserts a song in the database.
 
@@ -115,9 +115,8 @@ class DatabaseConnection():
 			The song to insert.
 		:type song: Song
 
-		:return:
-			True if the song was successfully inserted, False otherwise.
-		:rtype: bool
+		:raises DbInsertError:
+			Raised when an error inserting a song occurs.
 		"""
 
 		query = """
@@ -128,8 +127,8 @@ class DatabaseConnection():
 
 		result = await self.conn.execute(query, *values)
 
-		if result == "INSERT 0 1":
-			return True
+		if result != "INSERT 0 1":
+			raise DbInsertError("Could not insert a song.", result, values)
 
 		else:
 			self.logger.error("Could not insert song into database.")
@@ -140,7 +139,7 @@ class DatabaseConnection():
 		self,
 		title: str,
 		owner_id: str
-	) -> bool:
+	):
 		"""
 		Creates a new playlist.
 
@@ -152,9 +151,8 @@ class DatabaseConnection():
 			The discord ID of the user using the command, who owns this playlist.
 		:type owner_id: str
 
-		:return:
-			True if the playlist was created, False otherwise.
-		:rtype: bool
+		:raises DbInsertError:
+			Raised when an error creating a playlist occurs.
 		"""
 
 		query = """
@@ -166,13 +164,8 @@ class DatabaseConnection():
 
 		result = await self.conn.execute(query, *values)
 
-		if result == "INSERT 0 1":
-			return True
-
-		else:
-			self.logger.error("Could not create a playlist.")
-			self.logger.debug(f"{result}\n{values}")
-			return False
+		if result != "INSERT 0 1":
+			raise DbInsertError("Could not create a playlist.", result, values)
 
 	async def get_playlists(
 		self,
