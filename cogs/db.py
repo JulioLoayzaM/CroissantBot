@@ -130,10 +130,30 @@ class DatabaseConnection():
 		if result != "INSERT 0 1":
 			raise DbInsertError("Could not insert a song.", result, values)
 
-		else:
-			self.logger.error("Could not insert song into database.")
-			self.logger.debug(f"{result}\n{values}")
-			return False
+	async def song_exists(
+		self,
+		song: Song
+	) -> bool:
+		"""
+		Check if a song exists in the database.
+
+		:param song:
+			The song to search for.
+		:type song: Song
+
+		:return:
+			True if the song exists, False otherwise.
+		:rtype: bool
+		"""
+
+		query = """
+			SELECT exists(SELECT * FROM songs WHERE url = $1);
+		"""
+
+		result: bool = await self.conn.fetchval(query, song.url)
+
+		# TODO: check if title and thumbnail are up to date.
+		return result
 
 	async def create_playlist(
 		self,
@@ -199,3 +219,95 @@ class DatabaseConnection():
 
 		return titles
 
+	async def add_song_to_playlist(
+		self,
+		song: Song,
+		playlist_title: str,
+		user_id: str
+	) -> str:
+		"""
+		Add a song to a playlist if it's owned by the calling user.
+
+		:param song:
+			The song to add.
+		:type song: Song
+
+		:param playlist_title:
+			The title of the playlist to add the song to.
+		:type playlist_title: str
+
+		:param user_id:
+			The discord ID of the calling user.
+		:type user_id: str
+
+		:return:
+			A message to send to the calling user.
+		:rtype: str
+		"""
+
+		if not self.playlist_exists(playlist_title, user_id):
+			try:
+				self.create_playlist(playlist_title, user_id)
+			except DbInsertError as error:
+				message, *rest = error.args
+				self.logger.error(message)
+				self.logger.debug(rest)
+				return "An error occured while creating the playlist."
+
+		if not self.song_exists(song):
+			try:
+				self.insert_song(song)
+			except DbInsertError as error:
+				message, *rest = error.args
+				self.logger.error(message)
+				self.logger.debug(rest)
+				return "An error occured while adding the song."
+
+		if not self.song_matches_playlist(song, playlist_title, user_id):
+			try:
+				self.match_song_to_playlist(song, playlist_title, user_id)
+			except DbInsertError as error:
+				message, *rest = error.args
+				self.logger.error(message)
+				self.logger.debug(rest)
+				return "An error occured while adding the song."
+
+		return f"Added {song.title} to {playlist_title}."
+
+	async def playlist_exists(
+		self,
+		playlist_title: str,
+		owner_id: str
+	) -> bool:
+		"""
+		Check if a playlist exists in the database.
+
+		:param playlist_title:
+			The title of the playlist to search for.
+		:type playlist_title: str
+
+		:param owner_id:
+			The discord ID of the calling user.
+		:type owner_id: str
+
+		:return:
+			True if a playlist with that title and owner exists.
+		:rtype: bool
+		"""
+
+		query = """
+			SELECT exists(SELECT * FROM playlists WHERE title = $1 AND owner_id = $2);
+		"""
+
+		values = (playlist_title, owner_id)
+
+		result: bool = await self.conn.fetchval(query, *values)
+
+		return result
+
+
+class DbInsertError(Exception):
+	"""
+	Raised when an error related to INSERT occurs.
+	"""
+	pass
