@@ -172,13 +172,60 @@ class DatabaseConnection():
 		:rtype: bool
 		"""
 
-		query = """
-			SELECT exists(SELECT * FROM songs WHERE url = $1);
-		"""
+		song_id: Union[int, None] = await self.get_song_id(song)
 
-		result: bool = await self.conn.fetchval(query, song.url)
+		if song_id is None:
+			return False
 
 		# TODO: check if title and thumbnail are up to date.
+		return True
+
+	async def song_matches_playlist(
+		self,
+		song: Song,
+		playlist_title: str,
+		owner_id: str
+	) -> bool:
+		"""
+		Check if a song is matched to a playlist in songs_in_lists.
+
+		:param song:
+			The song to check.
+		:type song: Song
+
+		:param playlist_title:
+			The title of the playlist to check.
+		:type playlist: str
+
+		:param owner_id:
+			The owner of the playlist to check.
+		:type owner_id: str
+
+		:return:
+			True if the song and the playlist are matched, False otherwise.
+		:rtype: bool
+		"""
+
+		song_id = await self.get_song_id(song)
+		if song_id is None:
+			return False
+
+		playlist_id = await self.get_playlist_id(playlist_title, owner_id)
+		if playlist_id is None:
+			return False
+
+		query = """
+			SELECT exists(
+				SELECT *
+				FROM songs_in_lists
+				WHERE song_id = $1 AND list_id = $2
+			);
+		"""
+
+		values = (song_id, playlist_id)
+
+		result: bool = await self.conn.fetchval(query, *values)
+
 		return result
 
 	async def create_playlist(
