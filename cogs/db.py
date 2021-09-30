@@ -8,10 +8,7 @@ import asyncpg
 import logging
 
 from .song import Song
-
-# from dotenv import load_dotenv
-# from os import getenv
-# from typing import Union
+from typing import List, Union
 
 
 # Colours for logs.
@@ -93,7 +90,8 @@ class DatabaseConnection():
 		"""
 		Closes the connection to the database.
 
-		:returns: True if the connection was closed, False if there was no connection to close.
+		:return:
+			True if the connection was closed, False if there was no connection to close.
 		:rtype: bool
 		"""
 
@@ -117,8 +115,9 @@ class DatabaseConnection():
 			The song to insert.
 		:type song: Song
 
-		:returns True if the song was successfully inserted, False otherwise:
-		:rtype bool:
+		:return:
+			True if the song was successfully inserted, False otherwise.
+		:rtype: bool
 		"""
 
 		query = """
@@ -153,8 +152,9 @@ class DatabaseConnection():
 			The discord ID of the user using the command, who owns this playlist.
 		:type owner_id: str
 
-		:returns True if the playlist was created, False otherwise:
-		:rtype bool:
+		:return:
+			True if the playlist was created, False otherwise.
+		:rtype: bool
 		"""
 
 		query = """
@@ -170,6 +170,39 @@ class DatabaseConnection():
 			return True
 
 		else:
-			self.logger.error("Could not insert song into database.")
+			self.logger.error("Could not create a playlist.")
 			self.logger.debug(f"{result}\n{values}")
 			return False
+
+	async def get_playlists(
+		self,
+		owner_id: str
+	) -> Union[List[str], None]:
+		"""
+		Get all playlists owned by a specific user.
+
+		:param owner_id:
+			The discord ID of the user to search for.
+		:type owner_id: str
+
+		:return:
+			A list of the title of each playlist the user owns if any, None otherwise.
+		:rtype: Union[List[str], None]
+		"""
+
+		query = """
+			SELECT title FROM playlists
+			WHERE owner_id = ($1);
+		"""
+
+		results = await self.conn.fetch(query, owner_id)
+
+		if len(results) == 0:
+			return None
+
+		titles: List[str] = list()
+		for result in results:
+			titles.append(result.get('title'))
+
+		return titles
+
