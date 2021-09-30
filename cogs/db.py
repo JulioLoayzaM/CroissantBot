@@ -127,6 +127,49 @@ class DatabaseConnection():
 		"""
 		values = (song.title, song.url, song.thumbnail)
 
-		res = await self.conn.execute(query, *values)
+		result = await self.conn.execute(query, *values)
 
-		return res == "INSERT 0 1"
+		if result == "INSERT 0 1":
+			return True
+
+		else:
+			self.logger.error("Could not insert song into database.")
+			self.logger.debug(f"{result}\n{values}")
+			return False
+
+	async def create_playlist(
+		self,
+		title: str,
+		owner_id: str
+	) -> bool:
+		"""
+		Creates a new playlist.
+
+		:param title:
+			The name of the playlist
+		:type title: str
+
+		:param owner_id:
+			The discord ID of the user using the command, who owns this playlist.
+		:type owner_id: str
+
+		:returns True if the playlist was created, False otherwise:
+		:rtype bool:
+		"""
+
+		query = """
+			INSERT INTO playlists(list_id, title, owner_id)
+			VALUES (nextval('playlists_list_id_seq', $1, $2));
+		"""
+
+		values = (title, owner_id)
+
+		result = await self.conn.execute(query, *values)
+
+		if result == "INSERT 0 1":
+			return True
+
+		else:
+			self.logger.error("Could not insert song into database.")
+			self.logger.debug(f"{result}\n{values}")
+			return False
