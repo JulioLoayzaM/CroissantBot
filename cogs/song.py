@@ -17,3 +17,6 @@ class Song():
 		self.file  = file
 		self.url   = url
 		self.thumbnail = thumbnail
+
+	def __str__(self):
+		return f"{self.title} - {self.url}"
