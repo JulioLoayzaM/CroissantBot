@@ -129,7 +129,7 @@ class DatabaseConnection():
 			await self.conn.execute(query, *values)
 		except Exception as error:
 			self.logger.debug(error)
-			raise DbInsertError("Could not insert a song.", values)
+			raise DbInsertError("Could not insert a song.", str(song))
 
 	async def get_song_id(
 		self,
@@ -156,6 +156,82 @@ class DatabaseConnection():
 		song_id: Union[int, None] = await self.conn.fetchval(query, song.url)
 
 		return song_id
+
+	async def get_titles(
+		self,
+		song_ids: List[int]
+	) -> List[str]:
+		"""
+		Get the titles of a list of songs.
+
+		:param song_ids:
+			A list of song IDs to get. It SHOULD NOT be empty, and the IDs SHOULD be in songs.
+		:type song_ids: List[int]
+
+		:return:
+			A list of the corresponding song titles. Since the IDs SHOULD be in the database,
+			no value should be empty. However, no check is done at this point.
+		:rtype: List[str]
+		"""
+
+		query = """
+			SELECT title
+			FROM songs
+			WHERE song_id = $1;
+		"""
+
+		titles: List[str] = list()
+		for sid in song_ids:
+			titles.append(await self.conn.fetchval(query, sid))
+
+		return titles
+
+	async def get_songs_in_playlist(
+		self,
+		playlist_title: str,
+		owner_id: str
+	) -> Union[List[str], None]:
+		"""
+		Get the title of all songs in a specific playlist.
+
+		:param playlist_title:
+			The title of the playlist to get the songs from.
+		:type playlist_title: str
+
+		:param owner_id:
+			The discord ID of the owner of the playlist.
+		:type owner_id: str
+
+		:return:
+			A list of the titles of all the songs in the playlist, or None the playlist
+			doesn't exist, or it doesn't have any songs.
+		:rtype: Union[List[str], None]
+		"""
+
+		playlist_id = await self.get_playlist_id(playlist_title, owner_id)
+		if playlist_id is None:
+			return None
+
+		query = """
+			SELECT song_id
+			FROM songs_in_lists
+			WHERE list_id = $1;
+		"""
+
+		results = await self.conn.fetch(query, playlist_id)
+
+		if len(results) == 0:
+			return None
+
+		ids: List[int] = list()
+		for result in results:
+			ids.append(result.get('song_id'))
+
+		songs = await self.get_titles(ids)
+		if len(songs) == 0:
+			return None
+		else:
+			return songs
 
 	async def song_exists(
 		self,
@@ -229,16 +305,73 @@ class DatabaseConnection():
 
 		return result
 
+	async def match_song_to_playlist(
+		self,
+		song: Song,
+		playlist_title: str,
+		owner_id: str
+	):
+		"""
+		Match a song to a playlist, ie. create a row in songs_in_lists.
+
+		:param song:
+			The song to match. It must already be in the database.
+		:type song: Song
+
+		:param playlist_title:
+			The title of the playlist to match. It must already be in the database.
+		:type playlist: str
+
+		:param owner_id:
+			The owner of the playlist to match. It must already be in the database.
+		:type owner_id: str
+		"""
+
+		song_id = await self.get_song_id(song)
+		if song_id is None:
+			raise DbInsertError(
+				"Can't match a song that's not in the database.",
+				str(song)
+			)
+
+		playlist_id = await self.get_playlist_id(playlist_title, owner_id)
+		if playlist_id is None:
+			raise DbInsertError(
+				"Can't match a playlist that's not in the database.",
+				playlist_title,
+				owner_id
+			)
+
+		query = """
+			INSERT INTO songs_in_lists(song_id, list_id)
+			VALUES ($1, $2);
+		"""
+
+		values = (song_id, playlist_id)
+
+		try:
+			await self.conn.execute(query, *values)
+		except Exception as error:
+			self.logger.debug(error)
+			raise DbInsertError(
+				"Could not match song with playlist.",
+				f"song_id: {song_id}",
+				f"playlist_id: {playlist_id}",
+				str(song),
+				f"title: {playlist_title}",
+				f"owner_id: {owner_id}"
+			)
+
 	async def create_playlist(
 		self,
 		title: str,
 		owner_id: str
 	):
 		"""
-		Creates a new playlist.
+		Create a new playlist if one with that title and owner doesn't already exist.
 
 		:param title:
-			The name of the playlist
+			The name of the playlist.
 		:type title: str
 
 		:param owner_id:
@@ -246,21 +379,28 @@ class DatabaseConnection():
 		:type owner_id: str
 
 		:raises DbInsertError:
-			Raised when an error creating a playlist occurs.
+			Raised when an error occurs while creating the list or when the playlist
+			already exists.
 		"""
+
+		exists = await self.playlist_exists(title, owner_id)
+
+		values = (title, owner_id)
+
+		if exists:
+			raise DbInsertError("A playlist with that name already exists!", values)
 
 		query = """
 			INSERT INTO playlists(list_id, title, owner_id)
 			VALUES (nextval('playlists_list_id_seq', $1, $2));
 		"""
 
-		values = (title, owner_id)
-
 		try:
 			await self.conn.execute(query, *values)
+
 		except Exception as error:
 			self.logger.debug(error)
-			raise DbInsertError("Could not create a playlist.", values)
+			raise DbInsertError("Could not create the playlist.", values)
 
 	async def get_playlists(
 		self,
@@ -320,14 +460,17 @@ class DatabaseConnection():
 		:rtype: str
 		"""
 
+		# Notify the user when a playlist is created.
+		pre = ""
 		if not await self.playlist_exists(playlist_title, user_id):
 			try:
 				self.create_playlist(playlist_title, user_id)
+				pre = f"Created playlist {playlist_title}.\n"
 			except DbInsertError as error:
 				message, *rest = error.args
 				self.logger.error(message)
 				self.logger.debug(rest)
-				return "An error occured while creating the playlist."
+				return message
 
 		if not await self.song_exists(song):
 			try:
@@ -347,7 +490,7 @@ class DatabaseConnection():
 				self.logger.debug(rest)
 				return "An error occured while adding the song."
 
-		return f"Added {song.title} to {playlist_title}."
+		return f"{pre}Added {song.title} to {playlist_title}."
 
 	async def get_playlist_id(
 		self,
