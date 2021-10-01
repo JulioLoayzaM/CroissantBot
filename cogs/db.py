@@ -125,10 +125,11 @@ class DatabaseConnection():
 		"""
 		values = (song.title, song.url, song.thumbnail)
 
-		result = await self.conn.execute(query, *values)
-
-		if result != "INSERT 0 1":
-			raise DbInsertError("Could not insert a song.", result, values)
+		try:
+			await self.conn.execute(query, *values)
+		except Exception as error:
+			self.logger.debug(error)
+			raise DbInsertError("Could not insert a song.", values)
 
 	async def get_song_id(
 		self,
@@ -255,10 +256,11 @@ class DatabaseConnection():
 
 		values = (title, owner_id)
 
-		result = await self.conn.execute(query, *values)
-
-		if result != "INSERT 0 1":
-			raise DbInsertError("Could not create a playlist.", result, values)
+		try:
+			await self.conn.execute(query, *values)
+		except Exception as error:
+			self.logger.debug(error)
+			raise DbInsertError("Could not create a playlist.", values)
 
 	async def get_playlists(
 		self,
