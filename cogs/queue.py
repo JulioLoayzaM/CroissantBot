@@ -67,22 +67,29 @@ class SongQueue():
 		"""
 		Removes the song queue[index].
 
-		Raises:
-			- IndexError if index is out of range.
+		Parameters:
+			- index: the index of the song to remove.
+		Returns:
+			- A bool indicating the result of the operation.
+			- A message to pass to the user: a reason if an error occured,
+				or the title of the song if not.
 		"""
+		size = self.get_size()
 
 		if self.is_empty():
 			return False, "The queue is empty."
 
-		elif 1 <= index <= len(self.songs):
-			song = self.songs.pop(index - 1)
-			if song is not None:
-				return True, f"{song.title}"
-			else:
-				return False, "Could not remove the song, check if the index is correct."
+		elif index < 1:
+			return False, "Index can't be lower than 1."
+
+		elif index > size:
+			return False, f"There's no song with that index! The queue has {size} songs."
 
 		else:
-			raise IndexError
+			song = self.pop(index)
+			# Since the index is pre-checked, there sould be no need to check
+			# if song is None.
+			return True, f"{song.title}"
 
 	def insert(self, song: Song, index: int) -> str:
 		"""
@@ -123,25 +130,23 @@ class SongQueue():
 			- IndexError if indexes out of range
 		"""
 
+		size = self.get_size()
+
 		if self.is_empty():
-			return "The queue is empty, can't move."
+			return "The queue is empty!"
 
-		elif index2 < 1 or index2 > len(self.songs):
-			return f"Index out of range, the current size of the queue is {len(self.songs)}."
+		elif index1 < 1 or index1 > size:
+			# Index check to get the correct message.
+			return f"There's no song with that index! The current size of the queue is {size}."
 
-		elif 1 <= index1 <= len(self.songs):
-			# we pass index1 as is, see pop()
-			song = self.pop(index1)
-			# we pass index2 as is, see insert()
-			try:
-				res = self.insert(song, index2)
-			except IndexError as e:
-				print(f"Queue: IndexError, {e}")
-				return None
-			return res
+		elif index2 < 1 or index2 > size:
+			# Index check for the message + avoid popping a song and not inserting it.
+			return f"That's out of bounds! The current size of the queue is {size}."
 
 		else:
-			raise IndexError
+			song = self.pop(index1)  # Pass index1 as is, see pop().
+			res = self.insert(song, index2)  # Pass index2 as is, see insert().
+			return res
 
 	def get_song_info(self, index: int):
 		"""

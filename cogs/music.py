@@ -50,7 +50,7 @@ except:  # noqa: 722
 import discord
 from discord.ext import commands
 
-from cogs.queue import SongQueue
+from cogs.queue import SongQueue, EmptyQueueError
 from cogs.song import Song
 
 from dotenv import load_dotenv
@@ -122,6 +122,25 @@ class Music(commands.Cog):
 		# 	}
 		# }
 		self.info = dict()
+
+	async def is_connected(self, ctx: commands.Context) -> bool:
+		"""
+		A quick check to see if the bot is connected to a voice channel in the
+		calling user's current guild.
+
+		Returns:
+			- True if the bot is connected, False otherwise.
+		"""
+
+		gid = ctx.message.guild.id
+
+		if gid not in self.info:
+			return False
+
+		if self.info['gid'].get('channel') is None:
+			return False
+
+		return True
 
 	@commands.command(
 		aliases=['j'],
@@ -572,16 +591,15 @@ class Music(commands.Cog):
 			- index: the number of songs to skip, 1 by default.
 		"""
 
-		if index < 1:
-			await ctx.send("Index can't be lower than 1, try again.")
+		if not self.is_connected(ctx):
+			await ctx.send("The bot is not connected to a voice channel.")
 			return
 
-		guild = ctx.message.guild
-		vc = guild.voice_client
+		vc: discord.VoiceClient = ctx.message.guild.voice_client
 		queue: SongQueue = await self.get_queue(ctx)
 
 		if queue is None:
-			await ctx.send("The bot is not connected to a voice channel.")
+			await ctx.send("The queue is empty, can't skip songs.")
 
 		elif not (vc.is_playing() or vc.is_paused()):
 			await ctx.send("Can't skip, no song is currently playing or paused.")
@@ -593,6 +611,8 @@ class Music(commands.Cog):
 
 			except IndexError:
 				await ctx.send(f"There's no song with that index, try `{BOT_PREFIX}queue` to see the queue.")  # noqa: E501
+			except EmptyQueueError:
+				await ctx.send("The queue is empty, can't skip songs.")
 
 			except Exception as e:
 				logger.warning("Problem skipping a song, ignoring.")
@@ -611,36 +631,31 @@ class Music(commands.Cog):
 				this means no song is removed.
 		"""
 
-		if index < 1:
-			await ctx.send("Index can't be lower than 1, try again.")
+		if not self.is_connected(ctx):
+			await ctx.send("The bot is not connected to a voice channel.")
 			return
 
-		try:
-			queue = await self.get_queue(ctx)
+		queue: SongQueue = await self.get_queue(ctx)
 
-			if queue is None:
-				await ctx.send("The bot is not connected to a voice channel.")
+		if queue is None:
+			await ctx.send("The queue is empty, there are no songs to remove.")
+			return
 
-			else:
-				status, msg = queue.remove(index)
-				dem = {}
+		status, msg = queue.remove(index)
 
-				if status:
-					dem['title'] = "Removed:"
-					dem['description'] = msg
-					dem['colour'] = ctx.author.colour
-				else:
-					dem['title'] = msg
-					dem['colour'] = ctx.author.colour
+		if status:
+			em = discord.Embed(
+				title="Removed:",
+				description=msg,
+				colour=discord.Colour.red()
+			)
+		else:
+			em = discord.Embed(
+				title=msg,
+				colour=discord.Colour.red()
+			)
 
-				em = discord.Embed.from_dict(dem)
-				await ctx.send(embed=em)
-
-		except IndexError:
-			await ctx.send(f"There's no song with that index, try `{BOT_PREFIX}queue` to see the queue.")  # noqa: E501
-		except Exception as e:
-			logger.warning("Problem removing a song, ignoring.")
-			logger.debug(f"Unexpected exception:\n{e}")
+		await ctx.send(embed=em)
 
 	@commands.command(
 		aliases=['m'],
@@ -658,28 +673,23 @@ class Music(commands.Cog):
 			- index2: where the song is going to be.
 		"""
 
+		if not self.is_connected(ctx):
+			await ctx.send("The bot is not connected to a voice channel.")
+			return
+
 		queue: SongQueue = await self.get_queue(ctx)
 
 		if queue is None:
-			pass
-
-		size = queue.get_size()
-
-		if index1 < 1 or index1 > size:
-			await ctx.send(f"There's no song with that index! The current queue size is {size}.")
-			return
-
-		if index2 < 1 or index2 > size:
-			await ctx.send(f"That's out of bounds! The current queue size is {size}.")
+			await ctx.send("The queue is empty!")
 			return
 
 		if index1 == index2:
 			await ctx.send("Left song in place.")
+			return
 
-		else:
-			res = queue.move(index1, index2)
-			if res is not None:
-				await ctx.send(res)
+		res = queue.move(index1, index2)
+
+		await ctx.send(res)
 
 	@commands.command(
 		aliases=['yt', 'youtube'],
