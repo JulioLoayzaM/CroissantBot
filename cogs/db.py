@@ -37,7 +37,7 @@ class DatabaseConnection():
 			The name of the logger to be used by the connection.
 		:type logger_name: str
 		"""
-		self.conn = None
+		self.conn: asyncpg.Connection = None
 		self.logger = logging.getLogger(logger_name)
 
 	async def connect(
@@ -97,12 +97,28 @@ class DatabaseConnection():
 
 		if self.conn is not None:
 			await self.conn.close()
-			self.logger.debug(f"{WARNING}Closed connection to the database.{ENDC}")
+			self.logger.debug(f"{WARNING}Closed:{ENDC} connection to the database.")
 			return True
 
 		else:
 			self.logger.warning("No database connection to close.")
 			return False
+
+	async def is_connected(
+		self
+	):
+		"""
+		Check if the connection is active.
+
+		:return:
+			True if there's a connection, False otherwise.
+		:rtype: bool
+		"""
+
+		if self.conn is None:
+			return False
+		else:
+			return not self.conn.is_closed()
 
 	async def insert_song(
 		self,
@@ -392,7 +408,7 @@ class DatabaseConnection():
 
 		query = """
 			INSERT INTO playlists(list_id, title, owner_id)
-			VALUES (nextval('playlists_list_id_seq', $1, $2));
+			VALUES (nextval('playlists_list_id_seq'), $1, $2);
 		"""
 
 		try:
@@ -442,6 +458,7 @@ class DatabaseConnection():
 	) -> str:
 		"""
 		Add a song to a playlist if it's owned by the calling user.
+		Creates the playlist if it doesn't exist.
 
 		:param song:
 			The song to add.
@@ -464,7 +481,7 @@ class DatabaseConnection():
 		pre = ""
 		if not await self.playlist_exists(playlist_title, user_id):
 			try:
-				self.create_playlist(playlist_title, user_id)
+				await self.create_playlist(playlist_title, user_id)
 				pre = f"Created playlist {playlist_title}.\n"
 			except DbInsertError as error:
 				message, *rest = error.args
@@ -474,7 +491,7 @@ class DatabaseConnection():
 
 		if not await self.song_exists(song):
 			try:
-				self.insert_song(song)
+				await self.insert_song(song)
 			except DbInsertError as error:
 				message, *rest = error.args
 				self.logger.error(message)
@@ -483,7 +500,7 @@ class DatabaseConnection():
 
 		if not await self.song_matches_playlist(song, playlist_title, user_id):
 			try:
-				self.match_song_to_playlist(song, playlist_title, user_id)
+				await self.match_song_to_playlist(song, playlist_title, user_id)
 			except DbInsertError as error:
 				message, *rest = error.args
 				self.logger.error(message)

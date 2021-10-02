@@ -52,6 +52,7 @@ from discord.ext import commands
 
 from cogs.queue import SongQueue, EmptyQueueError
 from cogs.song import Song
+from cogs.db import DatabaseConnection
 
 from dotenv import load_dotenv
 from typing import Tuple, Union, List, Dict
@@ -122,6 +123,7 @@ class Music(commands.Cog):
 		# 	}
 		# }
 		self.info = dict()
+		self.db = DatabaseConnection("CroissantBot")
 
 	async def is_connected(self, ctx: commands.Context) -> bool:
 		"""
@@ -902,9 +904,74 @@ class Music(commands.Cog):
 			await ctx.send(f"Moved the bot to {user_channel.name}")
 
 	@commands.group(
+		name="playlist",
+		aliases=['pl'],
+		help="Base command for managing your playlists"
+	)
+	async def playlist_base(
+		self,
+		ctx: commands.Context
+	):
+		"""
+		Base function for playlist management.
+		"""
+
+		if ctx.invoked_subcommand is None:
+			await ctx.send("You have to use a subcommand:")
+			await ctx.send_help(self.playlist_base)
+			return
+
+		if not self.db.is_connected():
+			host = os.getenv('DB_HOST')
+			user = os.getenv('DB_USER')
+			port = os.getenv('DB_PORT', None)
+			password = os.getenv('DB_PASSWORD')
+			database = os.getenv('DB_DATABASE')
+			self.db.connect(
+				host,
+				user,
+				password,
+				database,
+				self.bot.loop,
+				port
+			)
+
+	@playlist_base.command(
+		name="add",
+		help="Add a song to a playlist"
+	)
+	async def playlist_add(
+		self,
+		ctx: commands.Context,
+		song_url: str,
+		list_title: str = 'favourites'
+	):
+		"""
+		Adds a song from its URL to a playlist. Creates the playlist if it doesn't exist.
+
+		Parameters:
+			- song_url: the song's URL.
+			- list_title: the title of the playlist. 'favourites' by default,
+				to quickly save songs.
+		"""
+
+		if not validate_url(song_url):
+			await ctx.send("You have to use a valid URL.")
+			return
+
+		song = await YTDLSource.from_url(
+			song_url,
+			loop=self.bot.loop,
+			download=False
+		)
+
+		msg = self.db.add_song_to_playlist(song, list_title, str(ctx.author.id))
+		await ctx.send(msg)
+
+	@commands.group(
 		name="favourites",
 		aliases=["fav", "favorites"],
-		help="Base command for managing your list of favourite songs."
+		help="Base command for managing your list of favourite songs"
 	)
 	async def favourites(self, ctx: commands.Context):
 		"""
