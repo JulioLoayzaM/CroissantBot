@@ -44,8 +44,9 @@ BOT_TOKEN = os.getenv('DISCORD_TOKEN')
 BOT_PREFIX = os.getenv('BOT_PREFIX', '!')
 
 # Cog selection
-TWITCH_ENABLED  = bool(os.getenv('ENABLE_TW', ''))
-YOUTUBE_ENABLED = bool(os.getenv('ENABLE_YT', ''))
+TWITCH_ENABLED   = bool(os.getenv('ENABLE_TW', ''))
+YOUTUBE_ENABLED  = bool(os.getenv('ENABLE_YT', ''))
+PLAYLIST_ENABLED = bool(os.getenv('ENABLE_DB', ''))
 
 # How often to check Twitch and/or Youtube, in minutes - 2 by default
 if TWITCH_ENABLED or YOUTUBE_ENABLED:
@@ -137,13 +138,19 @@ async def close_connection(ctx: commands.Context):
 		res = await music.stop_all()
 		if res:
 			logger.debug(f"{VOICE} stop_all executed.")
-		res = await music.close_db()
-		if res:
-			logger.debug(f"{GREEN}Disconnected from database.{ENDC}")
-		else:
-			logger.debug(f"{WARNING}The database was already closed.{ENDC}")
 	else:
 		logger.error("Couldn't get cog 'Music'.")
+
+	# Close connection to the database
+	if PLAYLIST_ENABLED:
+		res = False
+		pl = bot.get_cog('Playlist')
+		if pl is not None:
+			res = await pl.close_db()
+			if res:
+				logger.debug(f"{GREEN}Disconnected from database.{ENDC}")
+			else:
+				logger.debug(f"{WARNING}The database was already closed.{ENDC}")
 
 	# Close the meme aiohttp.ClientSession
 	res = False
@@ -877,6 +884,10 @@ def main(loop: asyncio.AbstractEventLoop):
 		check_youtube.start()
 		enabled_cogs += f", {PURPLE}youtube{ENDC}"
 		fix_logger()
+
+	if PLAYLIST_ENABLED:
+		bot.load_extension("cogs.playlist")
+		enabled_cogs += f", {CYAN}playlist{ENDC}"
 
 	enabled_cogs += "."
 
