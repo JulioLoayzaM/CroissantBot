@@ -332,30 +332,7 @@ class Music(commands.Cog):
 			logger.debug(f"Unexpected exception:\n{e}")
 			await ctx.send("The bot is not connected to a voice channel.")
 
-	@commands.command(
-		aliases=['pf'],
-		help=f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play`.",
-		hidden=True
-	)
-	@commands.guild_only()
-	async def play_from(self, ctx: commands.Context, url: str = None):
-		"""
-		Function to notify previous users that the command is now deprecated.
-		and passes the url, if given, to the actual play function.
-
-		Parameters:
-			- url: the url to search for in youtube.
-		"""
-		if url is None:
-			await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play` next time.")  # noqa: E501
-			await ctx.send(f"Also, you have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>`.")  # noqa: E501
-			return
-
-		await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play` next time.")  # noqa: E501
-		await self.play(ctx, url)
-
 	@play.before_invoke
-	@play_from.before_invoke
 	async def ensure_voice(self, ctx: commands.Context):
 		"""
 		Checks if the bot is connected to the voice channel before playing.
