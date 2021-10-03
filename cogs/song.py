@@ -10,6 +10,10 @@
 # See the LICENSE file for more details.
 
 class Song():
+	"""
+	A class to represent a song. Stores the title, the name of the downloaded file,
+	the URL and the thumbnail URL.
+	"""
 
 	def __init__(self, title: str, file: str, url: str, thumbnail: str):
 

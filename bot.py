@@ -252,11 +252,11 @@ async def check_version(ctx: commands.Context, option: str = "local"):
 	Can also get the full release notes with 'notes' option.
 
 	Parameters:
-		- option:
-			'local' to check only the bot's current version,
-			'remote' to check the current version and the repo's latest version,
-			'notes' to get the full release notes.
-			Defaults to 'local'.
+		option:
+			'local': to check only the bot's current version,
+			'remote': to check the current version and the repo's latest version,
+			'notes': to get the full release notes.
+			Default: 'local'.
 	"""
 
 	# Get the local version: uses Git to check the latest (annotated) tag,
@@ -463,7 +463,7 @@ async def check_token() -> bool:
 	gets a new one, updates the global and .env variables.
 
 	Returns:
-		- True if nothing to do/update successful, False otherwise.
+		True if nothing to do/update successful, False otherwise.
 	"""
 
 	global TW_TOKEN
@@ -528,7 +528,7 @@ async def init_twitch() -> bool:
 	Runs the token validity check.
 
 	Returns:
-		- True if initialization was successful, False if not.
+		True if initialization was successful, False if not.
 	"""
 
 	global TW_PREV_STATUS
@@ -716,7 +716,7 @@ async def on_command_error(ctx: commands.Context, error: commands.CommandError):
 	Catches commands' errors, defines corresponding responses.
 
 	Parameters:
-		- error: a raised CommandError, not a 'normal' exception.
+		error: A raised CommandError, not a 'normal' exception.
 	"""
 
 	if isinstance(error, commands.CommandNotFound):
@@ -743,7 +743,7 @@ async def on_guild_join(guild: discord.Guild):
 	Logs any new guilds the bot has joined.
 
 	Parameters:
-		- the joined guild.
+		The joined guild.
 	"""
 	logger.debug(f"Joined a guild: {guild.name}.")
 
@@ -753,10 +753,10 @@ def setup_loggers():
 	Sets up the loggers 'CroissantBot' and 'discord'.
 
 	Handlers created:
-		- INFO-level to STDOUT
-		- INFO-level to a file
-		- DEBUG-level to a file
-		- discord DEBUG-level to a file
+		1: INFO-level to STDOUT
+		2: INFO-level to a file
+		3: DEBUG-level to a file
+		4: discord DEBUG-level to a file
 	"""
 
 	global logger
@@ -845,11 +845,11 @@ async def create_session():
 def main(loop: asyncio.AbstractEventLoop):
 	"""
 	Sets up the bot's start:
-		- Sets up the loggers
-		- Loads the required cogs: misc, music and meme
-		- Loads the twitch and youtube cogs if enabled through .env
-		- Starts their corresponding check function
-		- Starts running the bot
+		1: Sets up the loggers
+		2: Loads the required cogs: misc, music and meme
+		3: Loads the twitch and youtube cogs if enabled through .env
+		4: Starts their corresponding check function
+		5: Starts running the bot
 	"""
 
 	setup_loggers()

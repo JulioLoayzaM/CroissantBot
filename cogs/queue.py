@@ -11,21 +11,40 @@
 # See the LICENSE file for more details.
 
 
-from .song import Song
+from cogs.song import Song
 from typing import List, Tuple, Union
 
 
 class SongQueue():
+	"""
+	Class to manage queues of Song(s).
+	Uses a list of Songs and adds some methods to simplify operations in the cogs.
+	"""
 
 	def __init__(self):
 		self.songs = []
 
 	def push(self, song: Song):
+		"""
+		Add a song at the end of the queue.
+
+		:param song:
+			The song to append.
+		:type song: Song
+		"""
 		self.songs.append(song)
 
 	def pop(self, index: int = 1) -> Union[Song, None]:
 		"""
-		Returns the song at position 'index' if it exists, None if not.
+		Pop the song at position index, if it exists.
+
+		:param index:
+			The index of the song to pop. 1 by default to pop the first song.
+		:type index: int
+
+		:return:
+			The song at position index if it exists, None if not.
+		:rtype: Union[Song, None]
 		"""
 
 		if len(self.songs) > 0:
@@ -35,23 +54,51 @@ class SongQueue():
 		return None
 
 	def get_songs(self) -> List[Song]:
+		"""
+		Simple getter.
+
+		:return:
+			The actual list of Songs.
+		:rtype: List[Song]
+		"""
 		return self.songs
 
 	def get_size(self) -> int:
+		"""
+		Simple getter.
+
+		:return:
+			The length of the list of songs.
+		:rtype: int
+		"""
 		return len(self.songs)
 
 	def is_empty(self) -> bool:
+		"""
+		Check the length of the list to determine whether the queue is empty.
+
+		:return:
+			True if the list is empty, False otherwise.
+		:rtype: bool
+		"""
 		return len(self.songs) == 0
 
 	def clear(self):
+		"""
+		Remove all songs from the queue.
+		"""
 		self.songs.clear()
 
 	def skip(self, index: int):
 		"""
-		Pops 'index' songs.
+		Pops 'index' songs to skip them.
 
-		Raises:
-			- IndexError if index is out of range.
+		:param index:
+			The number of songs to skip.
+		:type index: int
+
+		:raises IndexError:
+			If the index is out of bounds.
 		"""
 		if (index > 0) and self.is_empty():
 			raise EmptyQueueError
@@ -65,14 +112,20 @@ class SongQueue():
 
 	def remove(self, index: int) -> Tuple[bool, str]:
 		"""
-		Removes the song queue[index].
+		Removes the song at position index.
 
-		Parameters:
-			- index: the index of the song to remove.
-		Returns:
-			- A bool indicating the result of the operation.
-			- A message to pass to the user: a reason if an error occured,
-				or the title of the song if not.
+		:param index:
+			The index of the song to remove.
+		:type index: int
+
+		:return:
+			The result of the operation.
+		:rtype: bool
+
+		:return:
+			A message to pass to the user: a reason if an error occured,
+			or the title of the song if not.
+		:rtype: str
 		"""
 		size = self.get_size()
 
@@ -93,15 +146,22 @@ class SongQueue():
 
 	def insert(self, song: Song, index: int) -> str:
 		"""
-		Inserts a song at queue[index].
+		Inserts a song at position index.
 
-		Parameters:
-			- song: the song to be inserted.
-			- index: the index on the list to insert to, as passed by the user.
-		Returns:
-			- a message about the result of the operation.
-		Raises:
-			- IndexError if index is out of range.
+		:param song:
+			The song to insert.
+		:type song: Song
+
+		:param index:
+			The index of the position to insert the song into.
+		:type index: int
+
+		:raises IndexError:
+			If index is out of range.
+
+		:return:
+			A message about the result of the operation.
+		:rtype: str
 		"""
 
 		if self.is_empty():
@@ -119,15 +179,22 @@ class SongQueue():
 
 	def move(self, index1: int, index2: int) -> str:
 		"""
-		Moves the song from index1 to position index2 in the queue.
+		Moves the song from position index1 to position index2 in the queue.
 
-		Parameters:
-			- index1: the position of the song to be moved
-			- index2: where to move the song to
-		Returns:
-			- a message about the result of the operation
-		Raises:
-			- IndexError if indexes out of range
+		:param index1:
+			The position of the song to be moved.
+		:type index1: int
+
+		:param index2:
+			Where to move the song to.
+		:type index2: int
+
+		:raises IndexError:
+			If any index is out of range.
+
+		:return:
+			A message about the result of the operation
+		:rtype: str
 		"""
 
 		size = self.get_size()
@@ -150,7 +217,7 @@ class SongQueue():
 
 	def get_song_info(self, index: int):
 		"""
-
+		Unused.
 		"""
 		if (index > len(self.songs) - 1) or (index < 0):
 			raise IndexError

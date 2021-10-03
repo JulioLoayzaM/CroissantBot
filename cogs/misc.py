@@ -56,8 +56,8 @@ class Misc(commands.Cog):
 		and throw an error if unsuccessful.
 
 		Parameters:
-			- num1: an int to add.
-			- num2: idem.
+			num1: An int to add.
+			num2: Idem.
 		"""
 		if (num1 == 2) and (num2 == 2):
 			r = random.randint(1, 3)
@@ -121,8 +121,8 @@ class Misc(commands.Cog):
 		a specific member or themselves in the current guild.
 
 		Parameters:
-			- member: the discord member to use for the message. None by default.
-				The user must be in the same guild - that's why intents.members is needed.
+			member: The discord member to use for the message. None by default.
+			The user must be in the same guild: that's why intents.members is needed.
 		"""
 		# The format used for the kill_count file is:
 		# {
@@ -243,8 +243,8 @@ class Misc(commands.Cog):
 		Checks kill_count (and loads from json if necessary) then sends stats for calling user.
 
 		Parameters:
-			- member: the user to search for in the calling user's count. None by default.
-				If None, display the whole user's count in that server.
+			member: The user to search for in the calling user's count. None by default.
+			If None, display the whole user's count in that server.
 		"""
 
 		global kill_count

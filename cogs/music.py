@@ -130,7 +130,7 @@ class Music(commands.Cog):
 		calling user's current guild.
 
 		Returns:
-			- True if the bot is connected, False otherwise.
+			True if the bot is connected, False otherwise.
 		"""
 
 		gid = ctx.message.guild.id
@@ -242,7 +242,7 @@ class Music(commands.Cog):
 		Gets the current context queue.
 
 		Returns:
-			- the corresponding queue, None if not connected to a voice channel.
+			The corresponding queue, None if not connected to a voice channel.
 		"""
 		guild_id = ctx.message.guild.id
 
@@ -266,7 +266,7 @@ class Music(commands.Cog):
 		Additionally, if no song is playing it calls play_song() to start streaming.
 
 		Parameters:
-			- query: the query to search for in youtube.
+			query: The query to search for in youtube.
 		"""
 		if query is None:
 			await ctx.send(f"You have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>`.")  # noqa: E501
@@ -353,13 +353,13 @@ class Music(commands.Cog):
 			"""
 			Function in charge of actually playing a song.
 			It assumes three things:
-				- the songs in the queue are already downloaded
-				- if a song is playing and we called play_song anyway, we want to skip the song
-				- the bot is actually connected to a voice channel
+				1: the songs in the queue are already downloaded;
+				2: if a song is playing and we called play_song anyway, we want to skip the song;
+				3: the bot is actually connected to a voice channel.
 
 			Returns:
-				- an error message if an error occured, None otherwise
-				- None if an error occured, an Embed with the song info otherwise
+				First: An error message if an error occured, None otherwise.
+				Second: None if an error occured, an Embed with the song info otherwise.
 			"""
 
 			# Have to manually get the queue
@@ -488,9 +488,9 @@ class Music(commands.Cog):
 		Stops any playing/paused song. Deletes the queue if leaving the voice channel.
 
 		Parameters:
-			- leaving: indicates if the function was called by leave(), in which case
-				it doesn't send a "nothing is playing" message and deletes the queue
-				by setting it to None.
+			leaving: Indicates if the function was called by leave(), in which case
+			it doesn't send a "nothing is playing" message and deletes the queue
+			by setting it to None.
 		"""
 
 		vc: discord.VoiceClient = ctx.message.guild.voice_client
@@ -525,7 +525,7 @@ class Music(commands.Cog):
 		Used by close_connection when closing the bot, to ensure no mess is left behind.
 
 		Returns:
-			- True if it cleaned anything, False otherwise.
+			True if it cleaned anything, False otherwise.
 		"""
 
 		if not self.info:
@@ -566,7 +566,7 @@ class Music(commands.Cog):
 		will play directly.
 
 		Parameters:
-			- index: the number of songs to skip, 1 by default.
+			index: The number of songs to skip, 1 by default.
 		"""
 
 		if not self.is_connected(ctx):
@@ -605,8 +605,8 @@ class Music(commands.Cog):
 		Removes a song from the queue if the queue exists and the index is correct.
 
 		Parameters:
-			- index: where the song to remove is in the queue. 0 by default,
-				this means no song is removed.
+			index: Where the song to remove is in the queue. 0 by default,
+			this means no song is removed.
 		"""
 
 		if not self.is_connected(ctx):
@@ -643,12 +643,14 @@ class Music(commands.Cog):
 	async def move(self, ctx: commands.Context, index1: int, index2: int):
 		"""
 		Moves the song at index1 to index2 if possible.
-		Note: user's list starts at 1, for checks and operations the indexes are given
-			as passed by the user.
 
 		Parameters:
-			- index1: where the song currently is.
-			- index2: where the song is going to be.
+			index1: Where the song currently is.
+			index2: Where the song is going to be.
+
+		Note:
+			The user's list starts at 1, for checks and operations the indexes are given
+			as passed by the user.
 		"""
 
 		if not self.is_connected(ctx):
@@ -680,7 +682,7 @@ class Music(commands.Cog):
 		when play's result isn't satisfying.
 
 		Parameters:
-			- search: the query to search for in youtube.
+			search: The query to search for in youtube.
 		"""
 
 		info = ytdl.extract_info(f"ytsearch5:{search}", download=False)
@@ -773,8 +775,8 @@ class Music(commands.Cog):
 		Changes the current volume through the source and updates self.info for future sources.
 
 		Parameters:
-			- volume: the volume to set, -1 by default to avoid changing it.
-				Ranges from 0 to 100.
+			volume: The volume to set, -1 by default to avoid changing it.
+			Ranges from 0 to 100.
 		"""
 
 		gid = ctx.message.guild.id
@@ -932,8 +934,8 @@ class Music(commands.Cog):
 		Subcommand to display the list of an user's favourite songs.
 
 		Parameters:
-			- index: if less than or equal to zero, it displays the whole list.
-				If greater than zero, it displays the song with that index in the list with more info.
+			index: If less than or equal to zero, it displays the whole list.
+			If greater than zero, it displays the song with that index in the list with more info.
 		"""
 		member: discord.Member = ctx.message.author
 		member_id: str = str(member.id)
@@ -1012,7 +1014,7 @@ class Music(commands.Cog):
 		Saves a song to the user's list: uses from_url to get the title and the thumbnail's URL.
 
 		Parameters:
-			- url: the URL of the song to save.
+			url: The URL of the song to save.
 		"""
 		global FAV_LIST
 
@@ -1067,7 +1069,7 @@ class Music(commands.Cog):
 		Remove a song from the user's list by its index.
 
 		Parameters:
-			- index: the index of the song to remove, 0 by default to avoid removing anything.
+			index: The index of the song to remove, 0 by default to avoid removing anything.
 		"""
 		global FAV_LIST
 
@@ -1170,7 +1172,7 @@ class Music(commands.Cog):
 		Play a song from the user's list by passing its URL to self.play.
 
 		Parameters:
-			- index: the index of the song to play, 0 by default.
+			index: The index of the song to play, 0 by default.
 		"""
 
 		if index <= 0:
@@ -1241,8 +1243,8 @@ class Music(commands.Cog):
 		Gets the voice latency to be used by ping.
 
 		Returns:
-			- the current latency and the average of last 20 heartbeats,
-				or None if the bot is not connected.
+			The current latency and the average of last 20 heartbeats,
+			or None if the bot is not connected.
 		"""
 
 		vc = ctx.message.guild.voice_client
@@ -1283,11 +1285,12 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		Downloads a song from its URL.
 
 		Parameters:
-			- url: the url to download from.
-			- loop: the EventLoop to use.
-			- download: whether the song should be downloaded.
+			url: The url to download from.
+			loop: The EventLoop to use.
+			download: Whether the song should be downloaded.
+
 		Returns:
-			- The corresponding (new) Song instance.
+			The corresponding (new) Song instance.
 		"""
 
 		loop = loop or asyncio.get_event_loop()
@@ -1320,7 +1323,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 	async def get_song_info(self) -> str:
 		"""
 		Returns:
-			- A string containing the source's song title and URL.
+			A string containing the source's song title and URL.
 		"""
 		return f"{self.song.title} - {self.song.url}"
 
@@ -1330,10 +1333,10 @@ async def validate_url(url: str) -> bool:
 	Checks to see if url has any valid extractors for yt_dlp/youtube_dl.
 
 	Parameters:
-		- url: the url to search for extractors.
+		url: The url to search for extractors.
 
 	Returns:
-		- True if site has dedicated extractor, False otherwise.
+		True if site has dedicated extractor, False otherwise.
 
 	"""
 	e = yt_dl.extractor.get_info_extractor('Youtube')

@@ -63,13 +63,14 @@ class Meme(commands.Cog):
 		Downloads a meme from a given subreddit and returns the path to the downloaded file.
 
 		Parameters:
-			- sub: the subreddit from which memes are taken.
-			- name: either the guild's name or the private channel's ID. This allows to
-				keep a list of already sent memes for each one.
+			sub: The subreddit from which memes are taken.
+			name: Either the guild's name or the private channel's ID. This allows to
+			a list of already sent memes for each one.
+
 		Returns:
-			- the path to the file if the meme was successfully/already downloaded,
-				the string 'Empty' if it couldn't find new posts on the selected subreddit
-				or None if the meme couldn't be downloaded.
+			The path to the file if the meme was successfully/already downloaded,
+			string 'Empty' if it couldn't find new posts on the selected subreddit or
+			None if the meme couldn't be downloaded.
 		"""
 
 		if self.session is None:
@@ -195,7 +196,7 @@ class Meme(commands.Cog):
 		Sends a meme returned by get_meme.
 
 		Parameters:
-			- sub: the subreddit to get the meme from, 'memes' by default.
+			sub: The subreddit to get the meme from, 'memes' by default.
 		"""
 
 		chtype = str(ctx.channel.type)
@@ -243,7 +244,7 @@ class Meme(commands.Cog):
 		Closes the aiohttp.session, called on bot exit.
 
 		Returns:
-			- True if it closed the session, False otherwise.
+			True if it closed the session, False otherwise.
 		"""
 		if self.session is not None:
 			await self.session.close()

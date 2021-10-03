@@ -463,9 +463,10 @@ async def validate_url(url: str) -> bool:
 	Checks to see if url has any valid extractors for yt_dlp/youtube_dl.
 
 	Parameters:
-		- url: the url to search for extractors.
+		url: The url to search for extractors.
+
 	Returns:
-		- True if site has dedicated extractor, False otherwise.
+		True if site has dedicated extractor, False otherwise.
 	"""
 	e = yt_dl.extractor.get_info_extractor('Youtube')
 	return e.suitable(url)

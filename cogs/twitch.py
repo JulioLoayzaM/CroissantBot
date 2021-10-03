@@ -41,15 +41,16 @@ class Twitch(commands.Cog):
 		Reverses ids: the streamers become the keys, the recipients become the values.
 
 		Parameters:
-			- the dict containing the users to notify and the respective channels to check.
+			ids: the dict containing the users to notify and the respective channels to check.
 				{
 					"discord_user": [
 						"twitch_channel_1",
 						"twitch_channel_2"
 					]
 				}
+
 		Returns:
-			- a dict following the template:
+			A dict following the template:
 				{
 					"twitch_user_1": [
 						"discord_user_1",
@@ -83,9 +84,10 @@ class Twitch(commands.Cog):
 		Initializes the streamers' status as False/offline.
 
 		Parameters:
-			- streamers: the dict returned by init_streamers.
+			streamers: The dict returned by init_streamers.
+
 		Returns:
-			- a dict following the template:
+			A dict following the template:
 				{
 					'twitch_user_1': False,
 					'twitch_user_2': False,
@@ -112,15 +114,18 @@ class Twitch(commands.Cog):
 		if the streamer just got online.
 
 		Parameters:
-			- prev_status: the last known status of the streamers as bool.
-			- streamers: the streamers to check and the corresponding users to notify.
-			- token: a valid Twitch API app access token.
-			- session: an aiohttp session to perform the requests with.
+			prev_status: The last known status of the streamers as bool.
+			streamers: The streamers to check and the corresponding users to notify.
+			token: A valid Twitch API app access token.
+			session: An aiohttp session to perform the requests with.
+
 		Returns:
-			- messages: the Embeds to be sent, the keys are the discord users.
-			- prev_status: updated streamers' status.
-		If the token isn't valid, returns (None, prev_status). bot.check_twitch should handle
-		the token refresh.
+			messages: The embeds to be sent, the keys are the discord users.
+			prev_status: Updated streamers' status.
+
+		Note:
+			If the token isn't valid, returns (None, prev_status). bot.check_twitch should handle
+			the token refresh.
 		"""
 
 		headers = {
