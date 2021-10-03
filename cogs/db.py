@@ -472,6 +472,10 @@ class DatabaseConnection():
 			The discord ID of the calling user.
 		:type user_id: str
 
+		:raises DbInsertError:
+			When a problem creating the playlist/inserting the song/adding it
+			to the playlist occurs.
+
 		:return:
 			A message to send to the calling user.
 		:rtype: str
@@ -487,7 +491,7 @@ class DatabaseConnection():
 				message, *rest = error.args
 				self.logger.error(message)
 				self.logger.debug(rest)
-				return message
+				raise DbInsertError(message)
 
 		if not await self.song_exists(song):
 			try:
@@ -496,7 +500,7 @@ class DatabaseConnection():
 				message, *rest = error.args
 				self.logger.error(message)
 				self.logger.debug(rest)
-				return "An error occured while adding the song."
+				raise DbInsertError("An error occured while adding the song.")
 
 		if not await self.song_matches_playlist(song, playlist_title, user_id):
 			try:
@@ -505,9 +509,9 @@ class DatabaseConnection():
 				message, *rest = error.args
 				self.logger.error(message)
 				self.logger.debug(rest)
-				return "An error occured while adding the song."
+				raise DbInsertError("An error occured while adding the song.")
 
-		return f"{pre}Added {song.title} to {playlist_title}."
+		return f"{pre}{song.title} to {playlist_title}."
 
 	async def get_playlist_id(
 		self,

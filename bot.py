@@ -137,6 +137,11 @@ async def close_connection(ctx: commands.Context):
 		res = await music.stop_all()
 		if res:
 			logger.debug(f"{VOICE} stop_all executed.")
+		res = await music.close_db()
+		if res:
+			logger.debug(f"{GREEN}Disconnected from database.{ENDC}")
+		else:
+			logger.debug(f"{WARNING}The database was already closed.{ENDC}")
 	else:
 		logger.error("Couldn't get cog 'Music'.")
 
@@ -154,7 +159,11 @@ async def close_connection(ctx: commands.Context):
 	await SESSION.close()
 	logger.debug(f"{WARNING}Closed:{ENDC} Global aiohttp.ClientSession.")
 
-	await ctx.send("I'm leaving!")
+	em = discord.Embed(
+		description="I'm leaving!",
+		colour=discord.Colour.green()
+	)
+	await ctx.send(embed=em)
 	# Close the bot
 	await bot.close()
 	logger.info(f"{GREEN}Bot offline.{ENDC}\n")

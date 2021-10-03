@@ -52,7 +52,7 @@ from discord.ext import commands
 
 from cogs.queue import SongQueue, EmptyQueueError
 from cogs.song import Song
-from cogs.db import DatabaseConnection
+from cogs.db import DatabaseConnection, DbInsertError
 
 from dotenv import load_dotenv
 from typing import Tuple, Union, List, Dict
@@ -143,6 +143,18 @@ class Music(commands.Cog):
 			return False
 
 		return True
+
+	async def close_db(
+		self
+	) -> bool:
+		"""
+		Closes the connection to the database.
+
+		Returns:
+			True if the database was closed, False otherwise.
+		"""
+
+		return await self.db.close()
 
 	@commands.command(
 		aliases=['j'],
@@ -921,13 +933,13 @@ class Music(commands.Cog):
 			await ctx.send_help(self.playlist_base)
 			return
 
-		if not self.db.is_connected():
+		if not await self.db.is_connected():
 			host = os.getenv('DB_HOST')
 			user = os.getenv('DB_USER')
 			port = os.getenv('DB_PORT', None)
 			password = os.getenv('DB_PASSWORD')
 			database = os.getenv('DB_DATABASE')
-			self.db.connect(
+			await self.db.connect(
 				host,
 				user,
 				password,
@@ -950,14 +962,17 @@ class Music(commands.Cog):
 		Adds a song from its URL to a playlist. Creates the playlist if it doesn't exist.
 
 		Parameters:
-			- song_url: the song's URL.
-			- list_title: the title of the playlist. 'favourites' by default,
+			song_url: the song's URL.
+			list_title: the title of the playlist. 'favourites' by default, \
 				to quickly save songs.
 		"""
 
-		if not validate_url(song_url):
+		if not await validate_url(song_url):
 			await ctx.send("You have to use a valid URL.")
 			return
+
+		# To avoid clutter, we edit the message to remove the embed.
+		await ctx.message.edit(suppress=True)
 
 		song = await YTDLSource.from_url(
 			song_url,
@@ -965,8 +980,55 @@ class Music(commands.Cog):
 			download=False
 		)
 
-		msg = self.db.add_song_to_playlist(song, list_title, str(ctx.author.id))
-		await ctx.send(msg)
+		try:
+			msg = await self.db.add_song_to_playlist(song, list_title, str(ctx.author.id))
+			em = discord.Embed(
+				title="Added",
+				description=msg,
+				colour=discord.Colour.green()
+			)
+			await ctx.send(embed=em)
+		except DbInsertError as error:
+			message, *_ = error.args
+			em = discord.Embed(
+				title="Error",
+				description=message,
+				colour=discord.Colour.red()
+			)
+
+	@playlist_base.command(
+		name="create",
+		help="Create a new playlist"
+	)
+	async def playlist_create(
+		self,
+		ctx: commands.Context,
+		title: str
+	):
+		"""
+		Creates a new playlist if no other playlist owned by the user has the same title.
+
+		Parameters:
+			title: the title to give to the playlist.
+		"""
+
+		try:
+			await self.db.create_playlist(title, str(ctx.author.id))
+			em = discord.Embed(
+				title="Created playlist",
+				description=title,
+				colour=discord.Colour.green()
+			)
+			await ctx.send(embed=em)
+		except DbInsertError as error:
+			message, *rest = error.args
+			em = discord.Embed(
+				title="Error",
+				description=message,
+				colour=discord.Colour.red()
+			)
+			await ctx.send(embed=em)
+			logger.debug(f"DbInsertError: {rest}")
 
 	@commands.group(
 		name="favourites",
