@@ -531,6 +531,58 @@ class DatabaseConnection():
 				f"owner_id: {owner_id}"
 			)
 
+	async def remove_song_from(
+		self,
+		title: str,
+		owner_id: str,
+		index: int
+	):
+		"""
+		Removes a song from a playlist.
+
+		:param title:
+			The title of the playlist.
+		:type title: str
+
+		:param owner_id:
+			The owner of the playlist.
+		:type owner_id: str
+
+		:param index:
+			The index of the song in the playlist.
+		:type index: int
+
+		:raises NotFoundError:
+			Raised when the song is not in the database.
+
+		:raises DbInsertError:
+			Raised when an error removing the song occurs.
+		"""
+
+		song_url = await self.get_song_from(index, title, owner_id)
+		if song_url is None:
+			raise NotFoundError(
+				"Can't remove a song that's not in the database.",
+				song_url
+			)
+
+		query = """
+			DELETE FROM songs_in_lists
+			USING songs
+			WHERE songs_in_lists.song_id = songs.song_id AND songs.url = $1;
+		"""
+
+		try:
+			await self.conn.execute(query, song_url)
+		except Exception as error:
+			self.logger.debug(error)
+			raise DbInsertError(
+				"Could not remove song from playlist.",
+				f"song_url: {song_url}",
+				f"title: {title}",
+				f"owner_id: {owner_id}"
+			)
+
 	async def create_playlist(
 		self,
 		title: str,
@@ -773,5 +825,12 @@ class DatabaseConnection():
 class DbInsertError(Exception):
 	"""
 	Raised when an error related to INSERT occurs.
+	"""
+	pass
+
+
+class NotFoundError(Exception):
+	"""
+	Raised when an error related to a missing result occurs.
 	"""
 	pass

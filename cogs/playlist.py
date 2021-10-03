@@ -23,7 +23,7 @@ except:  # noqa: 722
 import discord
 from discord.ext import commands
 
-from cogs.db import DatabaseConnection, DbInsertError
+from cogs.db import DatabaseConnection, DbInsertError, NotFoundError
 from cogs.music import YTDLSource
 
 from dotenv import load_dotenv
@@ -56,6 +56,9 @@ ytdl = yt_dl.YoutubeDL(YTDL_FORMAT_OPTIONS)
 
 
 class Playlist(commands.Cog):
+	"""
+	Commands to manage playlists.
+	"""
 
 	def __init__(self, bot: commands.Bot, logger: logging.Logger):
 		self.bot = bot
@@ -154,6 +157,50 @@ class Playlist(commands.Cog):
 				description=message,
 				colour=discord.Colour.red()
 			)
+
+	@playlist_base.command(
+		name="remove",
+		help=""
+	)
+	async def playlist_remove(
+		self,
+		ctx: commands.Context,
+		title: str,
+		index: int
+	):
+		"""
+		"""
+
+		if not await self.db.playlist_exists(title, str(ctx.author.id)):
+			em = discord.Embed(
+				title="Error",
+				description=f"""You don't have a playlist named {title}.\n
+				Use `{BOT_PREFIX}playlist create <title>` to create a playlist.""",
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
+			return
+
+		try:
+			await self.db.remove_song_from(title, str(ctx.author.id), index)
+		except NotFoundError as error:
+			message, *_ = error.args
+			em = discord.Embed(
+				title="Error",
+				description=message,
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
+		except DbInsertError as error:
+			message, *rest = error.args
+			em = discord.Embed(
+				title="Error",
+				description=message,
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
+			self.logger.error("Could not remove song from playlist.")
+			self.logger.debut(rest)
 
 	@playlist_base.command(
 		name="now",
