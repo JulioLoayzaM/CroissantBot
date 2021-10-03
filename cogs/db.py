@@ -149,14 +149,14 @@ class DatabaseConnection():
 
 	async def get_song_id(
 		self,
-		song: Song
+		song_url: str
 	) -> Union[int, None]:
 		"""
 		Get the database ID of a song.
 
-		:param song:
-			The song to search for.
-		:type song: Song
+		:param song_url:
+			The URL of the song to search for.
+		:type song_url: str
 
 		:return:
 			The ID of the song if it exists, None otherwise.
@@ -169,7 +169,7 @@ class DatabaseConnection():
 			WHERE url = $1;
 		"""
 
-		song_id: Union[int, None] = await self.conn.fetchval(query, song.url)
+		song_id: Union[int, None] = await self.conn.fetchval(query, song_url)
 
 		return song_id
 
@@ -418,7 +418,7 @@ class DatabaseConnection():
 		:rtype: bool
 		"""
 
-		song_id: Union[int, None] = await self.get_song_id(song)
+		song_id: Union[int, None] = await self.get_song_id(song.url)
 
 		if song_id is None:
 			return False
@@ -452,7 +452,7 @@ class DatabaseConnection():
 		:rtype: bool
 		"""
 
-		song_id = await self.get_song_id(song)
+		song_id = await self.get_song_id(song.url)
 		if song_id is None:
 			return False
 
@@ -496,7 +496,7 @@ class DatabaseConnection():
 		:type owner_id: str
 		"""
 
-		song_id = await self.get_song_id(song)
+		song_id = await self.get_song_id(song.url)
 		if song_id is None:
 			raise DbInsertError(
 				"Can't match a song that's not in the database.",
@@ -570,6 +570,45 @@ class DatabaseConnection():
 		except Exception as error:
 			self.logger.debug(error)
 			raise DbInsertError("Could not create the playlist.", values)
+
+	async def delete_playlist(
+		self,
+		title: str,
+		owner_id: str
+	):
+		"""
+		Delete a playlist if it exists.
+
+		:param title:
+			The name of the playlist.
+		:type title: str
+
+		:param owner_id:
+			The discord ID of the user using the command, who owns this playlist.
+		:type owner_id: str
+
+		:raises DbInsertError:
+			Raised when an error occurs while deleting the list.
+		"""
+
+		plid = await self.get_playlist_id(title, owner_id)
+
+		values = (title, owner_id)
+
+		if plid is None:
+			raise DbInsertError("No playlist with that name exists!", values)
+
+		query = """
+			DELETE FROM playlists
+			WHERE list_id = $1;
+		"""
+
+		try:
+			await self.conn.execute(query, plid)
+
+		except Exception as error:
+			self.logger.debug(error)
+			raise DbInsertError("Could not delete the playlist.", values)
 
 	async def get_playlists(
 		self,

@@ -196,7 +196,7 @@ class Playlist(commands.Cog):
 
 		if source is not None:
 			song_url = source.url
-			await self.playlist_add(ctx, song_url, str(ctx.author.id))
+			await self.playlist_add(ctx, song_url, str(ctx.author.id), title)
 		else:
 			em = discord.Embed(
 				title="Error",
@@ -238,6 +238,41 @@ class Playlist(commands.Cog):
 			)
 			await ctx.send(embed=em)
 			self.logger.debug(f"DbInsertError: {rest}")
+
+	@playlist_base.command(
+		name="delete",
+		help="Deletes a playlist"
+	)
+	async def playlist_delete(
+		self,
+		ctx: commands.Context,
+		title: str
+	):
+		"""
+		Deletes a playlist from the database, if it exists.
+
+		Parameters:
+			title: The title of the playlist to delete.
+		"""
+
+		try:
+			await self.db.delete_playlist(title, str(ctx.author.id))
+			em = discord.Embed(
+				title="Deleted",
+				description=title,
+				colour=discord.Colour.green()
+			)
+			await ctx.send(embed=em)
+		except DbInsertError as error:
+			message, *rest = error.args
+			em = discord.Embed(
+				title="Error",
+				description=message,
+				colour=discord.Colour.red()
+			)
+			await ctx.send(embed=em)
+			self.logger.error("Error deleting a playlist.")
+			self.logger.debug(rest)
 
 	@playlist_base.command(
 		name="list",
