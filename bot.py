@@ -744,7 +744,8 @@ async def on_guild_join(guild: discord.Guild):
 def setup_loggers():
 	"""
 	Sets up the loggers 'CroissantBot' and 'discord'.
-	Creates the handlers:
+
+	Handlers created:
 		- INFO-level to STDOUT
 		- INFO-level to a file
 		- DEBUG-level to a file

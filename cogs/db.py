@@ -7,7 +7,7 @@ import asyncio
 import asyncpg
 import logging
 
-from .song import Song
+from cogs.song import Song
 from typing import List, Union
 
 
@@ -173,6 +173,32 @@ class DatabaseConnection():
 
 		return song_id
 
+	async def get_song_url(
+		self,
+		song_id: int
+	) -> Union[str, None]:
+		"""
+		Get the URL of a song.
+
+		:param song_id:
+			The song ID to get the URL from.
+		:type song_id: int
+
+		:return:
+			The URL of the song if it exists, None otherwise.
+		:rtype: Union[str, None]
+		"""
+
+		query = """
+			SELECT url
+			FROM songs
+			WHERE song_id = $1;
+		"""
+
+		url: Union[str, None] = await self.conn.fetchval(query, song_id)
+
+		return url
+
 	async def get_titles(
 		self,
 		song_ids: List[int]
@@ -202,7 +228,37 @@ class DatabaseConnection():
 
 		return titles
 
-	async def get_songs_in_playlist(
+	async def get_urls(
+		self,
+		song_ids: List[int]
+	) -> List[str]:
+		"""
+		Get the URLs of a list of songs.
+
+		:param song_ids:
+			A list of song IDs to get. It SHOULD NOT be empty, and the IDs SHOULD be in songs.
+		:type song_ids: List[int]
+
+		:return:
+			A list of the corresponding song URLs. Since the IDs SHOULD be in the database,
+			no value should be empty. However, no check is done at this point.
+		:rtype: List[str]
+		"""
+
+		query = """
+			SELECT url
+			FROM songs
+			WHERE song_id = $1
+			ORDER BY song_id;
+		"""
+
+		urls: List[str] = list()
+		for sid in song_ids:
+			urls.append(await self.conn.fetchval(query, sid))
+
+		return urls
+
+	async def get_titles_in_playlist(
 		self,
 		playlist_title: str,
 		owner_id: str
@@ -219,8 +275,105 @@ class DatabaseConnection():
 		:type owner_id: str
 
 		:return:
-			A list of the titles of all the songs in the playlist, or None the playlist
-			doesn't exist, or it doesn't have any songs.
+			A list of the titles of all the songs in the playlist, or None if the playlist
+			doesn't exist, or if it doesn't have any songs.
+		:rtype: Union[List[str], None]
+		"""
+
+		playlist_id = await self.get_playlist_id(playlist_title, owner_id)
+		if playlist_id is None:
+			return None
+
+		query = """
+			SELECT song_id
+			FROM songs_in_lists
+			WHERE list_id = $1
+			ORDER BY song_id;
+		"""
+
+		results = await self.conn.fetch(query, playlist_id)
+
+		if len(results) == 0:
+			return None
+
+		ids: List[int] = list()
+		for result in results:
+			ids.append(result.get('song_id'))
+
+		songs = await self.get_titles(ids)
+		if len(songs) == 0:
+			return None
+		else:
+			return songs
+
+	async def get_song_from(
+		self,
+		index: int,
+		playlist_title: str,
+		owner_id: str
+	) -> Union[str, None]:
+		"""
+		Get a song from a playlist by its index.
+
+		:param index:
+			The index of the song in the playlist (as displayed with
+			:func:`get_titles_in_playlist`).
+		:type index: int
+
+		:param playlist_title:
+			The title of the playlist to get the song from.
+		:type playlist_title: str
+
+		:param owner_id:
+			The discord ID of the owner of the playlist.
+		:type owner_id: str
+
+		:return:
+			The song's URL if it exists in the playlist, None otherwise.
+		:rtype: Union[str, None]
+		"""
+
+		playlist_id = await self.get_playlist_id(playlist_title, owner_id)
+		if playlist_id is None:
+			return None
+
+		# Get the song ID.
+		query = """
+			SELECT song_id
+			FROM songs_in_lists
+			WHERE list_id = $1
+			ORDER BY song_id
+			LIMIT 1
+			OFFSET $2;
+		"""
+		values = (playlist_id, index - 1)
+		song_id = await self.conn.fetchval(query, *values)
+
+		if song_id is None:
+			return None
+		song = await self.get_song_url(song_id)
+
+		return song
+
+	async def get_songs_in_playlist(
+		self,
+		playlist_title: str,
+		owner_id: str
+	) -> Union[List[str], None]:
+		"""
+		Get the URLs of all songs in a specific playlist.
+
+		:param playlist_title:
+			The title of the playlist to get the songs from.
+		:type playlist_title: str
+
+		:param owner_id:
+			The discord ID of the owner of the playlist.
+		:type owner_id: str
+
+		:return:
+			A list of the URLs of all the songs in the playlist, or None if the playlist
+			doesn't exist, or if it doesn't have any songs.
 		:rtype: Union[List[str], None]
 		"""
 
@@ -243,7 +396,7 @@ class DatabaseConnection():
 		for result in results:
 			ids.append(result.get('song_id'))
 
-		songs = await self.get_titles(ids)
+		songs = await self.get_urls(ids)
 		if len(songs) == 0:
 			return None
 		else:

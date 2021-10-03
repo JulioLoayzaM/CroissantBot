@@ -950,7 +950,7 @@ class Music(commands.Cog):
 
 	@playlist_base.command(
 		name="add",
-		help="Add a song to a playlist"
+		help="Adds a song to a playlist"
 	)
 	async def playlist_add(
 		self,
@@ -962,9 +962,9 @@ class Music(commands.Cog):
 		Adds a song from its URL to a playlist. Creates the playlist if it doesn't exist.
 
 		Parameters:
-			song_url: the song's URL.
-			list_title: the title of the playlist. 'favourites' by default, \
-				to quickly save songs.
+			song_url: The song's URL.
+			list_title: The title of the playlist. 'favourites' by default,
+			to quickly save songs.
 		"""
 
 		if not await validate_url(song_url):
@@ -997,8 +997,48 @@ class Music(commands.Cog):
 			)
 
 	@playlist_base.command(
+		name="now",
+		help="Adds the currently playing song to a playlist, favourites by default"
+	)
+	async def playlist_now(
+		self,
+		ctx: commands.Context,
+		title: str = 'favourites'
+	):
+		"""
+		Adds the currently playing or paused song to a user's playlist.
+
+		Parameters:
+			title: The title of the playlist to add the song to, favourites by default.
+		"""
+
+		if not await self.is_connected(ctx):
+			em = discord.Embed(
+				title="Error",
+				description="The bot is not connected to a voice channel",
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
+			return
+
+		gid = ctx.message.guild.id
+		info = self.info.get(gid)
+		source: YTDLSource = info.get('source')
+
+		if source is not None:
+			song_url = source.url
+			await self.playlist_add(ctx, song_url, str(ctx.author.id))
+		else:
+			em = discord.Embed(
+				title="Error",
+				description="The bot is not playing something.",
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
+
+	@playlist_base.command(
 		name="create",
-		help="Create a new playlist"
+		help="Creates a new playlist"
 	)
 	async def playlist_create(
 		self,
@@ -1009,7 +1049,7 @@ class Music(commands.Cog):
 		Creates a new playlist if no other playlist owned by the user has the same title.
 
 		Parameters:
-			title: the title to give to the playlist.
+			title: The title to give to the playlist.
 		"""
 
 		try:
@@ -1029,6 +1069,124 @@ class Music(commands.Cog):
 			)
 			await ctx.send(embed=em)
 			logger.debug(f"DbInsertError: {rest}")
+
+	@playlist_base.command(
+		name="list",
+		help="Lists all your playlists by default or shows the songs in a specific one"
+	)
+	async def playlist_list(
+		self,
+		ctx: commands.Context,
+		title: str = None
+	):
+		"""
+		Show the user's playlists or songs in a specific playlist.
+
+		Parameters:
+			title: The title of the playlist to display. If None, displays a list of
+			all the user's playlists. None by default.
+		"""
+
+		if title is None:
+			playlists = await self.db.get_playlists(str(ctx.author.id))
+			if playlists is None:
+				await ctx.send(f"You haven't created a playlist yet, use `{BOT_PREFIX}playlist create <title>` to create one.")  # noqa: E501
+			else:
+				cpt = 1
+				msg = ""
+				for pl in playlists:
+					msg += f"{cpt}. {pl}\n"
+					cpt += 1
+				name = ctx.author.display_name
+				if name[-1].lower == 's':
+					em_title = f"{name}' playlists"
+				else:
+					em_title = f"{name}'s playlists"
+				em = discord.Embed(
+					title=em_title,
+					description=msg,
+					colour=ctx.author.colour
+				)
+				await ctx.send(embed=em)
+
+		else:
+			songs = await self.db.get_songs_in_playlist(title, str(ctx.author.id))
+			if songs is None:
+				await ctx.send(f"You haven't saved songs to this playlist, use `{BOT_PREFIX}playlist add <song URL> <playlist title>`.")  # noqa: E501
+			else:
+				cpt = 1
+				msg = ""
+				for song in songs:
+					msg += f"{cpt}. {song}\n"
+					cpt += 1
+				em = discord.Embed(
+					title=title,
+					description=msg,
+					colour=ctx.author.colour
+				)
+				await ctx.send(embed=em)
+
+	@playlist_base.command(
+		name="play",
+		help="Adds a playlist to the queue, or a specific song from a playlist"
+	)
+	async def playlist_play(
+		self,
+		ctx: commands.Context,
+		title: str = 'favourites',
+		index: int = 0
+	):
+		"""
+		Queues all songs from a playlist, or a specific song from a playlist.
+
+		Parameters:
+			title: The title of the playlist to queue or to get the song from.
+			'favourites' by default.
+			index: The index of the song to queue. If 0, queues all the songs in
+			the playlist. If the index exists in the playlist, queues that specific song.
+		"""
+
+		if not await self.db.playlist_exists(title, str(ctx.author.id)):
+			em = discord.Embed(
+				title="Error",
+				description=f"""You don't have a playlist named {title}.\n
+				Use `{BOT_PREFIX}playlist create <title>` to create a playlist.""",
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
+			return
+
+		if index == 0:
+			songs = await self.db.get_songs_in_playlist(title, str(ctx.author.id))
+			if songs is None:
+				em = discord.Embed(
+					title="Error",
+					description=f"""You don't have songs saved in {title}.\n
+					Use `{BOT_PREFIX}playlist add <song_url> {title}` to add a song.""",
+					colour=discord.Colour.gold()
+				)
+				await ctx.send(embed=em)
+			else:
+				for song in songs:
+					await self.play(ctx, song)
+		elif index < 0:
+			em = discord.Embed(
+				title="Error",
+				description="You can't use a negative index!",
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
+		else:
+			song = await self.db.get_song_from(index, title, str(ctx.author.id))
+			if song is None:
+				em = discord.Embed(
+					title="Error",
+					description=f"There's no song with that index in {title}.",
+					colour=discord.Colour.gold()
+				)
+				await ctx.send(embed=em)
+			else:
+				await self.play(ctx, song)
 
 	@commands.group(
 		name="favourites",
