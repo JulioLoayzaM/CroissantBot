@@ -34,42 +34,6 @@ from dotenv import load_dotenv, set_key
 from packaging import version
 
 
-# .env variables
-load_dotenv()
-
-# Bot token
-BOT_TOKEN = os.getenv('DISCORD_TOKEN')
-
-# Bot prefix, '!' by default
-BOT_PREFIX = os.getenv('BOT_PREFIX', '!')
-
-# Cog selection
-TWITCH_ENABLED   = bool(os.getenv('ENABLE_TW', ''))
-YOUTUBE_ENABLED  = bool(os.getenv('ENABLE_YT', ''))
-PLAYLIST_ENABLED = bool(os.getenv('ENABLE_PLAYLISTS', ''))
-
-# How often to check Twitch and/or Youtube, in minutes - 2 by default
-if TWITCH_ENABLED or YOUTUBE_ENABLED:
-	TW_FREQUENCY = int(os.getenv('TW_FREQUENCY', 2))
-else:
-	TW_FREQUENCY = 0
-
-# Get the files of the enabled cogs
-if TWITCH_ENABLED:
-	TW_FILE = os.getenv('TW_FILE')
-	TW_TOKEN = os.getenv('TW_TOKEN', '')
-	TW_EXPIRES_IN = 0
-if YOUTUBE_ENABLED:
-	YT_FILE = os.getenv('YT_FILE')
-	LOG_STREAMLINK_FILE = os.getenv('LOG_STREAMLINK')
-
-# Log files
-LOG_INFO_FILE    = os.getenv('LOG_INFO')
-LOG_DEBUG_FILE   = os.getenv('LOG_DEBUG')
-LOG_DISCORD_FILE = os.getenv('LOG_DISCORD')
-LOG_COUNT = int(os.getenv('LOG_COUNT'))
-
-
 # Colours for formatting console text
 HEADER    = '\033[95m'
 BLUE      = '\033[94m'
@@ -82,30 +46,64 @@ ENDC      = '\033[0m'
 BOLD      = '\033[1m'
 UNDERLINE = '\033[4m'
 PURPLE    = '\033[38;5;165m'
-
 VOICE = f"{BLUE}[voice]{ENDC}"
 
+if __name__ == '__main__':
+	# .env variables
+	load_dotenv()
 
-# Create global variables for check_twitch/youtube
-# Initialized by init_twitch/youtube
-TW_PREV_STATUS = dict()
-TW_STREAMERS   = dict()
-YT_PREV_STATUS = dict()
-YT_STREAMERS   = dict()
+	# Bot token
+	BOT_TOKEN = os.getenv('DISCORD_TOKEN')
 
-# Persistent session
-SESSION: aiohttp.ClientSession = None
+	# Bot prefix, '!' by default
+	BOT_PREFIX = os.getenv('BOT_PREFIX', '!')
 
-# Loggers
-logger = None
-discord_logger = None
+	# Cog selection
+	TWITCH_ENABLED   = bool(os.getenv('ENABLE_TW', ''))
+	YOUTUBE_ENABLED  = bool(os.getenv('ENABLE_YT', ''))
+	PLAYLIST_ENABLED = bool(os.getenv('ENABLE_PLAYLISTS', ''))
 
-# Discord intents
-intents = discord.Intents.default()
-# This one allows to retrieve a guild's member list
-intents.members = True
+	# How often to check Twitch and/or Youtube, in minutes - 2 by default
+	if TWITCH_ENABLED or YOUTUBE_ENABLED:
+		TW_FREQUENCY = int(os.getenv('TW_FREQUENCY', 2))
+	else:
+		TW_FREQUENCY = 0
 
-bot = commands.Bot(command_prefix=BOT_PREFIX, intents=intents)
+	# Get the files of the enabled cogs
+	if TWITCH_ENABLED:
+		TW_FILE = os.getenv('TW_FILE')
+		TW_TOKEN = os.getenv('TW_TOKEN', '')
+		TW_EXPIRES_IN = 0
+	if YOUTUBE_ENABLED:
+		YT_FILE = os.getenv('YT_FILE')
+		LOG_STREAMLINK_FILE = os.getenv('LOG_STREAMLINK')
+
+	# Log files
+	LOG_INFO_FILE    = os.getenv('LOG_INFO')
+	LOG_DEBUG_FILE   = os.getenv('LOG_DEBUG')
+	LOG_DISCORD_FILE = os.getenv('LOG_DISCORD')
+	LOG_COUNT = int(os.getenv('LOG_COUNT'))
+
+	# Create global variables for check_twitch/youtube
+	# Initialized by init_twitch/youtube
+	TW_PREV_STATUS = dict()
+	TW_STREAMERS   = dict()
+	YT_PREV_STATUS = dict()
+	YT_STREAMERS   = dict()
+
+	# Persistent session
+	SESSION: aiohttp.ClientSession = None
+
+	# Loggers
+	logger = None
+	discord_logger = None
+
+	# Discord intents
+	intents = discord.Intents.default()
+	# This one allows to retrieve a guild's member list
+	intents.members = True
+
+	bot = commands.Bot(command_prefix=BOT_PREFIX, intents=intents)
 
 
 @bot.event
