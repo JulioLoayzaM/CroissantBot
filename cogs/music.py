@@ -52,7 +52,6 @@ from discord.ext import commands
 
 from cogs.queue import SongQueue, EmptyQueueError
 from cogs.song import Song
-# from cogs.db import DatabaseConnection, DbInsertError
 
 from dotenv import load_dotenv
 from typing import Tuple, Union, List, Dict

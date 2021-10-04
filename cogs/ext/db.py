@@ -1,7 +1,22 @@
 # db.py
+
+"""
+For all database connection needs.
+
+This file provides:
+	DatabaseConnection:
+		The base class with three methods: connect, close and is_connected.
+	MusicDatabaseConnection:
+		A class to provide an interface for managing the playlists
+		stored in the database.
+"""
+
+# Copyright (C) 2021 JulioLoayzaM
 #
-# Defines a class, which represents a connection to a PostgreSQL database,
-# used to manage the playlists.
+# You may use, distribute and modify this code under
+# the terms of the MIT license.
+#
+# See the LICENSE file for more details.
 
 import asyncio
 import asyncpg
