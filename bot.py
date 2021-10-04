@@ -46,7 +46,7 @@ BOT_PREFIX = os.getenv('BOT_PREFIX', '!')
 # Cog selection
 TWITCH_ENABLED   = bool(os.getenv('ENABLE_TW', ''))
 YOUTUBE_ENABLED  = bool(os.getenv('ENABLE_YT', ''))
-PLAYLIST_ENABLED = bool(os.getenv('ENABLE_DB', ''))
+PLAYLIST_ENABLED = bool(os.getenv('ENABLE_PLAYLISTS', ''))
 
 # How often to check Twitch and/or Youtube, in minutes - 2 by default
 if TWITCH_ENABLED or YOUTUBE_ENABLED:

@@ -96,11 +96,11 @@ class Playlist(commands.Cog):
 			return
 
 		if not await self.db.is_connected():
-			host = os.getenv('DB_HOST')
-			user = os.getenv('DB_USER')
-			port = os.getenv('DB_PORT', None)
-			password = os.getenv('DB_PASSWORD')
-			database = os.getenv('DB_DATABASE')
+			host = os.getenv('DB_MUSIC_HOST')
+			user = os.getenv('DB_MUSIC_USER')
+			port = os.getenv('DB_MUSIC_PORT', None)
+			password = os.getenv('DB_MUSIC_PASSWORD')
+			database = os.getenv('DB_MUSIC_DATABASE')
 			await self.db.connect(
 				host,
 				user,
