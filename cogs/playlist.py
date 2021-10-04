@@ -23,7 +23,7 @@ except:  # noqa: 722
 import discord
 from discord.ext import commands
 
-from cogs.db import DatabaseConnection, DbInsertError, NotFoundError
+from cogs.ext.db import MusicDatabaseConnection, DbInsertError, NotFoundError
 from cogs.music import YTDLSource
 
 from dotenv import load_dotenv
@@ -62,7 +62,7 @@ class Playlist(commands.Cog):
 
 	def __init__(self, bot: commands.Bot, logger: logging.Logger):
 		self.bot = bot
-		self.db = DatabaseConnection("CroissantBot")
+		self.db = MusicDatabaseConnection("CroissantBot")
 		self.logger = logger
 
 	async def close_db(

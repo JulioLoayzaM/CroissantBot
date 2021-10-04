@@ -37,7 +37,7 @@ FAIL = RED
 
 class DatabaseConnection():
 	"""
-	A class to represent a connection to the PostgreSQL database.
+	The base class to represent a connection to a PostgreSQL database.
 
 	:param logger_name:
 		The name of the logger to be used by the connection.
@@ -46,7 +46,7 @@ class DatabaseConnection():
 
 	def __init__(self, logger_name: str):
 		"""
-		init
+		Initializes an instance with no connection and a logger.
 
 		:param logger_name:
 			The name of the logger to be used by the connection.
@@ -54,6 +54,7 @@ class DatabaseConnection():
 		"""
 		self.conn: asyncpg.Connection = None
 		self.logger = logging.getLogger(logger_name)
+		self.db_name = ""
 
 	async def connect(
 		self,
@@ -65,7 +66,7 @@ class DatabaseConnection():
 		port: str = None
 	) -> asyncpg.Connection:
 		"""
-		Connect to a database using the credentials provided. Stores connection in self.conn.
+		Connect to a database using the credentials provided. Stores connection in `self.conn`.
 
 		:param host:
 			The hostname, usually 'localhost'.
@@ -99,6 +100,8 @@ class DatabaseConnection():
 
 		self.conn = conn
 
+		self.db_name = database
+
 		self.logger.debug(f"{GREEN}Connected to database:{ENDC} {database}.")
 
 	async def close(self) -> bool:
@@ -112,16 +115,16 @@ class DatabaseConnection():
 
 		if self.conn is not None:
 			await self.conn.close()
-			self.logger.debug(f"{WARNING}Closed:{ENDC} connection to the database.")
+			self.logger.debug(f"{WARNING}Closed:{ENDC} connection to the database {self.db_name}.")
 			return True
 
 		else:
-			self.logger.warning("No database connection to close.")
+			self.logger.warning(f"No connection database {self.db_name} to close.")
 			return False
 
 	async def is_connected(
 		self
-	):
+	) -> bool:
 		"""
 		Check if the connection is active.
 
@@ -134,6 +137,27 @@ class DatabaseConnection():
 			return False
 		else:
 			return not self.conn.is_closed()
+
+
+class MusicDatabaseConnection(DatabaseConnection):
+	"""
+	A class to provide an interface to manage the playlists used by the
+	`playlist` group of commands.
+
+	:param logger_name:
+		The name of the logger to be used by this connection.
+	:type logger_name: str
+	"""
+
+	def __init__(self, logger_name: str):
+		"""
+		Initializes a new instance.
+
+		:param logger_name:
+			The name of the logger to be used by this connection.
+		:type logger_name: str
+		"""
+		super().__init__(logger_name)
 
 	async def insert_song(
 		self,
