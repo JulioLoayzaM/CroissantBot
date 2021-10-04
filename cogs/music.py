@@ -50,8 +50,8 @@ except:  # noqa: 722
 import discord
 from discord.ext import commands
 
-from cogs.queue import SongQueue, EmptyQueueError
-from cogs.song import Song
+from cogs.ext.queue import SongQueue, EmptyQueueError
+from cogs.ext.song import Song
 
 from dotenv import load_dotenv
 from typing import Tuple, Union, List, Dict

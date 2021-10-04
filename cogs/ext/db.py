@@ -22,7 +22,7 @@ import asyncio
 import asyncpg
 import logging
 
-from cogs.song import Song
+from cogs.ext.song import Song
 from typing import List, Union
 
 

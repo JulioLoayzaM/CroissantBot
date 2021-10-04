@@ -11,7 +11,7 @@
 # See the LICENSE file for more details.
 
 
-from cogs.song import Song
+from cogs.ext.song import Song
 from typing import List, Tuple, Union
 
 
