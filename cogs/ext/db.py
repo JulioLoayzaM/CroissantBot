@@ -119,7 +119,7 @@ class DatabaseConnection():
 			return True
 
 		else:
-			self.logger.warning(f"No connection database {self.db_name} to close.")
+			self.logger.warning(f"No connection to database '{self.db_name}' to close.")
 			return False
 
 	async def is_connected(

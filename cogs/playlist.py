@@ -33,6 +33,8 @@ load_dotenv()
 
 BOT_PREFIX = os.getenv('BOT_PREFIX')
 
+MUSIC_ENABLED = bool(os.getenv('ENABLE_MUSIC', ''))
+
 # Used to suppress useless errors apparently
 yt_dl.utils.bug_reports_message = lambda: ''
 
@@ -160,7 +162,7 @@ class Playlist(commands.Cog):
 
 	@playlist_base.command(
 		name="remove",
-		help=""
+		help="Remove a song from a playlist by its index"
 	)
 	async def playlist_remove(
 		self,
@@ -169,6 +171,11 @@ class Playlist(commands.Cog):
 		index: int
 	):
 		"""
+		Removes a song from a playlist by its index.
+
+		Parameters:
+			title: The title of the playlist.
+			index: The index of the song to remove.
 		"""
 
 		if not await self.db.playlist_exists(title, str(ctx.author.id)):
@@ -204,7 +211,9 @@ class Playlist(commands.Cog):
 
 	@playlist_base.command(
 		name="now",
-		help="Adds the currently playing song to a playlist, favourites by default"
+		help="Adds the currently playing song to a playlist, favourites by default",
+		enabled=MUSIC_ENABLED,
+		hidden=not MUSIC_ENABLED
 	)
 	async def playlist_now(
 		self,
@@ -379,7 +388,9 @@ class Playlist(commands.Cog):
 
 	@playlist_base.command(
 		name="play",
-		help="Adds a playlist to the queue, or a specific song from a playlist"
+		help="Adds a playlist to the queue, or a specific song from a playlist",
+		enabled=MUSIC_ENABLED,
+		hidden=not MUSIC_ENABLED
 	)
 	async def playlist_play(
 		self,

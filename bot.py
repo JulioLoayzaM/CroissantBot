@@ -59,9 +59,12 @@ if __name__ == '__main__':
 	BOT_PREFIX = os.getenv('BOT_PREFIX', '!')
 
 	# Cog selection
+	MEME_ENABLED     = bool(os.getenv('ENABLE_MEME', ''))
+	MISC_ENABLED     = bool(os.getenv('ENABLE_MISC', ''))
+	MUSIC_ENABLED    = bool(os.getenv('ENABLE_MUSIC', ''))
+	PLAYLIST_ENABLED = bool(os.getenv('ENABLE_PLAYLISTS', ''))
 	TWITCH_ENABLED   = bool(os.getenv('ENABLE_TW', ''))
 	YOUTUBE_ENABLED  = bool(os.getenv('ENABLE_YT', ''))
-	PLAYLIST_ENABLED = bool(os.getenv('ENABLE_PLAYLISTS', ''))
 
 	# How often to check Twitch and/or Youtube, in minutes - 2 by default
 	if TWITCH_ENABLED or YOUTUBE_ENABLED:
@@ -127,19 +130,22 @@ async def close_connection(ctx: commands.Context):
 	"""
 	Closes the bot's connection.
 	Cleans the voice clients, the requests session and logging.
+	Checks if the cogs are enabled, since failing to get the cog is not an error
+	if they are not enabled.
 	"""
 
 	# Close all voice clients
-	res = False
-	music = bot.get_cog('Music')
-	if music is not None:
-		res = await music.stop_all()
-		if res:
-			logger.debug(f"{VOICE} stop_all executed.")
-	else:
-		logger.error("Couldn't get cog 'Music'.")
+	if MUSIC_ENABLED:
+		res = False
+		music = bot.get_cog('Music')
+		if music is not None:
+			res = await music.stop_all()
+			if res:
+				logger.debug(f"{VOICE} stop_all executed.")
+		else:
+			logger.error("Couldn't get cog 'Music'.")
 
-	# Close connection to the database
+	# Close connection to the database.
 	if PLAYLIST_ENABLED:
 		res = False
 		pl = bot.get_cog('Playlist')
@@ -150,15 +156,16 @@ async def close_connection(ctx: commands.Context):
 			else:
 				logger.debug(f"{WARNING}The database was already closed.{ENDC}")
 
-	# Close the meme aiohttp.ClientSession
-	res = False
-	meme = bot.get_cog('Meme')
-	if meme is not None:
-		res = await meme.close_session()
-		if res:
-			logger.debug(f"{WARNING}Closed:{ENDC} Meme aiohttp.ClientSession.")
-	else:
-		logger.error("Couldn't get cog 'Meme'.")
+	# Close the meme aiohttp.ClientSession.
+	if MEME_ENABLED:
+		res = False
+		meme = bot.get_cog('Meme')
+		if meme is not None:
+			res = await meme.close_session()
+			if res:
+				logger.debug(f"{WARNING}Closed:{ENDC} Meme aiohttp.ClientSession.")
+		else:
+			logger.error("Couldn't get cog 'Meme'.")
 
 	# Close the global aiohttp.ClientSession
 	await SESSION.close()
@@ -198,7 +205,7 @@ async def ping_back(ctx: commands.Context):
 
 	music = bot.get_cog('Music')
 
-	if music is not None:
+	if (MUSIC_ENABLED) and (music is not None):
 
 		res = await music.get_latency(ctx)
 
@@ -731,6 +738,9 @@ async def on_command_error(ctx: commands.Context, error: commands.CommandError):
 	elif isinstance(error, commands.CheckFailure):
 		await ctx.send("You don't have permission to use that command.")
 
+	elif isinstance(error, commands.DisabledCommand):
+		await ctx.send("This command is currently disabled.")
+
 	else:
 		logger.error(f"Unexpected command error:\n{error}")
 
@@ -843,27 +853,38 @@ async def create_session():
 def main(loop: asyncio.AbstractEventLoop):
 	"""
 	Sets up the bot's start:
-		1: Sets up the loggers
-		2: Loads the required cogs: misc, music and meme
-		3: Loads the twitch and youtube cogs if enabled through .env
-		4: Starts their corresponding check function
-		5: Starts running the bot
+		1: Sets up the loggers;
+		2: Loads the enabled cogs;
+		3: If the twitch or youtube cogs are enabled, starts their corresponding
+		check function;
+		4: Starts running the bot.
 	"""
 
 	setup_loggers()
 
 	logger.debug(f"{WARNING}Setting up bot...{ENDC}")
 
-	bot.load_extension("cogs.misc")
-	bot.load_extension("cogs.music")
-	bot.load_extension("cogs.meme")
-
-	# A string to log which cogs got loaded
-	enabled_cogs = "misc, music, meme"
-
 	loop.run_until_complete(create_session())
 
 	logger.debug(f"{WARNING}Created:{ENDC} Global aiohttp.ClientSession.")
+
+	enabled_cogs = []
+
+	if MEME_ENABLED:
+		bot.load_extension("cogs.meme")
+		enabled_cogs.append("meme")
+
+	if MISC_ENABLED:
+		bot.load_extension("cogs.misc")
+		enabled_cogs.append("misc")
+
+	if MUSIC_ENABLED:
+		bot.load_extension("cogs.music")
+		enabled_cogs.append("music")
+
+	if PLAYLIST_ENABLED:
+		bot.load_extension("cogs.playlist")
+		enabled_cogs.append(f"{CYAN}playlist{ENDC}")
 
 	# Load the twitch and youtube cogs if enabled
 	if TWITCH_ENABLED:
@@ -871,7 +892,7 @@ def main(loop: asyncio.AbstractEventLoop):
 		twitch_initiated = loop.run_until_complete(init_twitch())
 		if twitch_initiated:
 			check_twitch.start()
-			enabled_cogs += f", {PURPLE}twitch{ENDC}"
+			enabled_cogs.append(f"{PURPLE}twitch{ENDC}")
 		else:
 			logger.warning(f"Can't enable {PURPLE}twitch{ENDC} cog, unloading extension.")
 			bot.unload_extension('cogs.twitch')
@@ -880,17 +901,14 @@ def main(loop: asyncio.AbstractEventLoop):
 		bot.load_extension("cogs.youtube")
 		init_youtube()
 		check_youtube.start()
-		enabled_cogs += f", {PURPLE}youtube{ENDC}"
+		enabled_cogs.append(f"{PURPLE}youtube{ENDC}")
 		fix_logger()
 
-	if PLAYLIST_ENABLED:
-		bot.load_extension("cogs.playlist")
-		enabled_cogs += f", {CYAN}playlist{ENDC}"
-
-	enabled_cogs += "."
+	s_enabled_cogs = ', '.join(enabled_cogs)
+	s_enabled_cogs += '.'
 
 	# Log which cogs got loaded
-	logger.debug(f"{WARNING}Enabled cogs:{ENDC} {enabled_cogs}")
+	logger.debug(f"{WARNING}Enabled cogs:{ENDC} {s_enabled_cogs}")
 	logger.debug(f"{WARNING}Bot starting...{ENDC}")
 
 	# Start the bot
