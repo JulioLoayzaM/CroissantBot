@@ -20,7 +20,7 @@ import logging
 import discord
 import os
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv, set_key
 from typing import Union
 
 from discord.ext import commands
@@ -233,6 +233,57 @@ class Meme(commands.Cog):
 				logger.debug(f"Unexpected exception:\n{e}")
 				logger.debug(f"Output:\n{output}")
 				await ctx.send("An error ocurred, please try again.")
+
+	@commands.command(
+		name="change_meme_limit",
+		help="Change the limit of memes the bot can get at each call from a subreddit"
+	)
+	@commands.is_owner()
+	async def change_limit(
+		self,
+		ctx: commands.Context,
+		new_limit: int
+	):
+		"""
+		Changes the item_limit of memes the bot can get from a subreddit on each request.
+
+		Parameters:
+			new_limit: The new limit to apply. Has to be a strictly positive integer.
+		"""
+		if new_limit > 0:
+
+			self.item_limit = new_limit
+
+			try:
+				set_key('./../.env', 'MEME_ITEM_LIMIT', str(new_limit))
+				em = discord.Embed(
+					title="Success",
+					description=f"Changed limit to {new_limit}.",
+					colour=discord.Colour.green()
+				)
+				await ctx.send(embed=em)
+				self.logger.debug("Updated MEME_ITEM_LIMIT.")
+
+			except Exception as error:
+				self.logger.error("Couldn't set new_limit in .env.")
+				self.logger.debug(error)
+				em = discord.Embed(
+					title="Error",
+					description="""
+						The new limit was applied to the current session, but couldn't be saved
+						in `.env`.
+					""",
+					colour=discord.Colour.gold()
+				)
+				await ctx.send(embed=em)
+
+		else:
+			em = discord.Embed(
+				title="Error",
+				description="Can't set the limit below 0.",
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
 
 
 def setup(bot):
