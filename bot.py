@@ -59,6 +59,7 @@ if __name__ == '__main__':
 	BOT_PREFIX = os.getenv('BOT_PREFIX', '!')
 
 	# Cog selection
+	JSONFAV_ENABLED  = bool(os.getenv('ENABLE_JSONFAV', ''))
 	MEME_ENABLED     = bool(os.getenv('ENABLE_MEME', ''))
 	MISC_ENABLED     = bool(os.getenv('ENABLE_MISC', ''))
 	MUSIC_ENABLED    = bool(os.getenv('ENABLE_MUSIC', ''))
@@ -871,6 +872,10 @@ def main(loop: asyncio.AbstractEventLoop):
 	logger.debug(f"{WARNING}Created:{ENDC} Global aiohttp.ClientSession.")
 
 	enabled_cogs = []
+
+	if JSONFAV_ENABLED:
+		bot.load_extension("cogs.favourites")
+		enabled_cogs.append(f"{CYAN}json_favourites{ENDC}")
 
 	if MEME_ENABLED:
 		bot.load_extension("cogs.meme")
