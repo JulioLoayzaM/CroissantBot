@@ -163,7 +163,9 @@ async def close_connection(ctx: commands.Context):
 		if meme is not None:
 			res = await meme.close_session()
 			if res:
-				logger.debug(f"{WARNING}Closed:{ENDC} Meme aiohttp.ClientSession.")
+				logger.debug(
+					f"{WARNING}Closed:{ENDC} Meme aiohttp.ClientSession and Reddit instance."
+				)
 		else:
 			logger.error("Couldn't get cog 'Meme'.")
 

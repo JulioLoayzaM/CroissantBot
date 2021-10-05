@@ -26,37 +26,42 @@ from typing import Union
 from discord.ext import commands
 
 
-# .env variables
-load_dotenv()
-CLIENT_ID     = os.getenv("REDDIT_CLIENT_ID")
-CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
-USERNAME      = os.getenv("REDDIT_USERNAME")
-PASSWORD      = os.getenv("REDDIT_PASSWORD")
-APP_VERSION   = os.getenv("REDDIT_APP_VERSION")
-
-# Directory containing the lists
-# "./memes" by default - "." is the directory contaning bot.py
-MEME_DIR = os.getenv("MEME_DIR")
-
-# Whether to download the memes or not, False by default.
-DOWNLOAD = bool(os.getenv('MEME_DOWNLOAD', False))
-
-# The number of memes the bot will fetch when called.
-# AFAIK, we can only set how many items to fetch, meaning each time
-# the function is called with the same sub we may get the same exact list,
-# just to get the next meme. If the command is used often, the limit
-# should be increased or a better way to fetch memes implemented.
-ITEM_LIMIT = 10
-
-# The 'CroissantBot' logger
-logger = None
-
-
 class Meme(commands.Cog):
 
-	def __init__(self, bot: commands.Bot):
+	def __init__(
+		self,
+		bot: commands.Bot,
+		logger: logging.Logger,
+		session: aiohttp.ClientSession,
+		reddit: asyncpraw.Reddit,
+		meme_dir: str,
+		download: bool,
+		item_limit: int
+	):
 		self.bot = bot
-		self.session = None
+		self.logger = logger
+		self.session = session
+		self.reddit = reddit
+		self.dir = meme_dir
+		self.download = download
+		self.item_limit = item_limit
+
+	async def close_session(self) -> bool:
+		"""
+		Closes the aiohttp.session and the Reddit instance, called on bot exit.
+
+		Returns:
+			True if the sessions were closed, False otherwise.
+		"""
+
+		try:
+			await self.session.close()
+			await self.reddit.close()
+			return True
+		except Exception as error:
+			self.logger.error("Couldn't close a Meme cog session.")
+			self.logger.debug(error)
+			return False
 
 	async def get_meme(self, sub: str, name: str) -> Union[str, None]:
 		"""
@@ -73,19 +78,12 @@ class Meme(commands.Cog):
 			None if the meme couldn't be downloaded.
 		"""
 
-		if self.session is None:
-			self.session = aiohttp.ClientSession()
-			WARNING = '\033[93m'
-			ENDC = '\033[0m'
-			logger.debug(f"{WARNING}Created:{ENDC} Meme aiohttp.ClientSession.")
+		DOWNLOAD = self.download
+		ITEM_LIMIT = self.item_limit
+		MEME_DIR = self.dir
 
-		reddit = asyncpraw.Reddit(
-			client_id     = CLIENT_ID,
-			client_secret = CLIENT_SECRET,
-			username      = USERNAME,
-			password      = PASSWORD,
-			user_agent    = f"python/requests:{CLIENT_ID}:v{APP_VERSION} (by /u/{USERNAME})"
-		)
+		logger = self.logger
+		reddit = self.reddit
 
 		# File to check to see if the meme was already sent to this guild/DM
 		list_file = f"{MEME_DIR}/{name}.txt"
@@ -136,7 +134,6 @@ class Meme(commands.Cog):
 				logger.warning("Ignoring error, proceeding.")
 
 			if not DOWNLOAD:
-				await reddit.close()
 				return url
 
 			# Get the filename, the same one as on the link.
@@ -178,12 +175,8 @@ class Meme(commands.Cog):
 
 					logger.error("Could not write image file.")
 					logger.debug(f"Unexpected exception:\n{e}")
-					# Return None to indicate there's been a problem during download,
-					# close the instance before leaving.
-					await reddit.close()
+					# Return None to indicate there's been a problem during download.
 					return None
-
-		await reddit.close()
 
 		return filename
 
@@ -200,6 +193,8 @@ class Meme(commands.Cog):
 		"""
 
 		chtype = str(ctx.channel.type)
+		DOWNLOAD = self.download
+		logger = self.logger
 
 		if chtype == "text":
 			name = ctx.guild.name
@@ -239,27 +234,57 @@ class Meme(commands.Cog):
 				logger.debug(f"Output:\n{output}")
 				await ctx.send("An error ocurred, please try again.")
 
-	async def close_session(self) -> bool:
-		"""
-		Closes the aiohttp.session, called on bot exit.
-
-		Returns:
-			True if it closed the session, False otherwise.
-		"""
-		if self.session is not None:
-			await self.session.close()
-			return True
-		return False
-
 
 def setup(bot):
-	global logger
-	logger = logging.getLogger("CroissantBot")
 
 	WARNING   = '\033[93m'
 	ENDC      = '\033[0m'
 
-	status = "ON" if DOWNLOAD else "OFF"
+	load_dotenv()
+
+	logger = logging.getLogger("CroissantBot")
+
+	session = aiohttp.ClientSession()
+	logger.debug(f"{WARNING}Created:{ENDC} Meme aiohttp.ClientSession.")
+
+	CLIENT_ID     = os.getenv("REDDIT_CLIENT_ID")
+	CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
+	USERNAME      = os.getenv("REDDIT_USERNAME")
+	PASSWORD      = os.getenv("REDDIT_PASSWORD")
+	APP_VERSION   = os.getenv("REDDIT_APP_VERSION")
+
+	reddit = asyncpraw.Reddit(
+		client_id     = CLIENT_ID,
+		client_secret = CLIENT_SECRET,
+		username      = USERNAME,
+		password      = PASSWORD,
+		user_agent    = f"python/requests:{CLIENT_ID}:v{APP_VERSION} (by /u/{USERNAME})"
+	)
+
+	# Directory containing the lists (and the memes if download is enabled).
+	# "./memes" by default - "." is the directory contaning bot.py.
+	meme_dir = os.getenv("MEME_DIR")
+
+	# Whether to download the memes or not, False by default.
+	download = bool(os.getenv('MEME_DOWNLOAD', False))
+	status = "ON" if download else "OFF"
 	logger.debug(f"{WARNING}Meme download:{ENDC} {status}.")
 
-	bot.add_cog(Meme(bot))
+	# The number of memes the bot will fetch when called.
+	# AFAIK, we can only set how many items to fetch, meaning each time
+	# the function is called with the same sub we may get the same exact list,
+	# just to get the next meme. If the command is used often, the limit
+	# should be increased or a better way to fetch memes implemented.
+	item_limit = int(os.getenv('MEME_ITEM_LIMIT', 10))
+
+	bot.add_cog(
+		Meme(
+			bot,
+			logger,
+			session,
+			reddit,
+			meme_dir,
+			download,
+			item_limit
+		)
+	)
