@@ -21,20 +21,20 @@ from discord import Embed
 from discord.ext import commands
 from dotenv import load_dotenv
 
-load_dotenv()
-
-TWITCH_API_ENDPOINT = "https://api.twitch.tv/helix/streams?user_login="
-
-TW_CID = getenv('TW_CLIENT_ID')
-
-# 'CroissantBot' logger
-logger = None
-
 
 class Twitch(commands.Cog):
 
-	def __init__(self, bot: commands.Bot):
+	def __init__(
+		self,
+		bot: commands.Bot,
+		logger: logging.Logger,
+		endpoint: str,
+		client_id: str
+	):
 		self.bot = bot
+		self.logger = logger
+		self.endpoint = endpoint
+		self.cid = client_id
 
 	def init_streamers(self, ids: Dict[str, List[str]]) -> Dict[str, Set[str]]:
 		"""
@@ -128,6 +128,10 @@ class Twitch(commands.Cog):
 			the token refresh.
 		"""
 
+		logger = self.logger
+		TW_CID = self.cid
+		TWITCH_API_ENDPOINT = self.endpoint
+
 		headers = {
 			'Client-ID': TW_CID,
 			'Authorization': f'Bearer {token}'
@@ -212,6 +216,13 @@ class Twitch(commands.Cog):
 
 
 def setup(bot):
-	global logger
+
+	load_dotenv()
+
 	logger = logging.getLogger("CroissantBot")
-	bot.add_cog(Twitch(bot))
+
+	api_endpoint = "https://api.twitch.tv/helix/streams?user_login="
+
+	client_id = getenv('TW_CLIENT_ID')
+
+	bot.add_cog(Twitch(bot, logger, api_endpoint, client_id))

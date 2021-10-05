@@ -35,27 +35,6 @@ BOT_PREFIX = os.getenv('BOT_PREFIX')
 
 MUSIC_ENABLED = bool(os.getenv('ENABLE_MUSIC', ''))
 
-# Used to suppress useless errors apparently
-yt_dl.utils.bug_reports_message = lambda: ''
-
-YTDL_FORMAT_OPTIONS = {
-	'restrictfilenames': True,
-	'noplaylist': True,
-	'nocheckcertificate': True,
-	'ignoreerrors': False,
-	'logtostderr': False,
-	'quiet': True,
-	'no_warnings': True,
-	'default_search': 'auto',
-	'source_address': '0.0.0.0'  # bind to ipv4 since ipv6 addresses cause issues sometimes
-}
-
-ffmpeg_options = {
-	'options': '-vn'
-}
-
-ytdl = yt_dl.YoutubeDL(YTDL_FORMAT_OPTIONS)
-
 
 class Playlist(commands.Cog):
 	"""
@@ -484,6 +463,7 @@ async def validate_url(url: str) -> bool:
 
 
 def setup(bot):
+
 	logger = logging.getLogger('CroissantBot')
 
 	bot.add_cog(Playlist(bot, logger))

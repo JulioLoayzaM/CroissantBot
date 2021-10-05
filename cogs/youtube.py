@@ -19,25 +19,22 @@ try:
 except:  # noqa: 722
 	import youtube_dl as yt_dl
 
-from os import getenv
-from dotenv import load_dotenv
 from typing import Dict, Tuple, Union, List, Set
 from discord import Embed
 from discord.ext import commands
 
-load_dotenv()
-
-YT_FILE = getenv('YT_FILE')
-
-# 'CroissantBot' logger
-logger = None
-
 
 class Youtube(commands.Cog):
 
-	def __init__(self, bot: commands.Bot, ydl: yt_dl.YoutubeDL):
+	def __init__(
+		self,
+		bot: commands.Bot,
+		ydl: yt_dl.YoutubeDL,
+		logger: logging.Logger
+	):
 		self.bot = bot
 		self.ydl = ydl
+		self.logger = logger
 
 	def init_streamers(
 		self,
@@ -121,6 +118,8 @@ class Youtube(commands.Cog):
 			messages: The messages to be sent, the keys are the discord users.
 			prev_status: Updated streamers' status.
 		"""
+
+		logger = self.logger
 
 		# messages:
 		# {
@@ -220,8 +219,6 @@ class Youtube(commands.Cog):
 
 
 def setup(bot):
-	global logger
-	logger = logging.getLogger("CroissantBot")
 
 	ytdl_options = {
 		'nooverwrites': True,
@@ -238,4 +235,6 @@ def setup(bot):
 
 	ydl = yt_dl.YoutubeDL(ytdl_options)
 
-	bot.add_cog(Youtube(bot, ydl))
+	logger = logging.getLogger("CroissantBot")
+
+	bot.add_cog(Youtube(bot, ydl, logger))

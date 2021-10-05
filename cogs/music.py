@@ -77,9 +77,6 @@ BOT_PREFIX = os.getenv('BOT_PREFIX')
 
 FAV_LIST = None
 
-# 'CroissantBot' logger
-logger = None
-
 
 # Used to suppress useless errors apparently
 yt_dl.utils.bug_reports_message = lambda: ''
@@ -109,7 +106,7 @@ ytdl = yt_dl.YoutubeDL(YTDL_FORMAT_OPTIONS)
 
 class Music(commands.Cog):
 
-	def __init__(self, bot: commands.Bot):
+	def __init__(self, bot: commands.Bot, logger: logging.Logger):
 
 		self.bot = bot
 		# Template:
@@ -122,6 +119,7 @@ class Music(commands.Cog):
 		# 	}
 		# }
 		self.info = dict()
+		self.logger = logger
 
 	async def is_connected(self, ctx: commands.Context) -> bool:
 		"""
@@ -152,6 +150,8 @@ class Music(commands.Cog):
 		"""
 		Joins the calling user's current voice channel if the user is connected to one.
 		"""
+
+		logger = self.logger
 
 		if not ctx.message.author.voice:
 			await ctx.send("You're not connected to a voice channel, join one first.")
@@ -218,6 +218,8 @@ class Music(commands.Cog):
 		handles the cleaning of channel info.
 		"""
 
+		logger = self.logger
+
 		vc: discord.VoiceClient = ctx.message.guild.voice_client
 		gid = ctx.message.guild.id
 		channel = self.info[gid]['channel']
@@ -267,6 +269,9 @@ class Music(commands.Cog):
 		Parameters:
 			query: The query to search for in youtube.
 		"""
+
+		logger = self.logger
+
 		if query is None:
 			await ctx.send(f"You have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>`.")  # noqa: E501
 			return
@@ -344,6 +349,8 @@ class Music(commands.Cog):
 		"""
 		Higher function, calls play_next and sends the message it receives.
 		"""
+
+		logger = self.logger
 
 		guild = ctx.message.guild
 		vc: discord.VoiceClient = guild.voice_client
@@ -567,6 +574,8 @@ class Music(commands.Cog):
 		Parameters:
 			index: The number of songs to skip, 1 by default.
 		"""
+
+		logger = self.logger
 
 		if not self.is_connected(ctx):
 			await ctx.send("The bot is not connected to a voice channel.")
@@ -893,6 +902,8 @@ class Music(commands.Cog):
 		"""
 		global FAV_LIST
 
+		logger = self.logger
+
 		# First verify a subcommand has been used.
 		if ctx.invoked_subcommand is None:
 			await ctx.send("You have to use a subcommand:")
@@ -1017,6 +1028,8 @@ class Music(commands.Cog):
 		"""
 		global FAV_LIST
 
+		logger = self.logger
+
 		if url is None:
 			await ctx.send("You have to provide a URL.")
 			return
@@ -1072,6 +1085,8 @@ class Music(commands.Cog):
 		"""
 		global FAV_LIST
 
+		logger = self.logger
+
 		if index <= 0:
 			await ctx.send(f"You have to provide a valid index. Use `{BOT_PREFIX}favourites list` to check your list.")  # noqa: E501
 			return
@@ -1114,6 +1129,8 @@ class Music(commands.Cog):
 		Saves the currently playing song from self.info.source.
 		"""
 		global FAV_LIST
+
+		logger = self.logger
 
 		gid = ctx.message.guild.id
 
@@ -1206,6 +1223,9 @@ class Music(commands.Cog):
 		"""
 		Disconnects the bot if no (non-bot) users are left in the channel.
 		"""
+
+		logger = self.logger
+
 		vc = member.guild.voice_client
 
 		if vc is not None:
@@ -1292,6 +1312,9 @@ class YTDLSource(discord.PCMVolumeTransformer):
 			The corresponding (new) Song instance.
 		"""
 
+		# TODO: store the logger somewhere instead of getting it each time.
+		logger = logging.getLogger("CroissantBot")
+
 		loop = loop or asyncio.get_event_loop()
 
 		metadata = await loop.run_in_executor(
@@ -1343,7 +1366,7 @@ async def validate_url(url: str) -> bool:
 
 
 def setup(bot):
-	global logger
+
 	logger = logging.getLogger("CroissantBot")
 
 	logger.debug(f"{WARNING}Youtube downloader:{ENDC} {yt_version}.")
@@ -1353,4 +1376,4 @@ def setup(bot):
 			"Consider installing 'yt-dlp' instead."
 		)
 
-	bot.add_cog(Music(bot))
+	bot.add_cog(Music(bot, logger))
