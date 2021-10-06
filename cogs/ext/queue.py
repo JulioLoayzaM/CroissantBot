@@ -1,6 +1,8 @@
 # queue.py
-#
-# Implementation of a queue to be used by music.py.
+
+"""
+Implementation of a queue to be used by music.py.
+"""
 
 
 # Copyright (C) 2021 JulioLoayzaM

@@ -1,6 +1,8 @@
 # song.py
-#
-# Small class to represent a song for the queue.
+
+"""
+Small class to represent a song for the queue.
+"""
 
 # Copyright (C) 2021 JulioLoayzaM
 #
@@ -8,6 +10,7 @@
 # the terms of the MIT license.
 #
 # See the LICENSE file for more details.
+
 
 class Song():
 	"""
