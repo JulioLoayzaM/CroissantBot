@@ -137,10 +137,10 @@ we use a simpler format for docstrings:
          True if n is even, False otherwise.
       """
 
-For :doc:`ext <modules>` modules
+For ext modules
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The :doc:`ext <modules>` modules provide extensions used by the cogs, but that don't necessarily
+The :ref:`db <ext/db:db module>`, :ref:`song <ext/song:song module>` and :ref:`queue <ext/queue:queue module>` modules provide extensions used by the cogs, but that don't necessarily
 rely on them. This means anyone wanting to customize their bot (eg. add commands) should be able
 to use these modules to extend the bot's functionnality.
 

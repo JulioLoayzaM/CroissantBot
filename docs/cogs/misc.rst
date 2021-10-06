@@ -53,5 +53,5 @@ Requirements
 
    -  :envvar:`CROISSANT_PATH` points to ``croissant.gif``, which is the gif sent
       when using the :ref:`croissant command <croissant-command>`. See the
-      :ref:`README <./../index:origin>` for more information on this command's
+      :ref:`README <index:origin>` for more information on this command's
       existence.
