@@ -31,7 +31,7 @@ CroissantBot's documentation is organized as follows:
    cogs/youtube
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: ext modules:
 
    ext/ext-modules

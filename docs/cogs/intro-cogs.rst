@@ -13,8 +13,8 @@ Since version 2.0.0, cogs are *not* enabled by default.
 Instead, you can choose what to use or not, like plugins.
 This means you don't have to set up cogs you won't use.
 
-Using cogs
-----------
+Enabling cogs
+-------------
 
 As explained in :ref:`this section <getting_started/bot:intro>`, CroissantBot uses a file called ``.env``
 to store the various credentials it uses and its configuration.
@@ -28,9 +28,12 @@ Basically, leave it as ``"ON"`` or set it to any string that is **not** empty.
    Enabling some cogs but not others can lead to some limited functionnality. For example,
    disabling the Music cog means that you can't play music using the Playlist commands.
 
-But that's not it! As you may have noticed, there are a *lot* of other variables below the :envvar:`ENABLE` ones.
+Setting up cogs
+---------------
 
-All cogs use at least one ``.env`` variable for many things, from getting the credentials to an API, to getting the path
+But that's not it! As you may have noticed, there are *many* variables below the :envvar:`ENABLE` ones.
+
+All cogs use at least one ``.env`` variable for things ranging from getting API credentials to getting the path
 to a file they need. So to actually use a cog, you have to set it up. That's where the following guides come in handy.
 
 Each one explains the packages needed by each cog (in case you didn't install them all already using the ``requirements`` file),

@@ -9,49 +9,56 @@ This Cog contains miscellaneous commands.
 Requirements
 ------------
 
--  No package is required besides :py:mod:`dotenv`.
+Packages
+^^^^^^^^
 
--  It does require some files to be set on ``.env``:
+-  No package is required!
 
-   -  :envvar:`KILL_PATH` is a ``txt`` file which contains all possible messages.
-      There should be only one message per line. To insert the nickname of
-      the user using the command, put ``<killer>`` in the message.
-      Likewise, to insert the victim's nickname, use ``<victim>``. These
-      tags are automatically replaced before sending the message. You can
-      put as many of these per message as you want, or none at all. For
-      example, if Alice calls the command on Bob, the phrase:
+env variables
+^^^^^^^^^^^^^
 
-      .. code-block::
+-  :envvar:`KILL_PATH` is a ``txt`` file which contains all the possible messages to send.
+   There should be only one message per line.
+   To insert the nickname of the user using the command, put ``<killer>`` in the message.
+   Likewise, to insert the victim's nickname, use ``<victim>``.
+   These tags are automatically replaced before sending the message.
+   You can put as many of these per message as you want, or none at all.
+   For example, if Alice calls the command on Bob, the phrase:
 
-         <killer> shot <victim>.
+   .. code-block::
 
-      becomes:
+      <killer> shot <victim>.
 
-      .. code-block::
+   becomes:
 
-         Alice shot Bob.
+   .. code-block::
 
-   -  :envvar:`KILL_COUNT` is a JSON file that keeps track of how many times a
-      user used the command on someone on that server. When creating the
-      bot it should at least contain an empty dictionary ``{}``. It uses
-      the following format:
+      Alice shot Bob.
 
-      .. code-block:: json
+-  :envvar:`KILL_COUNT` is a JSON file that keeps track of how many times a
+   user used the command on someone on that server. When creating the
+   bot it should at least contain an empty dictionary ``{}``. It uses
+   the following format:
 
-         {
-            "guild_id": {
-                  "killer_id_1": {
-                     "victim_id_1": 3,
-                     "victim_id_2": 10
-                  },
-                  "killer_id_2": {
-                     "victim_id_3": 14,
-                     "victim_id_1": 2
-                  }
-            }
+   .. code-block:: json
+
+      {
+         "guild_id": {
+               "killer_id_1": {
+                  "victim_id_1": 3,
+                  "victim_id_2": 10
+               },
+               "killer_id_2": {
+                  "victim_id_3": 14,
+                  "victim_id_1": 2
+               }
          }
+      }
 
-   -  :envvar:`CROISSANT_PATH` points to ``croissant.gif``, which is the gif sent
-      when using the :ref:`croissant command <croissant-command>`. See the
-      :ref:`README <index:origin>` for more information on this command's
-      existence.
+-  :envvar:`CROISSANT_PATH` points to ``croissant.gif``, which is the gif sent
+   when using the :ref:`croissant command <croissant-command>`. See the
+   :ref:`README <index:origin>` for more information on this command's
+   existence.
+
+.. note::
+   Since the :envvar:`KILL_COUNT` file uses a server's ID as the first key, the counts are not synchronized across servers.

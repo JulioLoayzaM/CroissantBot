@@ -1,7 +1,7 @@
 Favourites
 ==========
 
-The Favourites cog allows the users to have *one* playlist without using a database like the Playlist cog.
+The Favourites cog allows the users to have **one** playlist *without* using a database, like the Playlist cog does.
 
 .. hint::
    To enable this cog, set the :envvar:`ENABLE_JSONFAV` variable.
@@ -9,9 +9,16 @@ The Favourites cog allows the users to have *one* playlist without using a datab
 Requirements
 ------------
 
--  No package is required.
--  Create a JSON file in ``rsc/`` to store the playlists and set the :envvar:`MUSIC_FAV_LIST` variable in ``.env``.
-   By default, the name is ``favourites_songs.json``.
+Packages
+^^^^^^^^
+
+-  No package is required!
+
+env variables
+^^^^^^^^^^^^^
+
+-  Create a JSON file in ``rsc/`` to store the playlists and set the :envvar:`MUSIC_FAV_LIST` variable with the file's name.
+   By default, the name is ``favourite_songs.json``.
 
 How it works
 ------------

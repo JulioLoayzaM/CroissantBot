@@ -43,23 +43,23 @@ Requirements
 Packages
 ^^^^^^^^
 
-* The :py:mod:`discord.py[voice]` package, which can be installed with :py:mod:`pip`:
+*  The :py:mod:`discord.py[voice]` package:
 
    .. code-block:: bash
 
-      pip3 install -U discord.py[voice]
+      pip install -U discord.py[voice]
 
-*  The :py:mod:`python-dotenv` package, used to get the credentials from the ``.env`` file, can be installed with :py:mod:`pip`:
-
-      .. code-block:: bash
-
-         pip3 install -U python-dotenv
-
-* The :py:mod:`packaging` package, which may be already included, can be installed with :py:mod:`pip`:
+*  The :py:mod:`python-dotenv` package:
 
    .. code-block:: bash
 
-      pip3 install -U packaging
+      pip install -U python-dotenv
+
+*  The :py:mod:`packaging` package may be already included, but can be installed with :py:mod:`pip`:
+
+   .. code-block:: bash
+
+      pip install -U packaging
 
 env variables
 ^^^^^^^^^^^^^
