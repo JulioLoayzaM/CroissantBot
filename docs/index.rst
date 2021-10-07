@@ -34,6 +34,7 @@ CroissantBot's documentation is organized as follows:
    :maxdepth: 2
    :caption: ext modules:
 
+   ext/ext-modules
    ext/db
    ext/queue
    ext/song
@@ -44,6 +45,7 @@ CroissantBot's documentation is organized as follows:
 
    other/CONTRIBUTING
    other/LICENSE
+   other/upgrading-v2
 
 Origin
 ------
