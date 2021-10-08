@@ -37,6 +37,12 @@ I've tested the bot with Python 3.6.9 in Ubuntu 18.04 and Python 3.6.1 in Window
    The :py:mod:`youtube-dl` package was used for the Music cog, but since it appears to no longer be maintained,
    using :py:mod:`yt-dlp` is recommended.
 
+.. versionadded:: 2.0.0
+   The :py:mod:`asyncpg` package.
+
+.. versionadded:: 2.0.0
+   The Playlist cog, which also uses the :py:mod:`yt-dlp` package.
+
 Requirements
 ------------
 
