@@ -61,7 +61,7 @@ List files
 ^^^^^^^^^^
 
 These are the files created when the command is used for the first time in a server or DM.
-They contain a list of the URLs of all the memes sent to that server/DM.
+They contain a list of the names of all the files sent to that server/DM.
 This allows the bot to check whether a meme was already sent to that context, and thus avoid sending duplicates.
 These list files are saved in the directory pointed by :envvar:`MEME_DIR`.
 

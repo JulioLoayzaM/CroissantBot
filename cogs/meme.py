@@ -96,13 +96,20 @@ class Meme(commands.Cog):
 
 		async for meme in subreddit.hot(limit=ITEM_LIMIT):
 
-			url = meme.url
+			url: str = meme.url
 
 			# is_self means the post is text-only.
 			# We also want images or gifs, not videos.
 			# Finally, stickied posts may be mods', we assume those aren't memes.
 			if meme.is_self or meme.is_video or meme.stickied:
 				continue
+
+			# Get the filename, the same one as on the link.
+			# For example: https://i.redd.it/thisisnotameme.jpg
+			temp = url.split('/')
+
+			# This results in: thisisnotameme.jpg
+			meme_file = temp[-1]
 
 			try:
 				new = True
@@ -113,7 +120,7 @@ class Meme(commands.Cog):
 					# We check the list to see if this meme was already sent to this guild
 					async for line in file:
 						line = line.rstrip('\n')
-						if line == url:
+						if line == meme_file:
 							new = False
 							break
 
@@ -121,7 +128,7 @@ class Meme(commands.Cog):
 					if new:
 						# Go to end to append filename
 						await file.seek(0, 2)
-						await file.write(f"{url}\n")
+						await file.write(f"{meme_file}\n")
 
 					# If the meme is on the list, skip to next
 					else:
@@ -135,13 +142,6 @@ class Meme(commands.Cog):
 
 			if not DOWNLOAD:
 				return url
-
-			# Get the filename, the same one as on the link.
-			# For example: https://i.redd.it/thisisnotameme.jpg
-			temp = url.split('/')
-
-			# This results in: thisisnotameme.jpg
-			meme_file = temp[-1]
 
 			# We need to add the path of the memes' directory
 			filename = f"{MEME_DIR}/{meme_file}"
