@@ -15,9 +15,17 @@ Packages
 
 -  The :py:mod:`asyncpraw` package:
 
+.. tab:: Unix (Linux/MacOS)
+
    .. code-block:: bash
 
-      pip install -U asyncpraw
+      python3 -m install -U asyncpraw
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U asyncpraw
 
 env variables
 ^^^^^^^^^^^^^

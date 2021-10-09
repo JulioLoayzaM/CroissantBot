@@ -17,9 +17,17 @@ Packages
    already installed. If it's not, the package can be installed with
    :py:mod:`pip`:
 
+.. tab:: Unix (Linux/MacOS)
+
    .. code-block:: bash
 
-      pip install -U requests
+      python3 -m install -U requests
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U requests
 
 env variables
 ^^^^^^^^^^^^^

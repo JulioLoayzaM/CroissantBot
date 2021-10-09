@@ -67,7 +67,7 @@ All contributions are welcome, see :doc:`other/CONTRIBUTING`.
 Versioning
 ----------
 
-The versions of this repo follow the rules of `Semantic Versioning 2.0.0 <https://semver.org/>`__.
+The versions of the bot's repo follow the rules of `Semantic Versioning 2.0.0 <https://semver.org/>`__.
 
 Indices and tables
 ==================

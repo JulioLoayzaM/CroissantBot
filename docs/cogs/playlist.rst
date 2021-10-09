@@ -17,15 +17,31 @@ Packages
 
 -  The :py:mod:`asyncpg` package:
 
+.. tab:: Unix (Linux/MacOS)
+
    .. code-block:: bash
 
-      pip install -U asyncpg
+      python3 -m install -U asyncpg
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U asyncpg
 
 -  The :py:mod:`yt-dlp` package:
 
+.. tab:: Unix (Linux/MacOS)
+
    .. code-block:: bash
 
-      pip install -U yt-dlp
+      python3 -m install -U yt-dlp
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U yt-dlp
 
 env variables
 ^^^^^^^^^^^^^

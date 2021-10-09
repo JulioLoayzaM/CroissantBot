@@ -4,6 +4,6 @@ Command, Description, Comment
 ``create``, Creates a new playlist, Subcommand
 ``delete``, Deletes a playlist, Subcommand
 ``list``, Lists all your playlists by default or shows the songs in a specific one, Subcommand
-``now``, "Adds the currently palying song to a playlist, favourites by default", Subcommand
+``now``, "Adds the currently playing song to a playlist, favourites by default", Subcommand
 ``play``, "Adds a playlist to the queue, or a specific song from a playlist", Subcommand
 ``remove``, Removes a song from a playlist by its index, Subcommand

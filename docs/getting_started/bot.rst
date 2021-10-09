@@ -3,10 +3,6 @@ Running the bot
 
 A guide on how to create and run the bot.
 
-.. contents:: Table of contents
-   :depth: 2
-   :local:
-
 Intro
 -----
 
@@ -51,21 +47,45 @@ Packages
 
 *  The :py:mod:`discord.py[voice]` package:
 
+.. tab:: Unix (Linux/MacOS)
+
    .. code-block:: bash
 
-      pip install -U discord.py[voice]
+      python3 -m install -U discord.py[voice]
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U discord.py[voice]
 
 *  The :py:mod:`python-dotenv` package:
 
+.. tab:: Unix (Linux/MacOS)
+
    .. code-block:: bash
 
-      pip install -U python-dotenv
+      python3 -m install -U python-dotenv
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U python-dotenv
 
 *  The :py:mod:`packaging` package may be already included, but can be installed with :py:mod:`pip`:
 
+.. tab:: Unix (Linux/MacOS)
+
    .. code-block:: bash
 
-      pip install -U packaging
+      python3 -m install -U packaging
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U packaging
 
 env variables
 ^^^^^^^^^^^^^
@@ -177,9 +197,17 @@ Now, time to install the source code and run the bot!
 
 -  To install all the package dependencies, use:
 
+.. tab:: Unix (Linux/MacOS)
+
    .. code-block:: bash
 
-      pip install -U -r requirements.txt
+      python3 -m install -U -r requirements.txt
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U -r requirements.txt
 
    - If you want to only install the packages needed for the base bot, see :ref:`getting_started/bot:packages`.
 
@@ -199,17 +227,17 @@ Now, time to install the source code and run the bot!
 
 -  Then, run :py:mod:`bot.py`:
 
-   -  Linux/macOS:
+.. tab:: Unix (Linux/MacOS)
 
-      ::
+   .. code-block:: bash
 
-          python3 bot.py
+      python3 bot.py
 
-   -  Windows:
+.. tab:: Windows
 
-      ::
+   .. code-block:: bat
 
-          python bot.py
+      py bot.py
 
 Using cogs
 ----------

@@ -24,7 +24,7 @@ Features
 --------
 
 .. tip::
-   For a list of all commands, check :doc:`commands`.
+   For a list of all commands, check :ref:`getting_started/commands:commands`.
 
 Music player
 ~~~~~~~~~~~~
@@ -34,11 +34,11 @@ servers simultaneously, with a queue for each one.
 
 .. versionadded:: 1.1.0
    You can save your favourite songs in one playlist, with minimal setup.
-   See :doc:`./../cogs/favourites`.
+   See :ref:`cogs/favourites:favourites`.
 
 .. versionadded:: 2.0.0
    Use a PostgreSQL database to store as many playlists as you want.
-   See :doc:`./../cogs/playlist`.
+   See :ref:`cogs/playlist:playlist`.
 
 Memes
 ~~~~~

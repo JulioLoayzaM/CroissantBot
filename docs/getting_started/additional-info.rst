@@ -14,7 +14,7 @@ A :program:`tmux` session can be reattached to the same or a different terminal 
 Modifying the code
 ~~~~~~~~~~~~~~~~~~
 
-The idea of this template is to allow any modification to the code.
+The idea of this repo is to allow any modification to the code.
 As such, the code can be freely modified under one condition:
 the content of the LICENSE file must be included with all copies or substantial portions of the code.
 For more information, see the :doc:`./../other/LICENSE`.

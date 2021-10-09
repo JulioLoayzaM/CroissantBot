@@ -16,17 +16,33 @@ Packages
 
 -  The :py:mod:`streamlink` package:
 
+.. tab:: Unix (Linux/MacOS)
+
    .. code-block:: bash
 
-      pip install -U streamlink
+      python3 -m install -U streamlink
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U streamlink
 
 .. versionadded:: 1.1.0
 
 -  The :py:mod:`yt_dlp` package:
 
+.. tab:: Unix (Linux/MacOS)
+
    .. code-block:: bash
 
-      pip install -U yt-dlp
+      python3 -m install -U yt-dlp
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U yt-dlp
 
    .. note::
       For backwards compatibility with the pre-v1.1.0 Music cog, the

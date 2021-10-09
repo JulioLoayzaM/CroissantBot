@@ -12,11 +12,19 @@ Requirements
 Packages
 ^^^^^^^^
 
-- The :py:mod:`yt-dlp` package:
+-  The :py:mod:`yt-dlp` package:
+
+.. tab:: Unix (Linux/MacOS)
 
    .. code-block:: bash
 
-      pip install -U yt-dlp
+      python3 -m install -U yt-dlp
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+      py -m pip install -U yt-dlp
 
 .. versionadded:: 1.1.0
    The :py:mod:`yt-dlp` package.
