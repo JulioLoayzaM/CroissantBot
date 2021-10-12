@@ -9,6 +9,7 @@ docs/source/
 docs/make.bat
 docs/Makefile
 docs/test.*
+docs/locale/**/*.mo
 # cache directories
 music_cache/
 memes/

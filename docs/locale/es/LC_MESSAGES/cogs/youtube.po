@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../cogs/youtube.rst:2 d4eda04608e24c87b16e666a95211bc4
+msgid "Youtube"
+msgstr ""
+
+#: ../../cogs/youtube.rst:4 c7fefbe65620469bb5f7518a4d20a7c8
+msgid ""
+"This Cog enables the bot's YouTube livestream-checking capabilities. It "
+"uses :py:mod:`streamlink` to get the stream's URL and :py:mod:`yt_dlp` to"
+" get the stream's title and thumbnail."
+msgstr ""
+
+#: ../../cogs/youtube.rst:9 7eb44029bc724669a2d9d99ce269f0c1
+msgid "To enable this cog, set the :envvar:`ENABLE_YT` variable."
+msgstr ""
+
+#: ../../cogs/youtube.rst:12 926d60a8c06c44d888dc60492b9e0ad3
+msgid "Requirements"
+msgstr ""
+
+#: ../../cogs/youtube.rst:15 ff05db010a9846fe8d1fe3bbece11ced
+msgid "Packages"
+msgstr ""
+
+#: ../../cogs/youtube.rst:17 0d063a59f1ca4a88a2b7820bcbab7771
+msgid "The :py:mod:`streamlink` package:"
+msgstr ""
+
+#: ../../cogs/youtube.rst:33 c4a7b7e6bad5440e9d9a1f59abb8bd25
+msgid "The :py:mod:`yt_dlp` package:"
+msgstr ""
+
+#: ../../cogs/youtube.rst:48 0ce6dca6eb73466b88c0637ed3ff3722
+msgid ""
+"For backwards compatibility with the pre-v1.1.0 Music cog, the :py:mod"
+":`youtube-dl` package can be used. However its use in this bot is "
+"deprecated and installing :py:mod:`yt-dlp` is recommended."
+msgstr ""
+
+#: ../../cogs/youtube.rst:53 4b79c21d65914107b89df7525a95e507
+msgid "env variables"
+msgstr ""
+
+#: ../../cogs/youtube.rst:55 124282629cbb4584ad8ef366d6985361
+msgid ""
+":envvar:`YT_FILE` represents the path to a JSON file which contains the "
+"IDs of the Discord users to notify, and the info of the streamers to "
+"check."
+msgstr ""
+
+#: ../../cogs/youtube.rst:58 421e5563586a4b1f830d5cd09c6d31c6
+msgid ""
+"This cog implicitly uses the :envvar:`TW_FREQUENCY` variable from the "
+"Twitch cog. It indicates how often the bot checks the streams, in "
+"minutes. If need be, just create :envvar:`YT_FREQUENCY` in ``.env`` and "
+"make the appropriate changes in :py:mod:`bot.py`."
+msgstr ""
+
+#: ../../cogs/youtube.rst:63 e6d5ba84f1344283b88be234598f2e9c
+msgid "Format used by YT_FILE"
+msgstr ""
+
+#: ../../cogs/youtube.rst:65 d43d1cc2672541b5866d2419ff3be32d
+msgid "The format to use for :envvar:`YT_FILE` is as follows:"
+msgstr ""
+
+#: ../../cogs/youtube.rst:93 bd4ac8a426814dafac97db44eef4ab5c
+msgid ""
+"The ``youtube_channel`` and ``nickname`` keys are arbitrary. "
+"``youtube_channel`` is used to make it easier to identify the channel in "
+"the logs, while ``nickname`` is used to have an identifiable name in the "
+"message (since we can't get that info through the API). They can have the"
+" same value."
+msgstr ""
+
+#: ../../cogs/youtube.rst:99 34258dc4a54b46e39e08a20a6372fad9
+msgid ""
+"Fill it with the corresponding information and set :envvar:`YT_FILE` in "
+"``.env``. The Discord user's ID can be found by right-clicking the user's"
+" name."
+msgstr ""
+

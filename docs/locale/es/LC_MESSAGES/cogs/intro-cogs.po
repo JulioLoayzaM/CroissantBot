@@ -1,0 +1,105 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../cogs/intro-cogs.rst:2 f807b684efe249439506178625c80264
+msgid "Intro to cogs"
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:5 071f99a60a5a4965bff0134238a542e8
+msgid "What are cogs?"
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:7 4bb2db2eb0304a088ebcbf2717eddc4f
+msgid ""
+"Cogs are ``discord.py`` classes that allow bot developers to group "
+"commands. For example, the code for the music commands can be found in "
+"the Music cog. These cogs are loaded when the bot is starting up, which "
+"means we could tell CroissantBot what to load."
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:12 fa4bb2e71d4a44239874be776e65befa
+msgid ""
+"Since version 2.0.0, cogs are *not* enabled by default. Instead, you can "
+"choose what to use or not, like plugins. This means you don't have to set"
+" up cogs you won't use."
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:17 02ddc618e6a84cf1b2db199a0ce2aaa5
+msgid "Enabling cogs"
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:19 0adbf32f1df8405a9518c8d91224afe3
+msgid ""
+"As explained in :ref:`this section <getting_started/bot:intro>`, "
+"CroissantBot uses a file called ``.env`` to store the various credentials"
+" it uses and its configuration. Particularly, the "
+":envvar:`ENABLE_\\<cog\\>` variables are used to determine what cogs "
+"should be loaded."
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:23 1134e44b0b4f4fd0ac4dcb0675420f36
+msgid ""
+"To enable a cog, uncomment and set the corresponding variable to any "
+"`truthy value <https://stackoverflow.com/questions/39983695/what-is-"
+"truthy-and-falsy-how-is-it-different-from-true-and-false>`_. Basically, "
+"leave it as ``\"ON\"`` or set it to any string that is **not** empty."
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:28 9b8d4ab682f84704a3442af5825c262a
+msgid ""
+"Enabling some cogs but not others can lead to some limited "
+"functionnality. For example, disabling the Music cog means that you can't"
+" play music using the Playlist commands."
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:32 370d855491ab4232b7330c1707194b7f
+msgid "Setting up cogs"
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:34 05a3b562b72345a9b6dabefe6a58e399
+msgid ""
+"But that's not it! As you may have noticed, there are *many* variables "
+"below the :envvar:`ENABLE` ones."
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:36 4767a4929bee4084a3a7a4147570f64f
+msgid ""
+"All cogs use at least one ``.env`` variable for things ranging from "
+"getting API credentials to getting the path to a file they need. So to "
+"actually use a cog, you have to set it up. That's where the following "
+"guides come in handy."
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:39 6aa5c7ee42254915b4a88511ae8689ff
+msgid ""
+"Each one explains the packages needed by each cog (in case you didn't "
+"install them all already using the ``requirements`` file), so you know "
+"which ones you can skip if you're installing them one by one. They also "
+"explain what their corresponding ``.env`` variables are and what to set "
+"them to."
+msgstr ""
+
+#: ../../cogs/intro-cogs.rst:43 4e70c5d89cbf4e0ba3316007ae6cc41f
+msgid ""
+"The Meme and the Twitch cogs require an account in a third-party service "
+"(Reddit and Twitch respectively). The only way to skip this is by not "
+"using these cogs."
+msgstr ""
+

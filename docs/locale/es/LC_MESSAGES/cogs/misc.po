@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../cogs/misc.rst:2 83aaf0586a7e49459638272e968204df
+msgid "Misc"
+msgstr ""
+
+#: ../../cogs/misc.rst:4 965c00e9f07944479d0e731442a8d13b
+msgid "This Cog contains miscellaneous commands."
+msgstr ""
+
+#: ../../cogs/misc.rst:7 24a1efcbbb6b4155a29d844bbffe0ce2
+msgid "To enable this cog, set the :envvar:`ENABLE_MISC` variable."
+msgstr ""
+
+#: ../../cogs/misc.rst:10 d248ae65af2549bbba019f0fe857fff2
+msgid "Requirements"
+msgstr ""
+
+#: ../../cogs/misc.rst:13 a103f76347cd4f42899aea06f71f57b6
+msgid "Packages"
+msgstr ""
+
+#: ../../cogs/misc.rst:15 06ccd5cc17724eedbd757fcb3758d9de
+msgid "No package is required!"
+msgstr ""
+
+#: ../../cogs/misc.rst:18 b810aaa0cb3d493ca7052dfd0db1b951
+msgid "env variables"
+msgstr ""
+
+#: ../../cogs/misc.rst:20 e3244d3870e4411aa73c8dbfea85951c
+msgid ""
+":envvar:`KILL_PATH` is a ``txt`` file which contains all the possible "
+"messages to send. There should be only one message per line. To insert "
+"the nickname of the user using the command, put ``<killer>`` in the "
+"message. Likewise, to insert the victim's nickname, use ``<victim>``. "
+"These tags are automatically replaced before sending the message. You can"
+" put as many of these per message as you want, or none at all. For "
+"example, if Alice calls the command on Bob, the phrase:"
+msgstr ""
+
+#: ../../cogs/misc.rst:32 5124bb7d5261446a9526067adef297a0
+msgid "becomes:"
+msgstr ""
+
+#: ../../cogs/misc.rst:38 a81076dd1f354540a614316160ddd05e
+msgid ""
+":envvar:`KILL_COUNT` is a JSON file that keeps track of how many times a "
+"user used the command on someone on that server. When creating the bot it"
+" should at least contain an empty dictionary ``{}``. It uses the "
+"following format:"
+msgstr ""
+
+#: ../../cogs/misc.rst:58 a29165aed09d48f9837a9d0cfb273d6e
+msgid ""
+":envvar:`CROISSANT_PATH` points to ``croissant.gif``, which is the gif "
+"sent when using the :ref:`croissant command <croissant-command>`. See the"
+" :ref:`README <index:origin>` for more information on this command's "
+"existence."
+msgstr ""
+
+#: ../../cogs/misc.rst:64 dacb464ed33a4976b940a0203bd89a56
+msgid ""
+"Since the :envvar:`KILL_COUNT` file uses a server's ID as the first key, "
+"the counts are not synchronized across servers."
+msgstr ""
+

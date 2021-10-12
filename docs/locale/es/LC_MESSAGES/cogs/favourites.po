@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../cogs/favourites.rst:2 c5bc06beedf347408eb2aedcba0d4cdc
+msgid "Favourites"
+msgstr ""
+
+#: ../../cogs/favourites.rst:4 e123c7e62f434b34988d9283af4393b5
+msgid ""
+"The Favourites cog allows the users to have **one** playlist *without* "
+"using a database, like the Playlist cog does."
+msgstr ""
+
+#: ../../cogs/favourites.rst:7 2c8bcfc88dc3459eb88ea3fe200182e9
+msgid "To enable this cog, set the :envvar:`ENABLE_JSONFAV` variable."
+msgstr ""
+
+#: ../../cogs/favourites.rst:10 d80cc198b8a045519eda3ad1c18a3c50
+msgid "Requirements"
+msgstr ""
+
+#: ../../cogs/favourites.rst:13 3c414c9e773844618ed63765f88fb0db
+msgid "Packages"
+msgstr ""
+
+#: ../../cogs/favourites.rst:15 8138343d94944f0688f73e6d21c2ff37
+msgid "No package is required!"
+msgstr ""
+
+#: ../../cogs/favourites.rst:18 5bcdb12f28be46bca8f9749ae9509ee3
+msgid "env variables"
+msgstr ""
+
+#: ../../cogs/favourites.rst:20 a27a64c639864352a6792696a06cd5b2
+msgid ""
+"Create a JSON file in ``rsc/`` to store the playlists and set the "
+":envvar:`MUSIC_FAV_LIST` variable with the file's name. By default, the "
+"name is ``favourite_songs.json``."
+msgstr ""
+
+#: ../../cogs/favourites.rst:24 b64e1f968f55421394484a42690043fa
+msgid "How it works"
+msgstr ""
+
+#: ../../cogs/favourites.rst:26 5d36e09a1d0e4c0fa281fe034bb04ce0
+msgid ""
+"As the requirements show, the setup is minimal. The cog stores the "
+"playlists in a JSON file, using the following template:"
+msgstr ""
+
+#: ../../cogs/favourites.rst:46 d9dde61197c5494090b5c19b749842c2
+msgid "This cog is compatible with the Music cog:"
+msgstr ""
+
+#: ../../cogs/favourites.rst:48 3d2eb71de3dc4c629124e776f0c8fed8
+msgid ""
+"The ``now`` command allows to save the currently playing song to the "
+"user's playlist."
+msgstr ""
+
+#: ../../cogs/favourites.rst:50 4057c9b73dd4420593f1133b190515e4
+msgid ""
+"The ``play`` commands allows to play a song directly from the user's "
+"playlist."
+msgstr ""
+
+#: ../../cogs/favourites.rst:53 9ca7feb7768143d8bbad8873db2b8992
+msgid ""
+"The :doc:`Playlist <playlist>` cog uses a PostgreSQL database to store as"
+" many playlists per user as needed."
+msgstr ""
+

@@ -1,0 +1,567 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../ext/db.rst:2 dcfd761b346f437ab786958017a77ac3
+msgid "db module"
+msgstr ""
+
+#: 66b26d86268c463ab49881f33bcc36a3 db:1 of
+msgid "For all database connection needs."
+msgstr ""
+
+#: 9941af58a6454d27a9a7ea491b4b7f89 db:3 of
+msgid "This module provides:"
+msgstr ""
+
+#: 5a5a58c739c94df1a2abdbf26f8d4c44 db:7 of
+msgid ":py:class:`DatabaseConnection`:"
+msgstr ""
+
+#: 5d5377f58cc04b9aac3884277b4090f9 db:6 of
+msgid ""
+"The base class with three methods: :py:func:`DatabaseConnection.connect`,"
+" :py:func:`DatabaseConnection.close` and "
+":py:func:`DatabaseConnection.is_connected`."
+msgstr ""
+
+#: 66273a0ff2f2457fbc22292d9d68a666 db:12 of
+msgid ":py:class:`MusicDatabaseConnection`:"
+msgstr ""
+
+#: db:10 e69a572a91844541baa9e6ac41e2f548 of
+msgid ""
+"A class to provide an interface for managing the playlists stored in the "
+"database."
+msgstr ""
+
+#: 23e97fffefa54b43af22c5fb43980a49 db.DatabaseConnection:1 of
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: 9d9104020a6a4dd090f1e5dfbc247160 db.DatabaseConnection:1 of
+msgid "The base class to represent a connection to a PostgreSQL database."
+msgstr ""
+
+#: 0ca8a3f2662f4323abc8039c9346a747 14e08483b3a44a21849756f32c9d13b4
+#: 15d893402f604f13a68b2ce77d6a102f 190d1a0e4b1743cc9280f06d54b325d5
+#: 1af55eda5a3d4359a3436af80cd83ef2 24fbc691cc2f409ba583568d591f2aeb
+#: 4c50ad8254b3406294fc851b4e115029 51ebc69c262a477eab0abb49a6eb5753
+#: 5ff46964f1cd4489947f3b1f2b74be3b 64ff573925a94eddb4d2221ddda6eb07
+#: 72469f5bd9354e77bf60e63e43a94a62 741f249d6b154b41944bf3cd811af8fa
+#: 8083a4e1e9ba465d8d0c88e42f27fdb8 8f04fc071a0c43c494d6564220b856bf
+#: a037213df6d5432290a72fb099f2c9a9 a9219648eda04f4e80642ada224c4892
+#: bf46ea17a81a436ab51ff4eaec53e6d5 c9626be25a144d74b74d5bf19e00ab6c
+#: d45e3d6b442848d9bf8ef9fc22059cac d732b5b98b064cdab6a3b279b497055a
+#: db.DatabaseConnection db.DatabaseConnection.connect
+#: db.MusicDatabaseConnection db.MusicDatabaseConnection.add_song_to_playlist
+#: db.MusicDatabaseConnection.create_playlist
+#: db.MusicDatabaseConnection.delete_playlist
+#: db.MusicDatabaseConnection.get_playlist_id
+#: db.MusicDatabaseConnection.get_playlists
+#: db.MusicDatabaseConnection.get_song_from
+#: db.MusicDatabaseConnection.get_song_id
+#: db.MusicDatabaseConnection.get_song_url
+#: db.MusicDatabaseConnection.get_songs_in_playlist
+#: db.MusicDatabaseConnection.get_titles
+#: db.MusicDatabaseConnection.get_titles_in_playlist
+#: db.MusicDatabaseConnection.get_urls db.MusicDatabaseConnection.insert_song
+#: db.MusicDatabaseConnection.match_song_to_playlist
+#: db.MusicDatabaseConnection.playlist_exists
+#: db.MusicDatabaseConnection.remove_song_from
+#: db.MusicDatabaseConnection.song_exists
+#: db.MusicDatabaseConnection.song_matches_playlist
+#: e242fe6d7cb14a1e9122dcf5f91c2d6f of
+msgid "Parameters"
+msgstr ""
+
+#: 36826d2fd467490c890b5cd15931edb0 db.DatabaseConnection:3 of
+msgid "The name of the logger to be used by the connection."
+msgstr ""
+
+#: 438dad36c75a43058fef9563f523585f db.DatabaseConnection.connect:1 of
+msgid ""
+"Connect to a database using the credentials provided. Stores connection "
+"in `self.conn`."
+msgstr ""
+
+#: 3fba8287709d48db8937f8e02811d3fd db.DatabaseConnection.connect:3 of
+msgid "The hostname, usually 'localhost'."
+msgstr ""
+
+#: a2018ab57ad54f4e802fe0617d5b19ca db.DatabaseConnection.connect:7 of
+msgid "A user with access to the database."
+msgstr ""
+
+#: 0851bff60da54add99bfc9d242cc83ae db.DatabaseConnection.connect:11 of
+msgid "The user's password."
+msgstr ""
+
+#: 52ec6ca929cc40b4822f3ec56f6b290b db.DatabaseConnection.connect:15 of
+msgid "The name of the database to connect to."
+msgstr ""
+
+#: 0d6374e43ad84289ac5f6cfc65ef0b1c db.DatabaseConnection.connect:19 of
+msgid ""
+"The `asyncio` loop to use. If None, `asyncpg` uses the default event "
+"loop. None by default."
+msgstr ""
+
+#: 359fc2ae1a55484ca5f73a0a914fbde1 db.DatabaseConnection.connect:24 of
+msgid "The port to use, usually 5432. None by default."
+msgstr ""
+
+#: 4a6f6d1e7d72442db56b86a0093bf802 db.DatabaseConnection.close:1 of
+msgid "Closes the connection to the database."
+msgstr ""
+
+#: 023167a6ce6b465e83f8c0f50069d465 0a42df66b4b444308d4ed080a4ea672d
+#: 0bd71daa4bd84dcc8f91d4574264ad66 175cbd47f10346788776a21c36a55d5e
+#: 1d699d436b324a438d277f749dd010dd 51dc7a9266794cde8d102811cadcab47
+#: 6b63101963374d38b70b8e9f2e4f621e 72c54a5db11047e299972c74bf1aa2d7
+#: 79f10d61f01447a283bc8d6ca4ebfa4f 9d24356fee3a4496901af99c6f240246
+#: b6051e0a14ae45f59f9100cda930750d c5e9e99d480645348ada305f394f476d
+#: db.DatabaseConnection.close db.DatabaseConnection.is_connected
+#: db.MusicDatabaseConnection.add_song_to_playlist
+#: db.MusicDatabaseConnection.get_playlist_id
+#: db.MusicDatabaseConnection.get_playlists
+#: db.MusicDatabaseConnection.get_song_from
+#: db.MusicDatabaseConnection.get_song_id
+#: db.MusicDatabaseConnection.get_song_url
+#: db.MusicDatabaseConnection.get_songs_in_playlist
+#: db.MusicDatabaseConnection.get_titles
+#: db.MusicDatabaseConnection.get_titles_in_playlist
+#: db.MusicDatabaseConnection.get_urls
+#: db.MusicDatabaseConnection.playlist_exists
+#: db.MusicDatabaseConnection.song_exists
+#: db.MusicDatabaseConnection.song_matches_playlist
+#: de873c7824064d388c7423d976a44e97 f36c6e36e88f4ce6963093273bec3b6f
+#: f9ee0351226d43419eedace988e01802 of
+msgid "Returns"
+msgstr ""
+
+#: db.DatabaseConnection.close:3 e58bf9278c8e41ccbd6cd9e4f53af2f6 of
+msgid ""
+"True if the connection was closed, False if there was no connection to "
+"close."
+msgstr ""
+
+#: 00bf3ac2ef2f4d189316475017711eef 068ea17156334150ac5aa4e678deed80
+#: 0a24ce35eb3a43e0b3209b74bb5f8305 289d03279866414f9405cef12d5f4c87
+#: 29acbabe1af7453c94ea6557c06ebd5f 3687df25588a4223a249d84487b64519
+#: 518d5721ce4c4609a8521d01a42f4688 870fd41a3ff4404cb41d2c9c0f33787b
+#: 92acf02ff3ff41ea8fb36cef79853f50 b03fe846a3ba4414b40d6a64a1f2809b
+#: c41f25c08f024a519f19582c0caa0abc cb1738903829400b880629cf3e93813b
+#: d2c04b242f284f91855b3f88d19fed5b db.DatabaseConnection.close
+#: db.DatabaseConnection.is_connected
+#: db.MusicDatabaseConnection.add_song_to_playlist
+#: db.MusicDatabaseConnection.get_playlist_id
+#: db.MusicDatabaseConnection.get_playlists
+#: db.MusicDatabaseConnection.get_song_from
+#: db.MusicDatabaseConnection.get_song_id
+#: db.MusicDatabaseConnection.get_song_url
+#: db.MusicDatabaseConnection.get_songs_in_playlist
+#: db.MusicDatabaseConnection.get_titles
+#: db.MusicDatabaseConnection.get_titles_in_playlist
+#: db.MusicDatabaseConnection.get_urls
+#: db.MusicDatabaseConnection.playlist_exists
+#: db.MusicDatabaseConnection.song_exists
+#: db.MusicDatabaseConnection.song_matches_playlist
+#: f3eac4b4c56e43bcb3de61e61ad3bb1d f8e5ab48f9ca4a66b21d20df07d73147 of
+msgid "Return type"
+msgstr ""
+
+#: be1c354fdaa549fbafdcc480538d1751 db.DatabaseConnection.is_connected:1 of
+msgid "Check if the connection is active."
+msgstr ""
+
+#: 33c6c1d289914b1ab1225b20d835fd51 db.DatabaseConnection.is_connected:3 of
+msgid "True if there's a connection, False otherwise."
+msgstr ""
+
+#: 4e12cfbc9ad2422db4de9d08da7b9eeb db.MusicDatabaseConnection:1 of
+msgid "Bases: :class:`db.DatabaseConnection`"
+msgstr ""
+
+#: 607bc3fcca4c496086c0f10a53f302ce db.MusicDatabaseConnection:1 of
+msgid ""
+"A class to provide an interface to manage the playlists used by the "
+"`playlist` group of commands."
+msgstr ""
+
+#: 9377a8446ad94806a1119384445c8559 db.MusicDatabaseConnection:4 of
+msgid "The name of the logger to be used by this connection."
+msgstr ""
+
+#: 30e5db24b20747aeb8a999c59a3ca02f db.MusicDatabaseConnection.insert_song:1 of
+msgid "Inserts a song in the database."
+msgstr ""
+
+#: 3a0213f339a846faa6353b0bde0a1a65 db.MusicDatabaseConnection.insert_song:3 of
+msgid "The song to insert."
+msgstr ""
+
+#: 0339cb7628b846d6a8c7bf725efcfec6 137813c6804240e296a5151909df88df
+#: 3d06b28e1e064ab790e98a5766a2e5a0 9bf7877d47084485b8a7658777b9949a
+#: db.MusicDatabaseConnection.add_song_to_playlist
+#: db.MusicDatabaseConnection.create_playlist
+#: db.MusicDatabaseConnection.delete_playlist
+#: db.MusicDatabaseConnection.insert_song
+#: db.MusicDatabaseConnection.remove_song_from ec59612007a646b38c5548955fb4d44f
+#: of
+msgid "Raises"
+msgstr ""
+
+#: db.MusicDatabaseConnection.insert_song:7 e982916e7af649618c00e19908a5e085 of
+msgid "Raised when an error inserting a song occurs."
+msgstr ""
+
+#: 5293d353d1454166bfe1cd8f1e231359 db.MusicDatabaseConnection.get_song_id:1 of
+msgid "Get the database ID of a song."
+msgstr ""
+
+#: db.MusicDatabaseConnection.get_song_id:3 fce107581cdb4344a13075469802f5c9 of
+msgid "The URL of the song to search for."
+msgstr ""
+
+#: 078aef48596f4031b58a2ab23b127f22 db.MusicDatabaseConnection.get_song_id:7 of
+msgid "The ID of the song if it exists, None otherwise."
+msgstr ""
+
+#: af84b761257c45429c0e1db1fd8699e6 db.MusicDatabaseConnection.get_song_url:1
+#: of
+msgid "Get the URL of a song."
+msgstr ""
+
+#: d59ca4450bc74b9e81f4600e7615b864 db.MusicDatabaseConnection.get_song_url:3
+#: of
+msgid "The song ID to get the URL from."
+msgstr ""
+
+#: 9ba33ee768f344a7aa012dd378bb11bd db.MusicDatabaseConnection.get_song_url:7
+#: of
+msgid "The URL of the song if it exists, None otherwise."
+msgstr ""
+
+#: 0e3d3ba234fb42c9a05c1efdad690e88 db.MusicDatabaseConnection.get_titles:1 of
+msgid "Get the titles of a list of songs."
+msgstr ""
+
+#: b902d2514afa4b269e1a39e5e74d5101 cc202d511e88443c89546e4ea54e13e3
+#: db.MusicDatabaseConnection.get_titles:3
+#: db.MusicDatabaseConnection.get_urls:3 of
+msgid ""
+"A list of song IDs to get. It SHOULD NOT be empty, and the IDs SHOULD be "
+"in songs."
+msgstr ""
+
+#: a969a08467454b4691515a22d55fa9c1 db.MusicDatabaseConnection.get_titles:7 of
+msgid ""
+"A list of the corresponding song titles. Since the IDs SHOULD be in the "
+"database, no value should be empty. However, no check is done at this "
+"point."
+msgstr ""
+
+#: 06309ff589564e299a0e0bdda8e244ed db.MusicDatabaseConnection.get_urls:1 of
+msgid "Get the URLs of a list of songs."
+msgstr ""
+
+#: 478e1047bef34d0d8ae4c23d8bed72ca db.MusicDatabaseConnection.get_urls:7 of
+msgid ""
+"A list of the corresponding song URLs. Since the IDs SHOULD be in the "
+"database, no value should be empty. However, no check is done at this "
+"point."
+msgstr ""
+
+#: c0db546d139a4f90bd6c69c0003aad83
+#: db.MusicDatabaseConnection.get_titles_in_playlist:1 of
+msgid "Get the title of all songs in a specific playlist."
+msgstr ""
+
+#: 0d10c7992c4e49a98bec77f62e19597e cf8c71c4f8fa4ca88309f27bc03696a2
+#: db.MusicDatabaseConnection.get_songs_in_playlist:3
+#: db.MusicDatabaseConnection.get_titles_in_playlist:3 of
+msgid "The title of the playlist to get the songs from."
+msgstr ""
+
+#: 2d2fb9fa7086402aad92d96eb3536514 4a62aedce97d40cb91d683dce5243628
+#: 6bcba3ed24524fc1b063c258fffd755b db.MusicDatabaseConnection.get_song_from:12
+#: db.MusicDatabaseConnection.get_songs_in_playlist:7
+#: db.MusicDatabaseConnection.get_titles_in_playlist:7 of
+msgid "The discord ID of the owner of the playlist."
+msgstr ""
+
+#: 8715d486fed847748cd2b6d0a3755be4
+#: db.MusicDatabaseConnection.get_titles_in_playlist:11 of
+msgid ""
+"A list of the titles of all the songs in the playlist, or None if the "
+"playlist doesn't exist, or if it doesn't have any songs."
+msgstr ""
+
+#: db.MusicDatabaseConnection.get_song_from:1 ec859b1c363648f38de28233728af543
+#: of
+msgid "Get a song from a playlist by its index."
+msgstr ""
+
+#: db.MusicDatabaseConnection.get_song_from:3 f53fbe474a3242d7baaba0f4b13c8d1d
+#: of
+msgid ""
+"The index of the song in the playlist (as displayed with "
+":func:`get_titles_in_playlist`)."
+msgstr ""
+
+#: db.MusicDatabaseConnection.get_song_from:8 ff1b2a37f98d4ccfafe5afcbe2384ae6
+#: of
+msgid "The title of the playlist to get the song from."
+msgstr ""
+
+#: 0961e1366ef44c23b7ddb72d1618d0fe db.MusicDatabaseConnection.get_song_from:16
+#: of
+msgid "The song's URL if it exists in the playlist, None otherwise."
+msgstr ""
+
+#: db.MusicDatabaseConnection.get_songs_in_playlist:1
+#: e505f1d8ca7040b7b7f5b9e1f03e93fc of
+msgid "Get the URLs of all songs in a specific playlist."
+msgstr ""
+
+#: 92ffadcc42b9479fa7b7df785f359fe2
+#: db.MusicDatabaseConnection.get_songs_in_playlist:11 of
+msgid ""
+"A list of the URLs of all the songs in the playlist, or None if the "
+"playlist doesn't exist, or if it doesn't have any songs."
+msgstr ""
+
+#: db.MusicDatabaseConnection.song_exists:1 f3290207495242f19ea9d1c570bf6f8f of
+msgid "Check if a song exists in the database."
+msgstr ""
+
+#: 111a53528858474393b6683bfc2a9e85 db.MusicDatabaseConnection.song_exists:3 of
+msgid "The song to search for."
+msgstr ""
+
+#: d266e59336b44adcaf00e29f79880f98 db.MusicDatabaseConnection.song_exists:7 of
+msgid "True if the song exists, False otherwise."
+msgstr ""
+
+#: db.MusicDatabaseConnection.song_matches_playlist:1
+#: e267de34e75e4bea98c2c32bd211db10 of
+msgid "Check if a song is matched to a playlist in songs_in_lists."
+msgstr ""
+
+#: db.MusicDatabaseConnection.song_matches_playlist:3
+#: ebbd376d931b4ff38be3566b09fa20f5 of
+msgid "The song to check."
+msgstr ""
+
+#: db.MusicDatabaseConnection.song_matches_playlist:7
+#: fe14ed5d857a451183f6c04b45cdb6a4 of
+msgid "The title of the playlist to check."
+msgstr ""
+
+#: 0623cfef8b0f46e6b865d7647ed0f314
+#: db.MusicDatabaseConnection.song_matches_playlist:11 of
+msgid "The owner of the playlist to check."
+msgstr ""
+
+#: 25d250ba617449b79d554b64cd1b1a7f
+#: db.MusicDatabaseConnection.song_matches_playlist:15 of
+msgid "True if the song and the playlist are matched, False otherwise."
+msgstr ""
+
+#: db.MusicDatabaseConnection.match_song_to_playlist:1
+#: db95fb9e293a4c1d918c31928968cfc7 of
+msgid "Match a song to a playlist, ie. create a row in songs_in_lists."
+msgstr ""
+
+#: db.MusicDatabaseConnection.match_song_to_playlist:3
+#: fa953ed3d4d04661a30cf16e8282c1b0 of
+msgid "The song to match. It must already be in the database."
+msgstr ""
+
+#: 07d4346e2b934468933b5f75741b063e
+#: db.MusicDatabaseConnection.match_song_to_playlist:7 of
+msgid "The title of the playlist to match. It must already be in the database."
+msgstr ""
+
+#: 6f13aaf394784376b8c13421fc9e6f9f
+#: db.MusicDatabaseConnection.match_song_to_playlist:11 of
+msgid "The owner of the playlist to match. It must already be in the database."
+msgstr ""
+
+#: 6c69c0be2237428297a08fa0ce1fac2c
+#: db.MusicDatabaseConnection.remove_song_from:1 of
+msgid "Removes a song from a playlist."
+msgstr ""
+
+#: c278edc8ddae4d2eb64ec03e29d2ae5f
+#: db.MusicDatabaseConnection.remove_song_from:3 of
+msgid "The title of the playlist."
+msgstr ""
+
+#: 18671c7a9f5b404bb45ec5453d118dd5
+#: db.MusicDatabaseConnection.remove_song_from:7 of
+msgid "The owner of the playlist."
+msgstr ""
+
+#: a8ecd4184eca4b0ea247eaaa700eb1bf
+#: db.MusicDatabaseConnection.remove_song_from:11 of
+msgid "The index of the song in the playlist."
+msgstr ""
+
+#: 856d3d94f386426eb12b283e1d4da44e
+#: db.MusicDatabaseConnection.remove_song_from:15 of
+msgid "Raised when the song is not in the database."
+msgstr ""
+
+#: db.MusicDatabaseConnection.remove_song_from:18
+#: f90f348ed21749308c5cd64ee15932ed of
+msgid "Raised when an error removing the song occurs."
+msgstr ""
+
+#: 6ba29aa5e449491f99f0b741079ca4c1
+#: db.MusicDatabaseConnection.create_playlist:1 of
+msgid ""
+"Create a new playlist if one with that title and owner doesn't already "
+"exist."
+msgstr ""
+
+#: 742b6e942f1349a28df3f9eff9464cd6 d5483ec7a06641419bcfad565bae1c2a
+#: db.MusicDatabaseConnection.create_playlist:3
+#: db.MusicDatabaseConnection.delete_playlist:3 of
+msgid "The name of the playlist."
+msgstr ""
+
+#: 433196934eb34e8c8b543b893dc7c26e 81614a150deb48aea44a03630a609c1a
+#: db.MusicDatabaseConnection.create_playlist:7
+#: db.MusicDatabaseConnection.delete_playlist:7 of
+msgid "The discord ID of the user using the command, who owns this playlist."
+msgstr ""
+
+#: 902e7b8619ab4a00916e330fbcf2b9c0
+#: db.MusicDatabaseConnection.create_playlist:11 of
+msgid ""
+"Raised when an error occurs while creating the list or when the playlist "
+"already exists."
+msgstr ""
+
+#: c1343123c9114db8a1d99c117d8046b5
+#: db.MusicDatabaseConnection.delete_playlist:1 of
+msgid "Delete a playlist if it exists."
+msgstr ""
+
+#: db.MusicDatabaseConnection.delete_playlist:11
+#: f90f15680c394509baae0a0079038d0a of
+msgid "Raised when an error occurs while deleting the list."
+msgstr ""
+
+#: c4934ae9e8fa4b1c9c3da7c0458bc036 db.MusicDatabaseConnection.get_playlists:1
+#: of
+msgid "Get all playlists owned by a specific user."
+msgstr ""
+
+#: db.MusicDatabaseConnection.get_playlists:3 ecf422b0b14b458eb484a1a8f7eceec2
+#: of
+msgid "The discord ID of the user to search for."
+msgstr ""
+
+#: 5e9c7b195ba44babbe336ab2657f5788 db.MusicDatabaseConnection.get_playlists:7
+#: of
+msgid "A list of the title of each playlist the user owns if any, None otherwise."
+msgstr ""
+
+#: 7b89e5e082b24d11859e622fa9ab1634
+#: db.MusicDatabaseConnection.add_song_to_playlist:1 of
+msgid ""
+"Add a song to a playlist if it's owned by the calling user. Creates the "
+"playlist if it doesn't exist."
+msgstr ""
+
+#: 7ccfe29d9e3c42fcb9588818f3c0cf84
+#: db.MusicDatabaseConnection.add_song_to_playlist:4 of
+msgid "The song to add."
+msgstr ""
+
+#: 7e34d586839d4538a98d4f032857fa2c
+#: db.MusicDatabaseConnection.add_song_to_playlist:8 of
+msgid "The title of the playlist to add the song to."
+msgstr ""
+
+#: 267c0954c940487daee52ee69b0bdce3 8b8805853f8e422798dc5f13ca1befef
+#: db.MusicDatabaseConnection.add_song_to_playlist:12
+#: db.MusicDatabaseConnection.playlist_exists:7 of
+msgid "The discord ID of the calling user."
+msgstr ""
+
+#: cd144126b9c54a8a9b44af043839d789
+#: db.MusicDatabaseConnection.add_song_to_playlist:16 of
+msgid ""
+"When a problem creating the playlist/inserting the song/adding it to the "
+"playlist occurs."
+msgstr ""
+
+#: 2b4843f5bee544f4ac33ae112c6298a2
+#: db.MusicDatabaseConnection.add_song_to_playlist:20 of
+msgid "A message to send to the calling user."
+msgstr ""
+
+#: db.MusicDatabaseConnection.get_playlist_id:1
+#: dc3b6e6e53544030932735b6a92d0033 of
+msgid "Get the database ID of a playlist."
+msgstr ""
+
+#: a54d78ad3ca84249b10e090d4d6bd8d6 d5fb6245dcc34cf38d834a463ca9a5e8
+#: db.MusicDatabaseConnection.get_playlist_id:3
+#: db.MusicDatabaseConnection.playlist_exists:3 of
+msgid "The title of the playlist to search for."
+msgstr ""
+
+#: 9df5cad4d4e746be8e8901b281b0811c
+#: db.MusicDatabaseConnection.get_playlist_id:7 of
+msgid "The ID of the owner of the playlist."
+msgstr ""
+
+#: 50f643cfd5ed4e32a032ce135797dc9e
+#: db.MusicDatabaseConnection.get_playlist_id:11 of
+msgid "The ID of the playlist if it exists, None otherwise."
+msgstr ""
+
+#: d4e3a74564ca44baa7320d09849b4ea9
+#: db.MusicDatabaseConnection.playlist_exists:1 of
+msgid "Check if a playlist exists in the database."
+msgstr ""
+
+#: 1af3f6e329fd4771a7218584987362b4
+#: db.MusicDatabaseConnection.playlist_exists:11 of
+msgid "True if a playlist with that title and owner exists."
+msgstr ""
+
+#: 62030ba807294451b43008dd1788e282 7c52be3f86e54b989720720a3feeeb15
+#: db.DbInsertError:1 db.NotFoundError:1 of
+msgid "Bases: :class:`Exception`"
+msgstr ""
+
+#: db.DbInsertError:1 e13f6d9b9b3d4ae4ac76a8fe5afef298 of
+msgid "Raised when an error related to INSERT occurs."
+msgstr ""
+
+#: 74613dc5e6674bde9633e72ad71c5103 db.NotFoundError:1 of
+msgid "Raised when an error related to a missing result occurs."
+msgstr ""
+

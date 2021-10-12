@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../test.rst:4 3c2dbef1301e43858a2433fff1dd6bad
+msgid "test"
+msgstr ""
+
+#: ../../test.rst:8 e89da43c79cd4f15b3c6859204da7632
+msgid "admonition test"
+msgstr ""
+
+#: ../../test.rst:10 a31720cb96ee477eaa17a2b2c9fdf870
+msgid "a text"
+msgstr ""
+
+#: ../../test.rst ../../test.rst:14 15411186e1de4b91b73ed67f90246e4c
+#: 2acde37ff71c481cadaef54197b46bf4
+msgid "subtitle"
+msgstr ""
+
+#: ../../test.rst:16 4bf77006ff1946118f4859aa7de0445f
+msgid "text"
+msgstr ""
+
+#: ../../test.rst:20 d08bcb0c659149afa717441c4a21d9e4
+msgid "attention"
+msgstr ""
+
+#: ../../test.rst:24 78b32c4959e94b50862b6cee88530b3e
+msgid "caution"
+msgstr ""
+
+#: ../../test.rst:28 91abbdddf87e4af79b5af6b9753b3333
+msgid "danger"
+msgstr ""
+
+#: ../../test.rst:32 adef00ac788b4806a652c030933abcd7
+msgid "error"
+msgstr ""
+
+#: ../../test.rst:36 faddfc503bbf42a3b0176dda0c0f94e2
+msgid "hint"
+msgstr ""
+
+#: ../../test.rst:40 5a5d04894d07446986ea38afa541605e
+msgid "important"
+msgstr ""
+
+#: ../../test.rst:44 2b384625df4042638bc7a192fc11c3ef
+msgid "note"
+msgstr ""
+
+#: ../../test.rst:48 b1ec7e304c1446ab80b5abbd0cd7f9f6
+msgid "tip"
+msgstr ""
+
+#: ../../test.rst:52 5c06ed5e8f11468aa7069f0037953572
+msgid "warning"
+msgstr ""
+
+#: ../../test.rst:56 cc269b054b2c4d9d89d3b11f475b63a2
+msgid "seealso"
+msgstr ""
+
+#: ../../test.rst:60 f4910697f73a4c35bde6cffccb24a22e
+msgid "deprecated"
+msgstr ""
+
+#: ../../test.rst:64 3a00f70ceacb47da8804b3eaf021246c
+msgid "variables"
+msgstr ""
+
+#: ../../test.rst:68 3dbf235168194f7c93f5b2766e1b832f
+msgid "voice"
+msgstr ""
+

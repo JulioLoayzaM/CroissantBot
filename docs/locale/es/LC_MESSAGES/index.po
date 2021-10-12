@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 20:02+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../index.rst:11 e0018137ac40469ab375018a42d6bf69
+msgid "Getting started"
+msgstr "Primeros pasos"
+
+#: ../../index.rst:20 b12704cab9e940b6a5c38c21252bf585
+msgid "Cogs:"
+msgstr ""
+
+#: ../../index.rst:33 25b313a6c1f34a279f58479f0518e891
+msgid "ext modules:"
+msgstr "Módulos ext"
+
+#: ../../index.rst:42 3366d9d4d7284d9bb2af3f6b6b91c102
+msgid "Other documents:"
+msgstr "Otros documentos"
+
+#: ../../index.rst:7 0939ca7e13e14d3ba3d0193959df61ae
+msgid "Welcome to CroissantBot's documentation!"
+msgstr "Bienvenido/a a la documentación de CroissantBot!"
+
+#: ../../index.rst:9 748e09ea0d7d4519908436a30079951e
+msgid "CroissantBot's documentation is organized as follows:"
+msgstr "La documentación de CroissantBot está organizada de la forma siguiente:"
+
+#: ../../index.rst:51 ad28e094d2774fa1ac04b9ec401868e8
+msgid "Origin"
+msgstr "Origen"
+
+#: ../../index.rst:53 090cdfe1593748598c9067c97f719896
+msgid ""
+"I couldn't find the original video, but this meme is the inspiration for "
+"the name and :ref:`croissant <croissant-command>` command: "
+"`<https://www.youtube.com/watch?v=s8VJ4QuVDBE>`_."
+msgstr ""
+"No pude encontrar el vídeo original, pero este meme es la inspiración del"
+" nombre del bot y del comando :ref:`croissant <croissant-"
+"command>`:`<https://www.youtube.com/watch?v=s8VJ4QuVDBE>`_."
+
+#: ../../index.rst:57 37ba71a75d504083997ba9892e908ea2
+msgid "License"
+msgstr "Licencia"
+
+#: ../../index.rst:59 bfb4ff1c4dd94a7fab2fda101dc8eb22
+msgid ""
+"This project is available under the MIT license. See the "
+":doc:`other/LICENSE` file for more info."
+msgstr ""
+"Este proyecto está disponible bajo la licencia MIT. Ve "
+":doc:`other/LICENSE` para más información."
+
+#: ../../index.rst:63 8059c0210dba4b37b6b39b5fb564f861
+msgid "Contributing"
+msgstr "Contribuir"
+
+#: ../../index.rst:65 86a4968c28ce45c2a9c0e4b0945070d8
+msgid "All contributions are welcome, see :doc:`other/CONTRIBUTING`."
+msgstr "Todas las contribuciones son bienvenidas, ve :doc:`other/CONTRIBUTING`."
+
+#: ../../index.rst:68 b1a9239414d243b78fea1fad2ea8c5a0
+msgid "Versioning"
+msgstr "Versionado"
+
+#: ../../index.rst:70 2f76751726d64695aaa2f48da423074d
+msgid ""
+"The versions of the bot's repo follow the rules of `Semantic Versioning "
+"2.0.0 <https://semver.org/>`__."
+msgstr ""
+"Las versiones del repositorio siguen las reglas de `Versionado Semántico "
+"2.0.0 <https://semver.org/>`__."
+
+#: ../../index.rst:73 c20f235c3537469faedc784ad0bcda32
+msgid "Indices and tables"
+msgstr "Índices y tablas"
+
+#: ../../index.rst:75 b409af5aad4a48ae955bd2a94b335fb1
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../index.rst:76 63e80610620f431480661f25292546bd
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ../../index.rst:77 2a9a238cdd5f474bb89730f7ed6de0a7
+msgid ":ref:`search`"
+msgstr ""
+

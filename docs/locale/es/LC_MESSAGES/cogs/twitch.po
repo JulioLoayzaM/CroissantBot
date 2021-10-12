@@ -1,0 +1,147 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../cogs/twitch.rst:2 f14c7580eaa347d5b3988ec4d43d85f0
+msgid "Twitch"
+msgstr ""
+
+#: ../../cogs/twitch.rst:4 4e4a07798309412caa8fb92b1cac4ce5
+msgid ""
+"This Cog enables the bot's Twitch livestream-checking capabilities. It "
+"uses Twitch's API to get the information needed."
+msgstr ""
+
+#: ../../cogs/twitch.rst:8 2d7d615023d74d03b22087adbfede630
+msgid "To enable this cog, set the :envvar:`ENABLE_TW` variable."
+msgstr ""
+
+#: ../../cogs/twitch.rst:11 9b65298aa8ad4b348fc7b1aaa44744a7
+msgid "Requirements"
+msgstr ""
+
+#: ../../cogs/twitch.rst:14 7004d2b34e2d4e6ab4e23e2983ff4a74
+msgid "Packages"
+msgstr ""
+
+#: ../../cogs/twitch.rst:16 15d958238847401aa8b7d6a40d43892c
+msgid ""
+"No Twitch package is needed. It uses :py:mod:`requests`, which should be "
+"already installed. If it's not, the package can be installed with "
+":py:mod:`pip`:"
+msgstr ""
+
+#: ../../cogs/twitch.rst:33 efa2062d8a574141ad43d98ac30278ba
+msgid "env variables"
+msgstr ""
+
+#: ../../cogs/twitch.rst:35 67f1c3cd0be644cdac21dc5c7a60448d
+msgid ""
+"To use the API, we need the **Client ID** and **Secret**. To get them, "
+"follow Step 1 of this `getting started guide "
+"<https://dev.twitch.tv/docs/api/#step-1-register-an-application>`__. Fill"
+" :envvar:`TW_CLIENT_ID` and :envvar:`TW_CLIENT_SECRET` with these values."
+msgstr ""
+
+#: ../../cogs/twitch.rst:40 c82e8206df8a4c8baa14227b3037ceae
+msgid ""
+"Then, we need an **Access Token**. Normally the bot takes care of it, you"
+" just need to uncomment :envvar:`TW_TOKEN` and leave it blank. When the "
+"bot checks the token validity at startup, it will notice the token is "
+"empty and will automatically try to get a valid token and save it in "
+":envvar:`TW_TOKEN`. If for some reason this fails, see "
+":ref:`cogs/twitch:manually getting an access token`."
+msgstr ""
+
+#: ../../cogs/twitch.rst:45 a51b0662fc904b79be201ff41af173ad
+msgid ""
+":envvar:`TW_FILE` represents the path to a JSON file that stores the IDs "
+"of the Discord users to notify, and the Twitch channels to check for each"
+" one. The name of the file is ``twitch_ids.json`` by default. You can use"
+" the example file provided, but **please change its name** since leaving "
+"it as is may result in overwritting when updating the bot with "
+":program:`git pull`."
+msgstr ""
+
+#: ../../cogs/twitch.rst:51 f8974f48c2d64ed5befb329d92a8aad7
+msgid ""
+"Finally, set :envvar:`TW_FREQUENCY`. This variable indicates how often "
+"the bot will check Twitch, in minutes. It should be a string, casting it "
+"to ``int`` is done in :py:mod:`bot.py`."
+msgstr ""
+
+#: ../../cogs/twitch.rst:55 7deb1278a8be4136b285acdf925243a7
+msgid "Format used by TW_FILE"
+msgstr ""
+
+#: ../../cogs/twitch.rst:57 d0fa30ae7f3042e38f7be9937ac9bf0c
+msgid "The format to use for :envvar:`TW_FILE` is as follows:"
+msgstr ""
+
+#: ../../cogs/twitch.rst:74 51f61ed037b742d293f0d43f493d076b
+msgid ""
+"Fill it with the corresponding information and set :envvar:`TW_FILE` in "
+"``.env``. A Discord user's ID can be found by right-clicking the user's "
+"name. You can either use the URL of the streamer's channel or its "
+"``user_login``, which is the last portion of said URL."
+msgstr ""
+
+#: ../../cogs/twitch.rst:80 dcde27dd0a95443688af541a3ebba335
+msgid "Manually getting an access token"
+msgstr ""
+
+#: ../../cogs/twitch.rst:83 c8672242958f40d4bdf1fc37a1428915
+msgid ""
+"API tokens expire. When this happens, the bot tries to get a new one "
+"automatically. If the automatic way failed, you may have to get a new "
+"token each 60 days, or the cog won't work. In this case, I suggest "
+"opening an issue `in the repo "
+"<https://github.com/JulioLoayzaM/CroissantBot/issues>`_."
+msgstr ""
+
+#: ../../cogs/twitch.rst:87 01e841a4f29f4b00bd7d5ebecd6b6885
+msgid ""
+"If the automatic way of getting an access token fails, there are two "
+"manual ways of getting it:"
+msgstr ""
+
+#: ../../cogs/twitch.rst:89 6b6c225dd8e141af99afe0d9913b351c
+msgid ""
+"The Twitch CLI is one option. `Step 2 "
+"<https://dev.twitch.tv/docs/api/#step-2-authentication-using-the-twitch-"
+"cli>`__ of the aforementioned guide explains how to use it."
+msgstr ""
+
+#: ../../cogs/twitch.rst:93 90598ad62d5a4ab6912a862474d20adf
+msgid ""
+"A simple script (based on `this Stack Overflow answer "
+"<https://stackoverflow.com/a/66536359>`__) can be used instead of "
+"downloading the CLI:"
+msgstr ""
+
+#: ../../cogs/twitch.rst:116 f169e7a6232f4a518decc068b896e01c
+msgid "A sample result of the above script:"
+msgstr ""
+
+#: ../../cogs/twitch.rst:126 f5d1fd63caa3484da9eb292a8ffb6b17
+msgid ""
+"``access_token`` is the token you need. ``expires_in`` indicates how many"
+" seconds the token will remain valid since the request."
+msgstr ""
+

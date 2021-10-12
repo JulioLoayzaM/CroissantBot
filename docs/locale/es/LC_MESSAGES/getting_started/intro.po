@@ -1,0 +1,179 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:12+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../getting_started/intro.rst:2 379e6df102534e58915630b499ee3181
+msgid "Introduction"
+msgstr "Introducción"
+
+#: ../../getting_started/intro.rst:4 729726999c2d4ae1bb148072eac477d9
+msgid ""
+"CroissantBot is a Discord bot written in Python using the `discord.py "
+"rewrite <https://github.com/Rapptz/discord.py>`__."
+msgstr ""
+"CroissantBot es un bot para Discord, desarrollado en Python usando "
+"`discord.py <https://github.com/Rapptz/discord.py>`_."
+
+#: ../../getting_started/intro.rst:6 54ae865471734cd080949fd24832cc4a
+msgid ""
+"While the bot itself is not openly available, `its code is "
+"<https://github.com/JulioLoayzaM/CroissantBot>`_. This project aims to be"
+" a template to ease the creation of a new bot, allowing anyone\\* to "
+"clone the repo, fill in the blanks with this documentation, and run it on"
+" their machine."
+msgstr ""
+"Si bien el bot mismo no está disponible al público, su código si lo está. "
+"Este repositorio apunta a ser una plantilla para facilitar la creación de un bot, "
+"permitiendo a cualquiera\\* clonarlo, llenar los espacios en blanco con la documentación "
+"y usarlo en su máquina."
+
+#: ../../getting_started/intro.rst:10 95f909b2f6844964ad70b82c7d1e9dbf
+msgid ""
+"\\*some Python experience is recommended, but this guide should provide "
+"the necessary to run the bot."
+msgstr ""
+"\\*se recomienda algo de experiencia con Python"
+
+#: ../../getting_started/intro.rst:14 e0579dbad3ce42f7b5eb13ba8603c78b
+msgid ""
+"The development of `discord.py has ended "
+"<https://gist.github.com/Rapptz/4a2f62751b9600a31a0d3c78100287f1>`__, in "
+"part due to the new ``Message.content`` privileged intent. According to "
+"`this Discord dev post <https://support-dev.discord.com/hc/en-"
+"us/articles/4404772028055-Message-Content-Access-Deprecation-for-"
+"Verified-Bots>`__, this new privileged intent (a permission to read "
+"messages, manually granted by Discord) should not be a problem for "
+"\"Unverified bots in fewer than 100 servers\"."
+msgstr ""
+"El desarrollo de ``discord.py`` `se detuvo por completo <https://gist.github.com/Rapptz/4a2f62751b9600a31a0d3c78100287f1>`_, "
+"en parte por la introducción del nuevo ``Message.content`` 'privileged intent'. "
+"Según `este post de los desarrolladores de Discord <https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Access-Deprecation-for-Verified-Bots>`_, "
+"este nuevo 'privileged intent' (un permiso para leer mensajes, otorgado manualmente por Discord) no debería "
+"afectar a \"Bots no verificados que estén en menos de 100 servidores\"."
+
+#: ../../getting_started/intro.rst:20 560c38c7c92f490c87c8868f9a10bdc0
+msgid ""
+"Still, any change to the API won't be reflected in ``discord.py``, so I'm"
+" currently waiting for the dust to settle to see if/when a viable fork "
+"emerges. For now, I'll continue working on this bot as if nothing "
+"happened."
+msgstr ""
+"Aún así, cualquier cambio al API de Discord no se verá reflejado en ``discord.py``, "
+"así que estoy esperando a ver si/cuando un fork viable surge."
+"Por ahora, seguiré trabajando en el bot como si nada hubiera pasado."
+
+#: ../../getting_started/intro.rst:24 5a85244145fe4233b59ec9da5f6d4733
+msgid "Features"
+msgstr "Características"
+
+#: ../../getting_started/intro.rst:27 b9d94f43f60e49f89251309706f3d398
+msgid ""
+"For a list of all commands, check "
+":ref:`getting_started/commands:commands`."
+msgstr "Para la lista de todos los comandos, ve :ref:`getting_started/commands:commands`."
+
+#: ../../getting_started/intro.rst:30 0d584a9073e243ee951c4f978ef2635b
+msgid "Music player"
+msgstr "Reproductor de música"
+
+#: ../../getting_started/intro.rst:32 44a12640d9764f479d290407d81c9176
+msgid ""
+"Play music from YouTube in voice chat. Supports playback on different "
+"servers simultaneously, with a queue for each one."
+msgstr "Reproduce música de YouTube en canales de voz. Permite reproducir en varios servidos simultáneamente, con una cola para cada uno."
+
+#: ../../getting_started/intro.rst:35 695f379405d943d19d492c744406b531
+msgid ""
+"You can save your favourite songs in one playlist, with minimal setup. "
+"See :ref:`cogs/favourites:favourites`."
+msgstr "Guarda tus canciones favoritas en una lista de reproducción, con configuración mínima. "
+"Ve :ref:`cogs/favourites:favourites`."
+
+#: ../../getting_started/intro.rst:39 2f67ce5c27724ea39e0320ab606d2b2d
+msgid ""
+"Use a PostgreSQL database to store as many playlists as you want. See "
+":ref:`cogs/playlist:playlist`."
+msgstr "Utiliza una base de datos con PostgreSQL para guardar cuantas listas de reproducción quieras. "
+"Ve :ref:`cogs/playlist:playlist`."
+
+#: ../../getting_started/intro.rst:44 7a59a89f4fe94dafb1cef266228f07d3
+msgid "Memes"
+msgstr ""
+
+#: ../../getting_started/intro.rst:46 9c8e5fb34d2849a48be88d3f0ab5796d
+msgid ""
+"Get memes from Reddit. Keeps track of memes sent to each server to avoid "
+"duplicates."
+msgstr "Saca memes de Reddit. Mantiene un registro de los memes enviados a cada servidor para evitar duplicados."
+
+#: ../../getting_started/intro.rst:49 bbd71a5716604bd2b8ecdfa590341f19
+msgid "No need to download them to send them."
+msgstr "Ya no es necesario descargarlos para mandarlos."
+
+#: ../../getting_started/intro.rst:53 37a2293511f44277b44f8e099f3be53d
+msgid "Kill messages"
+msgstr ""
+
+#: ../../getting_started/intro.rst:55 81ed47468b2643c6a0131df1ccdedc84
+msgid ""
+"Sends a message targeting a specified server member. Keeps count of kills"
+" in each server. Messages not included."
+msgstr ""
+
+#: ../../getting_started/intro.rst:59 4b677481facb40bb8194b208f73097d2
+msgid "Livestream status"
+msgstr "Estado de transmisiones en vivo"
+
+#: ../../getting_started/intro.rst:61 9bc57a17010347c4b975df55dc72e8f9
+msgid ""
+"Sometimes Twitch's notifications are unreliable, so the bot can notify "
+"users about new streams through DMs. It works with YouTube streams as "
+"well."
+msgstr ""
+"A veces las notificaciones de Twitch no son fiables, así que el bot puede notificar a usuarios de nuevas transmisiones por mensaje privado. "
+"También funciona con transmisiones de YouTube."
+
+#: ../../getting_started/intro.rst:66 7c796fda8fb24acf93397e8865c31284
+msgid "Logging"
+msgstr "Registros"
+
+#: ../../getting_started/intro.rst:68 a9102f447d084ab7a0f7ca219f58d3dd
+msgid ""
+"Outputs basic information and errors to ``stdout``. Debug information is "
+"logged to a file. It should allow to at least pinpoint which function has"
+" caused an error."
+msgstr ""
+"Transmite información básica y errores por ``stdout``. Información de depuración (debug) es grabada en un archivo. "
+"Debería permitir al menos encontrar que función causó un error."
+
+#~ msgid ""
+#~ "Use a PostgreSQL database to store "
+#~ "as many playlists as you want. See"
+#~ " :ref:`cogs/playlist:playlist`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Use a PostgreSQL database to store "
+#~ "as many playlists as you want. See"
+#~ " :ref:`cogs/playlist:playlist`. TEST."
+#~ msgstr ""
+
+#~ msgid "For a list of all commands, check :doc:`commands`."
+#~ msgstr ""
+

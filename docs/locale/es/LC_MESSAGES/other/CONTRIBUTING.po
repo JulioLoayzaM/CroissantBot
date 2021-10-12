@@ -1,0 +1,474 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../other/CONTRIBUTING.rst:4 1e06ef2615204242b1e4cca8f40481a4
+msgid "Contributing to CroissantBot"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:6 537703112d974b8d9363b06ab57ad32f
+msgid "First off, thank you for considering contributing to CroissantBot! :)"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:8 e3eb9e9170ec48f9bb078c7661b51c5f
+msgid ""
+"The following is a set of guidelines for contributing to the repository. "
+"These are guidelines, not hard rules."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:11 87aa3ef4a4d0477cabe2cdf05fa90665
+msgid ""
+"`This is too much to read, I just want to ask a question! <#this-is-too-"
+"much-to-read-i-just-want-to-ask-a-question>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:13 b4d69bdba71d40b0a452cd25dcb837ec
+msgid ""
+"`What type of contributions are allowed? <#what-type-of-contributions-"
+"are-allowed>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:15 45030f64963e4dfa882dc9c2e15f9d89
+msgid "`Your first contribution <#your-first-contribution>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:16 d194d2909acc4ce58f08cc10956a810d
+msgid "`Code guidelines <#code-guidelines>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:18 4f0fa5eb03f04c079410b50fcc99a1b1
+msgid "`Command example <#command-example>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:19 8a5dcf39e0874e4388f600b8f21c215d
+msgid "`Docstring example <#docstring-example>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:20 05f5a03077344253936960c610bd6961
+msgid "`Being explicit <#being-explicit>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:22 4ebdf30a1a2f49ec95074959d73d57ea
+msgid "`Contributing code <#contributing-code>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:23 8d2ba9c958574543900b3b32f780bec2
+msgid "`Code review process <#code-review-process>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:24 de72f683819045f598744babba0b3331
+msgid "`Reporting bugs <#reporting-bugs>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:26 96cbd156ef6945bbbfcce8e742a38ac3
+msgid "`Security disclosures <#security-disclosures>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:27 25a9482bdf0e4576969585c7a33c74e1
+msgid "`Regular bugs <#regular-bugs>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:29 f3ad191349d4496a93c3cb3205f99466
+msgid ""
+"`Suggesting a feature or enhancement <#suggesting-a-feature-or-"
+"enhancement>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:31 d69e379a32b746519efe90e28fd5f91f
+msgid "`Questions and other issues <#questions-and-other-issues>`__"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:34 a69aedede27746a3831b042115c7c976
+msgid "This is too much to read, I just want to ask a question!"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:36 ab38f01ee7e242469b1d7e843140acbd
+msgid ""
+"You can `open an issue "
+"<https://github.com/JulioLoayzaM/CroissantBot/issues>`__ and use the "
+"``question`` label."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:41 ca77967ed96e4cf7bbda6da6c79ad032
+msgid "What type of contributions are allowed?"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:43 dbdbea533b5b4174b58a2980c4a494fe
+msgid ""
+"All contributions are welcome: share suggestions, feature ideas and bug "
+"reports by `opening an issue "
+"<https://github.com/JulioLoayzaM/CroissantBot/issues>`__."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:47 82e0a20cf45f456b9bf65cf065151e7c
+msgid ""
+"Code contributions are also welcome, fork the repo and `create a pull "
+"request <https://github.com/JulioLoayzaM/CroissantBot/pulls>`__."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:50 a7edb988fca943869e33ceadb6ae663e
+msgid "See below for more information."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:53 dd30df90aa0e4f70b87a1ba09c781799
+msgid "Your first contribution"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:55 8230d97abb134f6883c423d4eaca73dc
+msgid "You want to contribute but don't know where to start? You can check:"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:57 ad54a30f84604552a00b8b8356407c1a
+#, python-format
+msgid ""
+"The `good first issue label "
+"<https://github.com/JulioLoayzaM/CroissantBot/labels/good%20first%20issue>`__,"
+" for issues that usually require just a few lines of code and where steps"
+" towards the solution are provided."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:60 552e537ef65147619fb9995ef68df89b
+msgid ""
+"The `help wanted label "
+"<https://github.com/JulioLoayzaM/CroissantBot/labels/help%20wanted>`__, "
+"for issues that require more attention and/or time, but aren't "
+"necessarily harder than first issues."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:64 56c06428e8f94404b1fb666519c3a5d7
+msgid ""
+"Working on your first pull request? Check out `this guide "
+"<https://opensource.guide/how-to-contribute/>`__. If you still have some "
+"doubts, feel free to ask for help. :)"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:68 250746b41a354d18814df3ee92eac7ce
+msgid "Code guidelines"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:70 30ba807cb5734f198a9999fce034ad3f
+msgid "Some things to consider before submitting code:"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:72 d562601a81c3460f81b2f981132746c7
+msgid "Document and comment your code (examples below):"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:74 71f1fcf5fd9540c293d0e3bf0221dd77
+msgid ""
+"Commands must have the ``name`` and ``help`` fields, even if the function"
+" and command have the same name."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:76 5587b49ad8bd4603ab03ea30e9295872
+msgid ""
+"In general, functions must be type-hinted and have a clear description in"
+" its docstring."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:78 147fcc085d4d48798bdf79424e231211
+msgid ""
+"Don't hesitate to comment: if there are too many (unnecessary) comments, "
+"they can be cleaned before merging."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:80 03be2fbe1fed491582c23960e6040f25
+msgid ""
+"Remember, `explicit is better than implicit "
+"<https://www.python.org/dev/peps/pep-0020/#the-zen-of-python>`__: "
+"descriptive names should be used, one-liners should be avoided."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:83 34c370faace849069c34798e27e0f819
+msgid "Use tabs."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:85 f2c56d706162487f87a6a41fd92a37e4
+msgid "Test your changes if possible."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:86 6be6ab0bc31c409a8890ff7c0fa36307
+msgid ""
+"Begin your commit message with an action in the present tense: add \\| "
+"remove \\| change \\| fix \\| deprecate."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:90 02da986baea24adb8077180e078566ca
+msgid "Command example"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:92 d39e91bb2fe64de289313d970fb913c9
+msgid "Using the ``@command`` decorator, we have:"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:103 fa8ef58f618a4ecdbf7a7b50e36644d2
+msgid ""
+"This defines its name instead of using the function's name. It allows to "
+"have an explicit function name while using a short, easy-to-remember word"
+" as a command name."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:107 74a5dc20256344d0b8d74b08bd73b7d0
+msgid ""
+"This also defines the help text instead of using the docstring. This is "
+"visible to the bot's users, so it should be a single phrase explaining "
+"the command's purpose, while the docstring, visible to developpers, "
+"should have a description of the function's inner workings."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:112 2cb7d23238aa4417a8d0e4529711312a
+msgid "Docstring examples"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:115 6cbc7af1178349e48da896950a841b2f
+msgid "For cogs"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:117 c4bc0806d81240118fde4f8f3fc3d5ba
+msgid ""
+"Since cogs can't be properly documented using :program:`sphinx` (due to "
+"the use of decorators), we use a simpler format for docstrings:"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:141 32a5b53cfe7a43aabfc9a2583c3761d8
+msgid "For ext modules"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:143 297ff1cf5e064b92b45bb1dc8081ef46
+msgid ""
+"The :ref:`ext/ext-modules:ext modules` provide extensions used by the "
+"cogs, but that don't necessarily rely on them. This means anyone wanting "
+"to customize their bot (eg. add commands) should be able to use these "
+"modules to extend the bot's functionnality."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:147 c21bc2e073e442df944ba7db27f7bf81
+msgid ""
+"As such, and since they don't use decorators, these modules are "
+"documented using :program:`sphinx-autodoc`, so their docstrings must use "
+"a certain format, shown below:"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:150 d2b8d101d6f2455cb0317b16a2482f83
+msgid "Taken from ``queue.insert``:"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:175 ea0aac1f499c4373bd87dfe7db988b1d
+msgid "In both cases"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:177 3d49f50688134145b8560aa18a68a04d
+msgid "We see that the function:"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:179 b1c87ad06e6c40ed9dd00c46f410255e
+msgid ""
+"Is type-hinted, i.e. the type of the parameters and the return values are"
+" indicated."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:181 349008688d7146089a0e61cdccfead69
+msgid "Has a description of its behaviour."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:182 29efcd8604114ed393d6ceaf6f70f28a
+msgid ""
+"Explains the different parameters, return values, and possible "
+"exceptions, whenever it applies."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:184 b15e721de5114b50b99a8bac2cf9aae8
+msgid ""
+"The exceptions to this are the :py:attr:`self` and the :py:attr:`ctx` "
+"parameters, since they are heavily used and specifying their use is not "
+"needed."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:187 92a3c77d34a944979e92a14169d91800
+msgid ""
+"Type-hinting outside of docstrings is encouraged, especially for imported"
+" classes, since IDEs usually use it to show suggestions."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:191 f34d7e9ae8bc4dbdab9b08bbaa118e18
+msgid "Being explicit"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:193 7f780e9215b34044bcd6779b9903a3b4
+msgid ""
+"In :py:func:`bot.check_token`, we use two different URLs: instead of "
+"calling them :py:attr:`url1` and :py:attr:`url2`, we use descriptive "
+"names like :py:attr:`validate_url` and :py:attr:`token_url`."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:198 6ecc01118a8047e4a9f3e01653ff9ac0
+msgid "Contributing code"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:200 416857501cb14098864e6cb2682ae2d2
+msgid ""
+"The following guide was adapted from "
+"https://github.com/MarcDiethelm/contributing/blob/master/README.md:"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:203 728006e157fa48db976d26710542d7d0
+msgid "Create a personal fork of the project on GitHub."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:204 4b8e3370831d4b77ba5e49a9a16bf35f
+msgid ""
+"Clone the fork on your local machine. Your remote repo on GitHub is "
+"called ``origin``."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:206 10f4b1d8cad14a3a8e4f616cf7fd7382
+msgid "Add the original repository as a remote called ``upstream``."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:207 397efb4109ac4b20bb0aee3006a0a2df
+msgid ""
+"If you created your fork a while ago be sure to **pull upstream changes**"
+" into your local repository."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:209 9bde510a235049fc8dc1119dcf7a49a6
+msgid ""
+"Create a new branch to work on! Branch from ``develop``, preferably with "
+"a distinctive name such as ``develop/translation``."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:211 39297f4c562343d3a64654d2ca2c59e6
+msgid "Implement/fix your feature, comment your code."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:212 308cb10fab284e7b96df6f9de5bc945f
+msgid ""
+"Follow the code style of the project: see the `code guidelines <#code-"
+"guidelines>`__."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:214 d16f94f684ad46698d5cecea081d6e8f
+msgid "Add or change the documentation as needed."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:215 faba8d679b61488ab4882b48ab98cdb8
+msgid ""
+"Squash your commits with git's `interactive rebase "
+"<https://www.atlassian.com/git/tutorials/rewriting-history/git-"
+"rebase>`__. Create a new branch if necessary."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:218 80cfc4946aa94a02abe98be54d5ff968
+msgid "Push your branch to your fork on GitHub, the remote ``origin``."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:219 fa706d14c9a3426c9fc4052d56fb2b0f
+msgid "From your fork open a pull request in the ``develop`` branch."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:220 828dbdb9bc204ff8b0682a4b9dc9e139
+msgid "…"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:221 9fe57c5dad53455093698955dc215408
+msgid ""
+"If the maintainer requests further changes just push them to your branch."
+" The PR will be updated automatically."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:223 ebf1dbd3a2c842669fab4b95ffe78724
+msgid ""
+"Once the pull request is approved and merged you can pull the changes "
+"from ``upstream`` to your local repo and delete your extra branch(es)."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:227 a1a072296e2c4363908a396380b03b40
+msgid ""
+"For more information on the related commands, you can check this gist: "
+"https://gist.github.com/adamloving/5690951."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:231 c579f2d2bc0842ceb46ffce668a384f8
+msgid "Code review process"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:233 44f2b7ffcb0b4aebb72236d0230347da
+msgid ""
+"I will review all submitted code, as soon as possible. If after giving "
+"feedback and a reasonable delay has passed, no response is given, I will "
+"consider closing the pull request."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:237 f7265fda32714e678221a0e9353e7298
+msgid "All tags/releases are to be signed by me."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:240 84e699ca34a34958b62865802fe69ed3
+msgid "Reporting bugs"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:243 466ffc37414644e7a0162968186d2583
+msgid "Security disclosures"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:245 d60676636dea482696453f5c11c8b715
+msgid ""
+"If you find a security issue, **do not open an issue**. Email me at "
+"croissantbot [dot] jlm [at] gmail [dot] com."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:249 1236adac074246da9988fce2360513e8
+msgid "Regular bugs"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:251 2390a74929ff49848530b6addb628f11
+msgid ""
+"Create an issue using the bug template and fill it with as much detail as"
+" possible."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:254 d9c2bc17c3644db3b9a09724fbb45a8c
+msgid "Create a pull request if you have found a fix!"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:257 4a67e44feae342a9963a4133d5c1986a
+msgid "Suggesting a feature or enhancement"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:259 95cd69db1a7e4ad4b04b38a160f353b1
+msgid ""
+"Create an issue using the feature request template and fill it with as "
+"much detail as possible."
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:262 6f1640205f2a49f1993b2229d83028aa
+msgid "Create a pull request if you have already started implementing it!"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:265 940795ed211f4cdfa0cd6e44013bf62b
+msgid "Questions and other issues"
+msgstr ""
+
+#: ../../other/CONTRIBUTING.rst:267 76a5bcc71ccd4909bdc18059eee8fb6a
+msgid ""
+"Issue templates are only available for bug reports and features requests "
+"for the moment, so don't hesitate to use a blank issue if your question "
+"doesn't belong to those categories."
+msgstr ""
+
