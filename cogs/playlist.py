@@ -35,6 +35,18 @@ BOT_PREFIX = os.getenv('BOT_PREFIX')
 
 MUSIC_ENABLED = bool(os.getenv('ENABLE_MUSIC', ''))
 
+DB_CONNECTED = False
+
+
+def check_if_db_is_connected():
+	"""
+	Custom check to verify that the bot is connected to the database.
+	This prevents the subcommands from running if the connection failed.
+	"""
+	def predicate(ctx: commands.Context):
+		return DB_CONNECTED
+	return commands.check(predicate)
+
 
 class Playlist(commands.Cog):
 	"""
@@ -70,6 +82,7 @@ class Playlist(commands.Cog):
 		"""
 		Base function for playlist management.
 		"""
+		global DB_CONNECTED
 
 		if ctx.invoked_subcommand is None:
 			await ctx.send("You have to use a subcommand:")
@@ -92,6 +105,7 @@ class Playlist(commands.Cog):
 					self.bot.loop,
 					port
 				)
+				DB_CONNECTED = True
 			except Exception as error:
 				message, *rest = error.args
 				self.logger.error(message)
@@ -102,6 +116,7 @@ class Playlist(commands.Cog):
 		name="add",
 		help="Adds a song to a playlist"
 	)
+	@check_if_db_is_connected()
 	async def playlist_add(
 		self,
 		ctx: commands.Context,
@@ -150,6 +165,7 @@ class Playlist(commands.Cog):
 		name="remove",
 		help="Remove a song from a playlist by its index"
 	)
+	@check_if_db_is_connected()
 	async def playlist_remove(
 		self,
 		ctx: commands.Context,
@@ -201,6 +217,7 @@ class Playlist(commands.Cog):
 		enabled=MUSIC_ENABLED,
 		hidden=not MUSIC_ENABLED
 	)
+	@check_if_db_is_connected()
 	async def playlist_now(
 		self,
 		ctx: commands.Context,
@@ -251,6 +268,7 @@ class Playlist(commands.Cog):
 		name="create",
 		help="Creates a new playlist"
 	)
+	@check_if_db_is_connected()
 	async def playlist_create(
 		self,
 		ctx: commands.Context,
@@ -285,6 +303,7 @@ class Playlist(commands.Cog):
 		name="delete",
 		help="Deletes a playlist"
 	)
+	@check_if_db_is_connected()
 	async def playlist_delete(
 		self,
 		ctx: commands.Context,
@@ -320,6 +339,7 @@ class Playlist(commands.Cog):
 		name="list",
 		help="Lists all your playlists by default or shows the songs in a specific one"
 	)
+	@check_if_db_is_connected()
 	async def playlist_list(
 		self,
 		ctx: commands.Context,
@@ -378,6 +398,7 @@ class Playlist(commands.Cog):
 		enabled=MUSIC_ENABLED,
 		hidden=not MUSIC_ENABLED
 	)
+	@check_if_db_is_connected()
 	async def playlist_play(
 		self,
 		ctx: commands.Context,
