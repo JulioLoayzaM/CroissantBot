@@ -255,7 +255,7 @@ class Meme(commands.Cog):
 			self.item_limit = new_limit
 
 			try:
-				set_key('./../.env', 'MEME_ITEM_LIMIT', str(new_limit))
+				set_key('.env', 'MEME_ITEM_LIMIT', str(new_limit))
 				em = discord.Embed(
 					title="Success",
 					description=f"Changed limit to {new_limit}.",
