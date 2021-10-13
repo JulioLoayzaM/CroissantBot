@@ -82,14 +82,21 @@ class Playlist(commands.Cog):
 			port = os.getenv('DB_MUSIC_PORT', None)
 			password = os.getenv('DB_MUSIC_PASSWORD')
 			database = os.getenv('DB_MUSIC_DATABASE')
-			await self.db.connect(
-				host,
-				user,
-				password,
-				database,
-				self.bot.loop,
-				port
-			)
+
+			try:
+				await self.db.connect(
+					host,
+					user,
+					password,
+					database,
+					self.bot.loop,
+					port
+				)
+			except Exception as error:
+				message, *rest = error.args
+				self.logger.error(message)
+				self.logger.debug(rest)
+				await ctx.send("An error occurred while getting the playlists, please contact the bot's admin.")  # noqa: E501
 
 	@playlist_base.command(
 		name="add",

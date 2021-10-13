@@ -97,9 +97,12 @@ class DatabaseConnection():
 		:type port: str
 		"""
 
-		conn = await asyncpg.connect(
-			host=host, port=port, user=user, password=password, database=database, loop=loop
-		)
+		try:
+			conn = await asyncpg.connect(
+				host=host, port=port, user=user, password=password, database=database, loop=loop
+			)
+		except Exception as error:
+			raise Exception("Couldn't connect to the database.", error)
 
 		self.conn = conn
 
