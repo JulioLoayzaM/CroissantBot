@@ -13,8 +13,9 @@ Implementation of a queue to be used by music.py.
 # See the LICENSE file for more details.
 
 
+from collections import deque
 from cogs.ext.song import Song
-from typing import List, Tuple, Union
+from typing import Tuple, Union, Deque
 
 
 class SongQueue():
@@ -24,7 +25,7 @@ class SongQueue():
 	"""
 
 	def __init__(self):
-		self.songs = []
+		self.songs = deque()
 
 	def push(self, song: Song):
 		"""
@@ -50,18 +51,21 @@ class SongQueue():
 		"""
 
 		if len(self.songs) > 0:
-			if 1 <= index <= len(self.songs):
-				return self.songs.pop(index - 1)
-
+			if index == 1:
+				return self.songs.popleft()
+			elif 1 < index <= len(self.songs):
+				song: Song = self.songs[index - 1]
+				del self.songs[index - 1]
+				return song
 		return None
 
-	def get_songs(self) -> List[Song]:
+	def get_songs(self) -> Deque[Song]:
 		"""
 		Simple getter.
 
 		:return:
-			The actual list of Songs.
-		:rtype: List[Song]
+			The actual deque of Songs.
+		:rtype: deque[Song]
 		"""
 		return self.songs
 
@@ -146,7 +150,7 @@ class SongQueue():
 			# if song is None.
 			return True, f"{song.title}"
 
-	def insert(self, song: Song, index: int) -> str:
+	def insert(self, song: Song, index: int) -> int:
 		"""
 		Inserts a song at position index.
 
@@ -158,26 +162,30 @@ class SongQueue():
 			The index of the position to insert the song into.
 		:type index: int
 
-		:raises IndexError:
-			If index is out of range.
-
 		:return:
-			A message about the result of the operation.
-		:rtype: str
+			If the queue is empty, returns 0. Else, it returns the index.
+		:rtype: int
+
+		.. note::
+			If index is less than 1, inserts the song at the beginning.
+			If the index is greater than the size of the queue, the song is simply \
+			appended to the end of the queue.
 		"""
 
 		if self.is_empty():
 			self.push(song)
-			return "The queue was empty, added in first place."
-
-		# we use size+1 because Music.move removes a song first
-		elif 1 <= index <= len(self.songs) + 1:
-			# insert song at index using slice indexing
-			self.songs[index - 1:index - 1] = [song]
-			return f"Moved \"{song.title}\" to position {index}."
+			return 0
 
 		else:
-			raise IndexError("(queue.insert)", f"size: {len(self.songs)}", f"index: {index}")
+			if index <= 1:
+				self.songs.appendleft(song)
+				return 1
+			elif 1 < index <= len(self.songs):
+				self.songs.insert(index - 1, song)
+				return index
+			else:
+				self.songs.append(song)
+				return len(self.songs)
 
 	def move(self, index1: int, index2: int) -> str:
 		"""
@@ -197,6 +205,12 @@ class SongQueue():
 		:return:
 			A message about the result of the operation
 		:rtype: str
+
+		.. warning::
+			This method only checks if the first index is valid, i.e. corresponds to \
+			a song in the queue.
+			If the second index is less than 1, the song is left-appended.
+			If it's greater than the queue size, the song is appended.
 		"""
 
 		size = self.get_size()
@@ -204,18 +218,16 @@ class SongQueue():
 		if self.is_empty():
 			return "The queue is empty!"
 
-		elif index1 < 1 or index1 > size:
-			# Index check to get the correct message.
+		elif index1 < 1 or index1 > size:  # Index check to get the correct message.
 			return f"There's no song with that index! The current size of the queue is {size}."
-
-		elif index2 < 1 or index2 > size:
-			# Index check for the message + avoid popping a song and not inserting it.
-			return f"That's out of bounds! The current size of the queue is {size}."
 
 		else:
 			song = self.pop(index1)  # Pass index1 as is, see pop().
 			res = self.insert(song, index2)  # Pass index2 as is, see insert().
-			return res
+			if res == 0:
+				return "The queue was empty, added in first place."
+			else:
+				return f"Moved \"{song.title}\" to position {res}."
 
 	def get_song_info(self, index: int):
 		"""
