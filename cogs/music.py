@@ -128,7 +128,7 @@ class Music(commands.Cog):
 		if gid not in self.info:
 			return False
 
-		if self.info['gid'].get('channel') is None:
+		if self.info[gid].get('channel') is None:
 			return False
 
 		return True
@@ -570,7 +570,7 @@ class Music(commands.Cog):
 
 		logger = self.logger
 
-		if not self.is_connected(ctx):
+		if not await self.is_connected(ctx):
 			await ctx.send("The bot is not connected to a voice channel.")
 			return
 
@@ -610,7 +610,7 @@ class Music(commands.Cog):
 			this means no song is removed.
 		"""
 
-		if not self.is_connected(ctx):
+		if not await self.is_connected(ctx):
 			await ctx.send("The bot is not connected to a voice channel.")
 			return
 
@@ -654,7 +654,7 @@ class Music(commands.Cog):
 			as passed by the user.
 		"""
 
-		if not self.is_connected(ctx):
+		if not await self.is_connected(ctx):
 			await ctx.send("The bot is not connected to a voice channel.")
 			return
 
