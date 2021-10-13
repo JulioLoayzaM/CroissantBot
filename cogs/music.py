@@ -585,8 +585,13 @@ class Music(commands.Cog):
 
 		else:
 			try:
+				# We skip index-1: if we want to skip one song, we just want to stop the source,
+				# since playing the next song implies popping that song.
 				queue.skip(index - 1)
 				vc.stop()
+				if queue.is_empty():
+					gid = ctx.message.guild.id
+					self.info[gid]['source'] = None
 
 			except IndexError:
 				await ctx.send(f"There's no song with that index, try `{BOT_PREFIX}queue` to see the queue.")  # noqa: E501
