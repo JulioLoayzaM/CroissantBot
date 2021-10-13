@@ -70,6 +70,19 @@ class Playlist(commands.Cog):
 
 		return await self.db.close()
 
+	async def is_connected_to_vc(self, ctx: commands.Context):
+		"""
+		Checks if the bot is connected to a voice channel.
+
+		:return:
+			True if connected, False otherwise.
+		:rtype: bool
+		"""
+		music = self.bot.get_cog('Music')
+		if music is None:
+			return False
+		return await music.is_connected(ctx)
+
 	@commands.group(
 		name="playlist",
 		aliases=['pl'],
@@ -414,6 +427,15 @@ class Playlist(commands.Cog):
 			index: The index of the song to queue. If 0, queues all the songs in
 			the playlist. If the index exists in the playlist, queues that specific song.
 		"""
+
+		if not await self.is_connected_to_vc(ctx):
+			em = discord.Embed(
+				title="Error",
+				description="The bot is not connected to a voice channel.",
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
+			return
 
 		if not await self.db.playlist_exists(title, str(ctx.author.id)):
 			em = discord.Embed(
