@@ -232,6 +232,40 @@ async def ping_back(ctx: commands.Context):
 
 
 @bot.command(
+	name="reload",
+	help="Reloads a cog"
+)
+@commands.is_owner()
+async def reload(ctx: commands.Context, name: str):
+	"""
+	Reloads a cog. Useful for testing changes without restarting the bot.
+
+	Parameters:
+		name: The name of the cog to reload.
+	"""
+
+	if not name.startswith("cogs."):
+		name = "cogs." + name
+	try:
+		bot.reload_extension(name)
+	except commands.ExtensionNotLoaded as error:
+		await ctx.send("That cog is not loaded.")
+		logger.debug(error)
+	except commands.ExtensionNotFound as error:
+		await ctx.send("Couldn't find that cog.")
+		logger.debug(error)
+	except commands.ExtensionFailed as error:
+		await ctx.send("An error occurred while reloading the cog, \
+			reverting to last working state.")
+		logger.error("The extension setup function had an execution error.")
+		logger.debug(error)
+	except Exception as error:
+		await ctx.send("An error occurred while reloading the cog, \
+			reverting to last working state.")
+		logger.debug(error)
+
+
+@bot.command(
 	name="test",
 	help="Test different functions"
 )
