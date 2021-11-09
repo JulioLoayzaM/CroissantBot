@@ -11,7 +11,7 @@ docs/Makefile
 docs/test.*
 docs/locale/**/*.mo
 # docs extras
-docs/docstring_template.mustache
+docs/*.mustache
 docs/translate_es.sh
 # cache directories
 music_cache/
