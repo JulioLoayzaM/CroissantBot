@@ -66,7 +66,7 @@ msgstr ""
 "La idea detrás de este repositorio es de permitir cualquier modificación al código. "
 "Como tal, el código puede ser libremente modificado bajo una condición: "
 "el contenido del archivo LICENSE debe incluirse en todas las copias o partes substanciales del código. "
-"Para más información, lee ve :ref:`other/license:license`. "
+"Para más información, lee :ref:`other/license:license`. "
 "Para un ejemplo de cómo se debe incluir la licencia, puedes ver el cog de música, que contiene código del `ejemplo basic\\_voice "
 "<https://github.com/Rapptz/discord.py/blob/master/examples/basic_voice.py>`__ de ``discord.py``."
 

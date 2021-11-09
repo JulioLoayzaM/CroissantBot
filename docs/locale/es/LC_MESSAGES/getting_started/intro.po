@@ -75,7 +75,7 @@ msgid ""
 "happened."
 msgstr ""
 "Aún así, cualquier cambio al API de Discord no se verá reflejado en ``discord.py``, "
-"así que estoy esperando a ver si/cuando un fork viable surge."
+"así que estoy esperando a ver si/cuando un fork viable surge. "
 "Por ahora, seguiré trabajando en el bot como si nada hubiera pasado."
 
 #: ../../getting_started/intro.rst:24 5a85244145fe4233b59ec9da5f6d4733

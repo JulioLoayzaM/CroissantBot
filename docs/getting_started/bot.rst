@@ -97,7 +97,8 @@ The base ``.env`` variables to set are:
 
 *  :envvar:`DISCORD_TOKEN`: the bot's token. Check the section :ref:`getting_started/bot:creating the bot` to know how to get it.
 
-*  :envvar:`BOT_PREFIX`: the bot's prefix, which is the character used before a command to invoke the bot. It's set to ``!`` by default, but you can change it.
+*  :envvar:`BOT_PREFIX`: the bot's prefix, which is the character used before a command to invoke the bot.
+   It's set to ``!`` by default, but you can change it; just make sure it doesn't interfere with the prefix of other bots you use.
 
 *  The log files:
 

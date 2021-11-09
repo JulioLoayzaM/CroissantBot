@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CroissantBot \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"POT-Creation-Date: 2021-11-09 23:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,15 +20,15 @@ msgstr ""
 
 #: ../../getting_started/bot.rst:2 00128b243ff64a3e9f15ffced5732870
 msgid "Running the bot"
-msgstr ""
+msgstr "Usar el bot"
 
 #: ../../getting_started/bot.rst:4 e219d62f394440e8a88d89b87ae0446b
 msgid "A guide on how to create and run the bot."
-msgstr ""
+msgstr "Una guía sobre como crear y usar el bot"
 
 #: ../../getting_started/bot.rst:7 ed300a7a7b014c3b9719e4625cb092e5
 msgid "Intro"
-msgstr ""
+msgstr "Introducción"
 
 #: ../../getting_started/bot.rst:9 13c0ac90af2b453ebd85ce12c1bce717
 msgid ""
@@ -36,24 +36,31 @@ msgid ""
 "run the base bot. This includes the ``exit``, ``help``, ``ping``, "
 "``test`` and ``version`` commands."
 msgstr ""
+"El archivo principal de CroissantBot es :py:mod:`bot.py`. Contiene el "
+"código para correr el bot de base; esto incluye los comandos ``exit``, "
+"``help``, ``ping``, ``test`` y ``version``."
 
 #: ../../getting_started/bot.rst:13 cbe708257abc4f5f95f9eda1a3a35808
 msgid "For more commands, see :ref:`cogs/intro-cogs:intro to cogs`."
 msgstr ""
+"Para ver el resto de los comandos, ve :ref:`cogs/intro-cogs:intro to "
+"cogs`."
 
 #: ../../getting_started/bot.rst:15 30aed36449534d429085eb3ccfc128aa
 msgid ""
 "CroissantBot uses a file called ``.env`` to store its settings and "
 "credentials."
 msgstr ""
+"CroissantBot utiliza un archivo llamado ``.env`` para guardar su "
+"configuración y credenciales."
 
 #: ../../getting_started/bot.rst:17 ee1048fe5f06415aa2a7cf2d1e736bbf
 msgid "The **bot's default prefix** is ``!``."
-msgstr ""
+msgstr "El **prefijo por defecto** es ``!``."
 
 #: ../../getting_started/bot.rst:20 556d37d118d8437c92639c2c9f3e8861
 msgid "Dependencies"
-msgstr ""
+msgstr "Dependencias"
 
 #: ../../getting_started/bot.rst:22 5e56122bc9644cf4b99b86455c1086fa
 msgid ""
@@ -61,24 +68,29 @@ msgid ""
 "packages needed to run the base bot, see "
 ":ref:`getting_started/bot:packages` below."
 msgstr ""
+"Esta es una lista de todos los paquetes utilizados por el bot y sus cogs."
+" Puedes encontrar la lista de paquetes esenciales "
+":ref:`getting_started/bot:packages` más abajo."
 
 #: ../../getting_started/bot.rst:25 d887d141027144f5adda3e1d4e155b24
 msgid ""
 "I've tested the bot with Python 3.6.9 in Ubuntu 18.04 and Python 3.6.1 in"
 " Windows 10 using the following packages:"
 msgstr ""
+"He probado el bot con Python 3.6.9 en Ubuntu 18.04 y con Python 3.6.1 en "
+"Windows 10 usando los paquetes siguientes:"
 
 #: ../../getting_started/dependencies.csv:1 88c371e2ebb147ada7a0f7f9dfc64d99
 msgid "Package"
-msgstr ""
+msgstr "Paquete"
 
 #: ../../getting_started/dependencies.csv:1 81434ba76eb3493dbc7e800d728a1c72
 msgid "Usage"
-msgstr ""
+msgstr "Uso"
 
 #: ../../getting_started/dependencies.csv:1 63e33fafd653490d8e3fb066f0f0b8fa
 msgid "Cog using it"
-msgstr ""
+msgstr "Cog que lo usa"
 
 #: ../../getting_started/dependencies.csv:1 a3e67944cee147c5ab8226a480e63eaa
 msgid ":py:mod:`discord.py[voice]`"
@@ -86,12 +98,12 @@ msgstr ""
 
 #: ../../getting_started/dependencies.csv:1 9bc49435572d4570a21a172dc4bbb8d2
 msgid "API wrapper for Discord with voice support"
-msgstr ""
+msgstr "Wrapper del API de Discord con soporte de voz"
 
 #: ../../getting_started/dependencies.csv:1 22883d4a43b74c05a1063287364c2b2a
 #: 5e7a93f2b2194391b282880908090958 74a63d4ecfc540e9bb9005c845c8b129
 msgid "The base bot"
-msgstr ""
+msgstr "El bot de base"
 
 #: ../../getting_started/dependencies.csv:1 323c734ec26a4643a4d72757853d8fe6
 msgid ":py:mod:`python-dotenv`"
@@ -99,7 +111,7 @@ msgstr ""
 
 #: ../../getting_started/dependencies.csv:1 1c51d5a3b2424a919cdba7e3ad903921
 msgid "To store API keys and other secrets in a ``.env`` file"
-msgstr ""
+msgstr "Para guardar llaves de API y otros secretos en un archivo ``.env``"
 
 #: ../../getting_started/dependencies.csv:1 538479e3c213460ea9ba992ed4051799
 msgid ":py:mod:`packaging`"
@@ -107,7 +119,7 @@ msgstr ""
 
 #: ../../getting_started/dependencies.csv:1 d381573fa12040678c7e26ac7330eb8a
 msgid "To check the bot's current version"
-msgstr ""
+msgstr "Para chequear la versión actual del bot"
 
 #: ../../getting_started/dependencies.csv:1 28d1785e4e0e479b919f846e33d00da1
 msgid ":py:mod:`asyncpraw`"
@@ -115,7 +127,7 @@ msgstr ""
 
 #: ../../getting_started/dependencies.csv:1 df82f6b6ecae4be3bda00399d111ee56
 msgid "Asynchronous Python Reddit API Wrapper, to get memes from Reddit"
-msgstr ""
+msgstr "'Asynchronous Python Reddit API Wrapper', para conseguir memes de Reddit"
 
 #: ../../getting_started/dependencies.csv:1 17a8397dafb849da86d6ed83a02d8ca3
 msgid "Meme"
@@ -127,11 +139,11 @@ msgstr ""
 
 #: ../../getting_started/dependencies.csv:1 390ed02d307549cbaf089f92fcc7603b
 msgid "To get music and livestream information from Youtube"
-msgstr ""
+msgstr "Para conseguir música e información de livestreams de Youtube"
 
 #: ../../getting_started/dependencies.csv:1 2c05a99eaf6948ac8a873c06788a1acc
 msgid "Music, Youtube and Playlist"
-msgstr ""
+msgstr "Music, Youtube y Playlist"
 
 #: ../../getting_started/dependencies.csv:1 42acbab96fb14a519f833106518a7b8c
 msgid ":py:mod:`streamlink`"
@@ -139,7 +151,7 @@ msgstr ""
 
 #: ../../getting_started/dependencies.csv:1 f2c9736d872e4af5b22a0203ecdf30a9
 msgid "To check for YouTube livestreams"
-msgstr ""
+msgstr "Para chequear livestreams de Youtube"
 
 #: ../../getting_started/dependencies.csv:1 5360b8e3cd47405db7dd874e7c0b51ec
 msgid "Youtube"
@@ -151,7 +163,7 @@ msgstr ""
 
 #: ../../getting_started/dependencies.csv:1 e2044493a89145b5804a73061595985f
 msgid "To connect to the PostgreSQL database"
-msgstr ""
+msgstr "Para conectarse a la base de datos PostgreSQL"
 
 #: ../../getting_started/dependencies.csv:1 d6bb5d281ed54ec781a758297fcbdce7
 msgid "Playlist"
@@ -163,40 +175,44 @@ msgid ""
 " appears to no longer be maintained, using :py:mod:`yt-dlp` is "
 "recommended."
 msgstr ""
+"El paquete :py:mod:`youtube-dl` era utilizado por el cog Music, pero como"
+" no parece estar mantenido, se recomienda :py:mod:`yt-dlp`."
 
 #: ../../getting_started/bot.rst:36 b9cda31113d7439b91154963f99ed242
 msgid "The :py:mod:`asyncpg` package."
-msgstr ""
+msgstr "El paquete :py:mod:`asyncpg`."
 
 #: ../../getting_started/bot.rst:39 e7d39a08569d4022a9c6e4a50bcf4abb
 msgid "The Playlist cog, which also uses the :py:mod:`yt-dlp` package."
-msgstr ""
+msgstr "El cog Playlist, que también utiliza el paquete :py:mod:`yt-dlp`."
 
 #: ../../getting_started/bot.rst:43 cb7a0f2e0ea044e6a0ea47cd553a3272
 msgid "Requirements"
-msgstr ""
+msgstr "Requisitos"
 
 #: ../../getting_started/bot.rst:46 f009e5c5ba5d486394bac1332cf693f1
 msgid "Packages"
-msgstr ""
+msgstr "Paquetes"
 
 #: ../../getting_started/bot.rst:48 17d44ecbe5ae49e8bb1fd0cb06711dfb
 msgid "The :py:mod:`discord.py[voice]` package:"
-msgstr ""
+msgstr "El paquete :py:mod:`discord.py[voice]`:"
 
 #: ../../getting_started/bot.rst:62 031ed339ff3b4283821fa080bbb321db
 msgid "The :py:mod:`python-dotenv` package:"
-msgstr ""
+msgstr "El paquete :py:mod:`python-dotenv`:"
 
 #: ../../getting_started/bot.rst:76 a1eea852dc3742dc957322a67626d066
 msgid ""
 "The :py:mod:`packaging` package may be already included, but can be "
 "installed with :py:mod:`pip`:"
 msgstr ""
+"Puede que el paquete :py:mod:`packaging` ya esté incluído, pero puedes "
+"instalarlo con :py:mod:`pip`:"
 
 #: ../../getting_started/bot.rst:91 31ece6076bc54a25aca22de94cea5dc5
 msgid "env variables"
-msgstr ""
+msgstr "Variables env"
 
 #: ../../getting_started/bot.rst:93 ab40a575ce1b49f5aa2dde35a3cb3281
 msgid ""
@@ -204,212 +220,250 @@ msgid ""
 "It contains all the variables the bot may use, alongside some comments on"
 " their use."
 msgstr ""
+"El archivo provisto se llama ``.env.example`` y no ``.env``. Contiene "
+"todas las variables que el bot puede usar, así como unos comentarios "
+"sobre su uso."
 
 #: ../../getting_started/bot.rst:96 2517a34fd5884f9f9a1c0789922316df
 msgid "The base ``.env`` variables to set are:"
-msgstr ""
+msgstr "Las variables ``.env`` esenciales son:"
 
 #: ../../getting_started/bot.rst:98 cc655fc1dc984c75bf242d29442c4ddf
 msgid ""
 ":envvar:`DISCORD_TOKEN`: the bot's token. Check the section "
 ":ref:`getting_started/bot:creating the bot` to know how to get it."
 msgstr ""
+":envvar:`DISCORD_TOKEN`: el token del bot. Sigue la sección "
+":ref:`getting_started/bot:creating the bot` para conseguirlo."
 
 #: ../../getting_started/bot.rst:100 c9e3a8e55bf24c519f098a8a61888aad
 msgid ""
 ":envvar:`BOT_PREFIX`: the bot's prefix, which is the character used "
 "before a command to invoke the bot. It's set to ``!`` by default, but you"
-" can change it."
+" can change it; just make sure it doesn't interfere with the prefix of "
+"other bots you use."
 msgstr ""
+":envvar:`BOT_PREFIX`: el prefijo del bot, que es el símbolo que precede "
+"un comando para invocar al bot. Es ``!`` por defecto, pero puedes "
+"cambiarlo; solo asegúrate que no interfiera con el prefijo de otros bots que utilices."
 
-#: ../../getting_started/bot.rst:102 a2b74fa59a8c44aba94e133318aac941
+#: ../../getting_started/bot.rst:103 a2b74fa59a8c44aba94e133318aac941
 msgid "The log files:"
-msgstr ""
+msgstr "Los registros:"
 
-#: ../../getting_started/bot.rst:104 67b5ca10e6e54982bfc752170afaff4d
+#: ../../getting_started/bot.rst:105 67b5ca10e6e54982bfc752170afaff4d
 msgid "Create the ``logs`` directory."
-msgstr ""
+msgstr "Crea la carpeta ``logs``."
 
-#: ../../getting_started/bot.rst:105 c2272ddacdb04c6fa4725922b98fd9aa
+#: ../../getting_started/bot.rst:106 c2272ddacdb04c6fa4725922b98fd9aa
 msgid ""
 "Create the four log files needed: ``info.log`` (stores INFO-level logs), "
 "``debug.log`` (stores DEBUG-level logs), ``discord.log`` (stores DEBUG-"
 "level logs generated by  :py:mod:`discord.py`) and ``streamlink.log`` "
 "(stores logs generated by :py:mod:`streamlink`)."
 msgstr ""
+"Crea los cuatro registros necesarios: ``info.log`` (para registros de nivel INFO), "
+"``debug.log`` (para registros de nivel DEBUG), ``discord.log`` (para registros de nivel DEBUG "
+"generados por :py:mod:`discord.py`) y ``streamlink.log`` (para registros generados por :py:mod:`streamlink`)."
 
-#: ../../getting_started/bot.rst:107 a7ffc55a97ae43bab1a8160d65b1d14c
+#: ../../getting_started/bot.rst:108 a7ffc55a97ae43bab1a8160d65b1d14c
 msgid ""
 "Set the corresponding variables to their paths, relative to ``bot.py``, "
 "like the ones already written."
 msgstr ""
+"Llena las variables correspondientes con la ruta relativa a ``bot.py``, "
+"como en los ejemplos provistos."
 
-#: ../../getting_started/bot.rst:109 8aee4f71eab94f19923b0194117aa6bb
+#: ../../getting_started/bot.rst:110 8aee4f71eab94f19923b0194117aa6bb
 msgid ""
 ":envvar:`LOG_COUNT`: the logs files are emptied at midnight and their "
 "contents stored in an additional file (named ``something.log.202x-xx-"
 "xx``). This variable indicates how many files of each log should be "
 "stored at once. By default the bot saves a week's worth of logs."
 msgstr ""
+":envvar:`LOG_COUNT`: los archivos de registro son vaciados a medianoche y su contenido "
+"es guardado en un otro archivo (llamado ``algo.log.202x-xx-xx``). Esta variable "
+"indica cuantos días de registro deben guardarse. Por defecto, el bot guarda "
+"una semana de registros."
 
-#: ../../getting_started/bot.rst:112 4447ba003fa64f4b9f6d8d63d115f3a4
+#: ../../getting_started/bot.rst:113 4447ba003fa64f4b9f6d8d63d115f3a4
 msgid ""
 "``streamlink.log`` is only needed when using the :doc:`./../cogs/youtube`"
 " cog, but it's better to create it now than wonder why the bot can't find"
 " the file."
 msgstr ""
+"``streamlink.log`` solo se utiliza con el cog :doc:`./../cogs/youtube` "
+"pero recomiendo crearlo ahora para luego evitar preguntarse porque el bot "
+"no encuentra el archivo."
 
-#: ../../getting_started/bot.rst:115 bcd9918278e544159540004125a91b15
+#: ../../getting_started/bot.rst:116 bcd9918278e544159540004125a91b15
 msgid "Creating the bot"
-msgstr ""
+msgstr "Creando el bot"
 
-#: ../../getting_started/bot.rst:117 a657d95f41cd4d37b48e398cf04e0d09
+#: ../../getting_started/bot.rst:118 a657d95f41cd4d37b48e398cf04e0d09
 msgid ""
 "There are two parts to creating the bot: the code itself (which in this "
 "case is already provided) and creating an application and its "
 "corresponding bot in Discord."
-msgstr ""
+msgstr "Crear el bot consiste en dos partes: el código del bot (que en este caso "
+"ya está provisto) y crear una aplicación y su bot en Discord."
 
-#: ../../getting_started/bot.rst:121 006fdf042f9042db87f3f348df95d432
+#: ../../getting_started/bot.rst:122 006fdf042f9042db87f3f348df95d432
 msgid "Discord's side"
-msgstr ""
+msgstr "El lado de Discord"
 
-#: ../../getting_started/bot.rst:123 cc68fe935cf142a3a45a6441b6815c02
+#: ../../getting_started/bot.rst:124 cc68fe935cf142a3a45a6441b6815c02
 msgid ""
 "To create the bot on Discord's side of things and get the bot's token, I "
 "recommend following `this guide <https://realpython.com/how-to-make-a"
 "-discord-bot-python/#how-to-make-a-discord-bot-in-the-developer-"
 "portal>`_. Here's a quick rundown of the steps to follow:"
 msgstr ""
+"Para crear el bot en el lado de Discord y conseguir el token del bot, "
+"recomiendo seguir `esta guía <https://realpython.com/how-to-make-a"
+"-discord-bot-python/#how-to-make-a-discord-bot-in-the-developer-"
+"portal>`_ (en inglés). Aquí va un resumen de los pasos a seguir:"
 
-#: ../../getting_started/bot.rst:125 68619884c3cd44ebbaa2c61c9fd34b22
+#: ../../getting_started/bot.rst:126 68619884c3cd44ebbaa2c61c9fd34b22
 msgid "If needed, create a Discord account and verify your email."
-msgstr ""
+msgstr "Si necesario, crea una cuenta de Discord y verifica tu mail."
 
-#: ../../getting_started/bot.rst:126 2f127ddb31534aac93660cd8f381b96b
+#: ../../getting_started/bot.rst:127 2f127ddb31534aac93660cd8f381b96b
 msgid ""
 "Login to `Discord's developer portal "
 "<https://discord.com/developers/applications>`_."
 msgstr ""
+"Conéctate al `portal de desarrolladores "
+"<https://discord.com/developers/applications>`_."
 
-#: ../../getting_started/bot.rst:127 5803fe3eec06478097107b9160a4c519
+#: ../../getting_started/bot.rst:128 5803fe3eec06478097107b9160a4c519
 msgid "Create a new application."
-msgstr ""
+msgstr "Crea una nueva aplicación."
 
-#: ../../getting_started/bot.rst:128 0adcbc4d172e4f6490744f9c2de245ea
+#: ../../getting_started/bot.rst:129 0adcbc4d172e4f6490744f9c2de245ea
 msgid ""
 "In the Bot section (on the left), create a bot. You can change the "
 "default name."
 msgstr ""
+"En la sección Bot (a la izquierda), crea un bot. Puedes cambiar el nombre por defecto."
 
-#: ../../getting_started/bot.rst:129 10ace3528e6941699a85ac27de5a0ee4
+#: ../../getting_started/bot.rst:130 10ace3528e6941699a85ac27de5a0ee4
 msgid "Grab the token."
-msgstr ""
+msgstr "Consigue el token."
 
-#: ../../getting_started/bot.rst:130 e5a114029c8a492aabdf3b1ecaccb89a
+#: ../../getting_started/bot.rst:131 e5a114029c8a492aabdf3b1ecaccb89a
 msgid ""
 "Scroll down and enable the ``server members intent`` under Privileged "
 "Gateway intents."
 msgstr ""
+"Desplázate hacia abajo y activa ``server members intent`` bajo 'Privileged "
+"Gateway intents'."
 
-#: ../../getting_started/bot.rst:133 f8f77594f5e44de38af45aba58728e0a
+#: ../../getting_started/bot.rst:134 f8f77594f5e44de38af45aba58728e0a
 msgid "Code side"
-msgstr ""
+msgstr "El lado del código"
 
-#: ../../getting_started/bot.rst:135 a7b9945909e14adb9b6219a283b767df
+#: ../../getting_started/bot.rst:136 a7b9945909e14adb9b6219a283b767df
 msgid ""
 "Keep reading to learn how to actually install the source code and run the"
 " bot."
-msgstr ""
+msgstr "Sigue leyendo para aprender como instalar el código y usar el bot."
 
-#: ../../getting_started/bot.rst:138 2cd52e1cb09940bead5d5fc81f4218c7
+#: ../../getting_started/bot.rst:139 2cd52e1cb09940bead5d5fc81f4218c7
 msgid "Adding it to a server"
-msgstr ""
+msgstr "Añadirlo a un servidor"
 
-#: ../../getting_started/bot.rst:140 78229a32c95042e2861d4f8376cce750
+#: ../../getting_started/bot.rst:141 78229a32c95042e2861d4f8376cce750
 msgid ""
 "To add the bot to a server (a guild in the API's terminology) see `this "
 "part <https://realpython.com/how-to-make-a-discord-bot-python/#adding-a"
 "-bot-to-a-guild>`_ of the previous guide. Essentially:"
 msgstr ""
+"Para añadir el bot a un servidor (un guild en la terminología del API), "
+"sigue `esta parte <https://realpython.com/how-to-make-a-discord-bot-python/#adding-a"
+"-bot-to-a-guild>`_ de la guía mencionada previamente. En breve:"
 
-#: ../../getting_started/bot.rst:142 0aedb20783274c2481d146567d0a08b3
+#: ../../getting_started/bot.rst:143 0aedb20783274c2481d146567d0a08b3
 msgid ""
 "In the `developer portal <https://discord.com/developers/applications>`_,"
 " go to the OAuth2 tab."
 msgstr ""
+"En el `portal de desarrolladores <https://discord.com/developers/applications>`_, "
+"ve a la pestaña OAuth2."
 
-#: ../../getting_started/bot.rst:144 819a9a8bff6f4befbaf863358483f7ce
+#: ../../getting_started/bot.rst:145 819a9a8bff6f4befbaf863358483f7ce
 msgid "In the OAuth2 URL Generator, select *bot* in Scopes."
-msgstr ""
+msgstr "En el generador de URL OAuth2, selecciona *bot* en Scopes."
 
-#: ../../getting_started/bot.rst:146 445e589069de4506819ffc062fd7c4d3
+#: ../../getting_started/bot.rst:147 445e589069de4506819ffc062fd7c4d3
 msgid "As for permissions, there are two options:"
-msgstr ""
+msgstr "Para los permisos, tienes dos opciones:"
 
-#: ../../getting_started/bot.rst:148 22dad210450144c39457bdc6b0329794
+#: ../../getting_started/bot.rst:149 22dad210450144c39457bdc6b0329794
 msgid "For a private server, Administrator is the easier choice."
-msgstr ""
+msgstr "Para un servidor privado, Administrator es la opción más simple."
 
-#: ../../getting_started/bot.rst:149 993f4890959b4a6f9dad44f27a06c406
+#: ../../getting_started/bot.rst:150 993f4890959b4a6f9dad44f27a06c406
 msgid ""
 "For a bigger or more public server, it's better to select only the "
 "permissions needed for the bot to run correctly."
 msgstr ""
+"Para un servidor más grande o público, es mejor utilizar únicamente los permisos "
+"que el bot necesita para funcionar correctamente."
 
-#: ../../getting_started/bot.rst:151 d4de3b51261d477e81a1864faf79c803
+#: ../../getting_started/bot.rst:152 d4de3b51261d477e81a1864faf79c803
 msgid "For now, the permissions I'm using with the bot are:"
-msgstr ""
+msgstr "Por ahora, los permisos que utiliza el bot son:"
 
-#: ../../getting_started/bot.rst:156 03dde68c13654234be2877fdf0c88597
+#: ../../getting_started/bot.rst:157 03dde68c13654234be2877fdf0c88597
 msgid "Permissions"
-msgstr ""
+msgstr "Permisos"
 
-#: ../../getting_started/bot.rst:157 e6998e0f9452454ea1336fb8f5ff2b8c
+#: ../../getting_started/bot.rst:158 e6998e0f9452454ea1336fb8f5ff2b8c
 msgid "View channels"
 msgstr ""
 
-#: ../../getting_started/bot.rst:158 d278bb0a97314741b60e1fd999cbd64a
+#: ../../getting_started/bot.rst:159 d278bb0a97314741b60e1fd999cbd64a
 msgid "Send messages"
 msgstr ""
 
-#: ../../getting_started/bot.rst:159 9ad088293cd04669a347cde20adf4b8f
+#: ../../getting_started/bot.rst:160 9ad088293cd04669a347cde20adf4b8f
 msgid "Embed links"
 msgstr ""
 
-#: ../../getting_started/bot.rst:160 4e71d45c4dbd4b419ef39952f5e04754
+#: ../../getting_started/bot.rst:161 4e71d45c4dbd4b419ef39952f5e04754
 msgid "Attach files"
 msgstr ""
 
-#: ../../getting_started/bot.rst:161 cf6faf3b8afc48de901071815edf5917
+#: ../../getting_started/bot.rst:162 cf6faf3b8afc48de901071815edf5917
 msgid "Add reactions (not used yet)"
 msgstr ""
 
-#: ../../getting_started/bot.rst:162 edc746e5f4f64934afe1401d5e742f99
+#: ../../getting_started/bot.rst:163 edc746e5f4f64934afe1401d5e742f99
 msgid "Manage messages"
 msgstr ""
 
-#: ../../getting_started/bot.rst:163 4f6ea71900464eab95fd61611ad8b07f
+#: ../../getting_started/bot.rst:164 4f6ea71900464eab95fd61611ad8b07f
 msgid "Read message history"
 msgstr ""
 
-#: ../../getting_started/bot.rst:164 83da992dbee74e839447112c421bba86
+#: ../../getting_started/bot.rst:165 83da992dbee74e839447112c421bba86
 msgid "Use Application Commands"
 msgstr ""
 
-#: ../../getting_started/bot.rst:165 8bbb51da83d646b2b80e125845e2b068
+#: ../../getting_started/bot.rst:166 8bbb51da83d646b2b80e125845e2b068
 msgid "Connect"
 msgstr ""
 
-#: ../../getting_started/bot.rst:166 cffaa8b82c334b9680eda07137b7613f
+#: ../../getting_started/bot.rst:167 cffaa8b82c334b9680eda07137b7613f
 msgid "Speak"
 msgstr ""
 
-#: ../../getting_started/bot.rst:167 8e22ca85c67f48e7b1acb4bc9ccbad96
+#: ../../getting_started/bot.rst:168 8e22ca85c67f48e7b1acb4bc9ccbad96
 msgid "Use voice activity"
 msgstr ""
 
-#: ../../getting_started/bot.rst:169 54c0f39e40354fea918db38e8eb5485d
+#: ../../getting_started/bot.rst:170 54c0f39e40354fea918db38e8eb5485d
 msgid ""
 "You can set the bot to public, allowing anyone who has the link you "
 "generated to invite the bot to their server, provided they have the "
@@ -417,108 +471,142 @@ msgid ""
 "bot as private, which means only you can use the link to add the bot to "
 "any server in which you have the Manage server permission."
 msgstr ""
+"Puedes marcar el bot como público, permitiendo a cualquiera que tenga el "
+"link que generaste invitar al bot a su servidor. O puedes dejarlo como privado, "
+"lo cual significa que solo tú puedes usar el link para añadir el bot a cualquier "
+"servidor en el que tengas el permiso de administrar el servidor."
 
-#: ../../getting_started/bot.rst:175 9d0bfda1e6024819ac8737b12df4629b
+#: ../../getting_started/bot.rst:176 9d0bfda1e6024819ac8737b12df4629b
 msgid "Installation and setup"
-msgstr ""
+msgstr "Instalación y configuración"
 
-#: ../../getting_started/bot.rst:177 3f9790bf4a8f4b069e996a4cee04ebc6
+#: ../../getting_started/bot.rst:178 3f9790bf4a8f4b069e996a4cee04ebc6
 msgid "Now, time to install the source code and run the bot!"
-msgstr ""
+msgstr "¡Ahora es el momento de instalar y usar el bot!"
 
-#: ../../getting_started/bot.rst:179 8b9540974b044bff8ab948527e0a1079
+#: ../../getting_started/bot.rst:180 8b9540974b044bff8ab948527e0a1079
 msgid ""
 "If you have a GitHub account, `clone the repo "
 "<https://docs.github.com/en/github/creating-cloning-and-archiving-"
 "repositories/cloning-a-repository-from-github/cloning-a-repository>`__."
 msgstr ""
+"Si tienes una cuenta de GitHub, `clona el repositorio "
+"<https://docs.github.com/en/github/creating-cloning-and-archiving-"
+"repositories/cloning-a-repository-from-github/cloning-a-repository>`__ (guía en inglés)."
 
-#: ../../getting_started/bot.rst:181 ed70cafc843f41569728eb7233f11c49
+#: ../../getting_started/bot.rst:182 ed70cafc843f41569728eb7233f11c49
 msgid ""
 "If not, create one or download the code from the `releases page "
 "<https://github.com/JulioLoayzaM/CroissantBot/releases>`__ (preferably "
 "the latest one, since this guide is written for version 2.0.0)."
 msgstr ""
+"Sino, crea una o descarga el código desde la `página de versiones "
+"<https://github.com/JulioLoayzaM/CroissantBot/releases>`__ (de preferencia "
+"la más reciente, dado que esta guía corresponde a la versión 2.0.0)."
 
-#: ../../getting_started/bot.rst:185 4869fddf63614d968abf60b670207232
+#: ../../getting_started/bot.rst:186 4869fddf63614d968abf60b670207232
 msgid ""
 "Cloning the repo is recommended in order to use Git to easily update the "
 "bot."
 msgstr ""
+"Se recomienda clonar el repositorio para poder utilizar Git para actualizar fácilemente el bot."
 
-#: ../../getting_started/bot.rst:187 790786f69e864dae94e1812e523d7fba
+#: ../../getting_started/bot.rst:188 790786f69e864dae94e1812e523d7fba
 msgid ""
 "Install Python 3.6+: use your package manager or head over to `the "
 "download page <https://www.python.org/downloads/>`__."
 msgstr ""
+"Instala Python 3.6+: utiliza tu package manager o dirígete a "
+"`la página de descargas <https://www.python.org/downloads/>`__."
 
-#: ../../getting_started/bot.rst:190 367ed3e92e6b49eea5eccdf55bf30620
+#: ../../getting_started/bot.rst:191 367ed3e92e6b49eea5eccdf55bf30620
 msgid ""
 "This should install :py:mod:`pip`, Python's package installer. If unsure,"
 " read :py:mod:`pip`'s `getting started <https://pip.pypa.io/en/stable"
 "/getting-started/>`__ to verify and install it if needed."
 msgstr ""
+"Esto debería instalar :py:mod:`pip`, el instalador de paquetes de Python. En caso de duda, "
+"sigue `la guía de inicio <https://pip.pypa.io/en/stable/getting-started/>`__ de :py:mod:`pip` "
+"para verificarlo e instalarlo si necesario."
 
-#: ../../getting_started/bot.rst:194 008e4713efd84ac3a2b3882084f07928
+#: ../../getting_started/bot.rst:195 008e4713efd84ac3a2b3882084f07928
 msgid ""
 "Optional but recommended: create a `virtual environment "
 "<https://python.land/virtual-environments/virtualenv>`__ to avoid "
 "conflicts with the dependencies."
 msgstr ""
+"Opcional pero recomendado: crea un `virtual environment "
+"<https://python.land/virtual-environments/virtualenv>`__ para evitar "
+"conflictos entre dependencias."
 
-#: ../../getting_started/bot.rst:198 cef98f54cb12459d8b85ba8d9ba4ddda
+#: ../../getting_started/bot.rst:199 cef98f54cb12459d8b85ba8d9ba4ddda
 msgid "To install all the package dependencies, use:"
-msgstr ""
+msgstr "Para instalar todas las dependencias, utiliza:"
 
-#: ../../getting_started/bot.rst:212 844b005390364838a4d61f53ff022f7d
+#: ../../getting_started/bot.rst:213 844b005390364838a4d61f53ff022f7d
 msgid ""
 "If you want to only install the packages needed for the base bot, see "
 ":ref:`getting_started/bot:packages`."
 msgstr ""
+"Si sólo quieres instalar los paquetes necesarios para el bot de base, ve "
+":ref:`getting_started/bot:packages`."
 
-#: ../../getting_started/bot.rst:214 2f028860d58b4c83a493766d4c596979
+#: ../../getting_started/bot.rst:215 2f028860d58b4c83a493766d4c596979
 msgid ""
 "If you haven't already, create the bot on Discord's side and get its "
 "token with the :ref:`section above <getting_started/bot:discord's side>`."
 msgstr ""
+"Si no lo hiciste aún, crea el bot en el lado de Discord y consigue el token "
+"con :ref:`esta sección <getting_started/bot:discord's side>`."
 
-#: ../../getting_started/bot.rst:216 f873a974780143288feb60d9bc473150
+#: ../../getting_started/bot.rst:217 f873a974780143288feb60d9bc473150
 msgid ""
 "Use the token to fill the :envvar:`DISCORD_TOKEN` variable in "
 "``.env.example``. If you haven't already, set the other variables "
 ":ref:`mentionned above <getting_started/bot:env variables>`."
 msgstr ""
+"Usa el token para llenar la variable :envvar:`DISCORD_TOKEN` en "
+"``.env.example``. Si no lo hiciste aún, llena las otras variables "
+":ref:`mencionadas más arriba <getting_started/bot:env variables>`."
 
-#: ../../getting_started/bot.rst:219 7cf06677d130401cbfb13d25aacf9e2f
+#: ../../getting_started/bot.rst:220 7cf06677d130401cbfb13d25aacf9e2f
 msgid "Rename ``.env.example`` to ``.env``."
-msgstr ""
+msgstr "Cambia el nombre de ``.env.example`` a ``.env``."
 
-#: ../../getting_started/bot.rst:222 2e644e6fe64c4b0d9cc02abdc7e1de49
+#: ../../getting_started/bot.rst:223 2e644e6fe64c4b0d9cc02abdc7e1de49
 msgid ""
 "This step is important. Normally, not renaming the file means the bot "
 "won't be able to find it and will fail starting up. Even if it doesn't, "
 "you should still rename it since it may get overwritten when updating the"
 " bot with ``git pull``. That's why the ``.example`` extension was added."
 msgstr ""
+"Este paso es importante. Normalmente, el hecho de no cambiar el nombre significa que "
+"el bot no podrá encontrar el archivo y no podrá iniciarse. Aún si lograra iniciarse, "
+"deberías cambiar el nombre porque su contenido podría ser sobreescrito al actualizar "
+"el bot con ``git pull``. Es por eso que la extensión ``.example`` fue añadida."
 
-#: ../../getting_started/bot.rst:226 1921b83e7ed6425c8f83e791fe83c48a
+#: ../../getting_started/bot.rst:227 1921b83e7ed6425c8f83e791fe83c48a
 msgid ""
 "Add the bot to a server: for instructions :ref:`see above "
 "<getting_started/bot:adding it to a server>`."
 msgstr ""
+"Añade el bot a un servidor: para instrucciones, ve :ref:`más arriba "
+"<getting_started/bot:adding it to a server>`."
 
-#: ../../getting_started/bot.rst:228 992dd556c53d44eaad1af88faec43650
+#: ../../getting_started/bot.rst:229 992dd556c53d44eaad1af88faec43650
 msgid "Then, run :py:mod:`bot.py`:"
-msgstr ""
+msgstr "Finalmente, ejecuta :py:mod:`bot.py`:"
 
-#: ../../getting_started/bot.rst:243 d4d320fc19854e5b99c860c75fdfe453
+#: ../../getting_started/bot.rst:244 d4d320fc19854e5b99c860c75fdfe453
 msgid "Using cogs"
-msgstr ""
+msgstr "Usar los cogs"
 
-#: ../../getting_started/bot.rst:245 055436b7e9f643da8629bcd83d90b569
+#: ../../getting_started/bot.rst:246 055436b7e9f643da8629bcd83d90b569
 msgid ""
 "Cogs are like extensions to the bot, and contain most of its commands. To"
 " find out more about them and how to use them, see :doc:`./../cogs/intro-"
 "cogs`."
 msgstr ""
+"Los cogs son como extensiones del bot, y contienen la mayoría de sus comandos. "
+"Para aprender más sobre ellos y como usarlos, ve :doc:`./../cogs/intro-cogs`."
 
