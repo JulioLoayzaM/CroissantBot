@@ -16,12 +16,13 @@
 # See the LICENSE file for more details.
 
 
+import aiofiles
+import aiohttp
+import asyncio
+import json
+import logging
 import os
 import random
-import asyncio
-import aiohttp
-import logging
-import json
 
 from customformatter import CustomFormatter
 
@@ -32,6 +33,7 @@ from discord.ext.tasks import loop
 from logging.handlers import TimedRotatingFileHandler
 from dotenv import load_dotenv, set_key
 from packaging import version
+from typing import Set
 
 
 # Colours for formatting console text
@@ -674,6 +676,138 @@ async def check_twitch_before():
 	it's ready.
 	"""
 	await bot.wait_until_ready()
+
+
+@bot.command(
+	name="add_streamer",
+	help="help",
+	aliases=["ast"]
+)
+async def add_streamer(
+	ctx: commands.Context,
+	streamer: str,
+	user: discord.Member = None
+):
+	"""
+	Adds a streamer to a user's check list.
+	"""
+
+	global TW_STREAMERS
+	global TW_PREV_STATUS
+
+	await ctx.message.edit(suppress=True)
+
+	if not TWITCH_ENABLED:
+		em = discord.Embed(
+			description="The Twitch extension is not enabled.",
+			colour=discord.Colour.red()
+		)
+		await ctx.send(embed=em)
+		return
+
+	if user is None:
+		user: discord.Member = ctx.author
+	elif user not in ctx.guild.members:
+		em = discord.Embed(
+			description="That user doesn't exist or is not in this server.",
+			colour=discord.Colour.red()
+		)
+		await ctx.send(embed=em)
+		return
+
+	uid = str(user.id)
+
+	# A simple test to check whether the string passed is a URL
+	# or just the name of the streamer.
+	if streamer.find('/'):
+		streamer = streamer.split('/')[-1]
+
+	twitch = bot.get_cog('Twitch')
+	if twitch is None:
+		em = discord.Embed(
+			description="An error occurred, please try again.",
+			colour=discord.Colour.red()
+		)
+		await ctx.send(embed=em)
+		logger.error("Can't use Twitch cog.")
+		logger.debug("TW_ENABLE flag checked, so the cog should be usable.")
+		return
+
+	user_exists: bool = await twitch.user_exists(
+		streamer, TW_TOKEN, SESSION
+	)
+
+	if user_exists:
+		# Add the (streamer, user) couple to TW_STREAMERS.
+		if streamer in TW_STREAMERS:
+			users: Set[str] = TW_STREAMERS.get(streamer)
+			# If the streamer was already in the user's list, return.
+			if uid in users:
+				em = discord.Embed(
+					description=f"{streamer} is already in your list!",
+					colour=discord.Colour.green()
+				)
+				await ctx.send(embed=em)
+				return
+			else:
+				users.add(uid)
+		else:
+			TW_STREAMERS[streamer] = {uid}
+
+		# Then add the streamer to TW_PREV_STATUS.
+		if streamer not in TW_PREV_STATUS:
+			TW_PREV_STATUS[streamer] = False
+
+		# And finally, add it to the file.
+		try:
+			async with aiofiles.open(TW_FILE, 'r') as file:
+				content = await file.read()
+
+			if content:
+				ids = json.loads(content)
+			else:
+				ids = dict()
+
+			if uid in ids:
+				streamers = ids.get(uid)
+				streamers.append(streamer)
+			else:
+				ids[uid] = [streamer]
+
+			dump = json.dumps(ids)
+			async with aiofiles.open(TW_FILE, 'w') as file:
+				await file.write(dump)
+
+		except Exception as error:
+			logger.error("Couldn't add streamer to TW_FILE.")
+			logger.debug(f"Unexpected exception:\n{error}")
+			em = discord.Embed(
+				description="""
+					Couldn't find that user, please check you've got the
+					right username or URL.
+				""",
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
+			return
+
+		em = discord.Embed(
+			description=f"""
+				Added streamer {streamer} to your list!
+			""",
+			colour=discord.Colour.green()
+		)
+		await ctx.send(embed=em)
+
+	else:
+		em = discord.Embed(
+			description="""
+				Couldn't find that user, please check you've got the
+				right username or URL.
+			""",
+			colour=discord.Colour.gold()
+		)
+		await ctx.send(embed=em)
 
 
 def init_youtube():

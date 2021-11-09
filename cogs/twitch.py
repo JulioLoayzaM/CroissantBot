@@ -105,7 +105,7 @@ class Twitch(commands.Cog):
 	async def check_users(
 		self,
 		prev_status: Dict[str, bool],
-		streamers: Dict[str, List[str]],
+		streamers: Dict[str, Set[str]],
 		token: str,
 		session: aiohttp.ClientSession
 	) -> Tuple[Dict[str, Embed], Dict[str, bool]]:
@@ -213,6 +213,62 @@ class Twitch(commands.Cog):
 			prev_status[streamer] = (streamer in online_streamers)
 
 		return messages, prev_status
+
+	async def user_exists(
+		self,
+		streamer: str,
+		token: str,
+		session: aiohttp.ClientSession
+	) -> bool:
+		"""
+		Checks if a streamer exists.
+
+		Arguments:
+
+		streamer:
+			The streamer to check. The function calling user_exists must ensure
+			it passes an username and not a URL.
+		token:
+			The API token to use.
+		session:
+			The aiohttp session to do the request with.
+
+		Returns:
+
+		True if the streamer exists, False if not or in case of error.
+		"""
+
+		logger = self.logger
+		TW_CID = self.cid
+		ENDPOINT = self.endpoint
+
+		headers = {
+			'Client-ID': TW_CID,
+			'Authorization': f'Bearer {token}'
+		}
+
+		url = ENDPOINT + streamer
+
+		try:
+			async with session.get(url, headers=headers) as response:
+				jsondata = await response.json()
+		except Exception as error:
+			logger.error("Error GETting twitch streamer info.")
+			logger.debug(f"Unexpected exception:\n{error}")
+			return False
+
+		error = jsondata.get("error", None)
+		if error is not None:
+			status = jsondata.get('status', None)
+			message = jsondata.get('message', None)
+			if status == 401:
+				logger.error("Can't reach Twitch API endpoint, bad token.")
+			logger.debug(f"Status {status}, {error}:{message}")
+			logger.debug(f"Streamer {streamer} not found.")
+			return False
+
+		# This should be enough verification that the user exists.
+		return True
 
 
 def setup(bot):
