@@ -1,5 +1,36 @@
 # Changelog
 
+## CroissantBot 2.0.0 (2021-11-10)
+
+CroissantBot's first major update!
+
+Now with playlists managed with PostgreSQL, the option to select which cogs to use and a big documentation overhaul.
+
+### Version 2.0.0 highlights
+
+- The big documentation overhaul: the docs are now hosted by Read the Docs, you can find them [here](https://croissantbot.readthedocs.io/en/latest/). As such, the documentation now uses reStructuredText instead of Markdown.
+
+- Added playlists! They come in two flavours now:
+  - The Playlist cog, which uses a PostgreSQL database to maintain as many playlists as you want.
+  - The Favourites commands, introduced in version 1.1.0, are now in their own cog. It can only hold one playlist per user but doesn't require anything other than a simple JSON file.
+  - Note that one doesn't interfere with the other, but they aren't synchronised either.
+- Added the option to select which cogs to load through variables in the `.env` file.
+- Added an option to enable/disable the download of memes. Memes can still be sent, but no local copy will be made if the option is disabled.
+- Removed the `play_from` command.
+- Added a `reload` command to reload a cog while running the bot. This is useful to test changes to a cog without having to restart the bot.
+
+### Patch notes
+
+There are a ton of commits related to the new Playlist cog that won't be mentioned here. Some notes:
+
+- When adding a song to a playlist, if the playlist doesn't already exist, it is created. This means that typos in the name can lead to extra playlists.
+- The `DatabaseConnection` classes are documented, with the intention to allow others to use them to add features to the Playlist cog.
+- Related to the previous item, Queue and Song are documented too.
+- And to expand on this, all other Python files have a new documentation style, which should be easier to read and renders better on VSCode's hints.
+- The Meme cog now saves its Reddit session instead of opening a new one each time a meme is requested.
+- The item limit of the Meme cog is now a `.env` variable, and a command was added to easily change it while running.
+- A unit test was added for the Queue module, to ensure the transition from using a List to a Deque works and to learn about `pytest`.
+
 ## CroissantBot 1.1.2 (2021-09-28)
 
 Source code met `flake8`, `ping` now shows latency, guild names are now logged.
