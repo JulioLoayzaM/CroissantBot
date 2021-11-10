@@ -1,0 +1,60 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../other/LICENSE.rst:4 d11de09b436549008faa147eab8840b4
+msgid "LICENSE"
+msgstr ""
+
+#: ../../other/LICENSE.rst:6 d96ddb7673344456ac6149218340bae6
+msgid "MIT License"
+msgstr ""
+
+#: ../../other/LICENSE.rst:8 0fc9e08b0b754e568fa57873148c153a
+msgid "Copyright (c) 2021 JulioLoayzaM"
+msgstr ""
+
+#: ../../other/LICENSE.rst:10 e6ae8d010d624c749a23e486a01f5789
+msgid ""
+"Permission is hereby granted, free of charge, to any person obtaining a "
+"copy of this software and associated documentation files (the "
+"\"Software\"), to deal in the Software without restriction, including "
+"without limitation the rights to use, copy, modify, merge, publish, "
+"distribute, sublicense, and/or sell copies of the Software, and to permit"
+" persons to whom the Software is furnished to do so, subject to the "
+"following conditions:"
+msgstr ""
+
+#: ../../other/LICENSE.rst:18 28ddcbe0a925494bb66cc90943c5c1be
+msgid ""
+"The above copyright notice and this permission notice shall be included "
+"in all copies or substantial portions of the Software."
+msgstr ""
+
+#: ../../other/LICENSE.rst:21 855cd786ea624451bf0f36aab3c63f01
+msgid ""
+"THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS"
+" OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF "
+"MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN"
+" NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,"
+" DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR "
+"OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE"
+" USE OR OTHER DEALINGS IN THE SOFTWARE."
+msgstr ""
+

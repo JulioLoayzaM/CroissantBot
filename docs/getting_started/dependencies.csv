@@ -1,0 +1,8 @@
+Package, Usage, Cog using it
+:py:mod:`discord.py[voice]`, API wrapper for Discord with voice support, The base bot
+:py:mod:`python-dotenv`, To store API keys and other secrets in a ``.env`` file, The base bot
+:py:mod:`packaging`, To check the bot's current version, The base bot
+:py:mod:`asyncpraw`, "Asynchronous Python Reddit API Wrapper, to get memes from Reddit", Meme
+:py:mod:`yt-dlp`, To get music and livestream information from Youtube, "Music, Youtube and Playlist"
+:py:mod:`streamlink`, To check for YouTube livestreams, Youtube
+:py:mod:`asyncpg`, To connect to the PostgreSQL database, Playlist

@@ -133,7 +133,7 @@ Todos los tags/releases deben ser firmados por mi.
 
 ### Divulgación de seguridad
 
-Si encuentras un problema de seguridad, **no abras un issue**. Envíame un correo electrónico a croissantbot[punto]jlm[arroba]gmail[punto]com.
+Si encuentras un problema de seguridad, **no abras un issue**. Envíame un correo electrónico a croissantbot [punto] jlm [arroba] gmail [punto] com.
 
 ### Bugs estándar
 

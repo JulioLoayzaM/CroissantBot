@@ -134,7 +134,7 @@ All tags/releases are to be signed by me.
 
 ### Security disclosures
 
-If you find a security issue, **do not open an issue**. Email me at croissantbot[dot]jlm[at]gmail[dot]com.
+If you find a security issue, **do not open an issue**. Email me at croissantbot [dot] jlm [at] gmail [dot] com.
 
 ### Regular bugs
 

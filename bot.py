@@ -34,41 +34,6 @@ from dotenv import load_dotenv, set_key
 from packaging import version
 
 
-# .env variables
-load_dotenv()
-
-# Bot token
-BOT_TOKEN = os.getenv('DISCORD_TOKEN')
-
-# Bot prefix, '!' by default
-BOT_PREFIX = os.getenv('BOT_PREFIX', '!')
-
-# Cog selection
-TWITCH_ENABLED  = bool(os.getenv('ENABLE_TW', ''))
-YOUTUBE_ENABLED = bool(os.getenv('ENABLE_YT', ''))
-
-# How often to check Twitch and/or Youtube, in minutes - 2 by default
-if TWITCH_ENABLED or YOUTUBE_ENABLED:
-	TW_FREQUENCY = int(os.getenv('TW_FREQUENCY', 2))
-else:
-	TW_FREQUENCY = 0
-
-# Get the files of the enabled cogs
-if TWITCH_ENABLED:
-	TW_FILE = os.getenv('TW_FILE')
-	TW_TOKEN = os.getenv('TW_TOKEN', '')
-	TW_EXPIRES_IN = 0
-if YOUTUBE_ENABLED:
-	YT_FILE = os.getenv('YT_FILE')
-	LOG_STREAMLINK_FILE = os.getenv('LOG_STREAMLINK')
-
-# Log files
-LOG_INFO_FILE    = os.getenv('LOG_INFO')
-LOG_DEBUG_FILE   = os.getenv('LOG_DEBUG')
-LOG_DISCORD_FILE = os.getenv('LOG_DISCORD')
-LOG_COUNT = int(os.getenv('LOG_COUNT'))
-
-
 # Colours for formatting console text
 HEADER    = '\033[95m'
 BLUE      = '\033[94m'
@@ -81,30 +46,68 @@ ENDC      = '\033[0m'
 BOLD      = '\033[1m'
 UNDERLINE = '\033[4m'
 PURPLE    = '\033[38;5;165m'
-
 VOICE = f"{BLUE}[voice]{ENDC}"
 
+if __name__ == '__main__':
+	# .env variables
+	load_dotenv()
 
-# Create global variables for check_twitch/youtube
-# Initialized by init_twitch/youtube
-TW_PREV_STATUS = dict()
-TW_STREAMERS   = dict()
-YT_PREV_STATUS = dict()
-YT_STREAMERS   = dict()
+	# Bot token
+	BOT_TOKEN = os.getenv('DISCORD_TOKEN')
 
-# Persistent session
-SESSION: aiohttp.ClientSession = None
+	# Bot prefix, '!' by default
+	BOT_PREFIX = os.getenv('BOT_PREFIX', '!')
 
-# Loggers
-logger = None
-discord_logger = None
+	# Cog selection
+	JSONFAV_ENABLED  = bool(os.getenv('ENABLE_JSONFAV', ''))
+	MEME_ENABLED     = bool(os.getenv('ENABLE_MEME', ''))
+	MISC_ENABLED     = bool(os.getenv('ENABLE_MISC', ''))
+	MUSIC_ENABLED    = bool(os.getenv('ENABLE_MUSIC', ''))
+	PLAYLIST_ENABLED = bool(os.getenv('ENABLE_PLAYLISTS', ''))
+	TWITCH_ENABLED   = bool(os.getenv('ENABLE_TW', ''))
+	YOUTUBE_ENABLED  = bool(os.getenv('ENABLE_YT', ''))
 
-# Discord intents
-intents = discord.Intents.default()
-# This one allows to retrieve a guild's member list
-intents.members = True
+	# How often to check Twitch and/or Youtube, in minutes - 2 by default
+	if TWITCH_ENABLED or YOUTUBE_ENABLED:
+		TW_FREQUENCY = int(os.getenv('TW_FREQUENCY', 2))
+	else:
+		TW_FREQUENCY = 0
 
-bot = commands.Bot(command_prefix=BOT_PREFIX, intents=intents)
+	# Get the files of the enabled cogs
+	if TWITCH_ENABLED:
+		TW_FILE = os.getenv('TW_FILE')
+		TW_TOKEN = os.getenv('TW_TOKEN', '')
+		TW_EXPIRES_IN = 0
+	if YOUTUBE_ENABLED:
+		YT_FILE = os.getenv('YT_FILE')
+		LOG_STREAMLINK_FILE = os.getenv('LOG_STREAMLINK')
+
+	# Log files
+	LOG_INFO_FILE    = os.getenv('LOG_INFO')
+	LOG_DEBUG_FILE   = os.getenv('LOG_DEBUG')
+	LOG_DISCORD_FILE = os.getenv('LOG_DISCORD')
+	LOG_COUNT = int(os.getenv('LOG_COUNT'))
+
+	# Create global variables for check_twitch/youtube
+	# Initialized by init_twitch/youtube
+	TW_PREV_STATUS = dict()
+	TW_STREAMERS   = dict()
+	YT_PREV_STATUS = dict()
+	YT_STREAMERS   = dict()
+
+	# Persistent session
+	SESSION: aiohttp.ClientSession = None
+
+	# Loggers
+	logger = None
+	discord_logger = None
+
+	# Discord intents
+	intents = discord.Intents.default()
+	# This one allows to retrieve a guild's member list
+	intents.members = True
+
+	bot = commands.Bot(command_prefix=BOT_PREFIX, intents=intents)
 
 
 @bot.event
@@ -128,33 +131,54 @@ async def close_connection(ctx: commands.Context):
 	"""
 	Closes the bot's connection.
 	Cleans the voice clients, the requests session and logging.
+	Checks if the cogs are enabled, since failing to get the cog is not an error
+	if they are not enabled.
 	"""
 
 	# Close all voice clients
-	res = False
-	music = bot.get_cog('Music')
-	if music is not None:
-		res = await music.stop_all()
-		if res:
-			logger.debug(f"{VOICE} stop_all executed.")
-	else:
-		logger.error("Couldn't get cog 'Music'.")
+	if MUSIC_ENABLED:
+		res = False
+		music = bot.get_cog('Music')
+		if music is not None:
+			res = await music.stop_all()
+			if res:
+				logger.debug(f"{VOICE} stop_all executed.")
+		else:
+			logger.error("Couldn't get cog 'Music'.")
 
-	# Close the meme aiohttp.ClientSession
-	res = False
-	meme = bot.get_cog('Meme')
-	if meme is not None:
-		res = await meme.close_session()
-		if res:
-			logger.debug(f"{WARNING}Closed:{ENDC} Meme aiohttp.ClientSession.")
-	else:
-		logger.error("Couldn't get cog 'Meme'.")
+	# Close connection to the database.
+	if PLAYLIST_ENABLED:
+		res = False
+		pl = bot.get_cog('Playlist')
+		if pl is not None:
+			res = await pl.close_db()
+			if res:
+				logger.debug(f"{GREEN}Disconnected from database.{ENDC}")
+			else:
+				logger.debug(f"{WARNING}The database was already closed.{ENDC}")
+
+	# Close the meme aiohttp.ClientSession.
+	if MEME_ENABLED:
+		res = False
+		meme = bot.get_cog('Meme')
+		if meme is not None:
+			res = await meme.close_session()
+			if res:
+				logger.debug(
+					f"{WARNING}Closed:{ENDC} Meme aiohttp.ClientSession and Reddit instance."
+				)
+		else:
+			logger.error("Couldn't get cog 'Meme'.")
 
 	# Close the global aiohttp.ClientSession
 	await SESSION.close()
 	logger.debug(f"{WARNING}Closed:{ENDC} Global aiohttp.ClientSession.")
 
-	await ctx.send("I'm leaving!")
+	em = discord.Embed(
+		description="I'm leaving!",
+		colour=discord.Colour.green()
+	)
+	await ctx.send(embed=em)
 	# Close the bot
 	await bot.close()
 	logger.info(f"{GREEN}Bot offline.{ENDC}\n")
@@ -184,7 +208,7 @@ async def ping_back(ctx: commands.Context):
 
 	music = bot.get_cog('Music')
 
-	if music is not None:
+	if (MUSIC_ENABLED) and (music is not None):
 
 		res = await music.get_latency(ctx)
 
@@ -205,6 +229,40 @@ async def ping_back(ctx: commands.Context):
 				)
 
 	await ctx.send(embed=em)
+
+
+@bot.command(
+	name="reload",
+	help="Reloads a cog"
+)
+@commands.is_owner()
+async def reload(ctx: commands.Context, name: str):
+	"""
+	Reloads a cog. Useful for testing changes without restarting the bot.
+
+	Parameters:
+		name: The name of the cog to reload.
+	"""
+
+	if not name.startswith("cogs."):
+		name = "cogs." + name
+	try:
+		bot.reload_extension(name)
+	except commands.ExtensionNotLoaded as error:
+		await ctx.send("That cog is not loaded.")
+		logger.debug(error)
+	except commands.ExtensionNotFound as error:
+		await ctx.send("Couldn't find that cog.")
+		logger.debug(error)
+	except commands.ExtensionFailed as error:
+		await ctx.send("An error occurred while reloading the cog, \
+			reverting to last working state.")
+		logger.error("The extension setup function had an execution error.")
+		logger.debug(error)
+	except Exception as error:
+		await ctx.send("An error occurred while reloading the cog, \
+			reverting to last working state.")
+		logger.debug(error)
 
 
 @bot.command(
@@ -236,11 +294,11 @@ async def check_version(ctx: commands.Context, option: str = "local"):
 	Can also get the full release notes with 'notes' option.
 
 	Parameters:
-		- option:
-			'local' to check only the bot's current version,
-			'remote' to check the current version and the repo's latest version,
-			'notes' to get the full release notes.
-			Defaults to 'local'.
+		option:
+			'local': to check only the bot's current version,
+			'remote': to check the current version and the repo's latest version,
+			'notes': to get the full release notes.
+			Default: 'local'.
 	"""
 
 	# Get the local version: uses Git to check the latest (annotated) tag,
@@ -447,7 +505,7 @@ async def check_token() -> bool:
 	gets a new one, updates the global and .env variables.
 
 	Returns:
-		- True if nothing to do/update successful, False otherwise.
+		True if nothing to do/update successful, False otherwise.
 	"""
 
 	global TW_TOKEN
@@ -512,7 +570,7 @@ async def init_twitch() -> bool:
 	Runs the token validity check.
 
 	Returns:
-		- True if initialization was successful, False if not.
+		True if initialization was successful, False if not.
 	"""
 
 	global TW_PREV_STATUS
@@ -700,7 +758,7 @@ async def on_command_error(ctx: commands.Context, error: commands.CommandError):
 	Catches commands' errors, defines corresponding responses.
 
 	Parameters:
-		- error: a raised CommandError, not a 'normal' exception.
+		error: A raised CommandError, not a 'normal' exception.
 	"""
 
 	if isinstance(error, commands.CommandNotFound):
@@ -717,6 +775,9 @@ async def on_command_error(ctx: commands.Context, error: commands.CommandError):
 	elif isinstance(error, commands.CheckFailure):
 		await ctx.send("You don't have permission to use that command.")
 
+	elif isinstance(error, commands.DisabledCommand):
+		await ctx.send("This command is currently disabled.")
+
 	else:
 		logger.error(f"Unexpected command error:\n{error}")
 
@@ -727,7 +788,7 @@ async def on_guild_join(guild: discord.Guild):
 	Logs any new guilds the bot has joined.
 
 	Parameters:
-		- the joined guild.
+		The joined guild.
 	"""
 	logger.debug(f"Joined a guild: {guild.name}.")
 
@@ -735,11 +796,12 @@ async def on_guild_join(guild: discord.Guild):
 def setup_loggers():
 	"""
 	Sets up the loggers 'CroissantBot' and 'discord'.
-	Creates the handlers:
-		- INFO-level to STDOUT
-		- INFO-level to a file
-		- DEBUG-level to a file
-		- discord DEBUG-level to a file
+
+	Handlers created:
+		1: INFO-level to STDOUT
+		2: INFO-level to a file
+		3: DEBUG-level to a file
+		4: discord DEBUG-level to a file
 	"""
 
 	global logger
@@ -828,27 +890,42 @@ async def create_session():
 def main(loop: asyncio.AbstractEventLoop):
 	"""
 	Sets up the bot's start:
-		- Sets up the loggers
-		- Loads the required cogs: misc, music and meme
-		- Loads the twitch and youtube cogs if enabled through .env
-		- Starts their corresponding check function
-		- Starts running the bot
+		1: Sets up the loggers;
+		2: Loads the enabled cogs;
+		3: If the twitch or youtube cogs are enabled, starts their corresponding
+		check function;
+		4: Starts running the bot.
 	"""
 
 	setup_loggers()
 
 	logger.debug(f"{WARNING}Setting up bot...{ENDC}")
 
-	bot.load_extension("cogs.misc")
-	bot.load_extension("cogs.music")
-	bot.load_extension("cogs.meme")
-
-	# A string to log which cogs got loaded
-	enabled_cogs = "misc, music, meme"
-
 	loop.run_until_complete(create_session())
 
 	logger.debug(f"{WARNING}Created:{ENDC} Global aiohttp.ClientSession.")
+
+	enabled_cogs = []
+
+	if JSONFAV_ENABLED:
+		bot.load_extension("cogs.favourites")
+		enabled_cogs.append(f"{CYAN}json_favourites{ENDC}")
+
+	if MEME_ENABLED:
+		bot.load_extension("cogs.meme")
+		enabled_cogs.append("meme")
+
+	if MISC_ENABLED:
+		bot.load_extension("cogs.misc")
+		enabled_cogs.append("misc")
+
+	if MUSIC_ENABLED:
+		bot.load_extension("cogs.music")
+		enabled_cogs.append("music")
+
+	if PLAYLIST_ENABLED:
+		bot.load_extension("cogs.playlist")
+		enabled_cogs.append(f"{CYAN}playlist{ENDC}")
 
 	# Load the twitch and youtube cogs if enabled
 	if TWITCH_ENABLED:
@@ -856,7 +933,7 @@ def main(loop: asyncio.AbstractEventLoop):
 		twitch_initiated = loop.run_until_complete(init_twitch())
 		if twitch_initiated:
 			check_twitch.start()
-			enabled_cogs += f", {PURPLE}twitch{ENDC}"
+			enabled_cogs.append(f"{PURPLE}twitch{ENDC}")
 		else:
 			logger.warning(f"Can't enable {PURPLE}twitch{ENDC} cog, unloading extension.")
 			bot.unload_extension('cogs.twitch')
@@ -865,13 +942,14 @@ def main(loop: asyncio.AbstractEventLoop):
 		bot.load_extension("cogs.youtube")
 		init_youtube()
 		check_youtube.start()
-		enabled_cogs += f", {PURPLE}youtube{ENDC}"
+		enabled_cogs.append(f"{PURPLE}youtube{ENDC}")
 		fix_logger()
 
-	enabled_cogs += "."
+	s_enabled_cogs = ', '.join(enabled_cogs)
+	s_enabled_cogs += '.'
 
 	# Log which cogs got loaded
-	logger.debug(f"{WARNING}Enabled cogs:{ENDC} {enabled_cogs}")
+	logger.debug(f"{WARNING}Enabled cogs:{ENDC} {s_enabled_cogs}")
 	logger.debug(f"{WARNING}Bot starting...{ENDC}")
 
 	# Start the bot

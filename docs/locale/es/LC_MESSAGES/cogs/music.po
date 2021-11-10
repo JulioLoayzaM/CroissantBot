@@ -1,0 +1,102 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../cogs/music.rst:2 6fe655a910854576935ce6ab68de6215
+msgid "Music"
+msgstr ""
+
+#: ../../cogs/music.rst:4 ea451f75a2784057bc02b6a5a041fcff
+msgid "This Cog contains the bot's music-playing commands."
+msgstr ""
+
+#: ../../cogs/music.rst:7 25676c5631fe4c7ea03a5992d78bf08a
+msgid "To enable this cog, set the :envvar:`ENABLE_MUSIC` variable."
+msgstr ""
+
+#: ../../cogs/music.rst:10 095636418c5c4c258a20e7e727c42dbc
+msgid "Requirements"
+msgstr ""
+
+#: ../../cogs/music.rst:13 f666e71631d440ab8ea7405cfc26e0fa
+msgid "Packages"
+msgstr ""
+
+#: ../../cogs/music.rst:15 3a260a71f58b40dbabba7b7953836f17
+msgid "The :py:mod:`yt-dlp` package:"
+msgstr ""
+
+#: ../../cogs/music.rst:29 87b6afdca87b4cae957f7176d157c77d
+msgid "The :py:mod:`yt-dlp` package."
+msgstr ""
+
+#: ../../cogs/music.rst:32 df3ae09ea7844369a77f1fd455d15296
+msgid ""
+"The use of the :py:mod:`youtube-dl` package in this bot is deprecated. "
+"Backwards compatibility is maintained but installing :py:mod:`yt-dlp` is "
+"recommended."
+msgstr ""
+
+#: ../../cogs/music.rst:37 b95614d7956a4cdf8c8970692aa2c0d9
+msgid "Programs"
+msgstr ""
+
+#: ../../cogs/music.rst:39 d3ed22ccb77a485f93d6151e71d16e6f
+msgid ""
+":program:`FFmpeg` is used by :py:mod:`yt-dlp` to extract the audio. "
+"Install instructions can be found at `ffmpeg.org "
+"<https://www.ffmpeg.org/>`__."
+msgstr ""
+
+#: ../../cogs/music.rst:43 c292f77e8cad4dd2a2cabf049375254b
+msgid "env variables"
+msgstr ""
+
+#: ../../cogs/music.rst:45 e9e6b3d39956402b86fd8b78c43c0933
+msgid ""
+":envvar:`MAX_DURATION` indicates the maximum length in seconds a video "
+"can have in order to be downloaded. The default is 600 seconds or 10 "
+"minutes."
+msgstr ""
+
+#: ../../cogs/music.rst:49 4cc55248285e43c1ab18c2d95c59a14c
+msgid ""
+":envvar:`MUSIC_DIR` indicates where to download the music. Create the "
+"directory and set the variable accordingly."
+msgstr ""
+
+#: ../../cogs/music.rst:54 b8ce4b51fb2545ed9881da5401155cda
+msgid "How it works"
+msgstr ""
+
+#: ../../cogs/music.rst:56 6fb63ceceb4f42e5a2cafd9022379203
+msgid ""
+"The bot uses :py:mod:`yt-dlp` to download the video and extracts the "
+"audio using :program:`FFmpeg`. This means the songs take drive space, "
+"which is why :envvar:`MAX_DURATION` exists: as a mean to avoid "
+"downloading 10-hour long videos unless you really want to."
+msgstr ""
+
+#: ../../cogs/music.rst:61 55377b600fa94a71bc51ba349eded4d2
+msgid ""
+"It also means that playing a song for the first time may take a bit while"
+" the download finishes. But if this cache isn't cleared, the next time "
+"the same song is requested there should be no delay in playing it."
+msgstr ""
+

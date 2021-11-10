@@ -2,6 +2,17 @@
 __pycache__/
 .vscode/
 test/
+.venv/
+# sphinx docs
+docs/build/
+docs/source/
+docs/make.bat
+docs/Makefile
+docs/test.*
+docs/locale/**/*.mo
+# docs extras
+docs/*.mustache
+docs/translate_es.sh
 # cache directories
 music_cache/
 memes/

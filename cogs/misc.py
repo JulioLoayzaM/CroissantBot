@@ -21,29 +21,28 @@ import discord
 from discord.ext import commands
 
 from dotenv import load_dotenv
-
-
-load_dotenv()
-# kill - phrases text file
-KILL_MESSAGES_FILE = os.getenv("KILL_PATH")
-# kill - count json file
-KILL_COUNT_FILE    = os.getenv("KILL_COUNT")
-# croissant.gif path
-CROISSANT_PATH     = os.getenv("CROISSANT_PATH")
-
-# kill - kill count
-kill_count = dict()
-# kill - suicide count
-suicide_count = dict()
-
-# 'CroissantBot' logger
-logger = None
+from typing import Dict
 
 
 class Misc(commands.Cog):
 
-	def __init__(self, bot: commands.Bot):
+	def __init__(
+		self,
+		bot: commands.Bot,
+		logger: logging.Logger,
+		messages_file: str,
+		count_file: str,
+		gif_path: str,
+		kill_count: Dict[str, Dict[str, Dict[str, int]]],
+		suic_count: Dict[str, Dict[str, Dict[str, int]]]
+	):
 		self.bot = bot
+		self.logger = logger
+		self.messages_file = messages_file
+		self.count_file = count_file
+		self.gif_path = gif_path
+		self.kcount = kill_count
+		self.scount = suic_count
 
 	@commands.command(
 		name="add",
@@ -56,8 +55,8 @@ class Misc(commands.Cog):
 		and throw an error if unsuccessful.
 
 		Parameters:
-			- num1: an int to add.
-			- num2: idem.
+			num1: An int to add.
+			num2: Idem.
 		"""
 		if (num1 == 2) and (num2 == 2):
 			r = random.randint(1, 3)
@@ -108,7 +107,7 @@ class Misc(commands.Cog):
 		"""
 		Croissant - sends a gif.
 		"""
-		await ctx.send(file=discord.File(CROISSANT_PATH))
+		await ctx.send(file=discord.File(self.gif_path))
 
 	@commands.command(
 		help="Kill your enemies (and your friends)"
@@ -121,8 +120,8 @@ class Misc(commands.Cog):
 		a specific member or themselves in the current guild.
 
 		Parameters:
-			- member: the discord member to use for the message. None by default.
-				The user must be in the same guild - that's why intents.members is needed.
+			member: The discord member to use for the message. None by default.
+			The user must be in the same guild: that's why intents.members is needed.
 		"""
 		# The format used for the kill_count file is:
 		# {
@@ -135,7 +134,11 @@ class Misc(commands.Cog):
 		# Note: guild_id, killer_id and victim_id are strings.
 		# For suicide_count, the {victim_id:count} pair is replaced by the suicide count.
 
-		global kill_count
+		kill_count = self.kcount
+		suicide_count = self.scount
+		KILL_MESSAGES_FILE = self.messages_file
+		KILL_COUNT_FILE = self.count_file
+		logger = self.logger
 
 		if member is None:
 			await ctx.send("You have to select a victim! :slight_smile:")
@@ -243,11 +246,13 @@ class Misc(commands.Cog):
 		Checks kill_count (and loads from json if necessary) then sends stats for calling user.
 
 		Parameters:
-			- member: the user to search for in the calling user's count. None by default.
-				If None, display the whole user's count in that server.
+			member: The user to search for in the calling user's count. None by default.
+			If None, display the whole user's count in that server.
 		"""
 
-		global kill_count
+		kill_count = self.kcount
+		KILL_COUNT_FILE = self.count_file
+		logger = self.logger
 
 		# Check is kill_count is empty, load from the json if it's the case
 		if not kill_count:
@@ -313,6 +318,31 @@ class Misc(commands.Cog):
 
 
 def setup(bot):
-	global logger
+
+	load_dotenv()
+
 	logger = logging.getLogger("CroissantBot")
-	bot.add_cog(Misc(bot))
+
+	# kill - phrases text file
+	KILL_MESSAGES_FILE = os.getenv("KILL_PATH")
+	# kill - count json file
+	KILL_COUNT_FILE    = os.getenv("KILL_COUNT")
+	# croissant.gif path
+	CROISSANT_PATH     = os.getenv("CROISSANT_PATH")
+
+	# kill - kill count
+	kill_count = dict()
+	# kill - suicide count
+	suicide_count = dict()
+
+	bot.add_cog(
+		Misc(
+			bot,
+			logger,
+			KILL_MESSAGES_FILE,
+			KILL_COUNT_FILE,
+			CROISSANT_PATH,
+			kill_count,
+			suicide_count
+		)
+	)

@@ -1,0 +1,172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../cogs/meme.rst:2 852f55c830b1483892aa61a6d55fcac3
+msgid "Meme"
+msgstr ""
+
+#: ../../cogs/meme.rst:4 e72438f409954f758cd5a1a718dfc7a4
+msgid ""
+"This Cog enables the bot's meme-sending capabilities. It uses "
+":py:mod:`asyncpraw`, or the Asynchronous Python Reddit API Wrapper, to "
+"get images from Reddit."
+msgstr ""
+
+#: ../../cogs/meme.rst:8 034661d979974e888dad30c1275bce89
+msgid "To enable this cog, set the :envvar:`ENABLE_MEME` variable."
+msgstr ""
+
+#: ../../cogs/meme.rst:11 e5904377b7a64d6682a76719ca70b379
+msgid "Requirements"
+msgstr ""
+
+#: ../../cogs/meme.rst:14 8450d511e7b8456e8e252f3d6ea1ff8e
+msgid "Packages"
+msgstr ""
+
+#: ../../cogs/meme.rst:16 8050fbb843c84314bb7ed7c9e013b1e1
+msgid "The :py:mod:`asyncpraw` package:"
+msgstr ""
+
+#: ../../cogs/meme.rst:31 e991da9ae75c4b2a87357eaaddd006cf
+msgid "env variables"
+msgstr ""
+
+#: ../../cogs/meme.rst:33 eeac9ad7fbaa462694fa986b074fbf17
+msgid ""
+"Create a directory to store the :ref:`cogs/meme:list files` and set "
+":envvar:`MEME_DIR` accordingly."
+msgstr ""
+
+#: ../../cogs/meme.rst:35 dd9036d01fbf47fda098e5bef514e4d6
+msgid ""
+":envvar:`MEME_ITEM_LIMIT` indicates how many memes the bot can retrieve "
+"at once. See :ref:`cogs/meme:how it works` below for an explanation on "
+"how that works. The default is 10 items."
+msgstr ""
+
+#: ../../cogs/meme.rst:38 ce3e17c45cb74a5383ab06409de645f8
+msgid ""
+"The variables starting with :envvar:`REDDIT` correspond to a Reddit bot's"
+" credentials. `According to the docs "
+"<https://asyncpraw.readthedocs.io/en/latest/getting_started/quick_start.html>`__,"
+" to use :py:mod:`asyncpraw` we need:"
+msgstr ""
+
+#: ../../cogs/meme.rst:42 cda51475383c4fa1b80d10043f522187
+msgid ""
+"A Reddit account: to create a new account, head to `reddit.com "
+"<https://www.reddit.com/>`__. You can create an account without providing"
+" an email address (just omit it), but be aware this means **there's no "
+"way to recover the account if the password is lost**."
+msgstr ""
+
+#: ../../cogs/meme.rst:48 a5df3cf7d80a4185b75fc7d8f66cead2
+msgid ""
+"A Client ID and Secret: see `this guide <https://github.com/reddit-"
+"archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps>`__."
+msgstr ""
+
+#: ../../cogs/meme.rst:51 87f29bf73231459bb44bd534987235a5
+msgid ""
+"A User Agent: this Cog already generates one following the format "
+"provided by `Reddit's API guide <https://github.com/reddit-"
+"archive/reddit/wiki/API>`__. Thus, I recommend letting the bot take care "
+"of that with the information provided by ``.env``. Note that the "
+":envvar:`APP_VERSION` is set arbitrarily; I use the same version as the "
+"bot's."
+msgstr ""
+
+#: ../../cogs/meme.rst:60 65f1e32cd8634b308f3014a969ff9668
+msgid ""
+"You can decide whether to download the memes or just send them using "
+"their URL by setting the :envvar:`MEME_DOWNLOAD` variable. To turn off "
+"downloads, leave the variable commented or set it to a `falsy value "
+"<https://www.freecodecamp.org/news/truthy-and-falsy-values-in-"
+"python/>`__. To turn it on, set it to a truthy value."
+msgstr ""
+
+#: ../../cogs/meme.rst:66 fb9f78943a90487bbbeb26a684340f8d
+msgid "How it works"
+msgstr ""
+
+#: ../../cogs/meme.rst:69 11e49bef12f24788b90d8aa181d86f75
+msgid "List files"
+msgstr ""
+
+#: ../../cogs/meme.rst:71 1117cb33f55747ed99c56aa11d900aea
+msgid ""
+"These are the files created when the command is used for the first time "
+"in a server or DM. They contain a list of the names of all the files sent"
+" to that server/DM. This allows the bot to check whether a meme was "
+"already sent to that context, and thus avoid sending duplicates. These "
+"list files are saved in the directory pointed by :envvar:`MEME_DIR`."
+msgstr ""
+
+#: ../../cogs/meme.rst:77 fb5a7a25fc2446ce8cde38d9f32a4c65
+msgid "Asyncpraw"
+msgstr ""
+
+#: ../../cogs/meme.rst:79 ed1dd3011dee4015a090ba66b8a91938
+msgid ""
+"When starting, the bot creates an :py:class:`asyncpraw.Reddit` instance. "
+"This instance fetches the top :envvar:`MEME_ITEM_LIMIT` posts from the "
+"Hot category of a subreddit. If the post is actually an image (not a mod "
+"post, nor a video, nor a text-only post), it checks if it already sent it"
+" to that context (server or DM)."
+msgstr ""
+
+#: ../../cogs/meme.rst:84 82f997f6968e4e75aea59a5e063adf55
+msgid ""
+"If it did, it skips that post and checks the next one fetched. So it can "
+"eventually run out of posts to check."
+msgstr ""
+
+#: ../../cogs/meme.rst:87 194317f46e154b4385c5aa9400f77d1c
+msgid ""
+"If you use the ``meme`` command frequently with the same subreddit, you "
+"should increase the item limit so the bot can send more new memes before "
+"reaching this cap."
+msgstr ""
+
+#: ../../cogs/meme.rst:91 78e8e01cf59a4fa8a21f153d076f5a70
+msgid "Downloading memes"
+msgstr ""
+
+#: ../../cogs/meme.rst:93 edcd62885c804ef4870c8da1698ef793
+msgid ""
+"Since version 2.0.0, you can choose skip the download of the memes to "
+"send. This uses the fact that :py:class:`discord.Embed` can use a URL to "
+"include an image directly."
+msgstr ""
+
+#: ../../cogs/meme.rst:96 1d547e32b69946c08448dcfd2e20c7bb
+msgid ""
+"You can still enable the download of the images, which are then used to "
+"send the messages. These are saved in the directory set in "
+":envvar:`MEME_DIR`."
+msgstr ""
+
+#: ../../cogs/meme.rst:99 38877fbe35ea43c09a2f6766eadfb443
+msgid ""
+"A meme's filename is derived from its ``i.redd.it`` URL. For example, "
+"from ``i.redd.it/thisisnotameme.jpg`` we get ``thisisnotameme.jpg``."
+msgstr ""
+

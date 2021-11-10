@@ -34,9 +34,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 
-import aiofiles
 import asyncio
-import json
 import logging
 import os
 
@@ -50,11 +48,11 @@ except:  # noqa: 722
 import discord
 from discord.ext import commands
 
-from cogs.queue import SongQueue
-from cogs.song import Song
+from cogs.ext.queue import SongQueue, EmptyQueueError
+from cogs.ext.song import Song
 
 from dotenv import load_dotenv
-from typing import Tuple, Union, List, Dict
+from typing import Tuple, Union
 
 
 # Colours and string for some coloured output
@@ -69,16 +67,8 @@ load_dotenv()
 MAX_DURATION = int(os.getenv('MAX_DURATION'))
 # Directory in which music is downloaded
 SAVE_DIR = os.getenv('MUSIC_DIR')
-# Name of the file in which the list of favourites is kept.
-# By default it's 'favourite_songs.json', the directory is rsc/
-FAV_LIST_FILE = f"rsc/{os.getenv('MUSIC_FAV_LIST', 'favourite_songs.json')}"
 
 BOT_PREFIX = os.getenv('BOT_PREFIX')
-
-FAV_LIST = None
-
-# 'CroissantBot' logger
-logger = None
 
 
 # Used to suppress useless errors apparently
@@ -109,7 +99,7 @@ ytdl = yt_dl.YoutubeDL(YTDL_FORMAT_OPTIONS)
 
 class Music(commands.Cog):
 
-	def __init__(self, bot: commands.Bot):
+	def __init__(self, bot: commands.Bot, logger: logging.Logger):
 
 		self.bot = bot
 		# Template:
@@ -122,6 +112,26 @@ class Music(commands.Cog):
 		# 	}
 		# }
 		self.info = dict()
+		self.logger = logger
+
+	async def is_connected(self, ctx: commands.Context) -> bool:
+		"""
+		A quick check to see if the bot is connected to a voice channel in the
+		calling user's current guild.
+
+		Returns:
+			True if the bot is connected, False otherwise.
+		"""
+
+		gid = ctx.message.guild.id
+
+		if gid not in self.info:
+			return False
+
+		if self.info[gid].get('channel') is None:
+			return False
+
+		return True
 
 	@commands.command(
 		aliases=['j'],
@@ -133,6 +143,8 @@ class Music(commands.Cog):
 		"""
 		Joins the calling user's current voice channel if the user is connected to one.
 		"""
+
+		logger = self.logger
 
 		if not ctx.message.author.voice:
 			await ctx.send("You're not connected to a voice channel, join one first.")
@@ -199,6 +211,8 @@ class Music(commands.Cog):
 		handles the cleaning of channel info.
 		"""
 
+		logger = self.logger
+
 		vc: discord.VoiceClient = ctx.message.guild.voice_client
 		gid = ctx.message.guild.id
 		channel = self.info[gid]['channel']
@@ -222,7 +236,7 @@ class Music(commands.Cog):
 		Gets the current context queue.
 
 		Returns:
-			- the corresponding queue, None if not connected to a voice channel.
+			The corresponding queue, None if not connected to a voice channel.
 		"""
 		guild_id = ctx.message.guild.id
 
@@ -246,8 +260,11 @@ class Music(commands.Cog):
 		Additionally, if no song is playing it calls play_song() to start streaming.
 
 		Parameters:
-			- query: the query to search for in youtube.
+			query: The query to search for in youtube.
 		"""
+
+		logger = self.logger
+
 		if query is None:
 			await ctx.send(f"You have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>`.")  # noqa: E501
 			return
@@ -312,30 +329,7 @@ class Music(commands.Cog):
 			logger.debug(f"Unexpected exception:\n{e}")
 			await ctx.send("The bot is not connected to a voice channel.")
 
-	@commands.command(
-		aliases=['pf'],
-		help=f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play`.",
-		hidden=True
-	)
-	@commands.guild_only()
-	async def play_from(self, ctx: commands.Context, url: str = None):
-		"""
-		Function to notify previous users that the command is now deprecated.
-		and passes the url, if given, to the actual play function.
-
-		Parameters:
-			- url: the url to search for in youtube.
-		"""
-		if url is None:
-			await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play` next time.")  # noqa: E501
-			await ctx.send(f"Also, you have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>`.")  # noqa: E501
-			return
-
-		await ctx.send(f"Sorry this command has been deprecated, please try `{BOT_PREFIX}play` next time.")  # noqa: E501
-		await self.play(ctx, url)
-
 	@play.before_invoke
-	@play_from.before_invoke
 	async def ensure_voice(self, ctx: commands.Context):
 		"""
 		Checks if the bot is connected to the voice channel before playing.
@@ -349,6 +343,8 @@ class Music(commands.Cog):
 		Higher function, calls play_next and sends the message it receives.
 		"""
 
+		logger = self.logger
+
 		guild = ctx.message.guild
 		vc: discord.VoiceClient = guild.voice_client
 
@@ -356,13 +352,13 @@ class Music(commands.Cog):
 			"""
 			Function in charge of actually playing a song.
 			It assumes three things:
-				- the songs in the queue are already downloaded
-				- if a song is playing and we called play_song anyway, we want to skip the song
-				- the bot is actually connected to a voice channel
+				1: the songs in the queue are already downloaded;
+				2: if a song is playing and we called play_song anyway, we want to skip the song;
+				3: the bot is actually connected to a voice channel.
 
 			Returns:
-				- an error message if an error occured, None otherwise
-				- None if an error occured, an Embed with the song info otherwise
+				First: An error message if an error occured, None otherwise.
+				Second: None if an error occured, an Embed with the song info otherwise.
 			"""
 
 			# Have to manually get the queue
@@ -491,9 +487,9 @@ class Music(commands.Cog):
 		Stops any playing/paused song. Deletes the queue if leaving the voice channel.
 
 		Parameters:
-			- leaving: indicates if the function was called by leave(), in which case
-				it doesn't send a "nothing is playing" message and deletes the queue
-				by setting it to None.
+			leaving: Indicates if the function was called by leave(), in which case
+			it doesn't send a "nothing is playing" message and deletes the queue
+			by setting it to None.
 		"""
 
 		vc: discord.VoiceClient = ctx.message.guild.voice_client
@@ -528,7 +524,7 @@ class Music(commands.Cog):
 		Used by close_connection when closing the bot, to ensure no mess is left behind.
 
 		Returns:
-			- True if it cleaned anything, False otherwise.
+			True if it cleaned anything, False otherwise.
 		"""
 
 		if not self.info:
@@ -569,30 +565,38 @@ class Music(commands.Cog):
 		will play directly.
 
 		Parameters:
-			- index: the number of songs to skip, 1 by default.
+			index: The number of songs to skip, 1 by default.
 		"""
 
-		if index < 1:
-			await ctx.send("Index can't be lower than 1, try again.")
+		logger = self.logger
+
+		if not await self.is_connected(ctx):
+			await ctx.send("The bot is not connected to a voice channel.")
 			return
 
-		guild = ctx.message.guild
-		vc = guild.voice_client
+		vc: discord.VoiceClient = ctx.message.guild.voice_client
 		queue: SongQueue = await self.get_queue(ctx)
 
 		if queue is None:
-			await ctx.send("The bot is not connected to a voice channel.")
+			await ctx.send("The queue is empty, can't skip songs.")
 
 		elif not (vc.is_playing() or vc.is_paused()):
 			await ctx.send("Can't skip, no song is currently playing or paused.")
 
 		else:
 			try:
+				# We skip index-1: if we want to skip one song, we just want to stop the source,
+				# since playing the next song implies popping that song.
 				queue.skip(index - 1)
 				vc.stop()
+				if queue.is_empty():
+					gid = ctx.message.guild.id
+					self.info[gid]['source'] = None
 
 			except IndexError:
 				await ctx.send(f"There's no song with that index, try `{BOT_PREFIX}queue` to see the queue.")  # noqa: E501
+			except EmptyQueueError:
+				await ctx.send("The queue is empty, can't skip songs.")
 
 			except Exception as e:
 				logger.warning("Problem skipping a song, ignoring.")
@@ -607,40 +611,35 @@ class Music(commands.Cog):
 		Removes a song from the queue if the queue exists and the index is correct.
 
 		Parameters:
-			- index: where the song to remove is in the queue. 0 by default,
-				this means no song is removed.
+			index: Where the song to remove is in the queue. 0 by default,
+			this means no song is removed.
 		"""
 
-		if index < 1:
-			await ctx.send("Index can't be lower than 1, try again.")
+		if not await self.is_connected(ctx):
+			await ctx.send("The bot is not connected to a voice channel.")
 			return
 
-		try:
-			queue = await self.get_queue(ctx)
+		queue: SongQueue = await self.get_queue(ctx)
 
-			if queue is None:
-				await ctx.send("The bot is not connected to a voice channel.")
+		if queue is None:
+			await ctx.send("The queue is empty, there are no songs to remove.")
+			return
 
-			else:
-				status, msg = queue.remove(index)
-				dem = {}
+		status, msg = queue.remove(index)
 
-				if status:
-					dem['title'] = "Removed:"
-					dem['description'] = msg
-					dem['colour'] = ctx.author.colour
-				else:
-					dem['title'] = msg
-					dem['colour'] = ctx.author.colour
+		if status:
+			em = discord.Embed(
+				title="Removed:",
+				description=msg,
+				colour=discord.Colour.red()
+			)
+		else:
+			em = discord.Embed(
+				title=msg,
+				colour=discord.Colour.red()
+			)
 
-				em = discord.Embed.from_dict(dem)
-				await ctx.send(embed=em)
-
-		except IndexError:
-			await ctx.send(f"There's no song with that index, try `{BOT_PREFIX}queue` to see the queue.")  # noqa: E501
-		except Exception as e:
-			logger.warning("Problem removing a song, ignoring.")
-			logger.debug(f"Unexpected exception:\n{e}")
+		await ctx.send(embed=em)
 
 	@commands.command(
 		aliases=['m'],
@@ -650,36 +649,33 @@ class Music(commands.Cog):
 	async def move(self, ctx: commands.Context, index1: int, index2: int):
 		"""
 		Moves the song at index1 to index2 if possible.
-		Note: user's list starts at 1, for checks and operations the indexes are given
-			as passed by the user.
 
 		Parameters:
-			- index1: where the song currently is.
-			- index2: where the song is going to be.
+			index1: Where the song currently is.
+			index2: Where the song is going to be.
+
+		Note:
+			The user's list starts at 1, for checks and operations the indexes are given
+			as passed by the user.
 		"""
+
+		if not await self.is_connected(ctx):
+			await ctx.send("The bot is not connected to a voice channel.")
+			return
 
 		queue: SongQueue = await self.get_queue(ctx)
 
 		if queue is None:
-			pass
-
-		size = queue.get_size()
-
-		if index1 < 1 or index1 > size:
-			await ctx.send(f"There's no song with that index! The current queue size is {size}.")
-			return
-
-		if index2 < 1 or index2 > size:
-			await ctx.send(f"That's out of bounds! The current queue size is {size}.")
+			await ctx.send("The queue is empty!")
 			return
 
 		if index1 == index2:
 			await ctx.send("Left song in place.")
+			return
 
-		else:
-			res = queue.move(index1, index2)
-			if res is not None:
-				await ctx.send(res)
+		res = queue.move(index1, index2)
+
+		await ctx.send(res)
 
 	@commands.command(
 		aliases=['yt', 'youtube'],
@@ -692,7 +688,7 @@ class Music(commands.Cog):
 		when play's result isn't satisfying.
 
 		Parameters:
-			- search: the query to search for in youtube.
+			search: The query to search for in youtube.
 		"""
 
 		info = ytdl.extract_info(f"ytsearch5:{search}", download=False)
@@ -785,8 +781,8 @@ class Music(commands.Cog):
 		Changes the current volume through the source and updates self.info for future sources.
 
 		Parameters:
-			- volume: the volume to set, -1 by default to avoid changing it.
-				Ranges from 0 to 100.
+			volume: The volume to set, -1 by default to avoid changing it.
+			Ranges from 0 to 100.
 		"""
 
 		gid = ctx.message.guild.id
@@ -891,322 +887,6 @@ class Music(commands.Cog):
 			self.info[gid]['channel'] = user_channel
 			await ctx.send(f"Moved the bot to {user_channel.name}")
 
-	@commands.group(
-		name="favourites",
-		aliases=["fav", "favorites"],
-		help="Base command for managing your list of favourite songs."
-	)
-	async def favourites(self, ctx: commands.Context):
-		"""
-		Base command for managing favourite songs.
-
-		Loads the list of favourites from FAV_LIST_FILE during the first call.
-		"""
-		global FAV_LIST
-
-		# First verify a subcommand has been used.
-		if ctx.invoked_subcommand is None:
-			await ctx.send("You have to use a subcommand:")
-			await ctx.send_help(self.favourites)
-			return
-
-		# Then load the lists if needed.
-		if FAV_LIST is None:
-
-			try:
-				async with aiofiles.open(FAV_LIST_FILE, 'r') as file:
-					content = await file.read()
-
-				if content:
-					FAV_LIST = json.loads(content)
-				else:
-					FAV_LIST = dict()
-
-			except IOError as ioe:
-				logger.warning(
-					f"Could not open \"{FAV_LIST_FILE}\", maybe the file doesn't exist: ignoring."
-				)
-				logger.debug(f"IOError:\n{ioe}")
-				FAV_LIST = dict()
-
-			except Exception as e:
-				logger.error(f"Could not load \"{FAV_LIST_FILE}\".")
-				logger.debug(f"Unexpected exception:\n{e}")
-				await ctx.send("A problem occurred while loading your list, please try again.")
-				return
-
-	@favourites.command(
-		name="list",
-		help="Displays your list of favourites songs: if an index is specified, shows that song's info"  # noqa: E501
-	)
-	async def fav_list(self, ctx: commands.Context, index: int = 0):
-		"""
-		Subcommand to display the list of an user's favourite songs.
-
-		Parameters:
-			- index: if less than or equal to zero, it displays the whole list.
-				If greater than zero, it displays the song with that index in the list with more info.
-		"""
-		member: discord.Member = ctx.message.author
-		member_id: str = str(member.id)
-
-		songs = FAV_LIST.get(member_id, None)
-
-		if songs is not None:
-
-			if len(songs) == 0:
-
-				name = member.display_name
-				if name[-1] == 's':
-					title = f"{name}' list"
-				else:
-					title = f"{name}'s list"
-
-				em = discord.Embed(title=title, description="Your list is empty.")
-
-				await ctx.send(embed=em)
-				return
-
-			if index <= 0:
-
-				cpt = 1
-				message = ""
-				for song in songs:
-					message += f"{cpt}. {song.get('title')}\n"
-					cpt += 1
-
-				name = member.display_name
-				if name[-1] == 's':
-					title = f"{name}' list"
-				else:
-					title = f"{name}'s list"
-
-				em = discord.Embed(
-					title=title,
-					description=message,
-					colour=member.colour
-				)
-
-				await ctx.send(embed=em)
-
-			else:
-
-				if index > len(songs):
-
-					await ctx.send(f"There's no song with that index! Your list has {len(songs)} songs.")
-
-				else:
-
-					song = songs[index - 1]
-
-					name = member.display_name
-					if name[-1] == 's':
-						title = f"From {name}' list"
-					else:
-						title = f"From {name}'s list"
-
-					em = discord.Embed(title=title)
-					em.add_field(name="Title", value=song.get('title'), inline=False)
-					em.add_field(name="URL", value=song.get('url'))
-					em.set_thumbnail(url=song.get('thumbnail'))
-
-					await ctx.send(embed=em)
-
-		else:
-			await ctx.send(f"You haven't saved any songs yet, use `{BOT_PREFIX}favourites add <song URL>` or `{BOT_PREFIX}favourites now` to add one.")  # noqa: E501
-
-	@favourites.command(
-		name="add",
-		help="Saves a song to your list from its URL"
-	)
-	async def fav_add(self, ctx: commands.Context, url: str = None):
-		"""
-		Saves a song to the user's list: uses from_url to get the title and the thumbnail's URL.
-
-		Parameters:
-			- url: the URL of the song to save.
-		"""
-		global FAV_LIST
-
-		if url is None:
-			await ctx.send("You have to provide a URL.")
-			return
-
-		try:
-			# Suppress the embed to avoid clutter.
-			msg: discord.Message = ctx.message
-			await msg.edit(suppress=True)
-
-			song = await YTDLSource.from_url(url, download=False)
-			info = dict()
-			info['title'] = song.title
-			info['url'] = song.url
-			info['thumbnail'] = song.thumbnail
-
-			member: discord.Member = ctx.message.author
-			member_id: str = str(member.id)
-
-			songs = FAV_LIST.get(member_id, None)
-
-			if songs is not None:
-				songs.append(info)
-			else:
-				songs = [info]
-				FAV_LIST[member_id] = songs
-
-			dump = json.dumps(FAV_LIST)
-			async with aiofiles.open(FAV_LIST_FILE, 'w') as file:
-				await file.write(dump)
-
-			em = discord.Embed(description=f"Added \"{info.get('title')}\" to your list.")
-
-			await ctx.send(embed=em)
-
-		except MaxDurationError:
-			await ctx.send("The song is too long to be played, so it can't be saved.")
-
-		except Exception as e:
-			logger.error("Could not add a song to list of favourites.")
-			logger.debug(f"Exception:\n{e}")
-			await ctx.send("An error occurred while saving the song, please try again.")
-
-	@favourites.command(
-		name="remove",
-		help="Removes a song from your list by its index, 0 means no song is removed"
-	)
-	async def fav_remove(self, ctx: commands.Context, index: int = 0):
-		"""
-		Remove a song from the user's list by its index.
-
-		Parameters:
-			- index: the index of the song to remove, 0 by default to avoid removing anything.
-		"""
-		global FAV_LIST
-
-		if index <= 0:
-			await ctx.send(f"You have to provide a valid index. Use `{BOT_PREFIX}favourites list` to check your list.")  # noqa: E501
-			return
-
-		member_id: str = str(ctx.message.author.id)
-		songs: List[Dict[str, str]] = FAV_LIST.get(member_id, None)
-
-		if songs is None:
-			await ctx.send("You haven't saved any songs yet.")
-			return
-
-		if index > len(songs):
-			await ctx.send(
-				f"You have to select a valid index: there's only {len(songs)} songs in your list."
-			)
-			return
-
-		song = songs.pop(index - 1)
-
-		try:
-			dump = json.dumps(FAV_LIST)
-			async with aiofiles.open(FAV_LIST_FILE, 'w') as file:
-				await file.write(dump)
-
-			message = f"Removed \"{song.get('title')}\" from your list."
-			em = discord.Embed(description=message)
-			await ctx.send(embed=em)
-
-		except Exception as e:
-			logger.error("Couldn't save favourites list after removing a song.")
-			logger.debug(f"Exception:\n{e}")
-
-	@favourites.command(
-		name="now",
-		help="Saves the currently playing song to your list"
-	)
-	@commands.guild_only()
-	async def fav_now(self, ctx: commands.Context):
-		"""
-		Saves the currently playing song from self.info.source.
-		"""
-		global FAV_LIST
-
-		gid = ctx.message.guild.id
-
-		if gid not in self.info:
-			await ctx.send("The bot is not connected to a voice channel.")
-			return
-
-		info = self.info.get(gid)
-		source: YTDLSource = info.get('source')
-
-		if source is not None:
-
-			member_id: str = str(ctx.message.author.id)
-
-			songs = FAV_LIST.get(member_id, None)
-
-			song = dict()
-			song['title'] = source.title
-			song['url'] = source.url
-			song['thumbnail'] = source.thumbnail
-
-			if songs is not None:
-				songs.append(song)
-			else:
-				songs = [song]
-				FAV_LIST[member_id] = songs
-
-			try:
-				dump = json.dumps(FAV_LIST)
-				async with aiofiles.open(FAV_LIST_FILE, 'w') as file:
-					await file.write(dump)
-
-				em = discord.Embed(description=f"Added \"{song.get('title')}\"to your list.")
-
-				await ctx.send(embed=em)
-
-			except Exception as e:
-				logger.error("Could not save a song to FAV_LIST_FILE.")
-				logger.debug(f"Exception:\n{e}")
-				await ctx.send("An error occurred while saving the song, please try again.")
-
-		else:
-
-			await ctx.send(
-				f"The bot is not playing something at the moment, try `{BOT_PREFIX}play <song>`."
-			)
-
-	@favourites.command(
-		name="play",
-		help="Plays a song from your list by its index"
-	)
-	@commands.guild_only()
-	async def fav_play(self, ctx: commands.Context, index: int = 0):
-		"""
-		Play a song from the user's list by passing its URL to self.play.
-
-		Parameters:
-			- index: the index of the song to play, 0 by default.
-		"""
-
-		if index <= 0:
-			await ctx.send("You have to provide a valid index.")
-			return
-
-		member_id: str = str(ctx.message.author.id)
-		songs = FAV_LIST.get(member_id, None)
-
-		if songs is None:
-			await ctx.send(f"You haven't saved a song yet, you can use `{BOT_PREFIX}favourites add <URL>` or `{BOT_PREFIX}favourites now`.")  # noqa: E501
-			return
-
-		if index > len(songs):
-			await ctx.send(
-				f"You have to provide a valid index, your list only has {len(songs)} songs."
-			)
-			return
-
-		song = songs[index - 1]
-
-		url = song.get('url')
-		await self.play(ctx, url)
-
 	@commands.Cog.listener('on_voice_state_update')
 	async def on_empty_channel(
 		self,
@@ -1217,6 +897,9 @@ class Music(commands.Cog):
 		"""
 		Disconnects the bot if no (non-bot) users are left in the channel.
 		"""
+
+		logger = self.logger
+
 		vc = member.guild.voice_client
 
 		if vc is not None:
@@ -1253,8 +936,8 @@ class Music(commands.Cog):
 		Gets the voice latency to be used by ping.
 
 		Returns:
-			- the current latency and the average of last 20 heartbeats,
-				or None if the bot is not connected.
+			The current latency and the average of last 20 heartbeats,
+			or None if the bot is not connected.
 		"""
 
 		vc = ctx.message.guild.voice_client
@@ -1295,12 +978,16 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		Downloads a song from its URL.
 
 		Parameters:
-			- url: the url to download from.
-			- loop: the EventLoop to use.
-			- download: whether the song should be downloaded.
+			url: The url to download from.
+			loop: The EventLoop to use.
+			download: Whether the song should be downloaded.
+
 		Returns:
-			- The corresponding (new) Song instance.
+			The corresponding (new) Song instance.
 		"""
+
+		# TODO: store the logger somewhere instead of getting it each time.
+		logger = logging.getLogger("CroissantBot")
 
 		loop = loop or asyncio.get_event_loop()
 
@@ -1332,7 +1019,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 	async def get_song_info(self) -> str:
 		"""
 		Returns:
-			- A string containing the source's song title and URL.
+			A string containing the source's song title and URL.
 		"""
 		return f"{self.song.title} - {self.song.url}"
 
@@ -1342,10 +1029,10 @@ async def validate_url(url: str) -> bool:
 	Checks to see if url has any valid extractors for yt_dlp/youtube_dl.
 
 	Parameters:
-		- url: the url to search for extractors.
+		url: The url to search for extractors.
 
 	Returns:
-		- True if site has dedicated extractor, False otherwise.
+		True if site has dedicated extractor, False otherwise.
 
 	"""
 	e = yt_dl.extractor.get_info_extractor('Youtube')
@@ -1353,7 +1040,7 @@ async def validate_url(url: str) -> bool:
 
 
 def setup(bot):
-	global logger
+
 	logger = logging.getLogger("CroissantBot")
 
 	logger.debug(f"{WARNING}Youtube downloader:{ENDC} {yt_version}.")
@@ -1363,4 +1050,4 @@ def setup(bot):
 			"Consider installing 'yt-dlp' instead."
 		)
 
-	bot.add_cog(Music(bot))
+	bot.add_cog(Music(bot, logger))

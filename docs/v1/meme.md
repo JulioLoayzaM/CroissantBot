@@ -16,7 +16,11 @@ This Cog enables the bot's meme-sending capabilities. It uses `asyncpraw`, or th
   - A Client ID and Secret: see [this guide](https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps).
   - A User Agent: this Cog already generates one following the format provided by [Reddit's API guide](https://github.com/reddit-archive/reddit/wiki/API). Thus, I recommend letting the bot take care of that with the information provided by `.env`. Note that the `APP_VERSION` is set arbitrarily; for now it is the same as the bot's version.
   
-- Finally, create a directory to store the memes and list files, and set `MEME_DIR` in `.env` accordingly.
+- Create a directory to store the list files and set `MEME_DIR` in `.env` accordingly.
+
+- *New in version 1.2.0*
+
+  You can decide whether to download the memes or just send them using their URL by setting the `MEME_DOWNLOAD` variable in `.env`. To turn off downloads, leave the variable commented or set it to a [falsy value](https://www.freecodecamp.org/news/truthy-and-falsy-values-in-python/). To turn it on, set it to a truthy value.
 
 ## How it works
 

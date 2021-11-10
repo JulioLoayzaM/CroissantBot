@@ -1,0 +1,38 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../ext/song.rst:2 2757a2ce2b1542a1a03c4f7b5a6a9da2
+msgid "song module"
+msgstr ""
+
+#: 75e6cc031be342a19705e2c5c61cafc2 of song:1
+msgid "Small class to represent a song for the queue."
+msgstr ""
+
+#: f70ca395b5db4379b4a9eb6bba6dcc2d of song.Song:1
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: ac37252083fd493ea28273a3ea6f9053 of song.Song:1
+msgid ""
+"A class to represent a song. Stores the title, the name of the downloaded"
+" file, the URL and the thumbnail URL."
+msgstr ""
+

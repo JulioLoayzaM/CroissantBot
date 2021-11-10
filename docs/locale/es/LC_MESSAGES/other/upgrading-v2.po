@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: 2021-11-10 09:15+0200\n"
+"Last-Translator: Julio Loayza <croissantbot.jlm@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../other/upgrading-v2.rst:2 8f17c51a200f4ad6943f38c156b68288
+msgid "Upgrading to version 2.0.0"
+msgstr "Actualizar a la versión 2.0.0"
+
+#: ../../other/upgrading-v2.rst:4 64a0e048868241c1a75f6104463da874
+msgid ""
+"This is the first major update to CroissantBot. As such, it includes "
+"breaking changes, as \"small\" as deprecating the ``play_from`` command, "
+"to adding new cogs."
+msgstr ""
+"Esta es la primera actualización mayor de CroissantBot. Como tal, incluye "
+"cambios importantes, desde el desuso del comando ``play_from`` "
+"a la creación de nuevos cogs."
+
+#: ../../other/upgrading-v2.rst:8 4e78801ea750410cae53e19dc60a4679
+msgid ""
+"Particularly, changes like the ones introduced to ``.env`` (shown in "
+"``.env.example``) may lead to issues."
+msgstr ""
+"En particular, cambios como los efectuados al archivo ``.env`` (reflejados "
+"en el archivo ``.env.example``) pueden causar problemas."
+
+#: ../../other/upgrading-v2.rst:10 eab34314ad2040ee9991ff766b4f5bc3
+msgid ""
+"Since I don't know how many (if any) people use this bot (and want to "
+"update it), I'm not actually going to write this section yet (or at all)."
+msgstr ""
+"Como no sé cuantas personas (si alguna) usan este bot (y quieren actualizarlo), "
+"no escribiré esta sección todavía (o nunca)."
+
+#: ../../other/upgrading-v2.rst:13 e9d9ba73804f4b47a1c2a10ba527a19d
+msgid "That said, if you:"
+msgstr "Dicho eso, si:"
+
+#: ../../other/upgrading-v2.rst:15 e7613f08d135428c96aebc9032fe8ce5
+msgid "do use this bot,"
+msgstr "usas este bot,"
+
+#: ../../other/upgrading-v2.rst:16 7ab5ba0f03ae425285efb4356e9a8099
+msgid "and have reached this page,"
+msgstr "llegaste a esta página"
+
+#: ../../other/upgrading-v2.rst:17 c242c844250c4d1cb528c904ab06cee6
+msgid "and have issues with the update;"
+msgstr "y tienes problemas con la actualización"
+
+#: ../../other/upgrading-v2.rst:19 0dfae81e348d451980f1239541351b66
+msgid ""
+"then I suggest you to `open an issue in the repo "
+"<https://github.com/JulioLoayzaM/CroissantBot/issues>`_. I'll gladly help"
+" you sort out the problem(s)."
+msgstr ""
+"entonces sugiero que `abras un issue en el repositorio "
+"<https://github.com/JulioLoayzaM/CroissantBot/issues>`_ "
+"para que pueda ayudarte a resolverlos."
+

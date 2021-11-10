@@ -1,0 +1,202 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../ext/queue.rst:2 e01f16bbdf8841cf853b512f602353f8
+msgid "queue module"
+msgstr ""
+
+#: cogs.ext.queue:1 d7659b8f713f43db8d780a561bbf7ea0 of
+msgid "Implementation of a queue to be used by music.py."
+msgstr ""
+
+#: 7e74ce016c0942c4a2b41efe48f34236 cogs.ext.queue.SongQueue:1 of
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: a9e1a1bbcfc74ed3a761284cb4e4188d cogs.ext.queue.SongQueue:1 of
+msgid ""
+"Class to manage queues of Song(s). Uses a list of Songs and adds some "
+"methods to simplify operations in the cogs."
+msgstr ""
+
+#: cogs.ext.queue.SongQueue.push:1 d42dc02dc4fe4085a8a0a630a076319e of
+msgid "Add a song at the end of the queue."
+msgstr ""
+
+#: 43b7c1577cbc4404a1b84acb7d129715 87fe74869bb34dbfb32fa5e088412c5d
+#: cbc6d023e6a244c3be85c535c53112ec cogs.ext.queue.SongQueue.insert
+#: cogs.ext.queue.SongQueue.move cogs.ext.queue.SongQueue.pop
+#: cogs.ext.queue.SongQueue.push cogs.ext.queue.SongQueue.remove
+#: cogs.ext.queue.SongQueue.skip d8c76fb175a04c7c87d90e8f3a0bf4bf
+#: dba9bd9d194447aaaf194cba24a034e4 e324d3c360c04761a20ada2c9b7eb9c8 of
+msgid "Parameters"
+msgstr ""
+
+#: 8a67c814eeaa4d68ab158ac35ac84b74 cogs.ext.queue.SongQueue.push:3 of
+msgid "The song to append."
+msgstr ""
+
+#: 938496088a2c43a4a50981746e1b07ea cogs.ext.queue.SongQueue.pop:1 of
+msgid "Pop the song at position index, if it exists."
+msgstr ""
+
+#: 60a01137e8ce47b89ccded03cdd29fba cogs.ext.queue.SongQueue.pop:3 of
+msgid "The index of the song to pop. 1 by default to pop the first song."
+msgstr ""
+
+#: 00c59b7a46684217a0502cd720958129 10c95b71aefb4d338385346461d329b3
+#: 4c4ef6fa97ee4c7abf8a1db27e7cc3ca 5e521c3b63d74a43bf05f3f7ad6eaf8c
+#: 7a388fdab1454450970c8ca9ce863e52 9a0161abeb0f4b6abdd1d18c7db2dd5d
+#: adc13da085184aa79f9c18b65183bf0c af95c040b96f428aa07ee067250bf3e4
+#: cogs.ext.queue.SongQueue.get_size cogs.ext.queue.SongQueue.get_songs
+#: cogs.ext.queue.SongQueue.insert cogs.ext.queue.SongQueue.is_empty
+#: cogs.ext.queue.SongQueue.move cogs.ext.queue.SongQueue.pop
+#: cogs.ext.queue.SongQueue.remove of
+msgid "Returns"
+msgstr ""
+
+#: 75545d6c29704576988d81b7647167c4 cogs.ext.queue.SongQueue.pop:7 of
+msgid "The song at position index if it exists, None if not."
+msgstr ""
+
+#: 32f0d038f496489d8b43438da901f252 3fb4179381174c7daa41fd8530b794af
+#: 61e397ad541b4ef1a66c2cee8b066d0c 6f3cb487e0ce49c1b5937071c71c5112
+#: 803f83fee0f144a6804d00e2edad90b5 9792d5da4ca5419aa67a09c5f1d6d9b5
+#: b5dfb383f3a4478692e09e37102ebba6 cogs.ext.queue.SongQueue.get_size
+#: cogs.ext.queue.SongQueue.get_songs cogs.ext.queue.SongQueue.insert
+#: cogs.ext.queue.SongQueue.is_empty cogs.ext.queue.SongQueue.move
+#: cogs.ext.queue.SongQueue.pop cogs.ext.queue.SongQueue.remove
+#: e237ada900ed4219b47b8658816e4890 of
+msgid "Return type"
+msgstr ""
+
+#: 2c6101872e264649b2ec6d3d1bd69bbd cogs.ext.queue.SongQueue.get_size:1
+#: cogs.ext.queue.SongQueue.get_songs:1 db81ccca82d645dcb5905bb7b23db9c6 of
+msgid "Simple getter."
+msgstr ""
+
+#: 555ff11f1e194ed0988073ee8327c610 cogs.ext.queue.SongQueue.get_songs:3 of
+msgid "The actual list of Songs."
+msgstr ""
+
+#: a1bb23c2b9c04b73afcdb20f8f2e7796 cogs.ext.queue.SongQueue.get_size:3 of
+msgid "The length of the list of songs."
+msgstr ""
+
+#: adbeaafa455745c8ac977ac7e2fdd623 cogs.ext.queue.SongQueue.is_empty:1 of
+msgid "Check the length of the list to determine whether the queue is empty."
+msgstr ""
+
+#: cogs.ext.queue.SongQueue.is_empty:3 fddf739b9f8c4bf98cdbbc51be6dddc6 of
+msgid "True if the list is empty, False otherwise."
+msgstr ""
+
+#: 725ecdb6abc64eeea2994a42c7628e24 cogs.ext.queue.SongQueue.clear:1 of
+msgid "Remove all songs from the queue."
+msgstr ""
+
+#: 77e39d3e3e494029be7f8ee2af7a3004 cogs.ext.queue.SongQueue.skip:1 of
+msgid "Pops 'index' songs to skip them."
+msgstr ""
+
+#: c69aeb7f5a314da792566a1c3287d87a cogs.ext.queue.SongQueue.skip:3 of
+msgid "The number of songs to skip."
+msgstr ""
+
+#: 3f79e16c107948669e1ef0a7f156d031 8fe200ea4b3c41d4838328b2be2df99f
+#: cogs.ext.queue.SongQueue.insert cogs.ext.queue.SongQueue.move
+#: cogs.ext.queue.SongQueue.skip e658735cda6f42b69db3d4b7e061e664 of
+msgid "Raises"
+msgstr ""
+
+#: cogs.ext.queue.SongQueue.skip:7 db71ef62b7d548abbfa2798587b96f14 of
+msgid "If the index is out of bounds."
+msgstr ""
+
+#: 82a45504da9b40dcb126bc9fca149a60 cogs.ext.queue.SongQueue.remove:1 of
+msgid "Removes the song at position index."
+msgstr ""
+
+#: 945ebf57acc749629bfe8cead86f8654 cogs.ext.queue.SongQueue.remove:3 of
+msgid "The index of the song to remove."
+msgstr ""
+
+#: cogs.ext.queue.SongQueue.remove:7 ecc28d1e574b490da76190ef718f0d8e of
+msgid "The result of the operation."
+msgstr ""
+
+#: 74d4dc43f61f4a419a5e100ba784b20e cogs.ext.queue.SongQueue.remove:11 of
+msgid ""
+"A message to pass to the user: a reason if an error occured, or the title"
+" of the song if not."
+msgstr ""
+
+#: cogs.ext.queue.SongQueue.insert:1 ea0964b984c142869e513e344da7a858 of
+msgid "Inserts a song at position index."
+msgstr ""
+
+#: 4e8a09a4cfb9447eba76e63d9003ab58 cogs.ext.queue.SongQueue.insert:3 of
+msgid "The song to insert."
+msgstr ""
+
+#: 2b01fb23ad6b43a0a6cacb662e085c2d cogs.ext.queue.SongQueue.insert:7 of
+msgid "The index of the position to insert the song into."
+msgstr ""
+
+#: 13f4aaa213d94381bc78503546b747a7 cogs.ext.queue.SongQueue.insert:11 of
+msgid "If index is out of range."
+msgstr ""
+
+#: 5e4dd47c19a44cbca39edf330eafc418 cogs.ext.queue.SongQueue.insert:14 of
+msgid "A message about the result of the operation."
+msgstr ""
+
+#: 349a3be191ad49e1827789f00aa33133 cogs.ext.queue.SongQueue.move:1 of
+msgid "Moves the song from position index1 to position index2 in the queue."
+msgstr ""
+
+#: 3e38f35907584aea81dc870964293a4e cogs.ext.queue.SongQueue.move:3 of
+msgid "The position of the song to be moved."
+msgstr ""
+
+#: 53401adba9a1413aad8ec960bfef2937 cogs.ext.queue.SongQueue.move:7 of
+msgid "Where to move the song to."
+msgstr ""
+
+#: 3224c17d26514043aba3ba8730e727f0 cogs.ext.queue.SongQueue.move:11 of
+msgid "If any index is out of range."
+msgstr ""
+
+#: cogs.ext.queue.SongQueue.move:14 f583694e4ba54e6496b9cf127e0f20fd of
+msgid "A message about the result of the operation"
+msgstr ""
+
+#: 3287950ba85b41258e8921376e9fe56d cogs.ext.queue.SongQueue.get_song_info:1 of
+msgid "Unused."
+msgstr ""
+
+#: 1a6399d3db384851b134c397d5a5c26c cogs.ext.queue.EmptyQueueError:1 of
+msgid "Bases: :class:`Exception`"
+msgstr ""
+
+#: 49690814d9424a2b975aa02a7b0a70a2 cogs.ext.queue.EmptyQueueError:1 of
+msgid "Raised when attempting an operation on an empty queue"
+msgstr ""
+

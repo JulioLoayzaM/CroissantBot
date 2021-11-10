@@ -1,0 +1,114 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../cogs/playlist.rst:2 9d8349e3984e4db98c58a8fade825e8c
+msgid "Playlist"
+msgstr ""
+
+#: ../../cogs/playlist.rst:6 af6dcb76ef744e4aaa18a364a06c1434
+msgid ""
+"This cog adds the possibility to have as many playlists per user as you "
+"want. It is compatible with the Music cog; see below for commands."
+msgstr ""
+
+#: ../../cogs/playlist.rst:10 014750899e2f4d47866b13be3d662441
+msgid "To enable this cog, set the :envvar:`ENABLE_PLAYLISTS` variable."
+msgstr ""
+
+#: ../../cogs/playlist.rst:13 4aead8bfa8754206b6fd701dde0235f0
+msgid "Requirements"
+msgstr ""
+
+#: ../../cogs/playlist.rst:16 814058b68f5344acadcc8365c2557664
+msgid "Packages"
+msgstr ""
+
+#: ../../cogs/playlist.rst:18 f8649b8315444708a929817ef6196271
+msgid "The :py:mod:`asyncpg` package:"
+msgstr ""
+
+#: ../../cogs/playlist.rst:32 b6a4eb0908704a64a66c46ea85057c6e
+msgid "The :py:mod:`yt-dlp` package:"
+msgstr ""
+
+#: ../../cogs/playlist.rst:47 8bda5525824448d8bcd1244e183129a2
+msgid "env variables"
+msgstr ""
+
+#: ../../cogs/playlist.rst:49 1e2810293030476d91cc695df617d310
+msgid ""
+"The :envvar:`DB_MUSIC` variables. These are used by the "
+":py:class:`MusicDatabaseConnection` class to connect to the database "
+"containing the playlists."
+msgstr ""
+
+#: ../../cogs/playlist.rst:53 fb85c61e64a7435e8ee77564ec9ad4af
+msgid "Creating the database"
+msgstr ""
+
+#: ../../cogs/playlist.rst:55 ebdc646a16a245c783d8ea5008ec6dfa
+msgid ""
+"This cog uses PostgreSQL, a \"powerful, open source object-relational "
+"database system\". To install it, check its `downloads page "
+"<https://www.postgresql.org/download/>`_. If you haven't installed "
+"PostgreSQL before, I recommend using version 13 since it's the one I used"
+" to develop this cog."
+msgstr ""
+
+#: ../../cogs/playlist.rst:59 3e611270a15c4d89b037a92e9ce87225
+msgid ""
+"If you have question regarding its usage, their \"world-renowned\" "
+"documentation is the place to go."
+msgstr ""
+
+#: ../../cogs/playlist.rst:62 31f0a1375ba24b5aa2ee37d215b40396
+msgid "Music cog"
+msgstr ""
+
+#: ../../cogs/playlist.rst:64 1c1fd47861f94cfa83446d8cdfbb7f43
+msgid "As the Favourites cog, this cog has two commands that use the Music cog:"
+msgstr ""
+
+#: ../../cogs/playlist.rst:66 22bc1403cae844f9a87cfe1e292e0b4e
+msgid ""
+"``now`` adds the currently playing song to the default 'favourites' list "
+"or one specified by the user."
+msgstr ""
+
+#: ../../cogs/playlist.rst:68 0cf52f3cd90e465cb8853ee79a4d0fc9
+msgid "``play`` queues a playlist or a specific song from a playlist."
+msgstr ""
+
+#: ../../cogs/playlist.rst:70 f3fc284f2a4e49109fcd424c0691ec6a
+msgid ""
+"It also uses the :py:class:`YTDLSource` class that comes in the Music cog"
+" to generate the :py:class:`Song` to save with ``add``."
+msgstr ""
+
+#: ../../cogs/playlist.rst:73 230b16ddf0114dacaf889d7270910a34
+msgid "yt-dlp"
+msgstr ""
+
+#: ../../cogs/playlist.rst:75 bf180417dc574eb79fe5787e3d8ab744
+msgid ""
+"This package is used to verify the URL passed to this cog is a valid "
+"Youtube URL."
+msgstr ""
+

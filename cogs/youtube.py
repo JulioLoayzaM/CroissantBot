@@ -19,25 +19,22 @@ try:
 except:  # noqa: 722
 	import youtube_dl as yt_dl
 
-from os import getenv
-from dotenv import load_dotenv
 from typing import Dict, Tuple, Union, List, Set
 from discord import Embed
 from discord.ext import commands
 
-load_dotenv()
-
-YT_FILE = getenv('YT_FILE')
-
-# 'CroissantBot' logger
-logger = None
-
 
 class Youtube(commands.Cog):
 
-	def __init__(self, bot: commands.Bot, ydl: yt_dl.YoutubeDL):
+	def __init__(
+		self,
+		bot: commands.Bot,
+		ydl: yt_dl.YoutubeDL,
+		logger: logging.Logger
+	):
 		self.bot = bot
 		self.ydl = ydl
+		self.logger = logger
 
 	def init_streamers(
 		self,
@@ -48,17 +45,18 @@ class Youtube(commands.Cog):
 		become the keys' values, the recipients are added to the values.
 
 		Parameters:
-			- ids: a dict following the template:
+			ids: A dict following the template:
 				{
 					'streamer_name': {
 						'nickname': "streamer_nickname",
 						'url': "streamer_channel",
 					}
 				}
+
 		Returns:
-			- a dict following the same template as above, but adding a
-				'recipients' field, which has a list of all discord users
-				to notify about that channel.
+			A dict following the same template as above, but adding a
+			'recipients' field, which has a list of all discord users
+			to notify about that channel.
 		"""
 
 		result: Dict[str, Dict[str, Union[str, List[str]]]] = dict()
@@ -85,9 +83,10 @@ class Youtube(commands.Cog):
 		Initializes the streamers' status to False/offline.
 
 		Parameters:
-			- streamers: the dict returned by init_streamers.
+			streamers: The dict returned by init_streamers.
+
 		Returns:
-			- a dict following the template:
+			A dict following the template:
 				{
 					'youtube_user_1': False,
 					'youtube_user_2': False
@@ -112,12 +111,15 @@ class Youtube(commands.Cog):
 		if the streamer just got online.
 
 		Parameters:
-			- prev_status: the last known status of the streamers as bool.
-			- streamers: the streamers to check and their info, including which users to notify.
+			prev_status: The last known status of the streamers as bool.
+			streamers: The streamers to check and their info, including which users to notify.
+
 		Returns:
-			- messages: the messages to be sent, the keys are the discord users.
-			- prev_status: updated streamers' status.
+			messages: The messages to be sent, the keys are the discord users.
+			prev_status: Updated streamers' status.
 		"""
+
+		logger = self.logger
 
 		# messages:
 		# {
@@ -217,8 +219,6 @@ class Youtube(commands.Cog):
 
 
 def setup(bot):
-	global logger
-	logger = logging.getLogger("CroissantBot")
 
 	ytdl_options = {
 		'nooverwrites': True,
@@ -235,4 +235,6 @@ def setup(bot):
 
 	ydl = yt_dl.YoutubeDL(ytdl_options)
 
-	bot.add_cog(Youtube(bot, ydl))
+	logger = logging.getLogger("CroissantBot")
+
+	bot.add_cog(Youtube(bot, ydl, logger))
