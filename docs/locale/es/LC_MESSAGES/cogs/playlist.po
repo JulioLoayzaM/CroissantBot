@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CroissantBot \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"POT-Creation-Date: 2021-11-09 22:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,52 +63,168 @@ msgstr ""
 msgid "Creating the database"
 msgstr ""
 
-#: ../../cogs/playlist.rst:55 ebdc646a16a245c783d8ea5008ec6dfa
+#: ../../cogs/playlist.rst:55 71e3022d2c1d45d28c3356e312569f7a
 msgid ""
-"This cog uses PostgreSQL, a \"powerful, open source object-relational "
-"database system\". To install it, check its `downloads page "
+"This cog uses `PostgreSQL <https://www.postgresql.org/>`_, a \"powerful, "
+"open source object-relational database system\". Its documentation is "
+"quite detailed, don't hesitate to check it out when in doubt."
+msgstr ""
+
+#: ../../cogs/playlist.rst:58 42b0d82305c34c258a143857c94053f8
+msgid ""
+"A quick guide on setting up PostgreSQL can be found at "
+"`<https://pimylifeup.com/raspberry-pi-postgresql/>`_."
+msgstr ""
+
+#: ../../cogs/playlist.rst:60 2a9f692b4a9440bcb3194c7b981b4713
+msgid "For this cog, the steps to follow are:"
+msgstr ""
+
+#: ../../cogs/playlist.rst:62 ebdc646a16a245c783d8ea5008ec6dfa
+msgid ""
+"Install PostgreSQL: check its `downloads page "
 "<https://www.postgresql.org/download/>`_. If you haven't installed "
 "PostgreSQL before, I recommend using version 13 since it's the one I used"
 " to develop this cog."
 msgstr ""
 
-#: ../../cogs/playlist.rst:59 3e611270a15c4d89b037a92e9ce87225
-msgid ""
-"If you have question regarding its usage, their \"world-renowned\" "
-"documentation is the place to go."
+#: ../../cogs/playlist.rst:65 ffb17c2cb59d4c51984d9d83acec5eee
+msgid "Switch to user ``postgres`` with:"
 msgstr ""
 
-#: ../../cogs/playlist.rst:62 31f0a1375ba24b5aa2ee37d215b40396
+#: ../../cogs/playlist.rst:71 2a828039e5d64f9194aa075a0c3ebb14
+msgid "Create a new role. You can use any username you want. Use the command:"
+msgstr ""
+
+#: ../../cogs/playlist.rst:77 6531eb11f45e411ea036e864444098f1
+msgid ""
+"This creates a role named username. It requires creating a password "
+"(``-P``). The role cannot create databases (``-D``), roles (``-R``) and "
+"won't be a superuser (``-S``)."
+msgstr ""
+
+#: ../../cogs/playlist.rst:80 1050721d194a4d1abd3a51fe787cd38c
+msgid ""
+"Launch the CLI with the ``psql`` command (while still connected as user "
+"``postgres``)."
+msgstr ""
+
+#: ../../cogs/playlist.rst:82 8a772edb6201459faab8694e396a68ff
+msgid ""
+"Create the database. You can use any name (except ``songs``, "
+"``playlists`` or ``songs_in_playlists`` to avoid any confusion). You can "
+"name it ``music`` for example. Use the command:"
+msgstr ""
+
+#: ../../cogs/playlist.rst:89 ee5669b998ed4769b377a918ead0b637
+msgid "Where ``username`` is the name of the user created in step 3."
+msgstr ""
+
+#: ../../cogs/playlist.rst:91 9aa3e08c36fa41a0afe98381288d3359
+msgid ""
+"You can now exit the CLI with ``\\q`` and return to your usual user with "
+"``exit``."
+msgstr ""
+
+#: ../../cogs/playlist.rst:93 aaa39cdb3a6e4f91b2884c50b8e00669
+msgid "Set the ``.env`` variables starting with :envvar:`DB_MUSIC`:"
+msgstr ""
+
+#: ../../cogs/playlist.rst:95 cade3bd86a394c57b86eafb01bdafb86
+msgid ":envvar:`HOST` should be ``localhost``."
+msgstr ""
+
+#: ../../cogs/playlist.rst:96 eb41e66f708f4b52985993c5646d9d03
+msgid ":envvar:`USER` is the name of the user you created in step 3."
+msgstr ""
+
+#: ../../cogs/playlist.rst:97 eda6ff490779496593d0c6b266dda0b1
+msgid ":envvar:`PASSWORD` is that user's password."
+msgstr ""
+
+#: ../../cogs/playlist.rst:98 598844873df84cd58ed25c2856650b4a
+msgid ":envvar:`DATABASE` is the name of the database (``music`` in the example)."
+msgstr ""
+
+#: ../../cogs/playlist.rst:99 d6be7d6a7f5249f29deeaf37930d4656
+msgid ""
+":envvar:`PORT` is the port used to connect to the database. By default, "
+"its 5432."
+msgstr ""
+
+#: ../../cogs/playlist.rst:101 2e540ca081224d21ab07c5035acc5979
+msgid ""
+"Once the variables are set, use the ``db_setup.py`` script to create the "
+"tables needed by the cog:"
+msgstr ""
+
+#: ../../cogs/playlist.rst:115 4662ca8eba3d4f9399022e9a6682c9a4
+msgid "That should be it. :)"
+msgstr ""
+
+#: ../../cogs/playlist.rst:119 5e3ce6bf5b354b9eb310ec0b33b89bdd
+msgid ""
+"If you turn off or reset the computer in which the bot is running, you "
+"may need to restart the database server. Use the command ``sudo service "
+"postgresql start`` to do so."
+msgstr ""
+
+#: ../../cogs/playlist.rst:123 31f0a1375ba24b5aa2ee37d215b40396
 msgid "Music cog"
 msgstr ""
 
-#: ../../cogs/playlist.rst:64 1c1fd47861f94cfa83446d8cdfbb7f43
+#: ../../cogs/playlist.rst:125 1c1fd47861f94cfa83446d8cdfbb7f43
 msgid "As the Favourites cog, this cog has two commands that use the Music cog:"
 msgstr ""
 
-#: ../../cogs/playlist.rst:66 22bc1403cae844f9a87cfe1e292e0b4e
+#: ../../cogs/playlist.rst:127 22bc1403cae844f9a87cfe1e292e0b4e
 msgid ""
 "``now`` adds the currently playing song to the default 'favourites' list "
 "or one specified by the user."
 msgstr ""
 
-#: ../../cogs/playlist.rst:68 0cf52f3cd90e465cb8853ee79a4d0fc9
+#: ../../cogs/playlist.rst:129 0cf52f3cd90e465cb8853ee79a4d0fc9
 msgid "``play`` queues a playlist or a specific song from a playlist."
 msgstr ""
 
-#: ../../cogs/playlist.rst:70 f3fc284f2a4e49109fcd424c0691ec6a
+#: ../../cogs/playlist.rst:131 f3fc284f2a4e49109fcd424c0691ec6a
 msgid ""
 "It also uses the :py:class:`YTDLSource` class that comes in the Music cog"
-" to generate the :py:class:`Song` to save with ``add``."
+" to generate the :py:class:`Song` to save with ``add``. This **does not**"
+" require enabling the Music cog in order to work."
 msgstr ""
 
-#: ../../cogs/playlist.rst:73 230b16ddf0114dacaf889d7270910a34
+#: ../../cogs/playlist.rst:135 230b16ddf0114dacaf889d7270910a34
 msgid "yt-dlp"
 msgstr ""
 
-#: ../../cogs/playlist.rst:75 bf180417dc574eb79fe5787e3d8ab744
+#: ../../cogs/playlist.rst:137 bf180417dc574eb79fe5787e3d8ab744
 msgid ""
 "This package is used to verify the URL passed to this cog is a valid "
 "Youtube URL."
 msgstr ""
+
+#~ msgid ""
+#~ "This cog uses PostgreSQL, a \"powerful,"
+#~ " open source object-relational database "
+#~ "system\". To install it, check its "
+#~ "`downloads page <https://www.postgresql.org/download/>`_."
+#~ " If you haven't installed PostgreSQL "
+#~ "before, I recommend using version 13 "
+#~ "since it's the one I used to "
+#~ "develop this cog."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you have question regarding its "
+#~ "usage, their \"world-renowned\" documentation"
+#~ " is the place to go."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "It also uses the :py:class:`YTDLSource` "
+#~ "class that comes in the Music cog"
+#~ " to generate the :py:class:`Song` to "
+#~ "save with ``add``."
+#~ msgstr ""
 
