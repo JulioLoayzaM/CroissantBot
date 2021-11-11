@@ -541,7 +541,7 @@ async def check_token() -> bool:
 		}
 
 		async with SESSION.post(token_url, data=body) as token_response:
-			token_data = token_response.json()
+			token_data: dict = await token_response.json()
 
 		new_token = token_data.get('access_token', None)
 
