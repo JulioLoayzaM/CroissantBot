@@ -680,7 +680,7 @@ async def check_twitch_before():
 
 @bot.command(
 	name="add_streamer",
-	help="help",
+	help="Add a streamer to your Twitch check list",
 	aliases=["ast"]
 )
 async def add_streamer(
