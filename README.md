@@ -44,11 +44,15 @@ This repo aims to provide a template to help anyone\* create their own bot by ju
 
 The development of `discord.py` [ended a few months ago](https://gist.github.com/Rapptz/4a2f62751b9600a31a0d3c78100287f1), due in part to the new `Message.content` privileged intent.
 
-According to [this Discord dev post](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Access-Deprecation-for-Verified-Bots), this new privileged intent (a permission to read messages, manually granted by Discord) should not be a problem for "Unverified bots in fewer than ~~100~~ 75 servers".
+And then, [it resumed](https://gist.github.com/Rapptz/c4324f17a80c94776832430007ad40e6)!
 
-So unless you plan to use your bot in more than 75 servers, you should be fine. That is, until a breaking change is introduced in the API, which won't be reflected in `discord.py`.
+I'll just say I am happy about Danny's return and thankful for the effort he and all the `discord.py` contributors made.
+Simply put, it motivated me to continue developping this bot, even though I never intended to completely abandon it in the first place.
 
-I haven't started to look for alternatives to migrate to: that may take some time and will depend on whether other people use this bot and my own usage.
+I think I'll mostly improve the existing code and upgrade it when possible to `discord.py` v2 so that my bot will continue working.
+So far, it seems that the current code still does the job, although the transition to a new version will be necessary before May 1st,
+as Discord is [shutting down v7 of their API](https://github.com/discord/discord-api-docs/discussions/4510),
+which is what `discord.py`'s stable version (1.7.3) uses.
 
 ## Features
 
