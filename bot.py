@@ -1,11 +1,16 @@
-# bot.py - main file
-#
-# Runs the bot:
-#	- sets up the loggers (CroissantBot, discord)
-#	- loads the (selected) cogs
-#	- if enabled, starts the looped functions
-#	- starts running the bot.
-# Includes some commands: exit, ping, test and version.
+#!/usr/bin/env python
+# croissantbot/bot.py
+
+"""Main script.
+
+Runs the bot:
+	- sets up the loggers (CroissantBot, discord)
+	- loads the (selected) cogs
+	- if enabled, starts the looped functions
+	- starts running the bot.
+
+Includes some commands: exit, ping, test and version.
+"""
 
 
 # Copyright (C) 2021 JulioLoayzaM
@@ -24,16 +29,16 @@ import logging
 import os
 import random
 
-from customformatter import CustomFormatter
-
 import discord
 from discord.ext import commands
 from discord.ext.tasks import loop
 
-from logging.handlers import TimedRotatingFileHandler
 from dotenv import load_dotenv, set_key
+from logging.handlers import TimedRotatingFileHandler
 from packaging import version
 from typing import Set
+
+from customformatter import CustomFormatter
 
 
 # Colours for formatting console text
@@ -51,7 +56,6 @@ PURPLE    = '\033[38;5;165m'
 VOICE = f"{BLUE}[voice]{ENDC}"
 
 if __name__ == '__main__':
-	# .env variables
 	load_dotenv()
 
 	# Bot token
