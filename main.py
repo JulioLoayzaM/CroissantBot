@@ -5,11 +5,9 @@
 
 Runs the bot:
 	- sets up the loggers (CroissantBot, discord)
-	- loads the (selected) cogs
-	- if enabled, starts the looped functions
+	- loads the base cog and any enabled cog
+	- if enabled, starts the looping check functions
 	- starts running the bot.
-
-Includes some commands: exit, ping, test and version.
 """
 
 import asyncio
