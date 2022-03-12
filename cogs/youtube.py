@@ -1,10 +1,6 @@
-# youtube.py
-#
-# Cog to check if a youtube streamer started streaming and send a DM accordingly.
-# Uses streamlink to check for active streams.
+# CroissantBot/cogs/youtube.py
 
-
-# Copyright (C) 2021 JulioLoayzaM
+# Copyright (C) 2021-present JulioLoayzaM
 #
 # You may use, distribute and modify this code under
 # the terms of the MIT license.
@@ -16,7 +12,7 @@ import logging
 import streamlink
 try:
 	import yt_dlp as yt_dl
-except:  # noqa: 722
+except Exception:
 	import youtube_dl as yt_dl
 
 from typing import Dict, Tuple, Union, List, Set
@@ -25,16 +21,20 @@ from discord.ext import commands
 
 
 class Youtube(commands.Cog):
+	"""Cog to check the status of youtube livestreamers.
+
+	Check if a youtube streamer started streaming and send a DM accordingly.
+	Uses streamlink to check for active streams.
+	"""
 
 	def __init__(
 		self,
 		bot: commands.Bot,
-		ydl: yt_dl.YoutubeDL,
-		logger: logging.Logger
+		ydl: yt_dl.YoutubeDL
 	):
 		self.bot = bot
 		self.ydl = ydl
-		self.logger = logger
+		self.logger = bot.logger
 
 	def init_streamers(
 		self,
@@ -235,6 +235,4 @@ def setup(bot):
 
 	ydl = yt_dl.YoutubeDL(ytdl_options)
 
-	logger = logging.getLogger("CroissantBot")
-
-	bot.add_cog(Youtube(bot, ydl, logger))
+	bot.add_cog(Youtube(bot, ydl))
