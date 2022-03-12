@@ -1,9 +1,6 @@
-# misc.py
-#
-# Cog for miscellaneous commands, such as kill or croissant.
+# CroissantBot/cogs/misc.py
 
-
-# Copyright (C) 2021 JulioLoayzaM
+# Copyright (C) 2021-present JulioLoayzaM
 #
 # You may use, distribute and modify this code under
 # the terms of the MIT license.
@@ -14,69 +11,34 @@
 import aiofiles
 import random
 import json
-import logging
 import os
 
 import discord
 from discord.ext import commands
 
-from dotenv import load_dotenv
 from typing import Dict
 
 
 class Misc(commands.Cog):
+	"""Cog for miscellaneous commands.
+	"""
 
 	def __init__(
 		self,
 		bot: commands.Bot,
-		logger: logging.Logger,
 		messages_file: str,
 		count_file: str,
-		gif_path: str,
-		kill_count: Dict[str, Dict[str, Dict[str, int]]],
-		suic_count: Dict[str, Dict[str, Dict[str, int]]]
+		gif_path: str
 	):
-		self.bot = bot
-		self.logger = logger
+		# Bot attributes
+		self.bot    = bot
+		self.logger = bot.logger
+		# Cog attributes
 		self.messages_file = messages_file
-		self.count_file = count_file
-		self.gif_path = gif_path
-		self.kcount = kill_count
-		self.scount = suic_count
-
-	@commands.command(
-		name="add",
-		help="Adds two integers"
-	)
-	async def add_two(self, ctx: commands.Context, num1: int, num2: int):
-		"""
-		Adds two integers, with some easter eggs.
-		Simple example of Converters: they cast num1/num2 to int
-		and throw an error if unsuccessful.
-
-		Parameters:
-			num1: An int to add.
-			num2: Idem.
-		"""
-		if (num1 == 2) and (num2 == 2):
-			r = random.randint(1, 3)
-			if r == 1:
-				await ctx.send(":fish:")
-			elif r == 2:
-				await ctx.send("5")
-			else:
-				await ctx.send("4")
-		else:
-			result = num1 + num2
-			if result == 42:
-				await ctx.send("42, the answer to the ultimate question of life, the universe, and everything")  # noqa: 501
-			else:
-				await ctx.send(result)
-
-	@add_two.error
-	async def add_two_error(self, ctx: commands.Context, error):
-		if isinstance(error, commands.BadArgument):
-			await ctx.send("`add` takes two integers as arguments.")
+		self.count_file    = count_file
+		self.gif_path      = gif_path
+		self.kcount: Dict[str, Dict[str, Dict[str, int]]] = dict()
+		self.scount: Dict[str, Dict[str, Dict[str, int]]] = dict()
 
 	@commands.command(
 		name="poggers",
@@ -150,10 +112,10 @@ class Misc(commands.Cog):
 				await ctx.send("That user is not in this server.")
 
 			else:
-				killer: str = str(ctx.author.id)
-				victim: str = str(member.id)
+				killer = str(ctx.author.id)
+				victim = str(member.id)
 
-				gid: str = str(ctx.guild.id)
+				gid = str(ctx.guild.id)
 
 				# If they are the same, update suicide count
 				if killer == victim:
@@ -199,8 +161,8 @@ class Misc(commands.Cog):
 
 						# If kill_count is empty we load the json copy, which may be empty as well
 						if not kill_count:
-							async with aiofiles.open(KILL_COUNT_FILE, 'r') as f:
-								content = await f.read()
+							async with aiofiles.open(KILL_COUNT_FILE, 'r') as file:
+								content = await file.read()
 							if content:
 								kill_count = json.loads(content)
 
@@ -225,8 +187,10 @@ class Misc(commands.Cog):
 								killer_count[victim] += 1
 
 						# Save the new count to the file
-						with open(KILL_COUNT_FILE, 'w') as f:
-							json.dump(kill_count, f)
+						dump = json.dumps(kill_count)
+						logger.debug(dump)
+						async with aiofiles.open(KILL_COUNT_FILE, 'w') as file:
+							await file.write(dump)
 
 					except IOError as ie:
 						logger.error("Error while updating count.")
@@ -319,10 +283,6 @@ class Misc(commands.Cog):
 
 def setup(bot):
 
-	load_dotenv()
-
-	logger = logging.getLogger("CroissantBot")
-
 	# kill - phrases text file
 	KILL_MESSAGES_FILE = os.getenv("KILL_PATH")
 	# kill - count json file
@@ -330,19 +290,11 @@ def setup(bot):
 	# croissant.gif path
 	CROISSANT_PATH     = os.getenv("CROISSANT_PATH")
 
-	# kill - kill count
-	kill_count = dict()
-	# kill - suicide count
-	suicide_count = dict()
-
 	bot.add_cog(
 		Misc(
 			bot,
-			logger,
 			KILL_MESSAGES_FILE,
 			KILL_COUNT_FILE,
-			CROISSANT_PATH,
-			kill_count,
-			suicide_count
+			CROISSANT_PATH
 		)
 	)
