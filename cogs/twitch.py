@@ -1,10 +1,6 @@
-# twitch.py
-#
-# Cog to check if a streamer just started streaming and send a DM accordingly.
-# Uses the requests library and Twitch's API to get the information.
+# CroissantBot/cogs/twitch.py
 
-
-# Copyright (C) 2021 JulioLoayzaM
+# Copyright (C) 2021-present JulioLoayzaM
 #
 # You may use, distribute and modify this code under
 # the terms of the MIT license.
@@ -12,29 +8,38 @@
 # See the LICENSE file for more details.
 
 
+import aiofiles
 import aiohttp
-import logging
+import json
 
 from os import getenv
 from typing import Dict, Tuple, List, Set
+
+import discord
 from discord import Embed
 from discord.ext import commands
-from dotenv import load_dotenv
 
 
 class Twitch(commands.Cog):
+	"""Cog to check the status of twitch livestreamers.
+
+	Check if a streamer just started streaming and send a DM accordingly.
+	Uses the requests library and Twitch's API to get the information.
+	"""
 
 	def __init__(
 		self,
 		bot: commands.Bot,
-		logger: logging.Logger,
 		endpoint: str,
 		client_id: str
 	):
-		self.bot = bot
-		self.logger = logger
+		# Bot attributes
+		self.bot     = bot
+		self.logger  = bot.logger
+		self.session = bot._session
+		# Cog attributes
 		self.endpoint = endpoint
-		self.cid = client_id
+		self.cid      = client_id
 
 	def init_streamers(self, ids: Dict[str, List[str]]) -> Dict[str, Set[str]]:
 		"""
@@ -270,15 +275,142 @@ class Twitch(commands.Cog):
 		# This should be enough verification that the user exists.
 		return True
 
+	@commands.command(
+		name="add_streamer",
+		help="Add a streamer to your Twitch check list",
+		aliases=["add"]
+	)
+	async def add_streamer(
+		self,
+		ctx: commands.Context,
+		streamer: str,
+		user: discord.Member = None
+	):
+		"""
+		Adds a streamer to a user's check list.
+		"""
+
+		# supress the embed generate by a URL
+		await ctx.message.edit(suppress=True)
+
+		logger = self.logger
+		TW_STREAMERS = self.bot._tw_streamers
+		TW_PREV_STATUS = self.bot._tw_prev_status
+		TW_FILE = self.bot._tw_file
+
+		if 'TWITCH' not in self.bot.enabled_cogs:
+			em = discord.Embed(
+				description="The Twitch extension is not enabled.",
+				colour=discord.Colour.red()
+			)
+			await ctx.send(embed=em)
+			return
+
+		if user is None:
+			user: discord.Member = ctx.author
+		elif user not in ctx.guild.members:
+			em = discord.Embed(
+				description="That user doesn't exist or is not in this server.",
+				colour=discord.Colour.red()
+			)
+			await ctx.send(embed=em)
+			return
+
+		uid = str(user.id)
+
+		# A simple test to check whether the string passed is a URL
+		# or just the name of the streamer.
+		if streamer.find('/'):
+			streamer = streamer.split('/')[-1]
+
+		twitch = self.bot.get_cog('Twitch')
+		if twitch is None:
+			em = discord.Embed(
+				description="An error occurred, please try again.",
+				colour=discord.Colour.red()
+			)
+			await ctx.send(embed=em)
+			logger.error("Can't use Twitch cog.")
+			logger.debug("TW_ENABLE flag checked, so the cog should be usable.")
+			return
+
+		user_exists: bool = await twitch.user_exists(
+			streamer, self.bot._tw_token, self.session
+		)
+
+		if user_exists:
+			# Add the (streamer, user) couple to TW_STREAMERS.
+			if streamer in TW_STREAMERS:
+				users: Set[str] = TW_STREAMERS.get(streamer)
+				# If the streamer was already in the user's list, return.
+				if uid in users:
+					em = discord.Embed(
+						description=f"{streamer} is already in your list!",
+						colour=discord.Colour.green()
+					)
+					await ctx.send(embed=em)
+					return
+				else:
+					users.add(uid)
+			else:
+				TW_STREAMERS[streamer] = {uid}
+
+			# Then add the streamer to TW_PREV_STATUS.
+			if streamer not in TW_PREV_STATUS:
+				TW_PREV_STATUS[streamer] = False
+
+			# And finally, add it to the file.
+			try:
+				async with aiofiles.open(TW_FILE, 'r') as file:
+					content = await file.read()
+
+				ids = json.loads(content) if content else dict()
+
+				if uid in ids:
+					streamers = ids.get(uid)
+					streamers.append(streamer)
+				else:
+					ids[uid] = [streamer]
+
+				dump = json.dumps(ids)
+				async with aiofiles.open(TW_FILE, 'w') as file:
+					await file.write(dump)
+
+			except Exception as error:
+				logger.error("Couldn't add streamer to TW_FILE.")
+				logger.debug(f"Unexpected exception:\n{error}")
+				em = discord.Embed(
+					description="""
+						Couldn't find that user, please check you've got the
+						right username or URL.
+					""",
+					colour=discord.Colour.gold()
+				)
+				await ctx.send(embed=em)
+				return
+
+			em = discord.Embed(
+				description=f"""
+					Added streamer {streamer} to your list!
+				""",
+				colour=discord.Colour.green()
+			)
+			await ctx.send(embed=em)
+
+		else:
+			em = discord.Embed(
+				description="""
+					Couldn't find that user, please check you've got the
+					right username or URL.
+				""",
+				colour=discord.Colour.gold()
+			)
+			await ctx.send(embed=em)
+
 
 def setup(bot):
 
-	load_dotenv()
-
-	logger = logging.getLogger("CroissantBot")
-
 	api_endpoint = "https://api.twitch.tv/helix/streams?user_login="
-
 	client_id = getenv('TW_CLIENT_ID')
 
-	bot.add_cog(Twitch(bot, logger, api_endpoint, client_id))
+	bot.add_cog(Twitch(bot, api_endpoint, client_id))
