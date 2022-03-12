@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # croissantbot/config.py
 
 """A module to configure CroissantBot.
@@ -131,7 +132,7 @@ def set_token(dotenv_path: Path):
     token = input("Bot token: ")
 
     if token:
-        set_key(dotenv_path, 'DISCORD_TOKEN', token)
+        set_key(dotenv_path, 'BOT_TOKEN', token)
         print("Token set")
     else:
         print("No token given, pass")
