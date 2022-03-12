@@ -1,11 +1,6 @@
-# meme.py
-#
-# Cog to get the 'hottest' posts from a subreddit and download
-# the first (meme) image post to send it.
-# Keeps track of downloaded memes per server to avoid sending duplicates.
+# CroissantBot/cogs/meme.py
 
-
-# Copyright (C) 2021 JulioLoayzaM
+# Copyright (C) 2021-present JulioLoayzaM
 #
 # You may use, distribute and modify this code under
 # the terms of the MIT license.
@@ -14,33 +9,43 @@
 
 
 import aiofiles
-import aiohttp
 import asyncpraw
-import logging
 import discord
 import os
 
-from dotenv import load_dotenv, set_key
+from dotenv import set_key
 from typing import Union
 
 from discord.ext import commands
 
 
 class Meme(commands.Cog):
+	"""Cog to send memes.
+
+	Get memes from the 'hot' section of a subreddit.
+	Keeps track of sent memes per server to avoid sending duplicates.
+	"""
 
 	def __init__(
 		self,
 		bot: commands.Bot,
-		logger: logging.Logger,
-		session: aiohttp.ClientSession,
 		reddit: asyncpraw.Reddit,
 		meme_dir: str,
 		download: bool,
 		item_limit: int
 	):
+		"""Init for Meme cog.
+
+		For compatibility reasons (read: not wanting to change too much code),
+		some bot attributes are also kept as cog attributes.
+		The rest are attributes only required by this cog, so no need to make them
+		accessible to all cogs.
+		"""
+		# Bot attributes
 		self.bot = bot
-		self.logger = logger
-		self.session = session
+		self.logger = bot.logger
+		self.session = bot._session
+		# Cog attributes
 		self.reddit = reddit
 		self.dir = meme_dir
 		self.download = download
@@ -48,18 +53,17 @@ class Meme(commands.Cog):
 
 	async def close_session(self) -> bool:
 		"""
-		Closes the aiohttp.session and the Reddit instance, called on bot exit.
+		Closes the Reddit instance, called on bot exit.
 
 		Returns:
-			True if the sessions were closed, False otherwise.
+			True if the session was closed, False otherwise.
 		"""
 
 		try:
-			await self.session.close()
 			await self.reddit.close()
 			return True
 		except Exception as error:
-			self.logger.error("Couldn't close a Meme cog session.")
+			self.logger.error("Couldn't close the Reddit session.")
 			self.logger.debug(error)
 			return False
 
@@ -291,13 +295,6 @@ def setup(bot):
 	WARNING   = '\033[93m'
 	ENDC      = '\033[0m'
 
-	load_dotenv()
-
-	logger = logging.getLogger("CroissantBot")
-
-	session = aiohttp.ClientSession()
-	logger.debug(f"{WARNING}Created:{ENDC} Meme aiohttp.ClientSession.")
-
 	CLIENT_ID     = os.getenv("REDDIT_CLIENT_ID")
 	CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
 	USERNAME      = os.getenv("REDDIT_USERNAME")
@@ -313,26 +310,24 @@ def setup(bot):
 	)
 
 	# Directory containing the lists (and the memes if download is enabled).
-	# "./memes" by default - "." is the directory contaning bot.py.
+	# "memes" by default.
 	meme_dir = os.getenv("MEME_DIR")
 
 	# Whether to download the memes or not, False by default.
 	download = bool(os.getenv('MEME_DOWNLOAD', False))
 	status = "ON" if download else "OFF"
-	logger.debug(f"{WARNING}Meme download:{ENDC} {status}.")
+	bot.logger.debug(f"{WARNING}Meme download:{ENDC} {status}.")
 
 	# The number of memes the bot will fetch when called.
 	# AFAIK, we can only set how many items to fetch, meaning each time
 	# the function is called with the same sub we may get the same exact list,
 	# just to get the next meme. If the command is used often, the limit
 	# should be increased or a better way to fetch memes implemented.
-	item_limit = int(os.getenv('MEME_ITEM_LIMIT', 10))
+	item_limit = int(os.getenv('MEME_ITEM_LIMIT'))
 
 	bot.add_cog(
 		Meme(
 			bot,
-			logger,
-			session,
 			reddit,
 			meme_dir,
 			download,

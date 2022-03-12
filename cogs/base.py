@@ -70,16 +70,13 @@ class Base(commands.Cog):
                 else:
                     logger.debug(f"{WARNING}The database was already closed.{ENDC}")
 
-        # Close the meme aiohttp.ClientSession.
-        if bot.cogs.get('MEME', False):
-            res = False
+        # Close the reddit session.
+        if 'MEME' in bot.enabled_cogs:
             meme = bot.get_cog('Meme')
             if meme is not None:
-                res = await meme.close_session()
-                if res:
+                if await meme.close_session():
                     logger.debug(
-                        f"{WARNING}Closed:{ENDC} Meme aiohttp.ClientSession"
-                        " and Reddit instance."
+                        f"{WARNING}Closed:{ENDC} Reddit instance."
                     )
             else:
                 logger.error("Couldn't get cog 'Meme'.")
