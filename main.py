@@ -27,8 +27,8 @@ from customformatter import CustomFormatter
 
 GREEN     = '\033[92m'
 WARNING   = '\033[93m'
+PURPLE    = '\033[95m'
 CYAN      = '\033[96m'
-PURPLE    = '\033[38;5;165m'
 ENDC      = '\033[0m'
 
 

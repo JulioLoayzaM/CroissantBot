@@ -24,7 +24,7 @@ from dotenv import set_key
 
 # Colours for formatting console text
 GREEN     = '\033[92m'
-PURPLE    = '\033[38;5;165m'
+PURPLE    = '\033[95m'
 ENDC      = '\033[0m'
 
 
