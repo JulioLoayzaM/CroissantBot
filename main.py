@@ -157,7 +157,7 @@ def load_cogs(bot: CroissantBot):
 		bot.load_extension("cogs.twitch")
 		twitch_initiated = loop.run_until_complete(bot.init_twitch())
 		if twitch_initiated:
-			check_twitch.start()
+			bot._tw_task = bot.loop.create_task(bot.check_twitch())
 			bot.enabled_cogs.append('TWITCH')
 		else:
 			bot.logger.warning(f"Can't enable {PURPLE}twitch{ENDC} cog, unloading extension.")
@@ -165,10 +165,14 @@ def load_cogs(bot: CroissantBot):
 
 	if bool(os.getenv('ENABLE_YT', False)):
 		bot.load_extension("cogs.youtube")
-		bot.init_youtube()
-		check_youtube.start()
-		bot.enabled_cogs.append('YOUTUBE')
-		setup_streamlink_logger()
+		youtube_initiated = loop.run_until_complete(bot.init_youtube())
+		if youtube_initiated:
+			bot._yt_task = bot.loop.create_task(bot.check_youtube())
+			setup_streamlink_logger()
+			bot.enabled_cogs.append('YOUTUBE')
+		else:
+			bot.logger.warning(f"Can't enable {PURPLE}youtube{ENDC} cog, unloading extension.")
+			bot.unload_extension('cogs.youtube')
 
 
 def main(loop: asyncio.AbstractEventLoop):
