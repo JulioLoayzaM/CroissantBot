@@ -130,27 +130,30 @@ def setup_streamlink_logger():
 def load_cogs(bot: CroissantBot):
 	""""""
 
-	if bool(os.getenv('JSONFAV_ENABLED', False)):
+	bot.load_extension('cogs.base')
+	bot.enabled_cogs.append('BASE')
+
+	if bool(os.getenv('ENABLE_JSONFAV', False)):
 		bot.load_extension("cogs.favourites")
 		bot.enabled_cogs.append('FAVS')
 
-	if bool(os.getenv('MEME_ENABLED', False)):
+	if bool(os.getenv('ENABLE_MEME', False)):
 		bot.load_extension("cogs.meme")
 		bot.enabled_cogs.append('MEME')
 
-	if bool(os.getenv('MISC_ENABLED', False)):
+	if bool(os.getenv('ENABLE_MISC', False)):
 		bot.load_extension("cogs.misc")
 		bot.enabled_cogs.append('MISC')
 
-	if bool(os.getenv('MUSIC_ENABLED', False)):
+	if bool(os.getenv('ENABLE_MUSIC', False)):
 		bot.load_extension("cogs.music")
 		bot.enabled_cogs.append('MUSIC')
 
-	if bool(os.getenv('PLAYLIST_ENABLED', False)):
+	if bool(os.getenv('ENABLE_PLAYLIST', False)):
 		bot.load_extension("cogs.playlist")
 		bot.enabled_cogs.append('PLAYLIST')
 
-	if bool(os.getenv('TWITCH_ENABLED', False)):
+	if bool(os.getenv('ENABLE_TW', False)):
 		bot.load_extension("cogs.twitch")
 		twitch_initiated = loop.run_until_complete(bot.init_twitch())
 		if twitch_initiated:
@@ -160,7 +163,7 @@ def load_cogs(bot: CroissantBot):
 			bot.logger.warning(f"Can't enable {PURPLE}twitch{ENDC} cog, unloading extension.")
 			bot.unload_extension('cogs.twitch')
 
-	if bool(os.getenv('YOUTUBE_ENABLED', False)):
+	if bool(os.getenv('ENABLE_YT', False)):
 		bot.load_extension("cogs.youtube")
 		bot.init_youtube()
 		check_youtube.start()
@@ -177,7 +180,7 @@ def main(loop: asyncio.AbstractEventLoop):
 	- Starts running the bot.
 	"""
 
-	load_dotenv('.env')
+	load_dotenv('.env', override=True)
 
 	intents = discord.Intents.default()
 	intents.members = True  # retrieve a guild's member list
