@@ -1,25 +1,13 @@
-#!/usr/bin/env python
 # croissantbot/bot.py
 
-"""Main script.
+"""Extension of commands.bot.
 
-Runs the bot:
-	- sets up the loggers (CroissantBot, discord)
-	- loads the (selected) cogs
-	- if enabled, starts the looped functions
-	- starts running the bot.
 
-Includes some commands: exit, ping, test and version.
+You may use, distribute and modify this code under
+the terms of the MIT license.
+
+See the LICENSE file for more details.
 """
-
-
-# Copyright (C) 2021 JulioLoayzaM
-#
-# You may use, distribute and modify this code under
-# the terms of the MIT license.
-#
-# See the LICENSE file for more details.
-
 
 import aiofiles
 import aiohttp
@@ -27,33 +15,17 @@ import asyncio
 import json
 import logging
 import os
-import random
 
 import discord
 from discord.ext import commands
-from discord.ext.tasks import loop
 
-from dotenv import load_dotenv, set_key
-from logging.handlers import TimedRotatingFileHandler
-from packaging import version
-from typing import Set
-
-from customformatter import CustomFormatter
+from dotenv import set_key
 
 
 # Colours for formatting console text
-HEADER    = '\033[95m'
-BLUE      = '\033[94m'
-CYAN      = '\033[96m'
 GREEN     = '\033[92m'
-WARNING   = '\033[93m'
-RED       = '\033[91m'
-FAIL      = RED
-ENDC      = '\033[0m'
-BOLD      = '\033[1m'
-UNDERLINE = '\033[4m'
 PURPLE    = '\033[38;5;165m'
-VOICE = f"{BLUE}[voice]{ENDC}"
+ENDC      = '\033[0m'
 
 if __name__ == '__main__':
 	load_dotenv()
