@@ -342,7 +342,7 @@ class CroissantBot(commands.Bot):
 			)
 
 			for user_id in messages:
-				user = self.get_uesr(int(user_id))
+				user = self.get_user(int(user_id))
 				message: discord.Embed
 				for message in messages[user_id]:
 					await user.send(embed=message)
