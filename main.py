@@ -106,7 +106,7 @@ def setup_streamlink_logger():
 
 	log_dir        = os.getenv("LOG_DIR")
 	log_streamlink = f'{log_dir}/{os.getenv("LOG_STREAMLINK")}'
-	log_count      = os.getenv("LOG_COUNT")
+	log_count      = int(os.getenv("LOG_COUNT"))
 
 	# Move streamlink logs to a file
 	streamlink_handler = TimedRotatingFileHandler(
