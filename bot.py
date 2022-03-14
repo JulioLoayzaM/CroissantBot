@@ -170,8 +170,11 @@ class CroissantBot(commands.Bot):
 
 		return True
 
-	async def init_youtube(self) -> None:
+	async def init_youtube(self) -> bool:
 		"""Initializes yt_prev_status and yt_streamers.
+
+		Returns:
+			True if initialization was successful, False if not.
 		"""
 
 		logger = self.logger
@@ -182,7 +185,7 @@ class CroissantBot(commands.Bot):
 		youtube = self.get_cog('Youtube')
 		if youtube is None:
 			logger.error("Could not get 'youtube' cog.")
-			return
+			return False
 
 		try:
 			async with aiofiles.open(self._yt_file, mode='r') as file:
@@ -193,13 +196,18 @@ class CroissantBot(commands.Bot):
 		except IOError as ioe:
 			logger.error(f"Could not open {self._yt_file }")
 			logger.debug(f"IOError:\n{ioe}")
+			return False
 
 		except Exception as e:
 			logger.error(f"Could not open {self._yt_file }")
 			logger.debug(f"Unexpected exception:\n{e}")
+			return False
 
 		self._yt_streamers   = youtube.init_streamers(ids)
 		self._yt_prev_status = youtube.init_status(self._yt_streamers)
+
+		# MAYBE: check if the dictionnaries are empty?
+		return True
 
 	async def init_twitch(self) -> bool:
 		"""Initializes tw_prev_status and tw_streamers.
