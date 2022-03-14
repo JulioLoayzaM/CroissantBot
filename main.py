@@ -164,9 +164,9 @@ def load_cogs(bot: CroissantBot):
 	if bool(os.getenv('ENABLE_YT', False)):
 		bot.load_extension("cogs.youtube")
 		youtube_initiated = loop.run_until_complete(bot.init_youtube())
+		setup_streamlink_logger()
 		if youtube_initiated:
 			bot._yt_task = bot.loop.create_task(bot.check_youtube())
-			setup_streamlink_logger()
 			bot.enabled_cogs.append('YOUTUBE')
 		else:
 			bot.logger.warning(f"Can't enable {PURPLE}youtube{ENDC} cog, unloading extension.")
