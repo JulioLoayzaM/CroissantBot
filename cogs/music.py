@@ -1,9 +1,6 @@
-# music.py
-#
-# Cog for music related commands.
+# CroissantBot/cogs/music.py
 
-
-# Copyright (C) 2021 JulioLoayzaM
+# Copyright (C) 2021-present JulioLoayzaM
 #
 # You may use, distribute and modify this code under
 # the terms of the MIT license.
@@ -41,7 +38,7 @@ import os
 try:
 	import yt_dlp as yt_dl
 	yt_version = 'yt-dlp'
-except:  # noqa: 722
+except Exception:
 	import youtube_dl as yt_dl
 	yt_version = 'youtube-dl'
 
@@ -51,7 +48,6 @@ from discord.ext import commands
 from cogs.ext.queue import SongQueue, EmptyQueueError
 from cogs.ext.song import Song
 
-from dotenv import load_dotenv
 from typing import Tuple, Union
 
 
@@ -62,44 +58,22 @@ ENDC = '\033[0m'
 VOICE = f"{BLUE}[voice]{ENDC}"
 
 
-load_dotenv()
-# Videos longer than MAX_DURATION seconds won't be downloaded
-MAX_DURATION = int(os.getenv('MAX_DURATION'))
-# Directory in which music is downloaded
-SAVE_DIR = os.getenv('MUSIC_DIR')
-
-BOT_PREFIX = os.getenv('BOT_PREFIX')
-
-
 # Used to suppress useless errors apparently
 yt_dl.utils.bug_reports_message = lambda: ''
 
+# ffmpeg_options = {
+# 	'options': '-vn'
+# }
 
-YTDL_FORMAT_OPTIONS = {
-	'outtmpl': f'{SAVE_DIR}/%(title)s-%(id)s.%(ext)s',
-	'nooverwrites': True,
-	'format': 'bestaudio/best',
-	'restrictfilenames': True,
-	'noplaylist': True,
-	'nocheckcertificate': True,
-	'ignoreerrors': False,
-	'logtostderr': False,
-	'quiet': True,
-	'no_warnings': True,
-	'default_search': 'auto',
-	'source_address': '0.0.0.0'  # bind to ipv4 since ipv6 addresses cause issues sometimes
-}
-
-ffmpeg_options = {
-	'options': '-vn'
-}
-
-ytdl = yt_dl.YoutubeDL(YTDL_FORMAT_OPTIONS)
+# used for help messages
+BOT_PREFIX = os.getenv('BOT_PREFIX')
 
 
 class Music(commands.Cog):
+	"""Cog for music related commands.
+	"""
 
-	def __init__(self, bot: commands.Bot, logger: logging.Logger):
+	def __init__(self, bot: commands.Bot, ytdl: yt_dl.YoutubeDL, max_duration: int):
 
 		self.bot = bot
 		# Template:
@@ -112,7 +86,10 @@ class Music(commands.Cog):
 		# 	}
 		# }
 		self.info = dict()
-		self.logger = logger
+		self.logger = bot.logger
+		self.ytdl = ytdl
+		# Videos longer than max_duration seconds won't be downloaded
+		self.max_duration = max_duration
 
 	async def is_connected(self, ctx: commands.Context) -> bool:
 		"""
@@ -278,7 +255,7 @@ class Music(commands.Cog):
 		# Checks if query is a valid url, if not we search youtube for the query
 		if not await validate_url(query):
 			info = await loop.run_in_executor(
-				None, lambda: ytdl.extract_info(f"ytsearch:{query}", download=False)
+				None, lambda: self.ytdl.extract_info(f"ytsearch:{query}", download=False)
 			)
 			video = info['entries'][0]
 			query = video['webpage_url']
@@ -296,7 +273,9 @@ class Music(commands.Cog):
 				await ctx.send("The bot is not connected to a voice channel.")
 				return
 
-			song = await YTDLSource.from_url(url, loop=self.bot.loop)
+			song = await YTDLSource.from_url(
+				url, self.ytdl, self.max_duration, loop=self.bot.loop
+			)
 
 			queue.push(song)
 
@@ -317,7 +296,7 @@ class Music(commands.Cog):
 				await self.play_song(ctx)
 
 		except MaxDurationError:
-			await ctx.send(f"The song is too long (> {int(MAX_DURATION/60)} min), please try another link.")  # noqa: E501
+			await ctx.send(f"The song is too long (> {int(self.max_duration/60)} min), please try another link.")  # noqa: E501
 
 		except discord.DiscordException as de:
 			await ctx.send(f"The bot is not connected to a voice channel, use `{BOT_PREFIX}join`.")
@@ -691,7 +670,7 @@ class Music(commands.Cog):
 			search: The query to search for in youtube.
 		"""
 
-		info = ytdl.extract_info(f"ytsearch5:{search}", download=False)
+		info = self.ytdl.extract_info(f"ytsearch5:{search}", download=False)
 
 		search_results: list = info.get('entries')
 
@@ -701,7 +680,7 @@ class Music(commands.Cog):
 			for result in search_results:
 				url = result['webpage_url']
 				tn = result['thumbnail']
-				meta = ytdl.extract_info(url, download=False)
+				meta = self.ytdl.extract_info(url, download=False)
 
 				# template: {'title': [url, thumbnail]}
 				links[meta['title']] = [url, tn]
@@ -970,6 +949,8 @@ class YTDLSource(discord.PCMVolumeTransformer):
 	async def from_url(
 		cls,
 		url: str,
+		ytdl: yt_dl.YoutubeDL,
+		max_duration: int,
 		*,
 		loop: asyncio.AbstractEventLoop = None,
 		download: bool = True
@@ -996,8 +977,8 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		)
 
 		duration = metadata['duration']
-		if duration > MAX_DURATION:
-			logger.warning(f"Video is too long. MAX_DURATION={MAX_DURATION}")
+		if duration > max_duration:
+			logger.warning(f"Video is too long. MAX_DURATION={max_duration}")
 			logger.debug(f"Title: {metadata['title']}")
 			logger.debug(f"URL: {url}")
 			raise MaxDurationError
@@ -1041,13 +1022,31 @@ async def validate_url(url: str) -> bool:
 
 def setup(bot):
 
-	logger = logging.getLogger("CroissantBot")
+	max_duration = int(os.getenv('MAX_DURATION'))
+	save_dir = os.getenv('MUSIC_DIR')
 
-	logger.debug(f"{WARNING}Youtube downloader:{ENDC} {yt_version}.")
+	YTDL_FORMAT_OPTIONS = {
+		'outtmpl': f'{save_dir}/%(title)s-%(id)s.%(ext)s',
+		'nooverwrites': True,
+		'format': 'bestaudio/best',
+		'restrictfilenames': True,
+		'noplaylist': True,
+		'nocheckcertificate': True,
+		'ignoreerrors': False,
+		'logtostderr': False,
+		'quiet': True,
+		'no_warnings': True,
+		'default_search': 'auto',
+		'source_address': '0.0.0.0'  # bind to ipv4 since ipv6 addresses cause issues sometimes
+	}
+
+	ytdl = yt_dl.YoutubeDL(YTDL_FORMAT_OPTIONS)
+
+	bot.logger.debug(f"{WARNING}Youtube downloader:{ENDC} {yt_version}.")
 	if yt_version == 'youtube-dl':
 		print(
 			"The use of the 'youtube-dl' package is deprecated in this bot since version 1.1.0.",
 			"Consider installing 'yt-dlp' instead."
 		)
 
-	bot.add_cog(Music(bot, logger))
+	bot.add_cog(Music(bot, ytdl, max_duration))
