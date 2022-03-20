@@ -11,18 +11,12 @@ from pathlib import Path
 from shutil import copyfile
 from typing import Optional
 
-try:
-    from rich import print
-    from rich.console import Console
-except Exception:
-    print(
-        "The rich module is not installed."
-        " Please install the necessary dependencies and re-run this script."
-    )
-    sys.exit(1)
 
-
-console = Console()
+RED    = '\033[91m'
+GREEN  = '\033[92m'
+YELLOW = '\033[93m'
+CYAN   = '\033[96m'
+ENDC   = '\033[0m'
 
 
 def get_dotenv() -> Optional[Path]:
@@ -32,36 +26,36 @@ def get_dotenv() -> Optional[Path]:
     """
 
     env_path = Path('.env')
-    print("Looking for the [bold cyan].env[/bold cyan] file.. ", end='')
+    print(f"Looking for the {CYAN}.env{ENDC} file.. ", end='')
 
     if env_path.exists():
-        print("[bold green]found")
-        print("Using [bold cyan].env[/bold cyan]")
+        print(f"{GREEN}found{ENDC}")
+        print(f"Using {CYAN}.env{ENDC}")
 
     else:
-        print("[bold yellow]not found")
+        print(f"{YELLOW}not found{ENDC}")
         env_path = Path('.env.example')
-        print("Looking for the [bold cyan].env.example[/bold cyan] file.. ", end='')
+        print(f"Looking for the {CYAN}.env.example{ENDC} file.. ", end='')
 
         if env_path.exists():
-            print("[bold green]found")
+            print(f"{GREEN}found{ENDC}")
 
             print(
-                "Copying [bold cyan].env.example[/bold cyan] to"
-                " [bold cyan].env[/bold cyan]"
+                f"Copying {CYAN}.env.example{ENDC} to"
+                f" {CYAN}.env{ENDC}"
             )
             # since the file will contain the token, avoid making it world-readable
             Path('.env').touch(0o660)
             copyfile('.env.example', '.env')
 
-            print("Using [bold cyan].env[/bold cyan]")
+            print(f"Using {CYAN}.env{ENDC}")
             env_path = Path('.env')
 
         else:
-            print("[red]not found")
+            print(f"{RED}not found{ENDC}")
             print(
-                "Please make sure you are running this where CroissantBot is installed"
-                " (the [bold cyan]bot.py[/bold cyan] file should be present)"
+                f"No {CYAN}.env{ENDC} or {CYAN}.env.example{ENDC} files found, please"
+                " make sure you are running this where CroissantBot is installed."
             )
             return None
 
@@ -78,18 +72,18 @@ def create_logs():
     logs_dir_name = os.getenv('LOG_DIR')
     logs_dir = Path(logs_dir_name)
     if not logs_dir.exists():
-        print(f"Creating {logs_dir_name} directory.. ", end='')
+        print(f"Creating {logs_dir_name} directory... ", end='')
         logs_dir.mkdir()
-        print("[green]done")
+        print(f"{GREEN}done{ENDC}")
 
     logs = ['INFO', 'DEBUG', 'DISCORD', 'STREAMLINK']
 
-    print("Creating the log files..  ", end='')
+    print("Creating the log files...  ", end='')
     for log in logs:
         log_file_name = os.getenv(f'LOG_{log}')
         log_path = Path(f'{logs_dir_name}/{log_file_name}')
         log_path.touch(0o664)
-    print("[green]done")
+    print(f"{GREEN}done{ENDC}")
 
 
 def set_log_count(dotenv_path: Path):
@@ -101,13 +95,13 @@ def set_log_count(dotenv_path: Path):
         "By default, the bot keeps 7 days of logs. You can change this "
         "or leave the default value."
     )
-    user_input = console.input("How many days of logs should it keep? \\[default: 7] ")
+    user_input = input("How many days of logs should it keep? [default: 7] ")
 
     if user_input:
         try:
             count = int(user_input)
             set_key(dotenv_path, 'LOG_COUNT', str(count))
-            print(f"Log count set to {count}")
+            print(f"Log count set to {CYAN}{count}{ENDC}")
         except ValueError:
             print("Not a number, skipping")
     else:
@@ -119,16 +113,13 @@ def set_prefix(dotenv_path: Path):
     """
 
     print()
-    prefix = console.input(
-        'What [bold cyan]prefix[/bold cyan] do you want to use?'
-        ' \\[default: !] '
-    )
+    prefix = input(f'What {CYAN}prefix{ENDC} do you want to use? [default: !] ')
 
     if prefix:
         set_key(dotenv_path, 'BOT_PREFIX', prefix)
-        print(f"Prefix set to [bold cyan]{prefix}")
+        print(f"Prefix set to {CYAN}{prefix}{ENDC}")
     else:
-        print("No prefix given, defaulting to [bold cyan]!")
+        print(f"No prefix given, defaulting to {CYAN}!{ENDC}")
 
 
 def set_token(dotenv_path: Path):
@@ -137,7 +128,7 @@ def set_token(dotenv_path: Path):
 
     print()
     print("Now, let's set the bot token (leave empty if you don't have it yet)")
-    token = console.input("Bot token: ")
+    token = input("Bot token: ")
 
     if token:
         set_key(dotenv_path, 'DISCORD_TOKEN', token)
@@ -169,7 +160,7 @@ def main():
     load_dotenv(dotenv_path, override=True)
 
     if os.getenv('FIRST_RUN', '') == 'yes':
-        print("First run detected: initializing")
+        print(f"{YELLOW}First run detected{ENDC}: initializing")
         first_run(dotenv_path)
 
     sys.exit(0)
