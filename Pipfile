@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asyncpraw = "*"
+"discord.py" = {version = "==1.7.3", extras = ["voice"]}
+streamlink = "==2.3.0"
+yt-dlp = "==2021.9.2"
+asyncpg = ">=0.24.0"
+python-dotenv = "*"
+packaging = "*"
+
+[dev-packages]
+flake8 = "*"
+
+[requires]
+python_version = "3.8"
