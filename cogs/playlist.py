@@ -1,9 +1,6 @@
-# playlist.py
-#
-# Cog for music related commands.
+# CroissantBot/cogs/playlist.py
 
-
-# Copyright (C) 2021 JulioLoayzaM
+# Copyright (C) 2021-present JulioLoayzaM
 #
 # You may use, distribute and modify this code under
 # the terms of the MIT license.
