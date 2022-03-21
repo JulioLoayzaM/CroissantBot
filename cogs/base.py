@@ -38,8 +38,8 @@ class Base(commands.Cog):
     )
     @commands.is_owner()
     async def close_connection(self, ctx: commands.Context):
-        """
-        Closes the bot's connection.
+        """Closes the bot's connection.
+
         Cleans the voice clients, the requests session and logging.
         Checks if the cogs are enabled, since failing to get the cog is not an error
         if they are not enabled.
@@ -50,25 +50,23 @@ class Base(commands.Cog):
 
         # Close all voice clients
         if 'MUSIC' in bot.enabled_cogs:
-            res = False
             music = bot.get_cog('Music')
             if music is not None:
-                res = await music.stop_all()
-                if res:
+                if await music.stop_all():
                     logger.debug(f"{VOICE} stop_all executed.")
             else:
                 logger.error("Couldn't get cog 'Music'.")
 
         # Close connection to the database.
         if 'PLAYLIST' in bot.enabled_cogs:
-            res = False
             pl = bot.get_cog('Playlist')
             if pl is not None:
-                res = await pl.close_db()
-                if res:
+                if await pl.close_db():
                     logger.debug(f"{GREEN}Disconnected from database.{ENDC}")
                 else:
                     logger.debug(f"{WARNING}The database was already closed.{ENDC}")
+            else:
+                logger.error("Couldn't get cog 'Playlist'")
 
         # Close the reddit session.
         if 'MEME' in bot.enabled_cogs:
