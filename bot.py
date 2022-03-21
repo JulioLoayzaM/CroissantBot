@@ -38,8 +38,7 @@ class CroissantBot(commands.Bot):
 		self,
 		prefix: str,
 		intents: discord.Intents,
-		logger: logging.Logger,
-		dlogger: logging.Logger
+		logger: logging.Logger
 	):
 		"""Init for CroissantBot
 
@@ -61,9 +60,8 @@ class CroissantBot(commands.Bot):
 		self._yt_file        = None
 		self._yt_prev_status = None
 		self._yt_streamers   = None
-		# Loggers
+		# Logger
 		self.logger  = logger
-		self.dlogger = dlogger
 		# Cogs
 		self.enabled_cogs = list()
 		# Background tasks

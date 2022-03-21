@@ -30,7 +30,7 @@ CYAN      = '\033[96m'
 ENDC      = '\033[0m'
 
 
-def setup_loggers():
+def setup_loggers() -> logging.Logger:
 	"""Sets up the loggers 'CroissantBot' and 'discord'.
 
 	Handlers created:
@@ -38,6 +38,9 @@ def setup_loggers():
 		2: INFO-level to a file
 		3: DEBUG-level to a file
 		4: discord DEBUG-level to a file
+
+	Returns:
+		The CroissantBot logger
 	"""
 
 	log_dir     = os.getenv("LOG_DIR")
@@ -94,7 +97,7 @@ def setup_loggers():
 
 	logger.debug(f"{GREEN}Loggers set.{ENDC}")
 
-	return logger, discord_logger
+	return logger
 
 
 def setup_streamlink_logger():
@@ -191,9 +194,9 @@ def main(loop: asyncio.AbstractEventLoop):
 	intents = discord.Intents.default()
 	intents.members = True  # retrieve a guild's member list
 	prefix = os.getenv('BOT_PREFIX')
-	logger, dlogger = setup_loggers()
+	logger = setup_loggers()
 
-	bot = CroissantBot(prefix, intents, logger, dlogger)
+	bot = CroissantBot(prefix, intents, logger)
 
 	token = os.getenv('BOT_TOKEN')
 
