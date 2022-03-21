@@ -10,7 +10,6 @@ Runs the bot:
 	- starts running the bot.
 """
 
-import asyncio
 import logging
 import os
 
@@ -154,13 +153,13 @@ def load_cogs(bot: CroissantBot):
 		bot.load_extension("cogs.music")
 		bot.enabled_cogs.append('MUSIC')
 
-	if bool(os.getenv('ENABLE_PLAYLIST', False)):
+	if bool(os.getenv('ENABLE_PLAYLISTS', False)):
 		bot.load_extension("cogs.playlist")
 		bot.enabled_cogs.append('PLAYLIST')
 
 	if bool(os.getenv('ENABLE_TW', False)):
 		bot.load_extension("cogs.twitch")
-		twitch_initiated = loop.run_until_complete(bot.init_twitch())
+		twitch_initiated = bot.loop.run_until_complete(bot.init_twitch())
 		if twitch_initiated:
 			bot._tw_task = bot.loop.create_task(bot.check_twitch())
 			bot.enabled_cogs.append('TWITCH')
@@ -170,7 +169,7 @@ def load_cogs(bot: CroissantBot):
 
 	if bool(os.getenv('ENABLE_YT', False)):
 		bot.load_extension("cogs.youtube")
-		youtube_initiated = loop.run_until_complete(bot.init_youtube())
+		youtube_initiated = bot.loop.run_until_complete(bot.init_youtube())
 		setup_streamlink_logger()
 		if youtube_initiated:
 			bot._yt_task = bot.loop.create_task(bot.check_youtube())
@@ -180,7 +179,7 @@ def load_cogs(bot: CroissantBot):
 			bot.unload_extension('cogs.youtube')
 
 
-def main(loop: asyncio.AbstractEventLoop):
+def main():
 	"""Runs the bot.
 
 	- Sets up the loggers
@@ -213,6 +212,4 @@ def main(loop: asyncio.AbstractEventLoop):
 
 
 if __name__ == '__main__':
-	loop = asyncio.get_event_loop()
-	main(loop)
-	loop.close()
+	main()
