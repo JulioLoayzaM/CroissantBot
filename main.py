@@ -31,8 +31,7 @@ ENDC      = '\033[0m'
 
 
 def setup_loggers():
-	"""
-	Sets up the loggers 'CroissantBot' and 'discord'.
+	"""Sets up the loggers 'CroissantBot' and 'discord'.
 
 	Handlers created:
 		1: INFO-level to STDOUT
@@ -99,8 +98,9 @@ def setup_loggers():
 
 
 def setup_streamlink_logger():
-	"""
-	Fixes some annoyances caused by streamlink's logging, namely writing unused
+	"""Setup the streamlink logger.
+
+	Fixes some annoyances caused by streamlink's logging, namely writing
 	error messages to STDOUT and changing the levelnames to lowercase.
 	"""
 
@@ -126,7 +126,11 @@ def setup_streamlink_logger():
 
 
 def load_cogs(bot: CroissantBot):
-	""""""
+	"""Load any enabled cogs.
+
+	Load the cog and mark it as enabled.
+	Start the check functions for the Twitch and Youtube cogs.
+	"""
 
 	bot.load_extension('cogs.base')
 	bot.enabled_cogs.append('BASE')
@@ -196,9 +200,6 @@ def main(loop: asyncio.AbstractEventLoop):
 	logger.debug(f"{WARNING}Setting up bot...{ENDC}")
 
 	load_cogs(bot)
-
-	# loop.run_until_complete(create_session())
-	# logger.debug(f"{WARNING}Created:{ENDC} Global aiohttp.ClientSession.")
 
 	# Log which cogs got loaded
 	logger.debug(f"{WARNING}Enabled cogs:{ENDC} {bot.enabled_cogs}")
