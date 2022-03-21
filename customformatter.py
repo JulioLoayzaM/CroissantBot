@@ -1,15 +1,16 @@
-# customformatter.py
+# CroissantBot/customformatter.py
 
-# Defines a logging formatter to customize the logger's output:
-#	- sets the format: "time - logger - level - log (file:line)"
-#	- adds colour to the levels
+"""
+Defines a logging formatter to customize the logger's output:
+	- sets the format: "time - logger - level - log (file:line)"
+	- adds colour to the levels
+"""
 
 import logging
 
 
 class CustomFormatter(logging.Formatter):
-	"""
-	Custom logging formatter to colour-code the levels.
+	"""Custom logging formatter to colour-code the levels.
 	"""
 
 	# Colours for formatting console text
