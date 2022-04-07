@@ -90,7 +90,7 @@ class Base(commands.Cog):
         await ctx.send(embed=em)
         # Close the bot
         await bot.close()
-        logger.info(f"{GREEN}Bot offline.{ENDC}\n")
+        logger.info(f"{GREEN}Bot offline.{ENDC}")
 
         logging.shutdown()
 
