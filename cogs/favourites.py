@@ -181,7 +181,7 @@ class Favourites(commands.Cog):
 			msg: discord.Message = ctx.message
 			await msg.edit(suppress=True)
 
-			song = await YTDLSource.from_url(url, download=False)
+			song = await YTDLSource.from_url(url, self.max_duration, download=False)
 			info = dict()
 			info['title'] = song.title
 			info['url'] = song.url

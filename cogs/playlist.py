@@ -7,7 +7,6 @@
 #
 # See the LICENSE file for more details.
 
-import logging
 import os
 
 try:
@@ -151,6 +150,7 @@ class Playlist(commands.Cog):
 
 		song = await YTDLSource.from_url(
 			song_url,
+			max_duration=int(os.getenv('MAX_DURATION')),
 			loop=self.bot.loop,
 			download=False
 		)

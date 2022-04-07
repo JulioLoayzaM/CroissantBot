@@ -275,7 +275,7 @@ class Music(commands.Cog):
 				return
 
 			song = await YTDLSource.from_url(
-				url, self.ytdl, self.max_duration, loop=self.bot.loop
+				url, self.max_duration, self.ytdl, loop=self.bot.loop
 			)
 
 			queue.push(song)
@@ -950,9 +950,8 @@ class YTDLSource(discord.PCMVolumeTransformer):
 	async def from_url(
 		cls,
 		url: str,
-		ytdl: yt_dl.YoutubeDL,
 		max_duration: int,
-		*,
+		ytdl: yt_dl.YoutubeDL = None,
 		loop: asyncio.AbstractEventLoop = None,
 		download: bool = True
 	) -> Song:
@@ -961,6 +960,8 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
 		Parameters:
 			url: The url to download from.
+			max_duration: The maximum lenght of a song, in seconds.
+			ytdl: The YoutubeDL instance to use.
 			loop: The EventLoop to use.
 			download: Whether the song should be downloaded.
 
@@ -970,6 +971,25 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
 		# TODO: store the logger somewhere instead of getting it each time.
 		logger = logging.getLogger("CroissantBot")
+
+		# TODO: currently used by favourites, maybe create its own instance?
+		if ytdl is None:
+			save_dir = os.getenv('MUSIC_DIR')
+			YTDL_FORMAT_OPTIONS = {
+				'outtmpl': f'{save_dir}/%(title)s-%(id)s.%(ext)s',
+				'nooverwrites': True,
+				'format': 'bestaudio/best',
+				'restrictfilenames': True,
+				'noplaylist': True,
+				'nocheckcertificate': True,
+				'ignoreerrors': False,
+				'logtostderr': False,
+				'quiet': True,
+				'no_warnings': True,
+				'default_search': 'auto',
+				'source_address': '0.0.0.0'
+			}
+			ytdl = yt_dl.YoutubeDL(YTDL_FORMAT_OPTIONS)
 
 		loop = loop or asyncio.get_event_loop()
 
