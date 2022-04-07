@@ -230,7 +230,7 @@ class Music(commands.Cog):
 		help=f"Plays a song from an URL or a search query, use `{BOT_PREFIX}search_youtube <query>` to get more results"  # noqa: E501
 	)
 	@commands.guild_only()
-	async def play(self, ctx: commands.Context, query: str = None):
+	async def play(self, ctx: commands.Context, *query):
 		"""
 		This function searches youtube and passes the first result URL to play.
 		It's in charge of queueing the Song downloaded and returned by YTDLSource.from_url.
@@ -240,11 +240,12 @@ class Music(commands.Cog):
 			query: The query to search for in youtube.
 		"""
 
-		logger = self.logger
-
-		if query is None:
+		if len(query) == 0:
 			await ctx.send(f"You have to provide a youtube url or query. Type `{BOT_PREFIX}play <url/query>`.")  # noqa: E501
 			return
+
+		query = ' '.join(query)
+		logger = self.logger
 
 		# To avoid clutter, we edit the user's message to suppress the embed
 		msg = ctx.message
