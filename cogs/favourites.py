@@ -1,11 +1,6 @@
-# favourites.py
-#
-# Cog for managing the 'favourites' group of commands.
-# These commands allow users of the bot to have one playlist, which is
-# stored in a JSON file instead of using the Playlist cog that requires the use of a
-# PostgreSQL database.
+# croissantbot/cogs/favourites.py
 
-# Copyright (C) 2021 JulioLoayzaM
+# Copyright (C) 2021-2022 JulioLoayzaM
 #
 # You may use, distribute and modify this code under
 # the terms of the MIT license.
@@ -14,41 +9,41 @@
 
 import aiofiles
 import json
-import logging
 import os
+
+from typing import List, Dict, Union
 
 import discord
 from discord.ext import commands
 
 from cogs.music import YTDLSource, MaxDurationError
 
-from dotenv import load_dotenv
-from typing import List, Dict, Union
 
-
-load_dotenv()
+# Detect whether the music cog is enabled. If not, some commands are unavailable.
 MUSIC_ENABLED = os.getenv('ENABLE_MUSIC')
 
 
 class Favourites(commands.Cog):
-	"""
-	Commands to manage the 'favourites' playlist stored in a JSON file.
-	Doesn't require a database.
+	"""Cog for managing the 'favourites' group of commands.
+
+	These commands allow users of the bot to have one playlist, which is
+	stored in a JSON file instead of using the Playlist cog that requires the use of a
+	PostgreSQL database.
 	"""
 
 	def __init__(
 		self,
 		bot: commands.Bot,
-		logger: logging.Logger,
 		ffile: str,
-		prefix: str
+		max_duration: int
 	):
 
 		self.bot = bot
-		self.logger = logger
+		self.logger = bot.logger
 		self.flist: Union[Dict, None] = None
 		self.ffile = ffile
-		self.prefix = prefix
+		self.prefix = bot._prefix
+		self.max_duration = max_duration
 
 	@commands.group(
 		name="favourites",
@@ -56,14 +51,10 @@ class Favourites(commands.Cog):
 		help="Base command for managing your list of favourite songs"
 	)
 	async def favourites(self, ctx: commands.Context):
-		"""
-		Base command for managing favourite songs.
+		"""Base command for managing favourite songs.
 
 		Loads the list of favourites from FAV_LIST_FILE during the first call.
 		"""
-
-		FAV_LIST_FILE = self.ffile
-		logger = self.logger
 
 		# First verify a subcommand has been used.
 		if ctx.invoked_subcommand is None:
@@ -71,6 +62,10 @@ class Favourites(commands.Cog):
 			await ctx.send_help(self.favourites)
 			return
 
+		FAV_LIST_FILE = self.ffile
+		logger = self.logger
+
+		# TODO: Separate the lists for each user?
 		# Then load the lists if needed.
 		if self.flist is None:
 
@@ -78,10 +73,7 @@ class Favourites(commands.Cog):
 				async with aiofiles.open(FAV_LIST_FILE, 'r') as file:
 					content = await file.read()
 
-				if content:
-					self.flist = json.loads(content)
-				else:
-					self.flist = dict()
+				self.flist = json.loads(content) if content else dict()
 
 			except IOError as ioe:
 				logger.warning(
@@ -101,8 +93,7 @@ class Favourites(commands.Cog):
 		help="Displays your list of favourites songs: if an index is specified, shows that song's info"  # noqa: E501
 	)
 	async def fav_list(self, ctx: commands.Context, index: int = 0):
-		"""
-		Subcommand to display the list of an user's favourite songs.
+		"""Subcommand to display the list of an user's favourite songs.
 
 		Parameters:
 			index: If less than or equal to zero, it displays the whole list.
@@ -118,16 +109,12 @@ class Favourites(commands.Cog):
 
 		if songs is not None:
 
+			name = member.display_name
+			# don't append an s if the last letter of the name is s
+			title = f"{name}' list" if (name[-1] == 's') else f"{name}'s list"
+
 			if len(songs) == 0:
-
-				name = member.display_name
-				if name[-1] == 's':
-					title = f"{name}' list"
-				else:
-					title = f"{name}'s list"
-
 				em = discord.Embed(title=title, description="Your list is empty.")
-
 				await ctx.send(embed=em)
 				return
 
@@ -138,12 +125,6 @@ class Favourites(commands.Cog):
 				for song in songs:
 					message += f"{cpt}. {song.get('title')}\n"
 					cpt += 1
-
-				name = member.display_name
-				if name[-1] == 's':
-					title = f"{name}' list"
-				else:
-					title = f"{name}'s list"
 
 				em = discord.Embed(
 					title=title,
@@ -163,13 +144,7 @@ class Favourites(commands.Cog):
 
 					song = songs[index - 1]
 
-					name = member.display_name
-					if name[-1] == 's':
-						title = f"From {name}' list"
-					else:
-						title = f"From {name}'s list"
-
-					em = discord.Embed(title=title)
+					em = discord.Embed(title=title, colour=member.colour)
 					em.add_field(name="Title", value=song.get('title'), inline=False)
 					em.add_field(name="URL", value=song.get('url'))
 					em.set_thumbnail(url=song.get('thumbnail'))
@@ -177,26 +152,29 @@ class Favourites(commands.Cog):
 					await ctx.send(embed=em)
 
 		else:
-			await ctx.send(f"You haven't saved any songs yet, use `{self.prefix}favourites add <song URL>` or `{self.prefix}favourites now` to add one.")  # noqa: E501
+			await ctx.send(
+				f"You haven't saved any songs yet, use `{self.prefix}favourites add <song URL>` or "
+				f"`{self.prefix}favourites now` to add one."
+			)
 
 	@favourites.command(
 		name="add",
 		help="Saves a song to your list from its URL"
 	)
-	async def fav_add(self, ctx: commands.Context, url: str = None):
-		"""
-		Saves a song to the user's list: uses from_url to get the title and the thumbnail's URL.
+	async def fav_add(self, ctx: commands.Context, url: str = ''):
+		"""Saves a song to the user's list: uses from_url to get the title
+		and the thumbnail's URL.
 
 		Parameters:
 			url: The URL of the song to save.
 		"""
 
-		FAV_LIST_FILE = self.ffile
-		logger = self.logger
-
-		if url is None:
+		if len(url) == 0:
 			await ctx.send("You have to provide a URL.")
 			return
+
+		FAV_LIST_FILE = self.ffile
+		logger = self.logger
 
 		try:
 			# Suppress the embed to avoid clutter.
@@ -224,7 +202,10 @@ class Favourites(commands.Cog):
 			async with aiofiles.open(FAV_LIST_FILE, 'w') as file:
 				await file.write(dump)
 
-			em = discord.Embed(description=f"Added \"{info.get('title')}\" to your list.")
+			em = discord.Embed(
+				description=f"Added \"{info.get('title')}\" to your list.",
+				colour=member.colour
+			)
 
 			await ctx.send(embed=em)
 
@@ -241,20 +222,21 @@ class Favourites(commands.Cog):
 		help="Removes a song from your list by its index, 0 means no song is removed"
 	)
 	async def fav_remove(self, ctx: commands.Context, index: int = 0):
-		"""
-		Remove a song from the user's list by its index.
+		"""Remove a song from the user's list by its index.
 
 		Parameters:
 			index: The index of the song to remove, 0 by default to avoid removing anything.
 		"""
 
-		BOT_PREFIX = self.prefix
+		if index <= 0:
+			await ctx.send(
+				"You have to provide a valid index."
+				f"Use `{self.prefix}favourites list` to check your list."
+			)
+			return
+
 		FAV_LIST_FILE = self.ffile
 		logger = self.logger
-
-		if index <= 0:
-			await ctx.send(f"You have to provide a valid index. Use `{BOT_PREFIX}favourites list` to check your list.")  # noqa: E501
-			return
 
 		member_id: str = str(ctx.message.author.id)
 		songs: List[Dict[str, str]] = self.flist.get(member_id, None)
@@ -292,21 +274,19 @@ class Favourites(commands.Cog):
 	)
 	@commands.guild_only()
 	async def fav_now(self, ctx: commands.Context):
+		"""Saves the currently playing song from self.info.source.
 		"""
-		Saves the currently playing song from self.info.source.
-		"""
-
-		BOT_PREFIX = self.prefix
-		FAV_LIST_FILE = self.ffile
-		logger = self.logger
 
 		music = self.bot.get_cog('Music')
-
 		gid = ctx.message.guild.id
 
 		if gid not in music.info:
 			await ctx.send("The bot is not connected to a voice channel.")
 			return
+
+		BOT_PREFIX = self.prefix
+		FAV_LIST_FILE = self.ffile
+		logger = self.logger
 
 		info = music.info.get(gid)
 		source: YTDLSource = info.get('source')
@@ -363,18 +343,21 @@ class Favourites(commands.Cog):
 			index: The index of the song to play, 0 by default.
 		"""
 
-		BOT_PREFIX = self.prefix
-		FAV_LIST = self.flist
-
 		if index <= 0:
 			await ctx.send("You have to provide a valid index.")
 			return
+
+		BOT_PREFIX = self.prefix
+		FAV_LIST = self.flist
 
 		member_id: str = str(ctx.message.author.id)
 		songs = FAV_LIST.get(member_id, None)
 
 		if songs is None:
-			await ctx.send(f"You haven't saved a song yet, you can use `{BOT_PREFIX}favourites add <URL>` or `{BOT_PREFIX}favourites now`.")  # noqa: E501
+			await ctx.send(
+				f"You haven't saved a song yet, you can use `{BOT_PREFIX}favourites add <URL>` "
+				f"or `{BOT_PREFIX}favourites now`."
+			)
 			return
 
 		if index > len(songs):
@@ -384,23 +367,16 @@ class Favourites(commands.Cog):
 			return
 
 		song = songs[index - 1]
-
 		url = song.get('url')
-
 		music = self.bot.get_cog('Music')
 		await music.play(ctx, url)
 
 
 def setup(bot):
 
-	load_dotenv()
-
-	logger = logging.getLogger('CroissantBot')
-
 	# Name of the file in which the list of favourites is kept.
 	# By default it's 'favourite_songs.json', the directory is rsc/
 	fav_list_file = os.getenv('MUSIC_FAV_LIST')
+	max_duration = int(os.getenv('MAX_DURATION'))
 
-	prefix = os.getenv('BOT_PREFIX')
-
-	bot.add_cog(Favourites(bot, logger, fav_list_file, prefix))
+	bot.add_cog(Favourites(bot, fav_list_file, max_duration))
