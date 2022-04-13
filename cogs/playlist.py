@@ -22,14 +22,8 @@ from discord.ext import commands
 from cogs.ext.db import MusicDatabaseConnection, DbInsertError, NotFoundError
 from cogs.music import YTDLSource
 
-from dotenv import load_dotenv
 
-
-load_dotenv()
-
-BOT_PREFIX = os.getenv('BOT_PREFIX')
-
-MUSIC_ENABLED = bool(os.getenv('ENABLE_MUSIC', ''))
+MUSIC_ENABLED = bool(os.getenv('ENABLE_MUSIC', False))
 
 DB_CONNECTED = False
 
@@ -49,10 +43,10 @@ class Playlist(commands.Cog):
 	Commands to manage playlists.
 	"""
 
-	def __init__(self, bot: commands.Bot, logger: logging.Logger):
+	def __init__(self, bot: commands.Bot):
 		self.bot = bot
 		self.db = MusicDatabaseConnection("CroissantBot")
-		self.logger = logger
+		self.logger = bot.logger
 
 	async def close_db(
 		self
@@ -119,7 +113,10 @@ class Playlist(commands.Cog):
 				message, *rest = error.args
 				self.logger.error(message)
 				self.logger.debug(rest)
-				await ctx.send("An error occurred while getting the playlists, please contact the bot's admin.")  # noqa: E501
+				await ctx.send(
+					"An error occurred while getting the playlists,"
+					" please contact the bot's admin."
+				)
 
 	@playlist_base.command(
 		name="add",
@@ -194,7 +191,7 @@ class Playlist(commands.Cog):
 			em = discord.Embed(
 				title="Error",
 				description=f"""You don't have a playlist named {title}.\n
-				Use `{BOT_PREFIX}playlist create <title>` to create a playlist.""",
+				Use `{self.bot._prefix}playlist create <title>` to create a playlist.""",
 				colour=discord.Colour.gold()
 			)
 			await ctx.send(embed=em)
@@ -366,7 +363,10 @@ class Playlist(commands.Cog):
 		if title is None:
 			playlists = await self.db.get_playlists(str(ctx.author.id))
 			if playlists is None:
-				await ctx.send(f"You haven't created a playlist yet, use `{BOT_PREFIX}playlist create <title>` to create one.")  # noqa: E501
+				await ctx.send(
+					"You haven't created a playlist yet, use"
+					f" `{self.bot._prefix}playlist create <title>` to create one."
+				)
 			else:
 				cpt = 1
 				msg = ""
@@ -388,7 +388,10 @@ class Playlist(commands.Cog):
 		else:
 			songs = await self.db.get_titles_in_playlist(title, str(ctx.author.id))
 			if songs is None:
-				await ctx.send(f"You haven't saved songs to this playlist, use `{BOT_PREFIX}playlist add <song URL> <playlist title>`.")  # noqa: E501
+				await ctx.send(
+					"You haven't saved songs to this playlist,"
+					f" use `{self.bot._prefix}playlist add <song URL> <playlist title>`."
+				)
 			else:
 				cpt = 1
 				msg = ""
@@ -438,7 +441,7 @@ class Playlist(commands.Cog):
 			em = discord.Embed(
 				title="Error",
 				description=f"""You don't have a playlist named {title}.\n
-				Use `{BOT_PREFIX}playlist create <title>` to create a playlist.""",
+				Use `{self.bot._prefix}playlist create <title>` to create a playlist.""",
 				colour=discord.Colour.gold()
 			)
 			await ctx.send(embed=em)
@@ -450,7 +453,7 @@ class Playlist(commands.Cog):
 				em = discord.Embed(
 					title="Error",
 					description=f"""You don't have songs saved in {title}.\n
-					Use `{BOT_PREFIX}playlist add <song_url> {title}` to add a song.""",
+					Use `{self.bot._prefix}playlist add <song_url> {title}` to add a song.""",
 					colour=discord.Colour.gold()
 				)
 				await ctx.send(embed=em)
@@ -511,6 +514,4 @@ async def validate_url(url: str) -> bool:
 
 def setup(bot):
 
-	logger = logging.getLogger('CroissantBot')
-
-	bot.add_cog(Playlist(bot, logger))
+	bot.add_cog(Playlist(bot))
