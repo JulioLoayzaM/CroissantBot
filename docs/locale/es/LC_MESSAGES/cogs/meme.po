@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CroissantBot \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"POT-Creation-Date: 2022-04-16 12:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,59 +18,117 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: ../../cogs/meme.rst:2 852f55c830b1483892aa61a6d55fcac3
+#: ../../cogs/meme.rst:2 f77b25febee74f41ab8d1d3b97b0789e
 msgid "Meme"
 msgstr ""
 
-#: ../../cogs/meme.rst:4 e72438f409954f758cd5a1a718dfc7a4
-msgid ""
-"This Cog enables the bot's meme-sending capabilities. It uses "
-":py:mod:`asyncpraw`, or the Asynchronous Python Reddit API Wrapper, to "
-"get images from Reddit."
+#: ../../cogs/meme.rst:4 7e73e8d4b0a34d46999e245a99ea4d51
+msgid "This Cog enables the bot's meme-sending capabilities."
 msgstr ""
 
-#: ../../cogs/meme.rst:8 034661d979974e888dad30c1275bce89
+#: ../../cogs/meme.rst:7 f0f9b317ebb84b02b87d189fc0af2f10
 msgid "To enable this cog, set the :envvar:`ENABLE_MEME` variable."
 msgstr ""
 
-#: ../../cogs/meme.rst:11 e5904377b7a64d6682a76719ca70b379
-msgid "Requirements"
-msgstr ""
-
-#: ../../cogs/meme.rst:14 8450d511e7b8456e8e252f3d6ea1ff8e
+#: ../../cogs/meme.rst:10 83877ae152654a7cb7ccf32560ded358
 msgid "Packages"
 msgstr ""
 
-#: ../../cogs/meme.rst:16 8050fbb843c84314bb7ed7c9e013b1e1
-msgid "The :py:mod:`asyncpraw` package:"
+#: ../../cogs/meme.rst:12 bf3a78abe15d445080d068b764a6a790
+msgid ""
+":py:mod:`asyncpraw`, the Asynchronous Python Reddit API Wrapper, is used "
+"to get the images from Reddit."
 msgstr ""
 
-#: ../../cogs/meme.rst:31 e991da9ae75c4b2a87357eaaddd006cf
+#: ../../cogs/meme.rst:16 f143635d0b2a4e31871c5823efba0f7c
 msgid "env variables"
 msgstr ""
 
-#: ../../cogs/meme.rst:33 eeac9ad7fbaa462694fa986b074fbf17
-msgid ""
-"Create a directory to store the :ref:`cogs/meme:list files` and set "
-":envvar:`MEME_DIR` accordingly."
+#: ../../cogs/meme-vars.csv:1 bdcc48f7dd3d4d0d96ab5ff41a0f9994
+msgid "Name"
 msgstr ""
 
-#: ../../cogs/meme.rst:35 dd9036d01fbf47fda098e5bef514e4d6
-msgid ""
-":envvar:`MEME_ITEM_LIMIT` indicates how many memes the bot can retrieve "
-"at once. See :ref:`cogs/meme:how it works` below for an explanation on "
-"how that works. The default is 10 items."
+#: ../../cogs/meme-vars.csv:1 72f4bff6842241d39ff7b3d713a50e49
+msgid "Description"
 msgstr ""
 
-#: ../../cogs/meme.rst:38 ce3e17c45cb74a5383ab06409de645f8
+#: ../../cogs/meme-vars.csv:1 e969465407154466bd0487edf4e6df36
+msgid ":envvar:`REDDIT_USERNAME`"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 c8a91485e0474e86a3620abddb3e215f
+msgid "The username of your Reddit bot"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 65f97e50fc7745d8ad4fa6f521aa1c3b
+msgid ":envvar:`REDDIT_PASSWORD`"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 6d1836cd6e024e4cb5824b6d940d5c04
+msgid "Its password"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 bdf7d5394ddb4df7a0d0a11b88272c21
+msgid ":envvar:`REDDIT_CLIENT_ID`"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 5c5fa0a2435a40cda819889d1ff70fcc
+msgid "Its client ID"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 cc4e066e31284fce9e56a344011c46a1
+msgid ":envvar:`REDDIT_CLIENT_SECRET`"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 701c700ab6c9475eac0fc240502fe7ad
+msgid "Its secret key"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 88a72d63e18f486dbff760d6ddaf3a34
+msgid ":envvar:`REDDIT_APP_VERSION`"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 0b71b40a09da4b5abef71d9313bb1b5e
+msgid "This is an arbitrary value, see :ref:`cogs/meme:creating a reddit bot`"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 5fcc80c22813447494adce8984576426
+msgid ":envvar:`MEME_DOWNLOAD`"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 6d301b364a664a0eb6885e80fba6754d
+msgid "Whether to download the memes or not"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 11e0b55cc1b0429daf6fb5ab84f8c964
+msgid ":envvar:`MEME_DIR`"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 64cd4016cd0e4a66bccaebec65eb5ea1
+msgid "Where to download them if :envvar:`MEME_DOWNLOAD` is enabled"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 d49f0f95f6134a38aee63120bec03071
+msgid ":envvar:`MEME_ITEM_LIMIT`"
+msgstr ""
+
+#: ../../cogs/meme-vars.csv:1 61ce7c04abee45a5924e10174233aa88
+msgid "The maximum number of items to fetch, see :ref:`cogs/meme:how it works`"
+msgstr ""
+
+#: ../../cogs/meme.rst:24 da24e6b1d9fa4784ba3e9f1bec229b7f
+msgid "Creating a Reddit bot"
+msgstr ""
+
+#: ../../cogs/meme.rst:25 dbba9960d52641339880c5f9dbd44ca6
 msgid ""
 "The variables starting with :envvar:`REDDIT` correspond to a Reddit bot's"
-" credentials. `According to the docs "
+" credentials. `According to its docs "
 "<https://asyncpraw.readthedocs.io/en/latest/getting_started/quick_start.html>`__,"
 " to use :py:mod:`asyncpraw` we need:"
 msgstr ""
 
-#: ../../cogs/meme.rst:42 cda51475383c4fa1b80d10043f522187
+#: ../../cogs/meme.rst:29 ea4cd6cd0ac2452ab2a300c1a8cb9327
 msgid ""
 "A Reddit account: to create a new account, head to `reddit.com "
 "<https://www.reddit.com/>`__. You can create an account without providing"
@@ -78,13 +136,13 @@ msgid ""
 "way to recover the account if the password is lost**."
 msgstr ""
 
-#: ../../cogs/meme.rst:48 a5df3cf7d80a4185b75fc7d8f66cead2
+#: ../../cogs/meme.rst:35 427581c61e8c47cb97ee46ecf6f2681d
 msgid ""
 "A Client ID and Secret: see `this guide <https://github.com/reddit-"
 "archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps>`__."
 msgstr ""
 
-#: ../../cogs/meme.rst:51 87f29bf73231459bb44bd534987235a5
+#: ../../cogs/meme.rst:38 6537ca136d0d4a998a6a6fcfaffcb918
 msgid ""
 "A User Agent: this Cog already generates one following the format "
 "provided by `Reddit's API guide <https://github.com/reddit-"
@@ -94,24 +152,23 @@ msgid ""
 "bot's."
 msgstr ""
 
-#: ../../cogs/meme.rst:60 65f1e32cd8634b308f3014a969ff9668
-msgid ""
-"You can decide whether to download the memes or just send them using "
-"their URL by setting the :envvar:`MEME_DOWNLOAD` variable. To turn off "
-"downloads, leave the variable commented or set it to a `falsy value "
-"<https://www.freecodecamp.org/news/truthy-and-falsy-values-in-"
-"python/>`__. To turn it on, set it to a truthy value."
+#: ../../cogs/meme.rst:44 26189c1a56d2412985be5e4648358683
+msgid "The bot can send memes without downloading them (:envvar:`MEME_DOWNLOAD`)."
 msgstr ""
 
-#: ../../cogs/meme.rst:66 fb9f78943a90487bbbeb26a684340f8d
+#: ../../cogs/meme.rst:47 9563816e11f9448f9809136be0088d3b
+msgid "The :envvar:`MEME_DIR` directory is created by the configuration script."
+msgstr ""
+
+#: ../../cogs/meme.rst:51 bab32add633e4339ab1e9c4ebc9c6690
 msgid "How it works"
 msgstr ""
 
-#: ../../cogs/meme.rst:69 11e49bef12f24788b90d8aa181d86f75
+#: ../../cogs/meme.rst:54 edbc7d50e06945caac9eb0db99064e75
 msgid "List files"
 msgstr ""
 
-#: ../../cogs/meme.rst:71 1117cb33f55747ed99c56aa11d900aea
+#: ../../cogs/meme.rst:56 92c91a041a704c71a29e4f33ba0271d0
 msgid ""
 "These are the files created when the command is used for the first time "
 "in a server or DM. They contain a list of the names of all the files sent"
@@ -120,53 +177,123 @@ msgid ""
 "list files are saved in the directory pointed by :envvar:`MEME_DIR`."
 msgstr ""
 
-#: ../../cogs/meme.rst:77 fb5a7a25fc2446ce8cde38d9f32a4c65
+#: ../../cogs/meme.rst:63 978492c5ccc549dfb19ff4b5c61f2324
 msgid "Asyncpraw"
 msgstr ""
 
-#: ../../cogs/meme.rst:79 ed1dd3011dee4015a090ba66b8a91938
+#: ../../cogs/meme.rst:65 14e5cde4742d4b04a537e16d5add64e0
 msgid ""
 "When starting, the bot creates an :py:class:`asyncpraw.Reddit` instance. "
 "This instance fetches the top :envvar:`MEME_ITEM_LIMIT` posts from the "
-"Hot category of a subreddit. If the post is actually an image (not a mod "
-"post, nor a video, nor a text-only post), it checks if it already sent it"
-" to that context (server or DM)."
+"Hot category of a subreddit."
 msgstr ""
 
-#: ../../cogs/meme.rst:84 82f997f6968e4e75aea59a5e063adf55
+#: ../../cogs/meme.rst:68 6625a50b74ee43788625142e4bce9053
 msgid ""
-"If it did, it skips that post and checks the next one fetched. So it can "
-"eventually run out of posts to check."
+"If the post is actually an image (not a mod post, nor a video, nor a "
+"text-only post), it checks if it already sent it to that context (server "
+"or DM). If it did, it skips that post and checks the next one fetched, so"
+" it can eventually run out of posts to check."
 msgstr ""
 
-#: ../../cogs/meme.rst:87 194317f46e154b4385c5aa9400f77d1c
+#: ../../cogs/meme.rst:73 c7d9e5bdd78945b0860542c807da2f81
 msgid ""
 "If you use the ``meme`` command frequently with the same subreddit, you "
 "should increase the item limit so the bot can send more new memes before "
 "reaching this cap."
 msgstr ""
 
-#: ../../cogs/meme.rst:91 78e8e01cf59a4fa8a21f153d076f5a70
+#: ../../cogs/meme.rst:77 84a40943c50e4abe8dfb4a4d93d67da9
 msgid "Downloading memes"
 msgstr ""
 
-#: ../../cogs/meme.rst:93 edcd62885c804ef4870c8da1698ef793
+#: ../../cogs/meme.rst:79 770cdbf0c5af493ba026732d740ad8ce
 msgid ""
 "Since version 2.0.0, you can choose skip the download of the memes to "
 "send. This uses the fact that :py:class:`discord.Embed` can use a URL to "
 "include an image directly."
 msgstr ""
 
-#: ../../cogs/meme.rst:96 1d547e32b69946c08448dcfd2e20c7bb
+#: ../../cogs/meme.rst:82 55f98edef92a4321b54eaa6951447fa1
 msgid ""
 "You can still enable the download of the images, which are then used to "
 "send the messages. These are saved in the directory set in "
 ":envvar:`MEME_DIR`."
 msgstr ""
 
-#: ../../cogs/meme.rst:99 38877fbe35ea43c09a2f6766eadfb443
+#: ../../cogs/meme.rst:85 721f01e8351b46198c07c71b87454cfb
 msgid ""
 "A meme's filename is derived from its ``i.redd.it`` URL. For example, "
 "from ``i.redd.it/thisisnotameme.jpg`` we get ``thisisnotameme.jpg``."
 msgstr ""
+
+#~ msgid ""
+#~ "This Cog enables the bot's meme-"
+#~ "sending capabilities. It uses "
+#~ ":py:mod:`asyncpraw`, or the Asynchronous "
+#~ "Python Reddit API Wrapper, to get "
+#~ "images from Reddit."
+#~ msgstr ""
+
+#~ msgid "Requirements"
+#~ msgstr ""
+
+#~ msgid "The :py:mod:`asyncpraw` package:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Create a directory to store the "
+#~ ":ref:`cogs/meme:list files` and set "
+#~ ":envvar:`MEME_DIR` accordingly."
+#~ msgstr ""
+
+#~ msgid ""
+#~ ":envvar:`MEME_ITEM_LIMIT` indicates how many "
+#~ "memes the bot can retrieve at "
+#~ "once. See :ref:`cogs/meme:how it works` "
+#~ "below for an explanation on how "
+#~ "that works. The default is 10 "
+#~ "items."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The variables starting with :envvar:`REDDIT`"
+#~ " correspond to a Reddit bot's "
+#~ "credentials. `According to the docs "
+#~ "<https://asyncpraw.readthedocs.io/en/latest/getting_started/quick_start.html>`__,"
+#~ " to use :py:mod:`asyncpraw` we need:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You can decide whether to download "
+#~ "the memes or just send them using"
+#~ " their URL by setting the "
+#~ ":envvar:`MEME_DOWNLOAD` variable. To turn off"
+#~ " downloads, leave the variable commented"
+#~ " or set it to a `falsy value"
+#~ " <https://www.freecodecamp.org/news/truthy-and-"
+#~ "falsy-values-in-python/>`__. To turn "
+#~ "it on, set it to a truthy "
+#~ "value."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "When starting, the bot creates an "
+#~ ":py:class:`asyncpraw.Reddit` instance. This instance"
+#~ " fetches the top :envvar:`MEME_ITEM_LIMIT` "
+#~ "posts from the Hot category of a"
+#~ " subreddit. If the post is actually"
+#~ " an image (not a mod post, nor"
+#~ " a video, nor a text-only "
+#~ "post), it checks if it already "
+#~ "sent it to that context (server or"
+#~ " DM)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If it did, it skips that post "
+#~ "and checks the next one fetched. "
+#~ "So it can eventually run out of"
+#~ " posts to check."
+#~ msgstr ""
 

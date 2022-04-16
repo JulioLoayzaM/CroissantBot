@@ -1,4 +1,4 @@
-# SOME DESCRIPTIVE TITLE.
+    # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2021, JulioLoayzaM
 # This file is distributed under the same license as the CroissantBot
 # package.
@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CroissantBot \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-09 20:02+0200\n"
+"POT-Creation-Date: 2022-04-16 12:35+0200\n"
 "PO-Revision-Date: 2021-11-10 09:15+0200\n"
 "Last-Translator: Julio Loayza <croissantbot.jlm@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,35 +18,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: ../../index.rst:11 e0018137ac40469ab375018a42d6bf69
+#: ../../index.rst:11 6ffc59bd60854bddaae8db52fc36a7fb
 msgid "Getting started"
 msgstr "Primeros pasos"
 
-#: ../../index.rst:20 b12704cab9e940b6a5c38c21252bf585
+#: ../../index.rst:20 c55a01f0c65e441599cb404922789d6d
 msgid "Cogs:"
 msgstr ""
 
-#: ../../index.rst:33 25b313a6c1f34a279f58479f0518e891
+#: ../../index.rst:33 9a8e234543f749a68e3dbc7a9b45e6c5
 msgid "ext modules:"
 msgstr "Módulos ext"
 
-#: ../../index.rst:42 3366d9d4d7284d9bb2af3f6b6b91c102
+#: ../../index.rst:42 b9b5f19e83244402b8b9035087c915f0
 msgid "Other documents:"
 msgstr "Otros documentos"
 
-#: ../../index.rst:7 0939ca7e13e14d3ba3d0193959df61ae
+#: ../../index.rst:7 531f5d99290a49c88044a27d50a89e5e
 msgid "Welcome to CroissantBot's documentation!"
 msgstr "Bienvenido/a a la documentación de CroissantBot!"
 
-#: ../../index.rst:9 748e09ea0d7d4519908436a30079951e
+#: ../../index.rst:9 f4b68c6033b04aebb210a88a43083441
 msgid "CroissantBot's documentation is organized as follows:"
 msgstr "La documentación de CroissantBot está organizada de la forma siguiente:"
 
-#: ../../index.rst:51 ad28e094d2774fa1ac04b9ec401868e8
+#: ../../index.rst:51 144f059780224340ae9caa8a28e28417
 msgid "Origin"
 msgstr "Origen"
 
-#: ../../index.rst:53 090cdfe1593748598c9067c97f719896
+#: ../../index.rst:53 00dae621534f49beae03791c6d7c765b
 msgid ""
 "I couldn't find the original video, but this meme is the inspiration for "
 "the name and :ref:`croissant <croissant-command>` command: "
@@ -56,11 +56,11 @@ msgstr ""
 " nombre del bot y del comando :ref:`croissant <croissant-"
 "command>`:`<https://www.youtube.com/watch?v=s8VJ4QuVDBE>`_."
 
-#: ../../index.rst:57 37ba71a75d504083997ba9892e908ea2
+#: ../../index.rst:57 c07033384e7845b28fc9464b5ff80286
 msgid "License"
 msgstr "Licencia"
 
-#: ../../index.rst:59 bfb4ff1c4dd94a7fab2fda101dc8eb22
+#: ../../index.rst:59 ca0908483dc04c289e67169441e28a5a
 msgid ""
 "This project is available under the MIT license. See the "
 ":doc:`other/LICENSE` file for more info."
@@ -68,19 +68,19 @@ msgstr ""
 "Este proyecto está disponible bajo la licencia MIT. Ve "
 ":doc:`other/LICENSE` para más información."
 
-#: ../../index.rst:63 8059c0210dba4b37b6b39b5fb564f861
+#: ../../index.rst:63 a4c8875d3091444192b9d8907772da6e
 msgid "Contributing"
 msgstr "Contribuir"
 
-#: ../../index.rst:65 86a4968c28ce45c2a9c0e4b0945070d8
+#: ../../index.rst:65 9a160fecda2245fda60713e2c1f84c71
 msgid "All contributions are welcome, see :doc:`other/CONTRIBUTING`."
 msgstr "Todas las contribuciones son bienvenidas, ve :doc:`other/CONTRIBUTING`."
 
-#: ../../index.rst:68 b1a9239414d243b78fea1fad2ea8c5a0
+#: ../../index.rst:68 831fa0138e8b4199a50e16b8ad48ccd6
 msgid "Versioning"
 msgstr "Versionado"
 
-#: ../../index.rst:70 2f76751726d64695aaa2f48da423074d
+#: ../../index.rst:70 2e6f78a0e27b43ba9a371f255d004313
 msgid ""
 "The versions of the bot's repo follow the rules of `Semantic Versioning "
 "2.0.0 <https://semver.org/>`__."
@@ -88,19 +88,29 @@ msgstr ""
 "Las versiones del repositorio siguen las reglas de `Versionado Semántico "
 "2.0.0 <https://semver.org/>`__."
 
-#: ../../index.rst:73 c20f235c3537469faedc784ad0bcda32
+#: ../../index.rst:73 a6aacbcb6d1e4ae29ee8284dd54c3c5c
+msgid "Source code"
+msgstr ""
+
+#: ../../index.rst:75 2f6b1e410ae54f338aafa02c7b269eb5
+msgid ""
+"The source code and documentation are hosted on Github: "
+"https://github.com/JulioLoayzaM/CroissantBot."
+msgstr ""
+
+#: ../../index.rst:79 f2e43fcce11a4e3591876ee58192497d
 msgid "Indices and tables"
 msgstr "Índices y tablas"
 
-#: ../../index.rst:75 b409af5aad4a48ae955bd2a94b335fb1
+#: ../../index.rst:81 73e3ee8a33cd4db887269c525dccd1ac
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../index.rst:76 63e80610620f431480661f25292546bd
+#: ../../index.rst:82 7e0f98891903458195fa610d3d23697d
 msgid ":ref:`modindex`"
 msgstr ""
 
-#: ../../index.rst:77 2a9a238cdd5f474bb89730f7ed6de0a7
+#: ../../index.rst:83 7a04a84a499a4344982e9243fb7e9337
 msgid ":ref:`search`"
 msgstr ""
 

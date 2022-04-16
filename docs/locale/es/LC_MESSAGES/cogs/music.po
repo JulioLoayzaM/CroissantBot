@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CroissantBot \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"POT-Creation-Date: 2022-04-16 12:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,85 +18,158 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: ../../cogs/music.rst:2 6fe655a910854576935ce6ab68de6215
+#: ../../cogs/music.rst:2 df589c290d2d4c6183576b2099a0bd18
 msgid "Music"
 msgstr ""
 
-#: ../../cogs/music.rst:4 ea451f75a2784057bc02b6a5a041fcff
+#: ../../cogs/music.rst:4 1752e848118241b1817fb491d37b421c
 msgid "This Cog contains the bot's music-playing commands."
 msgstr ""
 
-#: ../../cogs/music.rst:7 25676c5631fe4c7ea03a5992d78bf08a
+#: ../../cogs/music.rst:7 285167c1f2154dd9bc10b7f875738324
 msgid "To enable this cog, set the :envvar:`ENABLE_MUSIC` variable."
 msgstr ""
 
-#: ../../cogs/music.rst:10 095636418c5c4c258a20e7e727c42dbc
-msgid "Requirements"
-msgstr ""
-
-#: ../../cogs/music.rst:13 f666e71631d440ab8ea7405cfc26e0fa
+#: ../../cogs/music.rst:10 d1a7c42d72674863b34e7d8fb8bbbd90
 msgid "Packages"
 msgstr ""
 
-#: ../../cogs/music.rst:15 3a260a71f58b40dbabba7b7953836f17
-msgid "The :py:mod:`yt-dlp` package:"
+#: ../../cogs/music.rst:12 6e60b77762be4935847e24c352f9da67
+msgid ":py:mod:`yt-dlp` is used to download music from Youtube."
 msgstr ""
 
-#: ../../cogs/music.rst:29 87b6afdca87b4cae957f7176d157c77d
+#: ../../cogs/music.rst:14 8b8c06fb9fe746f8b1d14ab2e12e7e82
+msgid ""
+"It uses :program:`FFmpeg` to extract the audio. Install instructions can "
+"be found at `ffmpeg.org <https://www.ffmpeg.org/>`__."
+msgstr ""
+
+#: ../../cogs/music.rst:17 fdce04b01d5540898097c8c009b95117
 msgid "The :py:mod:`yt-dlp` package."
 msgstr ""
 
-#: ../../cogs/music.rst:32 df3ae09ea7844369a77f1fd455d15296
+#: ../../cogs/music.rst:20 5f133908ed6149038b6a6ef06e1c5e0f
 msgid ""
 "The use of the :py:mod:`youtube-dl` package in this bot is deprecated. "
 "Backwards compatibility is maintained but installing :py:mod:`yt-dlp` is "
 "recommended."
 msgstr ""
 
-#: ../../cogs/music.rst:37 b95614d7956a4cdf8c8970692aa2c0d9
-msgid "Programs"
-msgstr ""
-
-#: ../../cogs/music.rst:39 d3ed22ccb77a485f93d6151e71d16e6f
+#: ../../cogs/music.rst:24 8d647b0d26c84231a232a7c800872f84
 msgid ""
-":program:`FFmpeg` is used by :py:mod:`yt-dlp` to extract the audio. "
-"Install instructions can be found at `ffmpeg.org "
-"<https://www.ffmpeg.org/>`__."
+"The :py:mod:`youtube-dl` package is no longer used, please install "
+":py:mod:`yt-dlp` instead."
 msgstr ""
 
-#: ../../cogs/music.rst:43 c292f77e8cad4dd2a2cabf049375254b
+#: ../../cogs/music.rst:28 a942a20c1ad54e278ce5f7e190895f7d
 msgid "env variables"
 msgstr ""
 
-#: ../../cogs/music.rst:45 e9e6b3d39956402b86fd8b78c43c0933
-msgid ""
-":envvar:`MAX_DURATION` indicates the maximum length in seconds a video "
-"can have in order to be downloaded. The default is 600 seconds or 10 "
-"minutes."
+#: ../../cogs/music-vars.csv:1 53d2382fe60649b9910d29663820c699
+msgid "Name"
 msgstr ""
 
-#: ../../cogs/music.rst:49 4cc55248285e43c1ab18c2d95c59a14c
-msgid ""
-":envvar:`MUSIC_DIR` indicates where to download the music. Create the "
-"directory and set the variable accordingly."
+#: ../../cogs/music-vars.csv:1 743847f8430e4ae6b25cdb2775fd3a3d
+msgid "Description"
 msgstr ""
 
-#: ../../cogs/music.rst:54 b8ce4b51fb2545ed9881da5401155cda
+#: ../../cogs/music-vars.csv:1 4348de902a5f45feae546f027e856068
+msgid ":envvar:`MUSIC_DIR`"
+msgstr ""
+
+#: ../../cogs/music-vars.csv:1 ecd9d2d2cec1490c91df497f158f554c
+msgid "Where to download the songs"
+msgstr ""
+
+#: ../../cogs/music-vars.csv:1 97b9f35847e84a21994d810c0b3f8055
+msgid ":envvar:`MAX_DURATION`"
+msgstr ""
+
+#: ../../cogs/music-vars.csv:1 26b46fed4aa44eadb7afa392b3333934
+msgid ""
+"Maximum length a song can have to be played, see :ref:`cogs/music:how it "
+"works`"
+msgstr ""
+
+#: ../../cogs/music.rst:35 2ff35af5e2654987a7202e7e9e43567a
+msgid "``config.py`` creates the :envvar:`MUSIC_DIR` directory."
+msgstr ""
+
+#: ../../cogs/music.rst:39 8f24f77c20f04097be6edd63101fd8fb
 msgid "How it works"
 msgstr ""
 
-#: ../../cogs/music.rst:56 6fb63ceceb4f42e5a2cafd9022379203
+#: ../../cogs/music.rst:41 d44c11e3a97d4a2189717128aede098c
 msgid ""
-"The bot uses :py:mod:`yt-dlp` to download the video and extracts the "
-"audio using :program:`FFmpeg`. This means the songs take drive space, "
-"which is why :envvar:`MAX_DURATION` exists: as a mean to avoid "
-"downloading 10-hour long videos unless you really want to."
+"Videos are downloaded with :py:mod:`yt-dlp` and the audio is extracted "
+"with :program:`FFmpeg`. This means that the songs take space in your "
+"drive and may take some time before being playable, depending on your "
+"network speed."
 msgstr ""
 
-#: ../../cogs/music.rst:61 55377b600fa94a71bc51ba349eded4d2
+#: ../../cogs/music.rst:45 ef8037d5c0ae419ead9f64a75c68cb68
 msgid ""
-"It also means that playing a song for the first time may take a bit while"
-" the download finishes. But if this cache isn't cleared, the next time "
-"the same song is requested there should be no delay in playing it."
+"To avoid downloading really long songs and taking ages to begin playback,"
+" the :envvar:`MAX_DURATION` variable was added to limit the length of the"
+" songs."
 msgstr ""
+
+#: ../../cogs/music.rst:48 44418d33e1ed448f8c1d6b90e6feb6cc
+msgid ""
+"Also note that the downloads folder is not cleaned at all: the songs have"
+" to be deleted manually, but if the bot has to play a song it already "
+"downloaded, it will be able to do so faster than when the song was first "
+"requested."
+msgstr ""
+
+#~ msgid "Requirements"
+#~ msgstr ""
+
+#~ msgid "The :py:mod:`yt-dlp` package:"
+#~ msgstr ""
+
+#~ msgid "Programs"
+#~ msgstr ""
+
+#~ msgid ""
+#~ ":program:`FFmpeg` is used by :py:mod:`yt-"
+#~ "dlp` to extract the audio. Install "
+#~ "instructions can be found at `ffmpeg.org"
+#~ " <https://www.ffmpeg.org/>`__."
+#~ msgstr ""
+
+#~ msgid ""
+#~ ":envvar:`MAX_DURATION` indicates the maximum "
+#~ "length in seconds a video can have"
+#~ " in order to be downloaded. The "
+#~ "default is 600 seconds or 10 "
+#~ "minutes."
+#~ msgstr ""
+
+#~ msgid ""
+#~ ":envvar:`MUSIC_DIR` indicates where to "
+#~ "download the music. Create the directory"
+#~ " and set the variable accordingly."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The bot uses :py:mod:`yt-dlp` to "
+#~ "download the video and extracts the "
+#~ "audio using :program:`FFmpeg`. This means "
+#~ "the songs take drive space, which "
+#~ "is why :envvar:`MAX_DURATION` exists: as "
+#~ "a mean to avoid downloading 10-hour "
+#~ "long videos unless you really want "
+#~ "to."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "It also means that playing a song"
+#~ " for the first time may take a"
+#~ " bit while the download finishes. But"
+#~ " if this cache isn't cleared, the "
+#~ "next time the same song is "
+#~ "requested there should be no delay "
+#~ "in playing it."
+#~ msgstr ""
 

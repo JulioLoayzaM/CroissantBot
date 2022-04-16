@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CroissantBot \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"POT-Creation-Date: 2022-04-16 12:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,56 +18,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: ../../ext/ext-modules.rst:2 5464c7171c514833a711e3099475199d
+#: ../../ext/ext-modules.rst:2 66171898f7324b14b6ba6d9b0a6eed18
 msgid "ext modules"
 msgstr ""
 
-#: ../../ext/ext-modules.rst:4 a508b7d66cb541ec9bb4ca6027c35eb4
+#: ../../ext/ext-modules.rst:4 5d785b53a0ce4b3fbe90b8f60e833334
 msgid ""
 "These modules provide classes used by the cogs. They are primarily built "
 "around the rest of CroissantBot's code, but they could be useful when "
 "creating a new cog."
 msgstr ""
 
-#: ../../ext/ext-modules.rst:9 79ad0e440a4748f093e8cc50325821a7
+#: ../../ext/ext-modules.rst:9 70914062f3564ed2a106e93373ac8cc0
 msgid "For music"
 msgstr ""
 
-#: ../../ext/ext-modules.rst:11 bfc1b53244b348149e2084f1b98076db
+#: ../../ext/ext-modules.rst:11 3428de52d6844e5eb2bd991491d4a85c
 msgid ""
-"The :ref:`queue <ext/queue:queue module>` and :ref:`song <ext/song:song "
-"module>` modules are provided:"
+"The :py:mod:`song` module provides the :py:class:`song.Song` class, which"
+" represents a single song and stores its info."
 msgstr ""
 
-#: ../../ext/ext-modules.rst:13 48762c592b664e4cb54bd3c26c9768e2
+#: ../../ext/ext-modules.rst:14 6dbbeb54aa6a471eb859e9584a42e836
 msgid ""
-"The :py:mod:`song` module provides the :py:class:`Song` class, which "
-"represents a single song and stores its info."
+"The :py:mod:`songqueue` module provides the "
+":py:class:`songqueue.SongQueue` class, which implements a queue that "
+"deals with :py:class:`song.Song` instances."
 msgstr ""
 
-#: ../../ext/ext-modules.rst:15 7e8bdbcdc9604f96b41270184f1056b6
-msgid ""
-"The :py:mod:`queue` module provides the :py:class:`Queue` class, which "
-"implements a queue that deals with :py:class:`Song` instances."
-msgstr ""
-
-#: ../../ext/ext-modules.rst:18 b09509528c634a3bb9ef531af72bd1e6
+#: ../../ext/ext-modules.rst:18 3fad8771a4064203b8b5b9801553efa3
 msgid "For PostgreSQL databases"
 msgstr ""
 
-#: ../../ext/ext-modules.rst:20 ccb47ce7afa0446994601d48a8b12de1
-msgid "The :ref:`ext/db:db module` is provided. It provides two classes:"
+#: ../../ext/ext-modules.rst:20 c4dd964a2b614050b6c1df96c93bbb89
+msgid "The :py:mod:`db` module provides two classes:"
 msgstr ""
 
-#: ../../ext/ext-modules.rst:22 f3eb114b90fc4c638d89621490a50460
+#: ../../ext/ext-modules.rst:22 df27ffc9efb542f08a74d6dfd0ce9e6d
 msgid ""
-"A base class (:py:class:`DatabaseConnection`) which can connect and "
+"A base class, :py:class:`db.DatabaseConnection`, which can connect and "
 "disconnect from a database, and check whether it is currently connected."
 msgstr ""
 
-#: ../../ext/ext-modules.rst:24 3a36dd7c84014a48bf8e738721ab28fe
+#: ../../ext/ext-modules.rst:25 8fd5d26cbc0e4118b32134a6206e92a7
 msgid ""
-"A class (:py:class:`MusicDatabaseConnection`) to manage the music "
-"database used by the :ref:`Playlist cog <cogs/playlist:playlist>`."
+"The actual class, :py:class:`db.MusicDatabaseConnection`, to manage the "
+"music database used by the :ref:`Playlist cog <cogs/playlist:playlist>`."
 msgstr ""
+
+#~ msgid ""
+#~ "The :ref:`queue <ext/queue:queue module>` and"
+#~ " :ref:`song <ext/song:song module>` modules "
+#~ "are provided:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The :py:mod:`song` module provides the "
+#~ ":py:class:`Song` class, which represents a "
+#~ "single song and stores its info."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The :py:mod:`queue` module provides the "
+#~ ":py:class:`Queue` class, which implements a"
+#~ " queue that deals with :py:class:`Song` "
+#~ "instances."
+#~ msgstr ""
+
+#~ msgid "The :ref:`ext/db:db module` is provided. It provides two classes:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A base class (:py:class:`DatabaseConnection`) "
+#~ "which can connect and disconnect from"
+#~ " a database, and check whether it "
+#~ "is currently connected."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A class (:py:class:`MusicDatabaseConnection`) to "
+#~ "manage the music database used by "
+#~ "the :ref:`Playlist cog <cogs/playlist:playlist>`."
+#~ msgstr ""
 

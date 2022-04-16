@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CroissantBot \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-10 18:01+0200\n"
+"POT-Creation-Date: 2022-04-16 12:35+0200\n"
 "PO-Revision-Date: 2021-11-10 09:15+0200\n"
 "Last-Translator: Julio Loayza <croissantbot.jlm@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,298 +19,286 @@ msgstr ""
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../getting_started/commands.rst:2 ../../getting_started/commands.rst:17
-#: 4ef8c3d276544068915e64f48da43411 8329b9c935e949c5a30cb53e35c1881e
+#: a36cc31fa8274da38bb4deca51115094 d6a81ee7de6941d382d5a8773edaf918
 msgid "Commands"
 msgstr "Comandos"
 
-#: ../../getting_started/commands.rst:4 7906c6df6e114789a58c30174e5beb31
+#: ../../getting_started/commands.rst:4 b40afcd0dcb444d2a8812faaa6bfc6b2
 msgid "The lists of all available commands."
 msgstr "Listas de todos los comandos disponibles."
 
-#: ../../getting_started/commands.rst:6 9c2b1ad8bcc247dbb305d7b438edb89d
+#: ../../getting_started/commands.rst:6 ffff4bc7509d4ee6bb61aa78b99770ff
+#, fuzzy
 msgid ""
-"When runnin the bot you can use the ``help`` command to get a list of all"
-" available commands *in the current context*: some commands are guild-"
+"When running the bot you can use the ``help`` command to get a list of "
+"all available commands *in the current context*: some commands are guild-"
 "only, meaning they can't be used in DMs (eg. music commands). Others can "
 "only be used by the bot's owner (eg. ``exit`` to stop the bot)."
 msgstr ""
-"Usa el comando ``help`` para obtener una lista de todos los comandos *disponibles en el contexto actual*: "
-"algunos ('guild-only') solo pueden ser usados en servidores y no en mensajes directos (por ejemplo los comandos de música). "
-"Otros ('owner-only') solo pueden ser usados por el dueño del bot (por ejemplo ``exit`` para cerrar el bot)."
+"Usa el comando ``help`` para obtener una lista de todos los comandos "
+"*disponibles en el contexto actual*: algunos ('guild-only') solo pueden "
+"ser usados en servidores y no en mensajes directos (por ejemplo los "
+"comandos de música). Otros ('owner-only') solo pueden ser usados por el "
+"dueño del bot (por ejemplo ``exit`` para cerrar el bot)."
 
-#: ../../getting_started/commands.rst:12 7ca358b6a3654b2ba0d55da01ae933c9
-msgid "Bot"
+#: ../../getting_started/commands.rst:12 b5b6773f833148f4b98732d0e2b78c8b
+msgid "Base"
 msgstr ""
 
 #: ../../getting_started/commands.rst:18 ../../getting_started/commands.rst:45
-#: ../../getting_started/commands.rst:61 ../../getting_started/commands.rst:100
-#: 238fcf9a953343918ad422b38d426f79 a8fef587ffd54f4f8c63c3d8be5c05f4
-#: ab4410386e1343cda60d53e2909417a5 c0c1159b323d4e71a5d4bd1fb7028f15
+#: ../../getting_started/commands.rst:65 ../../getting_started/commands.rst:96
+#: 4ecb7c2b35404d53ae7c2310925eaffa 5254e3542a024370afe6167b9e2529f7
+#: e31d1886c8c743d0ba7158efc54ac593 f821e51df81a43ea8adc694d1fe82625
 msgid "Aliases"
 msgstr ""
 
 #: ../../getting_started/commands-playlist.csv:1
 #: ../../getting_started/commands.rst:19 ../../getting_started/commands.rst:46
-#: ../../getting_started/commands.rst:62 ../../getting_started/commands.rst:154
-#: 19dffa2d5e16454f9c85315e54bc5b94 9cbea89b712c4969bd8f65d859976e25
-#: a4077103f7ae43baba812f5b84b783a1 e2b8bb51e8f6448fa3824274ee855297
-#: e571fab6c2214deea7f30dab4e2ccfea
+#: ../../getting_started/commands.rst:66 ../../getting_started/commands.rst:150
+#: 005bcb0f98f84dd3822c1ef028d5feef 2b48aff743354b80b102da3790984085
+#: 3642dd5e576146bcba53936e6c2ba2c6 66077345b592420b8ce6f982c979dd3a
+#: 709aaf1c88294d7a967c5dc869abbda2
 msgid "Description"
 msgstr "Descripción"
 
 #: ../../getting_started/commands.rst:20 ../../getting_started/commands.rst:47
-#: ../../getting_started/commands.rst:63 2fd84ac34bb4473685e431ab69943725
-#: e82f8a09e64e4ebf89ae4ab01eb7485b fc08157689e841a9abd0722499f593de
+#: ../../getting_started/commands.rst:67 7aa22d69dd914f4ab33745844ddb3449
+#: ad0034c127204f80a79cd5689c394f02 c528951f091a46d7bc69a00ee9ee011e
 msgid "Comments"
 msgstr "Comentarios"
 
-#: ../../getting_started/commands.rst:21 27607326706a40759732bade5e53dd41
+#: ../../getting_started/commands.rst:21 00d0499a7867400bb641130a7139d06b
 msgid "``exit``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:23 58736c18b6784dde87375c35c991857f
+#: ../../getting_started/commands.rst:23 f9904662b4a2471b88264ad1842d7a1d
 msgid "Closes the bot"
 msgstr "Cierra el bot"
 
 #: ../../getting_started/commands.rst:24 ../../getting_started/commands.rst:32
-#: ../../getting_started/commands.rst:36 564b8630f89c4da7862b606b51f95d2f
-#: 8381591ab2324606bbb549eec2b6d94d dcf1725a05fc4f3b8e6e9451b7c7f65c
+#: ../../getting_started/commands.rst:36 3f235b2c4b54429d8c1eb2e2d7559b26
+#: ae28c985da75429b9dd2fa93f68dd0fd ba24682e7e3d4c1481721cf8d02a5237
 msgid "Owner-only"
 msgstr "Solo usable por el dueño"
 
-#: ../../getting_started/commands.rst:25 ce06214819384b949275c1a75b3711db
+#: ../../getting_started/commands.rst:25 2b5dd61611ad40cdafa112f6133e6875
 msgid "``ping``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:27 ac58e7c4a2e347369ecfd7ed534b9ed9
+#: ../../getting_started/commands.rst:27 d6a5616c20a44b5bbf880c88fd741a27
 msgid "Pings the bot"
 msgstr "Comprueba la latencia del bot"
 
-#: ../../getting_started/commands.rst:29 ed918b00f04b4d038cb76b2cbbcbc8db
-msgid "``test``"
+#: ../../getting_started/commands.rst:29 0707424e0a7e4872a32d926ad6dbfa18
+msgid "``reload``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:31 f681a3c3d3d34dc693482a94e374b7b0
-msgid "Replace function as needed"
-msgstr "Remplaza el contenido según sea necesario"
+#: ../../getting_started/commands.rst:31 9612ffea3f8a400ba72b9a2c05ff2875
+msgid "Reload a cog"
+msgstr ""
 
-#: ../../getting_started/commands.rst:33 52a8b5a1dc2c414bbfe6bb3236a18f81
+#: ../../getting_started/commands.rst:33 f44c58663cfc4ab8b8e20fc523e1b979
 msgid "``version``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:34 64e9f73a21db45c1a8fa3ea1fcd0da7f
+#: ../../getting_started/commands.rst:34 0ed65cba2a2842f08ea71a8cc7bd8128
 msgid "``ver``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:35 193543f28db44596bd66aa0e16446275
+#: ../../getting_started/commands.rst:35 f63f6ee6666b417080617802183b573b
 msgid "Check the current version, can check the latest remote version"
 msgstr "Muestra la versión actual del bot, puede comprobar si está actualizado"
 
-#: ../../getting_started/commands.rst:39 745188d49c79494d89fea52eb1007477
+#: ../../getting_started/commands.rst:39 11f5b82153424b0db9a01380b94ff0a9
 msgid "Meme"
 msgstr ""
 
 #: ../../getting_started/commands-playlist.csv:1
-#: ../../getting_started/commands.rst:44 ../../getting_started/commands.rst:60
-#: ../../getting_started/commands.rst:99 ../../getting_started/commands.rst:153
-#: 29d48c846d304a208d4941ee91ab8b7a 38c8c24fd3f44e37b90f06bc03d089b2
-#: 753b54097cc84f0a81a32f712f43750e acc9981e1faf4713a1312cc7de889327
-#: e2700cd67dcd4e8eaa7e281167a1f9c3
+#: ../../getting_started/commands.rst:44 ../../getting_started/commands.rst:64
+#: ../../getting_started/commands.rst:95 ../../getting_started/commands.rst:149
+#: 0261bcb0d85e4d7bbbd1e869c991c3fc 1b47c42dc9a74609b8d0ce76e3229bfd
+#: 7139719c99cc4da687150d4a2744be6f 8050bcfe07c54d1895ada0629b14652d
+#: da727d49c4c843b595101a19d5d668ef
 msgid "Command"
 msgstr "Comando"
 
-#: ../../getting_started/commands.rst:48 0dccfc891a8d41368c74f22066c67d58
+#: ../../getting_started/commands.rst:48 fc62b77c05b74004a8e3081bedce55dd
 msgid "``meme``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:50 417450c1a78a46e083c19d4e2e68478b
+#: ../../getting_started/commands.rst:50 c8003d20cd3b4e1c8ba16f1257ba5381
 msgid "Sends a meme from a subreddit, r/memes by default."
 msgstr "Envía un meme de un subreddit, r/memes por defecto"
 
-#: ../../getting_started/commands.rst:54 e913003c260b44ea84003df069107c21
+#: ../../getting_started/commands.rst:52 338dde63c1754bf09e30fb0a3aa2ae1b
+msgid "``change_meme_limit``"
+msgstr ""
+
+#: ../../getting_started/commands.rst:54 61df505549f04c1b942d08152913f1fd
+msgid "Change the maximum number of items to fetch from a subreddit"
+msgstr ""
+
+#: ../../getting_started/commands.rst:55 42afc924814d4776a7a7b6890c3f6d98
+msgid "Default: 10"
+msgstr ""
+
+#: ../../getting_started/commands.rst:58 c19e8ef109a14bbaba484e0c903c7b4c
 msgid "Misc"
 msgstr ""
 
-#: ../../getting_started/commands-playlist.csv:1
-#: ../../getting_started/commands.rst:64 ../../getting_started/commands.rst:162
-#: 966e616664d34726ba42d50c51ed10f0 b068b05c9bf14cacae7538b75c6cb781
-#: c65b000f42944a84923bc99a90e20856
-msgid "``add``"
-msgstr ""
-
-#: ../../getting_started/commands.rst:66 d638b0c148b54158a211789bac2af33d
-msgid "Adds two integers"
-msgstr "Suma dos números enteros"
-
-#: ../../getting_started/commands.rst:67 9147ba0131b24b2fb567531a179504c5
-msgid "Basic example of ``discord.py`` converters"
-msgstr "Ejemplo básico de los 'converters' de ``discord.py``"
-
-#: ../../getting_started/commands.rst:68 220b606a11714043ad125e6ca30597ce
-msgid "``poggers``"
-msgstr ""
-
-#: ../../getting_started/commands.rst:70 62d22e3da87f46aaa9fe985a1170c585
-msgid "Responds with a poggers emote, if available"
-msgstr "Responde con un emote poggers, si existe"
-
-#: ../../getting_started/commands.rst:71 4fcca14002fb4ef9a2ac91a3ab1e8f9e
-msgid "Guild-only, Hidden"
-msgstr "Solo usable en servidores, oculto"
-
-#: ../../getting_started/commands.rst:72 67e6e66761724646b9d47741a9f6ea9e
+#: ../../getting_started/commands.rst:68 6280e02439fa4397a4e99cd3241e628e
 msgid "``croissant``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:74 cc7531f2310643f9b34a80b68a05afee
+#: ../../getting_started/commands.rst:70 7b95a79e002f4bf1ba07524c61475842
 msgid "Sends a gif"
 msgstr "Manda un gif"
 
-#: ../../getting_started/commands.rst:75 ec0a41c9f9b04ecb9a85c916a2769bf1
+#: ../../getting_started/commands.rst:71 b45e732f9c75429caa991a8a3cc95acb
 msgid "🥐"
 msgstr ""
 
-#: ../../getting_started/commands.rst:76 e4c56b894ef54dfdbf2c25248a657d57
+#: ../../getting_started/commands.rst:72 19370fa7398441f3a9bcaabd78c9e11b
 msgid "``kill``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:78 fc7da35a5aca484f96f4f9ecbaa6cf0e
+#: ../../getting_started/commands.rst:74 7446a007c58941ec95e196cc5d038f46
 msgid "Kill your enemies (and your friends)"
 msgstr "Mata a tus enemigos (y a tus amigos)"
 
-#: ../../getting_started/commands.rst:79 ../../getting_started/commands.rst:83
-#: 0a0a3ee66d1540b89556a356808f6cca 22451c3b0fb347e594843e72dbc10d7d
+#: ../../getting_started/commands.rst:75 ../../getting_started/commands.rst:79
+#: a535f3adc353450dba9185eda1190f47 dee8d9324f894eacb0bf8ed4853f83d6
 msgid "Guild-only"
 msgstr "Solo usable en servidores"
 
-#: ../../getting_started/commands.rst:80 a89183db084043fb9cab75a15b274634
+#: ../../getting_started/commands.rst:76 ecd84d2e67874bf9b406bb84c2db4e79
 msgid "``kill_count``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:81 da7d22a90c3d46e1817d233d073152b8
+#: ../../getting_started/commands.rst:77 100b4f74e19d4b77b5ba9f068a4a3f9c
 msgid "``count``, ``kc``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:82 3ea3d08b4a6c4ea1a8cdcaef12d275c6
+#: ../../getting_started/commands.rst:78 d47712925a074a659be3f76b2b13a5ad
 msgid "Shows your kill count, can specify a user to check your stats against them"
 msgstr ""
 "Muestra tu recuento de muertes, se puede especificar un usuario para "
 "mostrar tu recuento en contra suya"
 
-#: ../../getting_started/commands.rst:86 72d2adddc6e6432cb0c4328c2d2b37d9
+#: ../../getting_started/commands.rst:82 cf0a9a9e62754ffaa0c5596922440320
 msgid "Music"
 msgstr "Música"
 
-#: ../../getting_started/commands.rst:88 029ef20068e34d0d92955bc1c9522ac6
+#: ../../getting_started/commands.rst:84 1df80621e5d14e3580814c02a20db86b
 msgid "All music commands are guild-only."
 msgstr "Todos los comandos de música son utilizables únicamente en servidores"
 
-#: ../../getting_started/commands.rst:90 a4a8a65998d5462bb5d192a11caf6910
+#: ../../getting_started/commands.rst:86 2b86f27f990d4aacb7cb8c9eb845f886
 msgid "The bot can join your voice channel automatically when using ``play``."
 msgstr ""
 "El bot puede unirse a tu canal de voz automáticamente cuando usas el "
 "comando ``play``"
 
-#: ../../getting_started/commands.rst:93 140af6ae7b8a4af1810f480962d65876
+#: ../../getting_started/commands.rst:89 1d5b498175ca459a90fb6f10985711a9
 msgid "The ``play_from`` command."
 msgstr "El comando ``play_from``"
 
-#: ../../getting_started/commands.rst:101 7bc3ddd4b54c4ddbb7495419c0b880d0
+#: ../../getting_started/commands.rst:97 6c50d1f2c6c742cb8b588c8d70e686d7
 msgid "Help"
 msgstr "Ayuda"
 
-#: ../../getting_started/commands.rst:102 2731ebbdc9fd4f31b5b7f181ae0cc924
+#: ../../getting_started/commands.rst:98 6c1be09ef6b94527b860a6c6611c4acf
 msgid "``join``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:103 e7f15021a36742cf8b6d020109f3fb68
+#: ../../getting_started/commands.rst:99 9eed9dc0fece4e4296cd337588566fc6
 msgid "``j``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:104 56e4d84c44d540519b01dad5a33d4220
+#: ../../getting_started/commands.rst:100 e25ae76f231040f8888a175e3360ea13
 msgid "Tells the bot to join your current voice channel."
 msgstr "Indica al bot que se una a tu canal de voz actual"
 
-#: ../../getting_started/commands.rst:105 bcd300f751dd406eab127097bc63e85f
+#: ../../getting_started/commands.rst:101 295e3d7a2f834abfb46ea31da84129ac
 msgid "``leave``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:107 848adf24cc21435793272032367cad66
+#: ../../getting_started/commands.rst:103 499560cfbca14424bbdbbef5d9c9b12e
 msgid "Tells the bot to disconnect from its current voice channel"
 msgstr "Indica al bot que se desconecte de su canal de voz actual"
 
-#: ../../getting_started/commands.rst:108 7f16989b56014637b67a4cc4716d7927
+#: ../../getting_started/commands.rst:104 8923d928ab4046da8ee1f1d0e110af59
 msgid "``move``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:109 b7d4039062294baea921be7ad05ecfac
+#: ../../getting_started/commands.rst:105 0ad1bc4d61f94953b2c108c2f193093c
 msgid "``m``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:110 f1643927755044848e14742d5a23deb7
+#: ../../getting_started/commands.rst:106 c3e38907705448e6bd73640871a92e47
 msgid "Moves a song's position in the queue"
 msgstr "Mueve la posición de una canción en la cola"
 
-#: ../../getting_started/commands.rst:111 d99d0223356049de944ad4878feee474
+#: ../../getting_started/commands.rst:107 d273c6319b70452d9c1c8fc605e44c55
 msgid "``move_here``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:112 ad5a2b41ff9f4ab884171de788fc9d71
+#: ../../getting_started/commands.rst:108 c599404229aa419788a0de8b8584b179
 msgid "``mh``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:113 f72b66dd546146fdb3ed1709ced6655d
+#: ../../getting_started/commands.rst:109 397c417c54a94f478e93352104b2f534
 msgid "Moves the bot to your voice channel if the bot's current channel is empty"
 msgstr "Mueve el bot a tu canal de voz si su canal está vacío"
 
-#: ../../getting_started/commands.rst:114 ae82da6e3f9c432284c89428f91bace1
+#: ../../getting_started/commands.rst:110 619a830acdf549479d64b0c091e1277e
 msgid "``now_playing``"
 msgstr ""
 
 #: ../../getting_started/commands-playlist.csv:1
-#: ../../getting_started/commands.rst:115
-#: ../../getting_started/commands.rst:168 90682b0c35224b6ca241c41f87e55b9a
-#: f4f987828b5e4365af08918f933cb9cc f60968646c854e8c8a78ed2c2708d389
+#: ../../getting_started/commands.rst:111
+#: ../../getting_started/commands.rst:164 51e93d2dd8834e21a8fe0537d33f7eae
+#: 7e2cf98adbbd42098b6fc1ca32cf354a dffd06e75e5948078051d6add9c4c03f
 msgid "``now``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:116 3b70ad967543432fbfc4b576ec37bc79
+#: ../../getting_started/commands.rst:112 8c8fa508534340daad6e53bde3a4e37f
 msgid "Displays the currently playing song"
 msgstr "Muestra la canción en curso de reproducción"
 
-#: ../../getting_started/commands.rst:117 10cd00818b7044948169ec43df42bf6b
+#: ../../getting_started/commands.rst:113 19280ea5fcad4239b72e2916fbc79127
 msgid "``pause``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:119 8f81568f87f34f5a80ec82f94d5d1132
+#: ../../getting_started/commands.rst:115 248f1ac1ac33484e9748a94cbf55b90c
 msgid "Pauses the currently playing song"
 msgstr "Pausa la canción en reproducción"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: ../../getting_started/commands.rst:120
-#: ../../getting_started/commands.rst:171 7d699bcd5d984b9da008699708cad1d0
-#: cc471716a9084791b254708a34e52e2e e413a47492b5445281effd074555a51a
+#: ../../getting_started/commands.rst:116
+#: ../../getting_started/commands.rst:167 1eddfcea19c54e9b9c273e5294437592
+#: 2f6e45d17976405c8b4f366f6cb882fe de78756ebac64036b08ce37b5dfbc72a
 msgid "``play``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:121 4b0b12ee95ad4eb3b4eb360b65bf9b24
+#: ../../getting_started/commands.rst:117 16ec1093796a4fe9b9ac26c2fb42a8ef
 msgid "``p``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:122 8ac0d9e80bd74b928223ad92987ef7e3
+#: ../../getting_started/commands.rst:118 5ba359dc056a45bcb32167a427134a60
 msgid "Plays a song from a URL or a search query"
 msgstr ""
 "Reproduce una canción a partir de su URL o del primero resultado de "
 "búsqueda en YouTube"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: ../../getting_started/commands.rst:123
-#: ../../getting_started/commands.rst:165 6abc02bc372143b0b145464337332995
-#: 86b42c22ed87486a8d80ee54b704c67e a86865c46a144fe19e1ef6cb9fbdf835
+#: ../../getting_started/commands.rst:119
+#: ../../getting_started/commands.rst:161 8a61ce55bb1c49eeb67902a513fa2c1a
+#: 998ab61a572b4f0e89462dec515bba77 d2559c1eb7e344529edab25e117fb0e2
 msgid "``remove``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:125 2cd98aa043b94e16a6fc0e2620b5ef4e
+#: ../../getting_started/commands.rst:121 9b2351bc116440baa28c97d037e5633c
 msgid ""
 "Removes a song from the queue through its ``index``, 0 means no song is "
 "selected"
@@ -318,103 +306,103 @@ msgstr ""
 "Quita una canción de la cola por su índice (index), 0 significa que "
 "ninguna canción es seleccionada"
 
-#: ../../getting_started/commands.rst:126 3113587152ba475faecc766c55d3e34e
+#: ../../getting_started/commands.rst:122 a1c25d09e3bd4968a4281704a72663e0
 msgid "``resume``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:127 4ba4e603b39c4d14a177aa121858e92f
+#: ../../getting_started/commands.rst:123 16261e3e430a4436a481084ae8f4c815
 msgid "``res``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:128 55ea21a3ee6347319d4083a1961469e6
+#: ../../getting_started/commands.rst:124 e7d05b2f8f6a4df89d47dc17c12a74fa
 msgid "Resumes a paused song"
 msgstr "Reanuda una canción pausada"
 
-#: ../../getting_started/commands.rst:129 bfa46f7b9cf14ab7aad92ce2da44e42c
+#: ../../getting_started/commands.rst:125 975a0d1e92074fa394ebdff37c25afe9
 msgid "``search_youtube``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:130 b84677aaa9234962a3520288668d54d5
+#: ../../getting_started/commands.rst:126 7f032c1654b9490da04aa7c31fc62098
 msgid "``yt``, ``youtube``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:131 23bdae3731944090882d09cb3ae74268
+#: ../../getting_started/commands.rst:127 14faef91fdd04e31bf326875ff7aead5
 msgid "Shows a list of the top 5 results of your search from youtube"
 msgstr "Muestra una lista de los primeros 5 resultados de YouTube de tu búsqueda"
 
-#: ../../getting_started/commands.rst:132 f3f7bd2b929b42ab8172a74b1638a708
+#: ../../getting_started/commands.rst:128 717fb2f07c00427a89b5d5385dfc2219
 msgid "``show_queue``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:133 3f7e0bd563f04acaa237521221795d99
+#: ../../getting_started/commands.rst:129 a95d8246a3e145a6820f33cb908e7978
 msgid "``q``, ``queue``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:134 de618993b53142058cab5be24a5b8dfb
+#: ../../getting_started/commands.rst:130 95fc123e43674ff7b49a20337af6c346
 msgid "Displays the current queue"
 msgstr "Muestra la cola actual"
 
-#: ../../getting_started/commands.rst:135 9c0a4a45670e45fdb46f10abb39a08e1
+#: ../../getting_started/commands.rst:131 3e2c51a0474946229c085d8d8c67cec6
 msgid "``skip``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:136 ed12add6d716470cbb66979e6bfa7993
+#: ../../getting_started/commands.rst:132 b79cb2cda2d34ef5ab46a0ad0fc65e63
 msgid "``s``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:137 a2970e9cf58c4a6fb92527da69080981
+#: ../../getting_started/commands.rst:133 ac2bcde7594446f18fa122b9f24c846a
 msgid "Skips ``index`` number of songs, 1 by default"
 msgstr "Salta ``index`` número de canciones, 1 por defecto"
 
-#: ../../getting_started/commands.rst:138 e990e53e677449d69a37712e0c7f695d
+#: ../../getting_started/commands.rst:134 a94767a2088e4a92bf781849fa8bf7d0
 msgid "``stop``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:140 8a99c7234b0c49c2a397b088969b2bff
+#: ../../getting_started/commands.rst:136 728b85a9651a43839cd87ad98ab82634
 msgid "Stops the currently playing (or paused) song and clears the queue"
 msgstr "Detiene la canción en reproducción (o pausada) y borra la cola"
 
-#: ../../getting_started/commands.rst:141 d7da2710df1f4002bd8063944191aeeb
+#: ../../getting_started/commands.rst:137 468644f8390e4f73b98327d8f4a7c2d1
 msgid "``volume``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:142 96f6f01ba3074ae78331edcfb452d45e
+#: ../../getting_started/commands.rst:138 6e75c81e43334d39837d4b93b8d87a91
 msgid "``vol``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:143 0eb8663e50cb4837a87f789faace92d4
+#: ../../getting_started/commands.rst:139 25d8a2210b1f49e991ff95f3a05d946b
 msgid "Changes the volume, range: 0-100"
 msgstr "Cambia el volumen, rango: 0-100"
 
-#: ../../getting_started/commands.rst:146 0e4ca170e021413cacaa40ac4b40eabb
+#: ../../getting_started/commands.rst:142 0433c0ea21344c68870226625870307a
 msgid "Favourites"
 msgstr "Favoritos"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: ../../getting_started/commands.rst:155 835df7f09ca246ab9f8d8c1c48969e4a
-#: f80e9265c25d4ec1abaa9d0b854b28c1
+#: ../../getting_started/commands.rst:151 67c0c166220045e1bf7dc307faf4b43c
+#: 9c4d7f5a0db54c49b36a768f30af28b8
 msgid "Comment"
 msgstr "Comentario"
 
-#: ../../getting_started/commands.rst:156 bb0cf79d297f400192e1599873430e18
+#: ../../getting_started/commands.rst:152 fc89d4acb6c946b38ab222c03bc5df0d
 msgid "``favourites``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:157 fd8a86b969dc458db5d011816d08eb80
+#: ../../getting_started/commands.rst:153 f2962c5431bf43f7aaa5e3badaa5663f
 msgid "Base command for managing favourite songs"
 msgstr "Comando de base para administrar las canciones favoritas"
 
-#: ../../getting_started/commands.rst:158 13d161af33ed4f5380cdce984d4b2243
+#: ../../getting_started/commands.rst:154 400f79785ad2431193aa6df3f451c22c
 msgid "Alias: ``fav``"
 msgstr ""
 
 #: ../../getting_started/commands-playlist.csv:1
-#: ../../getting_started/commands.rst:159 85204d6f756c4a9b8d496957c60f47b7
-#: ce1a51c6c0814cd9b8a88e9e9fec6f99
+#: ../../getting_started/commands.rst:155 7ea4ce7c013b433f9ab74284d9aa21e3
+#: b63f8686c2914e8dbc9dc2cd36804353
 msgid "``list``"
 msgstr ""
 
-#: ../../getting_started/commands.rst:160 a2712322e9df4b0cb94c6fa871695fd0
+#: ../../getting_started/commands.rst:156 c54c4003351542d994895f735e5b41b8
 msgid ""
 "Displays your list of favourites: if an index is specified, shows that "
 "song's info"
@@ -423,106 +411,136 @@ msgstr ""
 "más detallada seleccionando una canción por su índice"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: ../../getting_started/commands.rst:161
-#: ../../getting_started/commands.rst:164
-#: ../../getting_started/commands.rst:167 270bd3dd427343e6969ab303b54771dc
-#: 3fa25db80d21479c8fb7b1810634ccb1 702692c7b9404df68a9add9f2d77f186
-#: 7a3c068449df4fef85933c2e8a9da467 8fee027fbd8e4b0b99e59402bdaba2d4
-#: a1ba23d1b46f42fbbe437037bdd757e7 cb1eebe7bb76490db802072878e8d676
-#: e15daa4b03d84f3c9647505b58de5aab f34a85d9439f4feab0b7c51d25b302d8
-#: f8f2bdd1fe924ab2875a92e7acc9ccfc
+#: ../../getting_started/commands.rst:157
+#: ../../getting_started/commands.rst:160
+#: ../../getting_started/commands.rst:163 069e4b1a4fc149658cacacdc54ae7e97
+#: 3bebce247c7544b4901ed91aa5db4812 59c653d95b3645b5a83d12d76b4f49e3
+#: 5b642da4ad924e03af211f99a96d7f76 6c597b573eea4cd184827765104c254a
+#: 78d4086588e249138c6c178451c51991 8c44c891edcd4e5b81f5ca539a7c1039
+#: bab100784a544280921f132c09782f18 c74b1c6bcefb46eba5733117127ab67d
+#: e435346d24bc44529433849b6cbe53d4
 msgid "Subcommand"
 msgstr "Subcomando"
 
-#: ../../getting_started/commands.rst:163 09c31f5223174f65bc28a15e6951adc8
+#: ../../getting_started/commands-playlist.csv:1
+#: ../../getting_started/commands.rst:158 03e1d4aa68524cc998d36f7d1c100c68
+#: 35f57fda708c4ca3a79ea8999568d9b7
+msgid "``add``"
+msgstr ""
+
+#: ../../getting_started/commands.rst:159 93c48059488a48a7a20f944802c654ef
 msgid "Saves a song to your list from its URL"
 msgstr "Guarda una canción a tu lista a partir de su URL"
 
-#: ../../getting_started/commands.rst:166 5f11152924af436bb98f787d1369d4fd
+#: ../../getting_started/commands.rst:162 37a0efbed2e54515b0969c0a449fe5bb
 msgid "Removes a song from your list by its index, 0 means no song is removed"
 msgstr ""
 "Quita una canción de tu lista a partir de su índice, 0 significa que no "
 "se elimina ninguna canción"
 
-#: ../../getting_started/commands.rst:169 6a4d882914714809b90c39811c2a6215
+#: ../../getting_started/commands.rst:165 1bb5643c2f8541829292d238f3d70a6d
 msgid "Saves the currently playing song to your list"
 msgstr "Guarda la canción en curso de reproducción a tu lista"
 
-#: ../../getting_started/commands.rst:170
-#: ../../getting_started/commands.rst:173 41f8dec08146400c811858bedd43bc22
-#: 894a9bc5e7824fb8bec5645ca732f5d7
+#: ../../getting_started/commands.rst:166
+#: ../../getting_started/commands.rst:169 96f64023eec24fe3833b951d98713f28
+#: 9b17bb100de14a7a830ffb82bc1a5cc4
 msgid "Subcommand, guild-only"
 msgstr "Subcomando, sólo usable en servidores"
 
-#: ../../getting_started/commands.rst:172 0f14e634d768462ab8e148d5a12f96a0
+#: ../../getting_started/commands.rst:168 2afef1d16d864f19bf0a28ed2b468ea3
 msgid "Plays a song from your list by its index"
 msgstr "Reproduce una canción de tu lista a partir de su índice"
 
-#: ../../getting_started/commands.rst:176 c2ac83ffa969454ba7b6c684f10d64d3
+#: ../../getting_started/commands.rst:172 34250219da9b41578e76f778c30ba2cd
 msgid "Playlist"
 msgstr "Lista de reproducción"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: 8216c31bb4a74a089d3059b69e35e163
+#: 58b65eab4a9a4acc9784d5d8783178c1
 msgid "``playlist``"
 msgstr ""
 
 #: ../../getting_started/commands-playlist.csv:1
-#: febb87584fc5431bbb6ea1d613f916f7
+#: 21367eb410bd497fa584079c4b6a578d
 msgid "The base command for managing playlists"
 msgstr "El comando de base para administrar listas de reproducción"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: a191bf92da414aac8d13bf93149d08a6
+#: 67b5fb34d64046eea3b74aac52b517a6
 msgid "Requires using a subcommand. Alias ``pl``."
 msgstr "Requiere usar un subcomando. Alias ``pl``."
 
 #: ../../getting_started/commands-playlist.csv:1
-#: f977a02f92d3470f935e1ce98d345460
+#: c905382eb6fa4a4ea156484f44d51f79
 msgid "Adds a song to a playlist"
 msgstr "Añade una canción a una lista de reproducción"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: 486446d5f8294d2a87da617ec8086699
+#: 7c70114be6c249a7b3dd3f28c02d92df
 msgid "``create``"
 msgstr ""
 
 #: ../../getting_started/commands-playlist.csv:1
-#: f2c264734593482ea310d90a719883f7
+#: a5b3321b702742f98d0d53c1b1c09bd0
 msgid "Creates a new playlist"
 msgstr "Crea una nueva lista"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: 6b902d17da684d3abb1fde3a0a70af01
+#: 39624bed5b21425aa4cb2677f3b4fb67
 msgid "``delete``"
 msgstr ""
 
 #: ../../getting_started/commands-playlist.csv:1
-#: 1537a381328444f284a5cb5ddd9fe5d5
+#: 307ad48c7803477c945e01e57fedde3a
 msgid "Deletes a playlist"
 msgstr "Borra una lista"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: 9493bad5ad0c4fc28296662302f31918
+#: 274b8e4707664edab4f871b38df3c4c8
 msgid "Lists all your playlists by default or shows the songs in a specific one"
 msgstr ""
 "Muetra todas tus listas por defecto o muestra las canciones en una lista "
 "específica"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: 3f4d86f3daa74106b73b33a5ea9a00eb
+#: 68bf4345b73146c48256e051f2e48297
 msgid "Adds the currently playing song to a playlist, favourites by default"
 msgstr ""
 "Añade la canción en curso de reproducción a una lista, 'favourites' por "
 "defecto"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: 98084ba85992470685d92ffa1b551b12
+#: 58332a618a11460b914956e41b7afe86
 msgid "Adds a playlist to the queue, or a specific song from a playlist"
 msgstr "Añade una lista a la cola, o una canción específica de una lista"
 
 #: ../../getting_started/commands-playlist.csv:1
-#: 144579d637794f05991a1ef594f31453
+#: 2b6c53c7942b4638974259f64e93bfcf
 msgid "Removes a song from a playlist by its index"
 msgstr "Quita una canción de una lista por su índice"
+
+#~ msgid "Bot"
+#~ msgstr ""
+
+#~ msgid "``test``"
+#~ msgstr ""
+
+#~ msgid "Replace function as needed"
+#~ msgstr "Remplaza el contenido según sea necesario"
+
+#~ msgid "Adds two integers"
+#~ msgstr "Suma dos números enteros"
+
+#~ msgid "Basic example of ``discord.py`` converters"
+#~ msgstr "Ejemplo básico de los 'converters' de ``discord.py``"
+
+#~ msgid "``poggers``"
+#~ msgstr ""
+
+#~ msgid "Responds with a poggers emote, if available"
+#~ msgstr "Responde con un emote poggers, si existe"
+
+#~ msgid "Guild-only, Hidden"
+#~ msgstr "Solo usable en servidores, oculto"
 

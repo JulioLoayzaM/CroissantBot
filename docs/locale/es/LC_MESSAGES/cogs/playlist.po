@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CroissantBot \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-09 22:27+0100\n"
+"POT-Creation-Date: 2022-04-16 12:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,69 +18,116 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: ../../cogs/playlist.rst:2 9d8349e3984e4db98c58a8fade825e8c
+#: ../../cogs/playlist.rst:2 802e3dafe59b46daa6fef3da0a6395c8
 msgid "Playlist"
 msgstr ""
 
-#: ../../cogs/playlist.rst:6 af6dcb76ef744e4aaa18a364a06c1434
+#: ../../cogs/playlist.rst:6 2f73960ce6fd435aa7057dc1b8ac12c4
 msgid ""
 "This cog adds the possibility to have as many playlists per user as you "
-"want. It is compatible with the Music cog; see below for commands."
+"want."
 msgstr ""
 
-#: ../../cogs/playlist.rst:10 014750899e2f4d47866b13be3d662441
+#: ../../cogs/playlist.rst:8 dbe60794484149dfa9baee06b873f42c
+msgid ""
+"It is compatible with the Music cog: see :ref:`cogs/playlist:music cog "
+"integration`."
+msgstr ""
+
+#: ../../cogs/playlist.rst:11 cd8590e68c204132ba4168d49ca974dd
 msgid "To enable this cog, set the :envvar:`ENABLE_PLAYLISTS` variable."
 msgstr ""
 
-#: ../../cogs/playlist.rst:13 4aead8bfa8754206b6fd701dde0235f0
-msgid "Requirements"
-msgstr ""
-
-#: ../../cogs/playlist.rst:16 814058b68f5344acadcc8365c2557664
+#: ../../cogs/playlist.rst:14 a99230162dde4686a8eca9f600493dd8
 msgid "Packages"
 msgstr ""
 
-#: ../../cogs/playlist.rst:18 f8649b8315444708a929817ef6196271
-msgid "The :py:mod:`asyncpg` package:"
+#: ../../cogs/playlist.rst:16 37d3759158eb4c8d8db934b3962100f1
+msgid ""
+"The :py:mod:`asyncpg` package is used to connect to the PostgreSQL "
+"database."
 msgstr ""
 
-#: ../../cogs/playlist.rst:32 b6a4eb0908704a64a66c46ea85057c6e
-msgid "The :py:mod:`yt-dlp` package:"
+#: ../../cogs/playlist.rst:18 793ca294e18c44739ee39cadffe5c0d6
+msgid ""
+"The :py:mod:`yt-dlp` package is used to get validate the URL given and "
+"get the song information from Youtube."
 msgstr ""
 
-#: ../../cogs/playlist.rst:47 8bda5525824448d8bcd1244e183129a2
+#: ../../cogs/playlist.rst:22 64f71ebef1e24274bd71fcdc2b7c2ac4
 msgid "env variables"
 msgstr ""
 
-#: ../../cogs/playlist.rst:49 1e2810293030476d91cc695df617d310
-msgid ""
-"The :envvar:`DB_MUSIC` variables. These are used by the "
-":py:class:`MusicDatabaseConnection` class to connect to the database "
-"containing the playlists."
+#: ../../cogs/playlist-vars.csv:1 e85b509433eb4fe197fbb6194cddb684
+msgid "Name"
 msgstr ""
 
-#: ../../cogs/playlist.rst:53 fb85c61e64a7435e8ee77564ec9ad4af
+#: ../../cogs/playlist-vars.csv:1 4392ce4e45e24b6db297e8430ce9bf0b
+msgid "Description"
+msgstr ""
+
+#: ../../cogs/playlist-vars.csv:1 cb9d51ecbe11431eaaa6b59d67d67186
+msgid ":envvar:`DB_MUSIC_HOST`"
+msgstr ""
+
+#: ../../cogs/playlist-vars.csv:1 56d6c3e8910b47419b1b1bebbef88fe4
+msgid "The hostname to connect to, usually ``localhost`` to use a local database"
+msgstr ""
+
+#: ../../cogs/playlist-vars.csv:1 ed8da3072ea348de8b14857b895fd7da
+msgid ":envvar:`DB_MUSIC_USER`"
+msgstr ""
+
+#: ../../cogs/playlist-vars.csv:1 4f0ee3b5d2f74090bdfc5b5fb9cec7a3
+msgid "A ``psql`` user with access to the database"
+msgstr ""
+
+#: ../../cogs/playlist-vars.csv:1 c327462587174bdb849b3951968ffa19
+msgid ":envvar:`DB_MUSIC_PASSWORD`"
+msgstr ""
+
+#: ../../cogs/playlist-vars.csv:1 0d6b079343aa47e3b06ddbc6462b03cc
+msgid "The ``psql`` user's password"
+msgstr ""
+
+#: ../../cogs/playlist-vars.csv:1 d40789e3d5784b78b3736a3ee287e7fa
+msgid ":envvar:`DB_MUSIC_DATABASE`"
+msgstr ""
+
+#: ../../cogs/playlist-vars.csv:1 3b5301018187472a91a1907540742078
+msgid "The name of the database"
+msgstr ""
+
+#: ../../cogs/playlist-vars.csv:1 68c7f3117920492985548fc7f0daa80f
+msgid ":envvar:`DB_MUSIC_PORT`"
+msgstr ""
+
+#: ../../cogs/playlist-vars.csv:1 885a20b7cd3b4718bbd65468d2699054
+msgid "Optionally, which port to use when connecting to the database"
+msgstr ""
+
+#: ../../cogs/playlist.rst:30 61b21ea5a1c24d4f994122386e59296e
 msgid "Creating the database"
 msgstr ""
 
-#: ../../cogs/playlist.rst:55 71e3022d2c1d45d28c3356e312569f7a
+#: ../../cogs/playlist.rst:32 2fbe59e07c174a3ebc5b0a5d61743aa3
 msgid ""
 "This cog uses `PostgreSQL <https://www.postgresql.org/>`_, a \"powerful, "
 "open source object-relational database system\". Its documentation is "
 "quite detailed, don't hesitate to check it out when in doubt."
 msgstr ""
 
-#: ../../cogs/playlist.rst:58 42b0d82305c34c258a143857c94053f8
+#: ../../cogs/playlist.rst:36 6d8e1769212e4b1e9b1cb2dc3dc5ccf3
 msgid ""
 "A quick guide on setting up PostgreSQL can be found at "
 "`<https://pimylifeup.com/raspberry-pi-postgresql/>`_."
 msgstr ""
 
-#: ../../cogs/playlist.rst:60 2a9f692b4a9440bcb3194c7b981b4713
+#: ../../cogs/playlist.rst:39 5a7774cabc37483c8eb583df598caa09
 msgid "For this cog, the steps to follow are:"
 msgstr ""
 
-#: ../../cogs/playlist.rst:62 ebdc646a16a245c783d8ea5008ec6dfa
+#: ../../cogs/playlist.rst:41 5cbc01ddf99e4de59d213a3441709175
 msgid ""
 "Install PostgreSQL: check its `downloads page "
 "<https://www.postgresql.org/download/>`_. If you haven't installed "
@@ -88,120 +135,107 @@ msgid ""
 " to develop this cog."
 msgstr ""
 
-#: ../../cogs/playlist.rst:65 ffb17c2cb59d4c51984d9d83acec5eee
+#: ../../cogs/playlist.rst:45 2962d0da84c441bea2246d14e3c040da
 msgid "Switch to user ``postgres`` with:"
 msgstr ""
 
-#: ../../cogs/playlist.rst:71 2a828039e5d64f9194aa075a0c3ebb14
+#: ../../cogs/playlist.rst:51 dd4f7ee42edf4a48bca7b97699964749
 msgid "Create a new role. You can use any username you want. Use the command:"
 msgstr ""
 
-#: ../../cogs/playlist.rst:77 6531eb11f45e411ea036e864444098f1
+#: ../../cogs/playlist.rst:57 13db0c5d36824ad08bd5813fb0ec7ccd
 msgid ""
 "This creates a role named username. It requires creating a password "
 "(``-P``). The role cannot create databases (``-D``), roles (``-R``) and "
 "won't be a superuser (``-S``)."
 msgstr ""
 
-#: ../../cogs/playlist.rst:80 1050721d194a4d1abd3a51fe787cd38c
+#: ../../cogs/playlist.rst:60 95b5fa35313842ce945d7efaf5d540c7
 msgid ""
 "Launch the CLI with the ``psql`` command (while still connected as user "
 "``postgres``)."
 msgstr ""
 
-#: ../../cogs/playlist.rst:82 8a772edb6201459faab8694e396a68ff
+#: ../../cogs/playlist.rst:62 1599129d3fab4986a7276c61834c2e0f
 msgid ""
 "Create the database. You can use any name (except ``songs``, "
 "``playlists`` or ``songs_in_playlists`` to avoid any confusion). You can "
 "name it ``music`` for example. Use the command:"
 msgstr ""
 
-#: ../../cogs/playlist.rst:89 ee5669b998ed4769b377a918ead0b637
+#: ../../cogs/playlist.rst:71 c6dc9013fa1b46ed9c868455169118c4
 msgid "Where ``username`` is the name of the user created in step 3."
 msgstr ""
 
-#: ../../cogs/playlist.rst:91 9aa3e08c36fa41a0afe98381288d3359
+#: ../../cogs/playlist.rst:73 81ce75e95992449abf6811fb8350c948
 msgid ""
 "You can now exit the CLI with ``\\q`` and return to your usual user with "
 "``exit``."
 msgstr ""
 
-#: ../../cogs/playlist.rst:93 aaa39cdb3a6e4f91b2884c50b8e00669
+#: ../../cogs/playlist.rst:75 4cd03604447a466386140fbd98a7a82b
 msgid "Set the ``.env`` variables starting with :envvar:`DB_MUSIC`:"
 msgstr ""
 
-#: ../../cogs/playlist.rst:95 cade3bd86a394c57b86eafb01bdafb86
+#: ../../cogs/playlist.rst:77 fc0b6ede8fed4b44901f2075a8cfb72a
 msgid ":envvar:`HOST` should be ``localhost``."
 msgstr ""
 
-#: ../../cogs/playlist.rst:96 eb41e66f708f4b52985993c5646d9d03
+#: ../../cogs/playlist.rst:78 0d201ce69ea742798a91f0d6abe6a80a
 msgid ":envvar:`USER` is the name of the user you created in step 3."
 msgstr ""
 
-#: ../../cogs/playlist.rst:97 eda6ff490779496593d0c6b266dda0b1
+#: ../../cogs/playlist.rst:79 c2a4b85abde34b07afa6ab2a6cc5c74a
 msgid ":envvar:`PASSWORD` is that user's password."
 msgstr ""
 
-#: ../../cogs/playlist.rst:98 598844873df84cd58ed25c2856650b4a
+#: ../../cogs/playlist.rst:80 11f3affc75d14b2cba0600e8547b5320
 msgid ":envvar:`DATABASE` is the name of the database (``music`` in the example)."
 msgstr ""
 
-#: ../../cogs/playlist.rst:99 d6be7d6a7f5249f29deeaf37930d4656
+#: ../../cogs/playlist.rst:81 5c23129baa8140b592af8cd5a3cb55ae
 msgid ""
 ":envvar:`PORT` is the port used to connect to the database. By default, "
 "its 5432."
 msgstr ""
 
-#: ../../cogs/playlist.rst:101 2e540ca081224d21ab07c5035acc5979
+#: ../../cogs/playlist.rst:83 039f46fc3ccf454ab42bdef8348bcc8f
 msgid ""
-"Once the variables are set, use the ``db_setup.py`` script to create the "
-"tables needed by the cog:"
+"Once the variables are set, use ``config.py`` to create the tables needed"
+" by the cog:"
 msgstr ""
 
-#: ../../cogs/playlist.rst:115 4662ca8eba3d4f9399022e9a6682c9a4
-msgid "That should be it. :)"
-msgstr ""
-
-#: ../../cogs/playlist.rst:119 5e3ce6bf5b354b9eb310ec0b33b89bdd
+#: ../../cogs/playlist.rst:98 a6a88fae42bc4ca5adf8b63872e50bb2
 msgid ""
-"If you turn off or reset the computer in which the bot is running, you "
-"may need to restart the database server. Use the command ``sudo service "
-"postgresql start`` to do so."
+"When restarting the computer, you may need to restart the database "
+"server. For Ubuntu, use ``sudo service postgresql start`` to do so. For "
+"distros with ``systemd``, it should be ``sudo systemctl start "
+"postgresql``."
 msgstr ""
 
-#: ../../cogs/playlist.rst:123 31f0a1375ba24b5aa2ee37d215b40396
-msgid "Music cog"
+#: ../../cogs/playlist.rst:103 b7e2ee8e5f1c41f1a3e5a88969d4c2f2
+msgid "Music cog integration"
 msgstr ""
 
-#: ../../cogs/playlist.rst:125 1c1fd47861f94cfa83446d8cdfbb7f43
-msgid "As the Favourites cog, this cog has two commands that use the Music cog:"
+#: ../../cogs/playlist.rst:105 b19b19d541db4086aae0046e3a48adb7
+msgid "Like the Favourites cog, this cog has two commands that use the Music cog:"
 msgstr ""
 
-#: ../../cogs/playlist.rst:127 22bc1403cae844f9a87cfe1e292e0b4e
+#: ../../cogs/playlist.rst:107 9259140e7055467db0186ebb128b2cdf
 msgid ""
 "``now`` adds the currently playing song to the default 'favourites' list "
 "or one specified by the user."
 msgstr ""
 
-#: ../../cogs/playlist.rst:129 0cf52f3cd90e465cb8853ee79a4d0fc9
+#: ../../cogs/playlist.rst:110 f194c3aa648b4486a8c32ec51a2bc321
 msgid "``play`` queues a playlist or a specific song from a playlist."
 msgstr ""
 
-#: ../../cogs/playlist.rst:131 f3fc284f2a4e49109fcd424c0691ec6a
+#: ../../cogs/playlist.rst:112 11c6c50964354d1d9fe9048564a6ed46
 msgid ""
 "It also uses the :py:class:`YTDLSource` class that comes in the Music cog"
 " to generate the :py:class:`Song` to save with ``add``. This **does not**"
 " require enabling the Music cog in order to work."
-msgstr ""
-
-#: ../../cogs/playlist.rst:135 230b16ddf0114dacaf889d7270910a34
-msgid "yt-dlp"
-msgstr ""
-
-#: ../../cogs/playlist.rst:137 bf180417dc574eb79fe5787e3d8ab744
-msgid ""
-"This package is used to verify the URL passed to this cog is a valid "
-"Youtube URL."
 msgstr ""
 
 #~ msgid ""
@@ -226,5 +260,65 @@ msgstr ""
 #~ "class that comes in the Music cog"
 #~ " to generate the :py:class:`Song` to "
 #~ "save with ``add``."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This cog adds the possibility to "
+#~ "have as many playlists per user as"
+#~ " you want. It is compatible with "
+#~ "the Music cog; see below for "
+#~ "commands."
+#~ msgstr ""
+
+#~ msgid "Requirements"
+#~ msgstr ""
+
+#~ msgid "The :py:mod:`asyncpg` package:"
+#~ msgstr ""
+
+#~ msgid "The :py:mod:`yt-dlp` package:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The :envvar:`DB_MUSIC` variables. These are"
+#~ " used by the :py:class:`MusicDatabaseConnection`"
+#~ " class to connect to the database "
+#~ "containing the playlists."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Once the variables are set, use "
+#~ "the ``db_setup.py`` script to create the"
+#~ " tables needed by the cog:"
+#~ msgstr ""
+
+#~ msgid "That should be it. :)"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you turn off or reset the "
+#~ "computer in which the bot is "
+#~ "running, you may need to restart "
+#~ "the database server. Use the command "
+#~ "``sudo service postgresql start`` to do"
+#~ " so."
+#~ msgstr ""
+
+#~ msgid "Music cog"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "As the Favourites cog, this cog "
+#~ "has two commands that use the "
+#~ "Music cog:"
+#~ msgstr ""
+
+#~ msgid "yt-dlp"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This package is used to verify the"
+#~ " URL passed to this cog is a"
+#~ " valid Youtube URL."
 #~ msgstr ""
 

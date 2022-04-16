@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CroissantBot \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-09 13:00+0200\n"
+"POT-Creation-Date: 2022-04-16 12:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,72 +18,104 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: ../../cogs/favourites.rst:2 c5bc06beedf347408eb2aedcba0d4cdc
+#: ../../cogs/favourites.rst:2 cc72ed4531ec47c09f780986b8c97587
 msgid "Favourites"
 msgstr ""
 
-#: ../../cogs/favourites.rst:4 e123c7e62f434b34988d9283af4393b5
+#: ../../cogs/favourites.rst:4 aed5e957f97148debe77b8200216c051
 msgid ""
 "The Favourites cog allows the users to have **one** playlist *without* "
-"using a database, like the Playlist cog does."
+"using a database like the Playlist cog does."
 msgstr ""
 
-#: ../../cogs/favourites.rst:7 2c8bcfc88dc3459eb88ea3fe200182e9
+#: ../../cogs/favourites.rst:7 59bf46c213be4c34b222b422a3ca6a37
 msgid "To enable this cog, set the :envvar:`ENABLE_JSONFAV` variable."
 msgstr ""
 
-#: ../../cogs/favourites.rst:10 d80cc198b8a045519eda3ad1c18a3c50
-msgid "Requirements"
-msgstr ""
-
-#: ../../cogs/favourites.rst:13 3c414c9e773844618ed63765f88fb0db
+#: ../../cogs/favourites.rst:10 69379ce8ca5d4b39864cd51587f82e40
 msgid "Packages"
 msgstr ""
 
-#: ../../cogs/favourites.rst:15 8138343d94944f0688f73e6d21c2ff37
+#: ../../cogs/favourites.rst:12 d075bfc6d9c94ac19a849dcbfb2d9c2a
 msgid "No package is required!"
 msgstr ""
 
-#: ../../cogs/favourites.rst:18 5bcdb12f28be46bca8f9749ae9509ee3
+#: ../../cogs/favourites.rst:15 780c8842fe3b4493a3cbda3052bc9ef7
 msgid "env variables"
 msgstr ""
 
-#: ../../cogs/favourites.rst:20 a27a64c639864352a6792696a06cd5b2
-msgid ""
-"Create a JSON file in ``rsc/`` to store the playlists and set the "
-":envvar:`MUSIC_FAV_LIST` variable with the file's name. By default, the "
-"name is ``favourite_songs.json``."
+#: ../../cogs/favourites-vars.csv:1 4d269f6e9c214137bac50d448dc1be6e
+msgid "Name"
 msgstr ""
 
-#: ../../cogs/favourites.rst:24 b64e1f968f55421394484a42690043fa
+#: ../../cogs/favourites-vars.csv:1 68ad92c21b274fc68577c63539836d29
+msgid "Description"
+msgstr ""
+
+#: ../../cogs/favourites-vars.csv:1 8ee71875904a4f76aa1f783ec56fbd47
+msgid ":envvar:`MUSIC_FAV_LIST`"
+msgstr ""
+
+#: ../../cogs/favourites-vars.csv:1 fe2c6cea7b8b4481aa76655b5781c6c0
+msgid "Indicates which file to use to store the lists"
+msgstr ""
+
+#: ../../cogs/favourites.rst:22 afba4a09eada4a64a810aa91b8a80a9e
+msgid "The configuration script creates this file from the provided example."
+msgstr ""
+
+#: ../../cogs/favourites.rst:26 ace0c87bd4f047fa9feeb758ff71748c
 msgid "How it works"
 msgstr ""
 
-#: ../../cogs/favourites.rst:26 5d36e09a1d0e4c0fa281fe034bb04ce0
-msgid ""
-"As the requirements show, the setup is minimal. The cog stores the "
-"playlists in a JSON file, using the following template:"
+#: ../../cogs/favourites.rst:28 691305c5572140079e33d62b5b06b851
+msgid "The cog stores the playlists in a JSON file, using the following template:"
 msgstr ""
 
-#: ../../cogs/favourites.rst:46 d9dde61197c5494090b5c19b749842c2
+#: ../../cogs/favourites.rst:47 35acea9eb66c48628c0dd51b9847a548
 msgid "This cog is compatible with the Music cog:"
 msgstr ""
 
-#: ../../cogs/favourites.rst:48 3d2eb71de3dc4c629124e776f0c8fed8
+#: ../../cogs/favourites.rst:49 67c5302aafdb4773a8ec189c199c86c5
 msgid ""
 "The ``now`` command allows to save the currently playing song to the "
 "user's playlist."
 msgstr ""
 
-#: ../../cogs/favourites.rst:50 4057c9b73dd4420593f1133b190515e4
+#: ../../cogs/favourites.rst:51 735412765f344b80ae4eeef3c1c38881
 msgid ""
 "The ``play`` commands allows to play a song directly from the user's "
 "playlist."
 msgstr ""
 
-#: ../../cogs/favourites.rst:53 9ca7feb7768143d8bbad8873db2b8992
+#: ../../cogs/favourites.rst:54 229fd19221244b08817522b2bbc6b81b
 msgid ""
 "The :doc:`Playlist <playlist>` cog uses a PostgreSQL database to store as"
 " many playlists per user as needed."
 msgstr ""
+
+#~ msgid ""
+#~ "The Favourites cog allows the users "
+#~ "to have **one** playlist *without* using"
+#~ " a database, like the Playlist cog"
+#~ " does."
+#~ msgstr ""
+
+#~ msgid "Requirements"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Create a JSON file in ``rsc/`` to"
+#~ " store the playlists and set the "
+#~ ":envvar:`MUSIC_FAV_LIST` variable with the "
+#~ "file's name. By default, the name "
+#~ "is ``favourite_songs.json``."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "As the requirements show, the setup "
+#~ "is minimal. The cog stores the "
+#~ "playlists in a JSON file, using "
+#~ "the following template:"
+#~ msgstr ""
 

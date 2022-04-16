@@ -1,0 +1,63 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021-2022, JulioLoayzaM
+# This file is distributed under the same license as the CroissantBot
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CroissantBot \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-16 12:35+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../other/upgrading.rst:2 0f49906d33c5427cad6bc823e6a5eceb
+msgid "Upgrading CroissantBot"
+msgstr ""
+
+#: ../../other/upgrading.rst:4 f3486c168f2a48958ee4628f3178e0ee
+msgid ""
+"CroissantBot has had two major updates since its creation. Following "
+"`Semantic Versioning <https://semver.org/>`__, this means that breaking "
+"changes were made: you can find them in the `Changelog "
+"<https://github.com/JulioLoayzaM/CroissantBot/blob/main/CHANGELOG.md>`__."
+msgstr ""
+
+#: ../../other/upgrading.rst:9 0f1a1c991d1f4113960a6ce67dc3786b
+msgid ""
+"Particularly, changes like the ones introduced to ``.env`` (shown in "
+"``.env.example``) may lead to issues. Since I don't know how many (if "
+"any) people use this bot (and want to update it), I'm not going to write "
+"this section."
+msgstr ""
+
+#: ../../other/upgrading.rst:13 e13afa5a4ba4422d90110203aaae7281
+msgid "That being said, if you:"
+msgstr ""
+
+#: ../../other/upgrading.rst:15 e13debd0571e45b9ba14fcc1dee6f908
+msgid "do use this bot,"
+msgstr ""
+
+#: ../../other/upgrading.rst:16 55c37216c8c64e8cbd91f7069fe1ea31
+msgid "have reached this page,"
+msgstr ""
+
+#: ../../other/upgrading.rst:17 87baf1141e094500a478955f7cd9008e
+msgid "and have issues with the update,"
+msgstr ""
+
+#: ../../other/upgrading.rst:19 2100df54c18e41e7a11bead8d6bc7d97
+msgid ""
+"then I suggest you to `open an issue in the repo "
+"<https://github.com/JulioLoayzaM/CroissantBot/issues>`_. I'll gladly help"
+" you sort out the problem(s)."
+msgstr ""
+

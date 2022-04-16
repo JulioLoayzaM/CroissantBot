@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CroissantBot \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 18:18+0200\n"
+"POT-Creation-Date: 2022-04-16 12:35+0200\n"
 "PO-Revision-Date: 2021-11-10 09:15+0200\n"
 "Last-Translator: Julio Loayza <croissantbot.jlm@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,26 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: ../../getting_started/additional-info.rst:2 da4c022015f84cacb0f0939296a9070c
+#: ../../getting_started/additional-info.rst:2 a902a7a678034394ad1f1cf7ab385b36
 msgid "Additional info"
 msgstr "Información adicional"
 
-#: ../../getting_started/additional-info.rst:4 0490414ca9f141c6a546566abcd0a009
+#: ../../getting_started/additional-info.rst:4 8fbc278ca5604081b4feedca9c555647
 msgid "Some useful tidbits of information."
 msgstr "Algunos datos útiles"
 
-#: ../../getting_started/additional-info.rst:7 b7f0a98889ef4d90a4a10c404de73de3
+#: ../../getting_started/additional-info.rst:7 118425b5902440aa89fb72a935deddc8
 msgid "Keeping the bot online"
 msgstr "Mantener el bot en línea"
 
-#: ../../getting_started/additional-info.rst:9 a76516956ebf4cf19be2d682023113b2
+#: ../../getting_started/additional-info.rst:9 e9b2260e1ed04e4f946c287174dc6684
 msgid ""
-"In order to continuously run the bot on my Raspberry Pi 4 I use "
-":program:`tmux` (`<https://github.com/tmux/tmux/wiki>`__). It can create "
-"a detachable session which keeps the program running in the background, "
-"letting the user interact normally with the shell. A :program:`tmux` "
-"session can be reattached to the same or a different terminal or "
-":program:`ssh` session."
+"In order to continuously run the bot you can use :program:`tmux`: "
+"`<https://github.com/tmux/tmux/wiki>`__."
+msgstr ""
+
+#: ../../getting_started/additional-info.rst:12
+#: b25d32c5323b4c57830d73325fe0aa58
+#, fuzzy
+msgid ""
+"It can create detachable sessions which keep the program running in the "
+"background. A :program:`tmux` session can be reattached to the same or a "
+"different terminal or :program:`ssh` session."
 msgstr ""
 "Para mantener el bot en línea en mi Raspberry 4, utilizo :program:`tmux` "
 "(`<https://github.com/tmux/tmux/wiki>`__). Puede crear sesiones "
@@ -46,37 +51,49 @@ msgstr ""
 "sesión de `tmux` puede ser conectada al mismo o a un nuevo terminal o "
 "sesión de `ssh`."
 
-#: ../../getting_started/additional-info.rst:15
-#: cba08a37b8cd415f9261427d49210b9e
+#: ../../getting_started/additional-info.rst:16
+#: cd44bdb351b24d3c99fbcf9f41a27937
 msgid "Modifying the code"
 msgstr "Modificar el código"
 
-#: ../../getting_started/additional-info.rst:17
-#: 3e321df690b449aaac9ae8ba8235221d
+#: ../../getting_started/additional-info.rst:18
+#: 9d6799cdd3b0489bb29a90589b4ca65c
+#, fuzzy
 msgid ""
 "The idea of this repo is to allow any modification to the code. As such, "
 "the code can be freely modified under one condition: the content of the "
 "LICENSE file must be included with all copies or substantial portions of "
-"the code. For more information, see the :doc:`./../other/LICENSE`. For an"
-" example on how this works, see the Music cog, which has code from the "
-"`basic\\_voice example "
+"the code."
+msgstr ""
+"La idea detrás de este repositorio es de permitir cualquier modificación "
+"al código. Como tal, el código puede ser libremente modificado bajo una "
+"condición: el contenido del archivo LICENSE debe incluirse en todas las "
+"copias o partes substanciales del código. Para más información, lee "
+":ref:`other/license:license`. Para un ejemplo de cómo se debe incluir la "
+"licencia, puedes ver el cog de música, que contiene código del `ejemplo "
+"basic\\_voice "
+"<https://github.com/Rapptz/discord.py/blob/master/examples/basic_voice.py>`__"
+" de ``discord.py``."
+
+#: ../../getting_started/additional-info.rst:22
+#: 9d9f2223d69548ed97fe34b118c9ffed
+msgid ""
+"For more information, see the :doc:`./../other/LICENSE`. For an example "
+"on how this works, see the `Music cog "
+"<https://github.com/JulioLoayzaM/CroissantBot/blob/main/cogs/music.py>`__,"
+" which has code from the `basic\\_voice example "
 "<https://github.com/Rapptz/discord.py/blob/master/examples/basic_voice.py>`__"
 " of ``discord.py``."
 msgstr ""
-"La idea detrás de este repositorio es de permitir cualquier modificación al código. "
-"Como tal, el código puede ser libremente modificado bajo una condición: "
-"el contenido del archivo LICENSE debe incluirse en todas las copias o partes substanciales del código. "
-"Para más información, lee :ref:`other/license:license`. "
-"Para un ejemplo de cómo se debe incluir la licencia, puedes ver el cog de música, que contiene código del `ejemplo basic\\_voice "
-"<https://github.com/Rapptz/discord.py/blob/master/examples/basic_voice.py>`__ de ``discord.py``."
 
-#: ../../getting_started/additional-info.rst:25
-#: a7f9c1c123b0498a9dcee20a24a577cd
-msgid "Also, consider contributing your modifications to the code! :)"
+#: ../../getting_started/additional-info.rst:29
+#: 70b40969aeca444d8571d559952b7165
+#, fuzzy
+msgid ""
+"Also, consider contributing your modifications to the code! See "
+":doc:`./../other/CONTRIBUTING`."
 msgstr "Considera contribuir tus modificaciones al código! :)"
 
-#: ../../getting_started/additional-info.rst:27
-#: badd83e3c53e4a53abdfe2bee1e8488a
-msgid "See :doc:`./../other/CONTRIBUTING`."
-msgstr "Ve :ref:`other/CONTRIBUTING:contributing to croissantbot`."
+#~ msgid "See :doc:`./../other/CONTRIBUTING`."
+#~ msgstr "Ve :ref:`other/CONTRIBUTING:contributing to croissantbot`."
 
