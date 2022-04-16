@@ -51,13 +51,7 @@ DEALINGS IN THE SOFTWARE.
 import asyncio
 import logging
 import os
-
-try:
-	import yt_dlp as yt_dl
-	yt_version = 'yt-dlp'
-except Exception:
-	import youtube_dl as yt_dl
-	yt_version = 'youtube-dl'
+import yt_dlp
 
 import discord
 from discord.ext import commands
@@ -76,7 +70,7 @@ VOICE = f"{BLUE}[voice]{ENDC}"
 
 
 # Used to suppress useless errors apparently
-yt_dl.utils.bug_reports_message = lambda: ''
+yt_dlp.utils.bug_reports_message = lambda: ''
 
 # ffmpeg_options = {
 # 	'options': '-vn'
@@ -90,7 +84,7 @@ class Music(commands.Cog):
 	"""Cog for music related commands.
 	"""
 
-	def __init__(self, bot: commands.Bot, ytdl: yt_dl.YoutubeDL, max_duration: int):
+	def __init__(self, bot: commands.Bot, ytdl: yt_dlp.YoutubeDL, max_duration: int):
 
 		self.bot = bot
 		# Template:
@@ -968,7 +962,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 		cls,
 		url: str,
 		max_duration: int,
-		ytdl: yt_dl.YoutubeDL = None,
+		ytdl: yt_dlp.YoutubeDL = None,
 		loop: asyncio.AbstractEventLoop = None,
 		download: bool = True
 	) -> Song:
@@ -1006,7 +1000,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 				'default_search': 'auto',
 				'source_address': '0.0.0.0'
 			}
-			ytdl = yt_dl.YoutubeDL(YTDL_FORMAT_OPTIONS)
+			ytdl = yt_dlp.YoutubeDL(YTDL_FORMAT_OPTIONS)
 
 		loop = loop or asyncio.get_event_loop()
 
@@ -1045,7 +1039,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
 async def validate_url(url: str) -> bool:
 	"""
-	Checks to see if url has any valid extractors for yt_dlp/youtube_dl.
+	Checks to see if url has any valid extractors for yt_dlp.
 
 	Parameters:
 		url: The url to search for extractors.
@@ -1054,7 +1048,7 @@ async def validate_url(url: str) -> bool:
 		True if site has dedicated extractor, False otherwise.
 
 	"""
-	e = yt_dl.extractor.get_info_extractor('Youtube')
+	e = yt_dlp.extractor.get_info_extractor('Youtube')
 	return e.suitable(url)
 
 
@@ -1078,13 +1072,6 @@ def setup(bot):
 		'source_address': '0.0.0.0'  # bind to ipv4 since ipv6 addresses cause issues sometimes
 	}
 
-	ytdl = yt_dl.YoutubeDL(YTDL_FORMAT_OPTIONS)
-
-	bot.logger.debug(f"{WARNING}Youtube downloader:{ENDC} {yt_version}.")
-	if yt_version == 'youtube-dl':
-		print(
-			"The use of the 'youtube-dl' package is deprecated in this bot since version 1.1.0.",
-			"Consider installing 'yt-dlp' instead."
-		)
+	ytdl = yt_dlp.YoutubeDL(YTDL_FORMAT_OPTIONS)
 
 	bot.add_cog(Music(bot, ytdl, max_duration))

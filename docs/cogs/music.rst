@@ -21,6 +21,9 @@ Packages
    The use of the :py:mod:`youtube-dl` package in this bot is deprecated.
    Backwards compatibility is maintained but installing :py:mod:`yt-dlp` is recommended.
 
+.. versionchanged:: 3.0.0
+   The :py:mod:`youtube-dl` package is no longer used, please install :py:mod:`yt-dlp` instead.
+
 env variables
 -------------
 

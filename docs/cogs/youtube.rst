@@ -12,10 +12,8 @@ Packages
 It uses :py:mod:`streamlink` to get the stream's URL and
 :py:mod:`yt_dlp` to get the stream's title and thumbnail.
 
-.. note::
-   For backwards compatibility with the pre-v1.1.0 Music cog,
-   the :py:mod:`youtube-dl` package can be used.
-   However its use in this bot is deprecated and installing :py:mod:`yt-dlp` is recommended.
+.. versionchanged:: 3.0.0
+   The :py:mod:`youtube-dl` package is no longer used, please install :py:mod:`yt-dlp` instead.
 
 env variables
 -------------

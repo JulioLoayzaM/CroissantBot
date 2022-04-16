@@ -25,13 +25,7 @@ DEALINGS IN THE SOFTWARE.
 """
 
 import os
-
-try:
-	import yt_dlp as yt_dl
-	yt_version = 'yt-dlp'
-except:  # noqa: 722
-	import youtube_dl as yt_dl
-	yt_version = 'youtube-dl'
+import yt_dlp
 
 import discord
 from discord.ext import commands
@@ -517,7 +511,7 @@ class Playlist(commands.Cog):
 
 async def validate_url(url: str) -> bool:
 	"""
-	Checks to see if url has any valid extractors for yt_dlp/youtube_dl.
+	Checks to see if url has any valid extractors for yt_dlp.
 
 	Parameters:
 		url: The url to search for extractors.
@@ -525,7 +519,7 @@ async def validate_url(url: str) -> bool:
 	Returns:
 		True if site has dedicated extractor, False otherwise.
 	"""
-	e = yt_dl.extractor.get_info_extractor('Youtube')
+	e = yt_dlp.extractor.get_info_extractor('Youtube')
 	return e.suitable(url)
 
 

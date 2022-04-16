@@ -43,6 +43,9 @@ are actually needed by the commands you want to use.
 .. versionadded:: 2.0.0
    The Playlist cog, which also uses the :py:mod:`yt-dlp` package.
 
+.. versionchanged:: 3.0.0
+   The :py:mod:`youtube-dl` package is no longer used, please install :py:mod:`yt-dlp` instead.
+
 
 Creating the bot
 ----------------

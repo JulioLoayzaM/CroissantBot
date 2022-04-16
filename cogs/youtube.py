@@ -27,10 +27,7 @@ DEALINGS IN THE SOFTWARE.
 import asyncio
 import logging
 import streamlink
-try:
-	import yt_dlp as yt_dl
-except Exception:
-	import youtube_dl as yt_dl
+import yt_dlp
 
 from typing import Dict, Tuple, Union, List, Set
 from discord import Embed
@@ -47,7 +44,7 @@ class Youtube(commands.Cog):
 	def __init__(
 		self,
 		bot: commands.Bot,
-		ydl: yt_dl.YoutubeDL
+		ydl: yt_dlp.YoutubeDL
 	):
 		self.bot = bot
 		self.ydl = ydl
@@ -250,6 +247,6 @@ def setup(bot):
 		'source_address': '0.0.0.0'  # bind to ipv4 since ipv6 addresses cause issues sometimes
 	}
 
-	ydl = yt_dl.YoutubeDL(ytdl_options)
+	ydl = yt_dlp.YoutubeDL(ytdl_options)
 
 	bot.add_cog(Youtube(bot, ydl))
