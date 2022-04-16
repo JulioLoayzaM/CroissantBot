@@ -215,6 +215,7 @@ def main():
 
 	intents = discord.Intents.default()
 	intents.members = True  # retrieve a guild's member list
+	# intents.message_content = True
 	prefix = os.getenv('BOT_PREFIX')
 	logger = setup_loggers()
 
