@@ -143,7 +143,7 @@ class Base(commands.Cog):
 
         music = bot.get_cog('Music')
 
-        if (bot.cogs.get('MUSIC', False)) and (music is not None):
+        if ('MUSIC' in self.bot.enabled_cogs) and (music is not None):
             res = await music.get_latency(ctx)
             if res is not None:
                 latency, average = res
