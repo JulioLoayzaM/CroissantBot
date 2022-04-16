@@ -1,5 +1,7 @@
 # dev files
 __pycache__/
+.pytest_cache/
+.venv/
 .vscode/
 
 # test directory - not to be confused with tests/ which stores unit tests
@@ -25,3 +27,4 @@ memes/
 logs/
 rsc/.*
 .env
+.env.bck
