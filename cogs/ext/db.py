@@ -5,13 +5,13 @@ For all database connection needs.
 
 This module provides:
 
-	:py:class:`DatabaseConnection`:
-		The base class with three methods: :py:func:`DatabaseConnection.connect`,
-		:py:func:`DatabaseConnection.close` and :py:func:`DatabaseConnection.is_connected`.
+:py:class:`DatabaseConnection`:
+	The base class with three methods: :py:func:`DatabaseConnection.connect`,
+	:py:func:`DatabaseConnection.close` and :py:func:`DatabaseConnection.is_connected`.
 
-	:py:class:`MusicDatabaseConnection`:
-		A class to provide an interface for managing the playlists
-		stored in the database.
+:py:class:`MusicDatabaseConnection`:
+	A class to provide an interface for managing the playlists
+	stored in the database.
 """
 
 # Copyright (C) 2021 JulioLoayzaM

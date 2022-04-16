@@ -1,0 +1,6 @@
+Name, Description
+:envvar:`TW_CLIENT_ID`, A Twitch API client ID
+:envvar:`TW_CLIENT_SECRET`, The corresponding client secret
+:envvar:`TW_TOKEN`, An API Access Token
+:envvar:`TW_FREQUENCY`, How often to check for streams (in minutes)
+:envvar:`TW_FILE`, "The streamers to check and users to notify, see :ref:`cogs/twitch:how to use this cog`"

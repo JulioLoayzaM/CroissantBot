@@ -45,7 +45,7 @@ except Exception:
 import discord
 from discord.ext import commands
 
-from cogs.ext.queue import SongQueue, EmptyQueueError
+from cogs.ext.songqueue import SongQueue, EmptyQueueError
 from cogs.ext.song import Song
 
 from typing import Tuple, Union

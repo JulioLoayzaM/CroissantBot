@@ -1,0 +1,4 @@
+Name, Description
+:envvar:`CROISSANT_PATH`, The path to ``croissant.gif``
+:envvar:`KILL_PATH`, Where the kill messages are stored
+:envvar:`KILL_COUNT`, Where the kill count is stored

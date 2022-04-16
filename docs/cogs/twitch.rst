@@ -1,97 +1,92 @@
 Twitch
 ======
 
-This Cog enables the bot's Twitch livestream-checking capabilities. It
-uses Twitch's API to get the information needed.
+This Cog enables the bot's Twitch livestream-checking capabilities.
+
+It uses Twitch's API to get the information needed.
 
 .. hint::
    To enable this cog, set the :envvar:`ENABLE_TW` variable.
 
-Requirements
-------------
-
 Packages
-^^^^^^^^
+--------
 
--  No Twitch package is needed. It uses :py:mod:`requests`, which should be
-   already installed. If it's not, the package can be installed with
-   :py:mod:`pip`:
-
-.. tab:: Unix (Linux/MacOS)
-
-   .. code-block:: bash
-
-      python3 -m install -U requests
-
-.. tab:: Windows
-
-   .. code-block:: bat
-
-      py -m pip install -U requests
+No Twitch package is needed.
+It uses :py:mod:`requests`, which should be already installed.
+If it's not, the package can be installed with ``pip`` or ``pipenv``.
 
 env variables
-^^^^^^^^^^^^^
+-------------
 
--  To use the API, we need the **Client ID** and **Secret**. To
-   get them, follow Step 1 of this `getting started
-   guide <https://dev.twitch.tv/docs/api/#step-1-register-an-application>`__.
-   Fill :envvar:`TW_CLIENT_ID` and :envvar:`TW_CLIENT_SECRET` with these values.
+.. csv-table::
+   :file: twitch-vars.csv
+   :header-rows: 1
+   :delim: ,
 
--  Then, we need an **Access Token**. Normally the bot takes care of it, you just need to uncomment
-   :envvar:`TW_TOKEN` and leave it blank. When the bot checks the token validity at startup, it will
-   notice the token is empty and will automatically try to get a valid token and save it in :envvar:`TW_TOKEN`.
-   If for some reason this fails, see :ref:`cogs/twitch:manually getting an access token`.
+Using Twitch's API
+------------------
 
--  :envvar:`TW_FILE` represents the path to a JSON file that stores
-   the IDs of the Discord users to notify, and the Twitch channels to check for each one.
-   The name of the file is ``twitch_ids.json`` by default.
-   You can use the example file provided, but **please change its name** since leaving it as is
-   may result in overwritting when updating the bot with :program:`git pull`.
+To use the API, we need the **Client ID** and **Secret**.
+To get them, follow Step 1 of this
+`getting started guide <https://dev.twitch.tv/docs/api/#step-1-register-an-application>`__.
+Fill :envvar:`TW_CLIENT_ID` and :envvar:`TW_CLIENT_SECRET` with these values.
+
+Then, we need an **Access Token**.
+Normally the bot takes care of this: the tokens expire so the bot regularly checks its validity.
+If the token is invalid, or it can't be found in ``.env``, the bot automatically gets a new token
+and saves it in :envvar:`TW_TOKEN`.
+
+If for some reason this fails, see :ref:`cogs/twitch:manually getting an access token`.
 
 -  Finally, set :envvar:`TW_FREQUENCY`. This variable indicates how often the bot will check Twitch, in minutes.
    It should be a string, casting it to ``int`` is done in :py:mod:`bot.py`.
 
-Format used by TW_FILE
-----------------------
+How to use this cog
+-------------------
 
-The format to use for :envvar:`TW_FILE` is as follows:
+In order to indicate which streamers the bot should check, and which users it should notify,
+it uses the :envvar:`TW_FILE` JSON file.
 
-      .. code-block:: json
+It is a dictionary where the keys are the IDs of the Discord users to notify,
+and the values are a list of the streamers to check for each user.
 
-         {
-            "discord_user_ID_1":
-               [
-                  "twitch_channel_1",
-                  "twitch_channel_2"
-               ],
-            "discord_user_ID_2": 
-               [
-                  "twitch_channel_1",
-                  "twitch_user_login_3"
-               ]
-         }
+A Discord user's ID can be found by right-clicking the user's name.
+You can either use the URL of the streamer's channel or its ``user_login``,
+which is the last portion of the channel's URL.
 
-Fill it with the corresponding information and set :envvar:`TW_FILE` in
-``.env``. A Discord user's ID can be found by right-clicking the user's
-name. You can either use the URL of the streamer's channel or its
-``user_login``, which is the last portion of said URL.
+For example:
+
+.. code-block:: json
+
+   {
+      "discord_user_ID_1":
+         [
+            "twitch_channel_1",
+            "twitch_channel_2"
+         ],
+      "discord_user_ID_2": 
+         [
+            "twitch_channel_1",
+            "twitch_user_login_3"
+         ]
+   }
 
 Manually getting an access token
 --------------------------------
 
 .. attention::
-   API tokens expire. When this happens, the bot tries to get a new one automatically.
-   If the automatic way failed, you may have to get a new token each 60 days, or the cog won't work.
-   In this case, I suggest opening an issue `in the repo <https://github.com/JulioLoayzaM/CroissantBot/issues>`_.
+   You can use the following methods to get an access token, but keep in mind that they will still expire,
+   meaning that you will have to renew it every 60 days.
+   If the automatic way is not working, I suggest opening an issue
+   `in the repo <https://github.com/JulioLoayzaM/CroissantBot/issues>`_.
 
-If the automatic way of getting an access token fails, there are two manual ways of getting it:
+To manually get an access token, you can use:
 
-1. The Twitch CLI is one option.
+1. The Twitch CLI, as described in
    `Step 2 <https://dev.twitch.tv/docs/api/#step-2-authentication-using-the-twitch-cli>`__
-   of the aforementioned guide explains how to use it.
+   of the Twitch API guide.
 
-2. A simple script (based on `this Stack Overflow answer <https://stackoverflow.com/a/66536359>`__)
-   can be used instead of downloading the CLI:
+2. A simple script, based on `this Stack Overflow answer <https://stackoverflow.com/a/66536359>`__:
 
    .. code:: python
 

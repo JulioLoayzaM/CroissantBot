@@ -1,7 +1,7 @@
-queue module
-============
+songqueue module
+================
 
-.. automodule:: cogs.ext.queue
+.. automodule:: songqueue
    :members:
    :undoc-members:
    :show-inheritance:

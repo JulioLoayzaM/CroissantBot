@@ -1,0 +1,9 @@
+Name, Description
+:envvar:`REDDIT_USERNAME`, The username of your Reddit bot
+:envvar:`REDDIT_PASSWORD`, Its password
+:envvar:`REDDIT_CLIENT_ID`, Its client ID
+:envvar:`REDDIT_CLIENT_SECRET`, Its secret key
+:envvar:`REDDIT_APP_VERSION`, "This is an arbitrary value, see :ref:`cogs/meme:creating a reddit bot`"
+:envvar:`MEME_DOWNLOAD`, Whether to download the memes or not
+:envvar:`MEME_DIR`, Where to download them if :envvar:`MEME_DOWNLOAD` is enabled
+:envvar:`MEME_ITEM_LIMIT`, "The maximum number of items to fetch, see :ref:`cogs/meme:how it works`"

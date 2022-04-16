@@ -3,13 +3,13 @@ Commands
 
 The lists of all available commands.
 
-When runnin the bot you can use the ``help`` command to get a list of all available commands *in the
+When running the bot you can use the ``help`` command to get a list of all available commands *in the
 current context*: some commands are guild-only, meaning they can't be
 used in DMs (eg. music commands). Others can only be used by the bot's
 owner (eg. ``exit`` to stop the bot).
 
-Bot
-~~~
+Base
+~~~~
 
 .. list-table::
    :header-rows: 1
@@ -26,9 +26,9 @@ Bot
      -
      - Pings the bot
      -
-   * - ``test``
+   * - ``reload``
      -
-     - Replace function as needed
+     - Reload a cog
      - Owner-only
    * - ``version``
      - ``ver``
@@ -49,6 +49,10 @@ Meme
      -
      - Sends a meme from a subreddit, r/memes by default.
      -
+   * - ``change_meme_limit``
+     -
+     - Change the maximum number of items to fetch from a subreddit
+     - Default: 10
 
 Misc
 ~~~~
@@ -61,14 +65,6 @@ Misc
      - Aliases
      - Description
      - Comments
-   * - ``add``
-     -
-     - Adds two integers
-     - Basic example of ``discord.py`` converters
-   * - ``poggers``
-     - 
-     - Responds with a poggers emote, if available
-     - Guild-only, Hidden
    * - ``croissant``
      -
      - Sends a gif

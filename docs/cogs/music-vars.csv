@@ -1,0 +1,3 @@
+Name, Description
+:envvar:`MUSIC_DIR`, Where to download the songs
+:envvar:`MAX_DURATION`, "Maximum length a song can have to be played, see :ref:`cogs/music:how it works`"

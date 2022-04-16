@@ -5,6 +5,7 @@
 """
 
 import asyncio
+import argparse
 import os
 import subprocess
 import sys
@@ -325,6 +326,16 @@ def main():
     """Load the env vars, run first_run if necessary.
     """
 
+    parser = argparse.ArgumentParser(
+        description='Configuration script to set up CroissantBot'
+    )
+    parser.add_argument(
+        '--database',
+        help='Initialize the playlist database',
+        action="store_true"
+    )
+    args = parser.parse_args()
+
     dotenv_path = get_dotenv()
     if dotenv_path is None:
         sys.exit(1)
@@ -334,6 +345,10 @@ def main():
     if os.getenv('FIRST_RUN', '') == 'yes':
         print(f"{YELLOW}First run detected{ENDC}: initializing")
         first_run(dotenv_path)
+
+    elif args.database:
+        loop = asyncio.get_event_loop()
+        _ = loop.run_until_complete(set_database())
 
     sys.exit(0)
 

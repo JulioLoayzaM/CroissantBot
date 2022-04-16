@@ -19,8 +19,10 @@
 
 CroissantBot is a Discord bot written in Python using the [`discord.py` rewrite](https://github.com/Rapptz/discord.py).
 
-It started as a personal replacement for Dankmemer and Groovy, and grew to something I wanted to share: while my instance is not openly available, the code is.
-This repo aims to provide a template to help anyone\* create their own bot by just cloning the repo, fill in the blanks with [its documentation](https://croissantbot.readthedocs.io/en/latest/) and run it on their machine.
+It started as a personal replacement for Dankmemer and Groovy, and grew into something I wanted to share:
+while my instance is not openly available, the code is.
+This repo aims to provide a template to help anyone\* create their own bot by just cloning the repo,
+fill in the blanks with [its documentation](https://croissantbot.readthedocs.io/en/latest/) and run it on their machine.
 
 *some Python experience is recommended.
 
@@ -42,12 +44,12 @@ This repo aims to provide a template to help anyone\* create their own bot by ju
 
 ## The future of this bot
 
-The development of `discord.py` [ended a few months ago](https://gist.github.com/Rapptz/4a2f62751b9600a31a0d3c78100287f1), due in part to the new `Message.content` privileged intent.
+The development of `discord.py` [ended a few months ago](https://gist.github.com/Rapptz/4a2f62751b9600a31a0d3c78100287f1),
+due in part to the new `Message.content` privileged intent.
 
 And then, [it resumed](https://gist.github.com/Rapptz/c4324f17a80c94776832430007ad40e6)!
 
 I'll just say I am happy about Danny's return and thankful for the effort he and all the `discord.py` contributors made.
-Simply put, it motivated me to continue developping this bot, even though I never intended to completely abandon it in the first place.
 
 I think I'll mostly improve the existing code and upgrade it when possible to `discord.py` v2 so that my bot will continue working.
 So far, it seems that the current code still does the job, although the transition to a new version will be necessary before May 1st,
@@ -64,7 +66,8 @@ Play music from YouTube in voice chat, with support for playback on different se
 
 ### Playlists
 
-Save as many playlists per user as you want with a PostgreSQL database and the Playlist cog. Or use the Favourites cog to save songs to a single playlist per user without using PostgreSQL.
+Save as many playlists per user as you want with a PostgreSQL database and the Playlist cog.
+Or use the Favourites cog to save songs to a single playlist per user without using PostgreSQL.
 
 ### Memes
 
@@ -72,15 +75,20 @@ Get memes from Reddit and avoid duplicates by keeping track of memes sent to eac
 
 ### Kill messages
 
-Based on Dankmemer's feature, sends a message targeting a specified server member. It also keeps count of kills in each server. Messages are not included.
+Based on Dankmemer's feature, sends a message targeting a specified server member.
+It also keeps count of kills in each server.
+Messages are not included.
 
 ### Livestream status
 
-Sometimes Twitch's notifications are unreliable, so the bot can notify users about new streams through DMs. It works with YouTube streams as well.
+Sometimes Twitch's notifications are unreliable, so the bot can notify users about new streams through DMs.
+It works with YouTube streams as well.
 
 ### Logging
 
-Outputs basic information and errors to `stdout`. Debug information is logged to a file. It should allow to at least pinpoint which function has caused an error.
+Outputs basic information and errors to `stdout`.
+Debug information is logged to a file.
+It should allow to at least pinpoint which function has caused an error.
 
 ## How to run
 
@@ -90,9 +98,11 @@ An "offline" version can be found [here](docs/) and the old, incomplete version 
 ## Modifying the code
 
 The idea of this template is to allow any modification to the code.
-As such, and as stated [further down](README.md#license), the code can be freely modified under one condition: the content of the LICENSE file must be included with all copies or substantial portions of the code.
+As such, and as stated [further down](README.md#license), the code can be freely modified under one condition:
+the content of the LICENSE file must be included with all copies or substantial portions of the code.
 For more information, see the LICENSE file.
-For an example on how this works, see the [music cog](cogs/music.py), which has code from [the basic_voice example](https://github.com/Rapptz/discord.py/blob/master/examples/basic_voice.py) of `discord.py`.
+For an example on how this works, see the [music cog](cogs/music.py),
+which has code from [the basic_voice example](https://github.com/Rapptz/discord.py/blob/master/examples/basic_voice.py) of `discord.py`.
 
 ## Origin
 
@@ -100,7 +110,8 @@ I couldn't find the original video, but this meme is the inspiration for the nam
 
 ## License
 
-This project is available under the MIT license. See the [LICENSE.md](LICENSE.md) file for more info.
+This project is available under the MIT license.
+See the [LICENSE.md](LICENSE.md) file for more info.
 
 ## Contributing
 

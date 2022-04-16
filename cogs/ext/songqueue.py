@@ -1,7 +1,7 @@
 # queue.py
 
 """
-Implementation of a queue to be used by music.py.
+Implementation of a queue to be used by the :py:mod:`music` cog.
 """
 
 

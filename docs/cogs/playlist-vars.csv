@@ -1,0 +1,6 @@
+Name, Description
+:envvar:`DB_MUSIC_HOST`, "The hostname to connect to, usually ``localhost`` to use a local database"
+:envvar:`DB_MUSIC_USER`, A ``psql`` user with access to the database
+:envvar:`DB_MUSIC_PASSWORD`, The ``psql`` user's password
+:envvar:`DB_MUSIC_DATABASE`, The name of the database
+:envvar:`DB_MUSIC_PORT`, "Optionally, which port to use when connecting to the database"

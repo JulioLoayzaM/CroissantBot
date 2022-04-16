@@ -3,7 +3,7 @@
 import pytest
 import random
 
-from cogs.ext.queue import SongQueue
+from cogs.ext.songqueue import SongQueue
 from cogs.ext.song import Song
 from typing import List
 

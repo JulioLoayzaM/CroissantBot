@@ -20,11 +20,11 @@ sys.path.insert(0, os.path.abspath('./../cogs/ext'))
 # -- Project information -----------------------------------------------------
 
 project = 'CroissantBot'
-copyright = '2021, JulioLoayzaM'
+copyright = '2021-2022, JulioLoayzaM'
 author = 'Julio Loayza'
 
 # The full version, including alpha/beta/rc tags
-release = '2.0.0'
+release = '3.0.0'
 
 
 # -- General configuration ---------------------------------------------------

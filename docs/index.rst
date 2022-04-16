@@ -36,7 +36,7 @@ CroissantBot's documentation is organized as follows:
 
    ext/ext-modules
    ext/db
-   ext/queue
+   ext/songqueue
    ext/song
 
 .. toctree::
@@ -45,7 +45,7 @@ CroissantBot's documentation is organized as follows:
 
    other/CONTRIBUTING
    other/LICENSE
-   other/upgrading-v2
+   other/upgrading
 
 Origin
 ------
@@ -68,6 +68,12 @@ Versioning
 ----------
 
 The versions of the bot's repo follow the rules of `Semantic Versioning 2.0.0 <https://semver.org/>`__.
+
+Source code
+-----------
+
+The source code and documentation are hosted on Github:
+https://github.com/JulioLoayzaM/CroissantBot.
 
 Indices and tables
 ==================

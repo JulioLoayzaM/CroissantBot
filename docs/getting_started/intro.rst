@@ -9,17 +9,6 @@ anyone\* to clone the repo, fill in the blanks with this documentation, and run 
 
 \*some Python experience is recommended, but this guide should provide the necessary to run the bot.
 
-.. attention::
-
-   The development of `discord.py has ended <https://gist.github.com/Rapptz/4a2f62751b9600a31a0d3c78100287f1>`__,
-   in part due to the new ``Message.content`` privileged intent. According to `this Discord dev
-   post <https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Access-Deprecation-for-Verified-Bots>`__,
-   this new privileged intent (a permission to read messages, manually granted by Discord) should not be a problem for "Unverified bots in
-   fewer than 100 servers".
-
-   Still, any change to the API won't be reflected in ``discord.py``, so I'm currently waiting for the dust to settle to see if/when a viable
-   fork emerges. For now, I'll continue working on this bot as if nothing happened.
-
 Features
 --------
 
@@ -47,13 +36,14 @@ Get memes from Reddit. Keeps track of memes sent to each server to avoid
 duplicates.
 
 .. versionadded:: 2.0.0
-   No need to download them to send them.
+   No need to download them in order to send them.
 
 Kill messages
 ~~~~~~~~~~~~~
 
-Sends a message targeting a specified server member. Keeps count of
-kills in each server. Messages not included.
+Sends a message targeting a specified server member.
+Keeps count of kills in each server.
+Messages not included.
 
 Livestream status
 ~~~~~~~~~~~~~~~~~
