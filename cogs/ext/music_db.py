@@ -29,7 +29,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 
-from typing import List, Union
+from typing import List, Tuple, Union
 
 from cogs.ext.db import DatabaseConnection, DbInsertError, NotFoundError
 from cogs.ext.song import Song
@@ -634,7 +634,7 @@ class MusicDatabaseConnection(DatabaseConnection):
 		song: Song,
 		playlist_title: str,
 		user_id: str
-	) -> bool:
+	) -> Tuple[bool, bool]:
 		"""
 		Add a song to a playlist if it's owned by the calling user.
 		Creates the playlist if it doesn't exist.
@@ -656,16 +656,19 @@ class MusicDatabaseConnection(DatabaseConnection):
 			to the playlist occurs.
 
 		:return:
-			True if the requested playlist was created,
-			False if it already exists.
-		:rtype: bool
+			A bool to indicate whether the song was added to the playlist,
+			or was already in it,
+			and a bool to indicate whether the playlist had to be created
+			or it existed already.
+		:rtype: Tuple[bool, bool]
 		"""
 
-		created_playlist = False
+		added, created = False, False
+
 		if not await self.playlist_exists(playlist_title, user_id):
 			try:
 				await self.create_playlist(playlist_title, user_id)
-				created_playlist = True
+				created = True
 			except DbInsertError as error:
 				message, *rest = error.args
 				self.logger.error(message)
@@ -684,13 +687,14 @@ class MusicDatabaseConnection(DatabaseConnection):
 		if not await self.song_matches_playlist(song, playlist_title, user_id):
 			try:
 				await self.match_song_to_playlist(song, playlist_title, user_id)
+				added = True
 			except DbInsertError as error:
 				message, *rest = error.args
 				self.logger.error(message)
 				self.logger.debug(rest)
 				raise DbInsertError("An error occured while adding the song.")
 
-		return created_playlist
+		return (added, created)
 
 	async def get_playlist_id(
 		self,

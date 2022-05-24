@@ -165,12 +165,30 @@ class Playlist(commands.Cog):
 		)
 
 		try:
-			msg = await self.db.add_song_to_playlist(song, list_title, str(ctx.author.id))
-			em = discord.Embed(
-				title="Added",
-				description=msg,
-				colour=discord.Colour.green()
+			added, created = await self.db.add_song_to_playlist(
+				song, list_title, str(ctx.author.id)
 			)
+			# first send an embed if the playlist was created by this action
+			if created:
+				em = discord.Embed(
+					title="Created playlist",
+					description=list_title,
+					colour=discord.Colour.green()
+				)
+				await ctx.send(embed=em)
+			# then send one indicating whether the song was added to the playlist
+			if added:
+				em = discord.Embed(
+					title=f"Added to {list_title}",
+					description=song.title,
+					colour=discord.Colour.green()
+				)
+			else:
+				em = discord.Embed(
+					title='Song already in playlist',
+					description=f'{song.title} is already in {list_title}',
+					colour=discord.Colour.gold()
+				)
 			await ctx.send(embed=em)
 		except DbInsertError as error:
 			message, *_ = error.args
