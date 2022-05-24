@@ -30,7 +30,8 @@ import yt_dlp
 import discord
 from discord.ext import commands
 
-from cogs.ext.db import MusicDatabaseConnection, DbInsertError, NotFoundError
+from cogs.ext.music_db import MusicDatabaseConnection
+from cogs.ext.db import DbInsertError, NotFoundError
 from cogs.music import YTDLSource
 
 
