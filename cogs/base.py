@@ -178,7 +178,7 @@ class Base(commands.Cog):
         if not name.startswith("cogs."):
             name = "cogs." + name
         try:
-            bot.reload_extension(name)
+            await bot.reload_extension(name)
         except commands.ExtensionNotLoaded as error:
             await ctx.send("That cog is not loaded.")
             logger.debug(error)
