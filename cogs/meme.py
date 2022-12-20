@@ -306,7 +306,7 @@ class Meme(commands.Cog):
 			await ctx.send(embed=em)
 
 
-def setup(bot):
+async def setup(bot):
 
 	WARNING   = '\033[93m'
 	ENDC      = '\033[0m'
@@ -341,7 +341,7 @@ def setup(bot):
 	# should be increased or a better way to fetch memes implemented.
 	item_limit = int(os.getenv('MEME_ITEM_LIMIT'))
 
-	bot.add_cog(
+	await bot.add_cog(
 		Meme(
 			bot,
 			reddit,

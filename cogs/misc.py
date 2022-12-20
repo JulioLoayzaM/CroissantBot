@@ -297,7 +297,7 @@ class Misc(commands.Cog):
 			await ctx.send(embed=em)
 
 
-def setup(bot):
+async def setup(bot):
 
 	# kill - phrases text file
 	KILL_MESSAGES_FILE = os.getenv("KILL_PATH")
@@ -306,7 +306,7 @@ def setup(bot):
 	# croissant.gif path
 	CROISSANT_PATH     = os.getenv("CROISSANT_PATH")
 
-	bot.add_cog(
+	await bot.add_cog(
 		Misc(
 			bot,
 			KILL_MESSAGES_FILE,

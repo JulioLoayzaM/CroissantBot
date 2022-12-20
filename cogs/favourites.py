@@ -389,11 +389,11 @@ class Favourites(commands.Cog):
 		await music.play(ctx, url)
 
 
-def setup(bot):
+async def setup(bot):
 
 	# Name of the file in which the list of favourites is kept.
 	# By default it's 'favourite_songs.json', the directory is rsc/
 	fav_list_file = os.getenv('MUSIC_FAV_LIST')
 	max_duration = int(os.getenv('MAX_DURATION'))
 
-	bot.add_cog(Favourites(bot, fav_list_file, max_duration))
+	await bot.add_cog(Favourites(bot, fav_list_file, max_duration))

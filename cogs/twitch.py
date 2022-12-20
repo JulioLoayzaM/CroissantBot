@@ -424,9 +424,9 @@ class Twitch(commands.Cog):
 			await ctx.send(embed=em)
 
 
-def setup(bot):
+async def setup(bot):
 
 	api_endpoint = "https://api.twitch.tv/helix/streams?user_login="
 	client_id = getenv('TW_CLIENT_ID')
 
-	bot.add_cog(Twitch(bot, api_endpoint, client_id))
+	await bot.add_cog(Twitch(bot, api_endpoint, client_id))

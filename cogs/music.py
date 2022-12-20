@@ -1052,7 +1052,7 @@ async def validate_url(url: str) -> bool:
 	return e.suitable(url)
 
 
-def setup(bot):
+async def setup(bot):
 
 	max_duration = int(os.getenv('MAX_DURATION'))
 	save_dir = os.getenv('MUSIC_DIR')
@@ -1074,4 +1074,4 @@ def setup(bot):
 
 	ytdl = yt_dlp.YoutubeDL(YTDL_FORMAT_OPTIONS)
 
-	bot.add_cog(Music(bot, ytdl, max_duration))
+	await bot.add_cog(Music(bot, ytdl, max_duration))

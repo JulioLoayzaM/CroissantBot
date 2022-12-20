@@ -542,6 +542,6 @@ async def validate_url(url: str) -> bool:
 	return e.suitable(url)
 
 
-def setup(bot):
+async def setup(bot):
 
-	bot.add_cog(Playlist(bot))
+	await bot.add_cog(Playlist(bot))

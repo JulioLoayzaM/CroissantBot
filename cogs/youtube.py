@@ -232,7 +232,7 @@ class Youtube(commands.Cog):
 		return messages, prev_status
 
 
-def setup(bot):
+async def setup(bot):
 
 	ytdl_options = {
 		'nooverwrites': True,
@@ -249,4 +249,4 @@ def setup(bot):
 
 	ydl = yt_dlp.YoutubeDL(ytdl_options)
 
-	bot.add_cog(Youtube(bot, ydl))
+	await bot.add_cog(Youtube(bot, ydl))
