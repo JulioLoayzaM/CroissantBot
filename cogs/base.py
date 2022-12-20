@@ -29,6 +29,7 @@ import logging
 
 from packaging import version
 from random import randint
+from typing import Dict
 
 from discord import Colour, Embed
 from discord.ext import commands
@@ -72,31 +73,28 @@ class Base(commands.Cog):
         # Close all voice clients
         if "MUSIC" in bot.enabled_cogs:
             music = bot.get_cog("Music")
-            if music is not None:
-                if await music.stop_all():
-                    logger.debug(f"{VOICE} stop_all executed.")
-            else:
+            if music is None:
                 logger.error("Couldn't get cog 'Music'.")
+            elif await music.stop_all():
+                logger.debug(f"{VOICE} stop_all executed.")
 
         # Close connection to the database.
         if "PLAYLIST" in bot.enabled_cogs:
             pl = bot.get_cog("Playlist")
-            if pl is not None:
-                if await pl.close_db():
-                    logger.debug(f"{GREEN}Disconnected from database.{ENDC}")
-                else:
-                    logger.debug(f"{WARNING}The database was already closed.{ENDC}")
+            if pl is None:
+                logger.error("Coudldn't get cog 'Playlist'.")
+            elif await pl.close_db():
+                logger.debug(f"{GREEN}Disconnected from database.{ENDC}")
             else:
-                logger.error("Couldn't get cog 'Playlist'")
+                logger.debug(f"{WARNING}The database was already closed.{ENDC}")
 
         # Close the reddit session.
         if "MEME" in bot.enabled_cogs:
             meme = bot.get_cog("Meme")
-            if meme is not None:
-                if await meme.close_session():
-                    logger.debug(f"{WARNING}Closed:{ENDC} Reddit instance.")
-            else:
+            if meme is None:
                 logger.error("Couldn't get cog 'Meme'.")
+            elif await meme.close_session():
+                logger.debug(f"{WARNING}Closed:{ENDC} Reddit instance.")
 
         # Close the global aiohttp.ClientSession
         await bot._session.close()
@@ -180,6 +178,119 @@ class Base(commands.Cog):
             )
             logger.debug(error)
 
+    async def _remote_version_embed(
+        self,
+        local_ver: version.Version,
+        remote_ver: version.Version,
+        latest: Dict[str, str],
+    ) -> Embed:
+        """Creates the embed when using the 'remote' option of version.
+
+        Parameters:
+            local_ver: The parsed local version.
+            remote_var: The parsed remote version.
+            latest: The response containing the latest release.
+
+        Returns:
+            The embed to send.
+        """
+
+        # Determine the embed's colour first, since it has to be set during
+        # initialization.
+        if local_ver is None:
+            colour = Colour.red()
+        elif local_ver == remote_ver:
+            colour = Colour.green()
+        elif local_ver < remote_ver:
+            colour = Colour.gold()
+        else:
+            colour = Colour.teal()
+
+        # Create the embed with the colour
+        em = Embed(colour=colour)
+
+        if local_ver is None:
+            em.add_field(
+                name="Current version",
+                value="Could not get the current version",
+                inline=True,
+            )
+            em.add_field(name="Latest version", value=f"{remote_ver}", inline=True)
+            em.add_field(
+                name="Changelog",
+                value="https://github.com/JulioLoayzaM/CroissantBot/releases",
+                inline=False,
+            )
+            return em
+
+        em.add_field(name="Current version", value=f"{local_ver}", inline=True)
+        em.add_field(name="Latest version", value=f"{remote_ver}", inline=True)
+
+        # MAYBE: add support for release candidates?
+        if local_ver == remote_ver:
+            em.add_field(
+                name="Status",
+                value="Nothing to do, the bot's up to date!",
+                inline=False,
+            )
+
+        elif local_ver < remote_ver:
+
+            if local_ver.major < remote_ver.major:
+                status_message = "A new **major** version is available.\n"
+                status_message += "**Warning:** a major update may contain"
+                status_message += " breaking changes.\n"
+                status_message += "Please check the changelog first, then"
+                status_message += " use `git pull` to update."
+                em.add_field(name="Status", value=status_message, inline=False)
+
+            elif local_ver.minor < remote_ver.minor:
+                status_message = "A new **minor** version is available."
+                status_message += " Use `git pull` to update."
+                em.add_field(name="Status", value=status_message, inline=False)
+
+            else:
+                status_message = "A new **patch** is available."
+                status_message += " Use `git pull` to update."
+                em.add_field(name="Status", value=status_message, inline=False)
+
+            # Extract the message before the patch notes.
+            body: str = latest.get("body")
+            # The notes start with an H2 header.
+            index = body.index("##")
+            release_message = body[:index]
+            # The message should contain a couple of newlines at the end.
+            # Just in case, we get rid of them and add new ones.
+            release_message = release_message.rstrip("\r\n")
+            release_message += "\n\n"
+            release_message += "Read the release notes with "
+            release_message += f"`{self.bot._prefix}version notes` "
+            release_message += "or in the changelog below."
+
+            em.add_field(
+                name="Release message", value=f"{release_message}", inline=False
+            )
+
+            changelog_url = (
+                "https://github.com/JulioLoayzaM/CroissantBot/releases"
+            )
+            em.add_field(name="Changelog", value=changelog_url, inline=False)
+
+        else:
+            status_message = "Your version is more recent than mine! "
+            status_message += "How'd you do that?\n"
+            status_message += "(If you believe this to be an error, "
+            status_message += "don't hesitate to report it in the repo below!)"
+            em.add_field(name="Status", value=status_message, inline=False)
+
+            em.add_field(
+                name="Repo",
+                value="https://github.com/JulioLoayzaM/CroissantBot",
+                inline=False,
+            )
+
+        return em
+
     @commands.command(
         name="version",
         help="Get the bot's current version, use option 'remote' to check the latest version",  # noqa: 501
@@ -217,21 +328,22 @@ class Base(commands.Cog):
 
             if stdout:
                 output = stdout.decode("utf-8").rstrip()
+                local_ver = version.parse(output)
             else:
-                raise Exception(f"stdout is empty: {stdout}\nstderr: {stderr}")
-
-            local_ver = version.parse(output)
+                logger.warning("Could not get latest Git tag.")
+                logger.debug(f"stdout: {stdout}")
+                logger.debug(f"stderr: {stderr}")
+                local_ver = None
 
         except Exception as e:
             logger.warning("Error getting current bot version, ignoring.")
-            logger.debug(f"Error:\n{e}")
+            logger.debug(f"Error: {e}")
             local_ver = None
 
         if option == "local":
 
             if local_ver is None:
                 await ctx.send("Could not get local version.")
-                return
 
             else:
                 em = Embed(
@@ -251,104 +363,8 @@ class Base(commands.Cog):
 
             remote_ver = version.parse(latest.get("tag_name"))
 
-            # Determine the embed's colour first - the colour has to be set
-            # during initialization, but that would mean creating the embed
-            # and adding the version fields on every case.
-            if local_ver is None:
-                colour = Colour.red()
-            else:
-                if local_ver == remote_ver:
-                    colour = Colour.green()
-                elif local_ver < remote_ver:
-                    colour = Colour.gold()
-                else:
-                    colour = Colour.teal()
-
-            # Create the embed with the colour
-            em = Embed(colour=colour)
-
-            if local_ver is None:
-
-                em.add_field(
-                    name="Current version",
-                    value="Could not get the current version",
-                    inline=True,
-                )
-                em.add_field(name="Latest version", value=f"{remote_ver}", inline=True)
-                em.add_field(
-                    name="Changelog",
-                    value="https://github.com/JulioLoayzaM/CroissantBot/releases",
-                    inline=False,
-                )
-                await ctx.send(embed=em)
-
-            else:
-
-                em.add_field(name="Current version", value=f"{local_ver}", inline=True)
-                em.add_field(name="Latest version", value=f"{remote_ver}", inline=True)
-
-                # MAYBE: add support for release candidates?
-                if local_ver == remote_ver:
-                    em.add_field(
-                        name="Status",
-                        value="Nothing to do, the bot's up to date!",
-                        inline=False,
-                    )
-
-                elif local_ver < remote_ver:
-
-                    if local_ver.major < remote_ver.major:
-                        status_message = "A new **major** version is available.\n"
-                        status_message += "**Warning:** a major update may contain"
-                        status_message += " breaking changes.\n"
-                        status_message += "Please check the changelog first, then"
-                        status_message += " use `git pull` to update."
-                        em.add_field(name="Status", value=status_message, inline=False)
-
-                    elif local_ver.minor < remote_ver.minor:
-                        status_message = "A new **minor** version is available."
-                        status_message += " Use `git pull` to update."
-                        em.add_field(name="Status", value=status_message, inline=False)
-
-                    else:
-                        status_message = "A new **patch** is available."
-                        status_message += " Use `git pull` to update."
-                        em.add_field(name="Status", value=status_message, inline=False)
-
-                    # Extract the message before the patch notes
-                    body: str = latest.get("body")
-                    # The notes start with an H2 header
-                    index = body.index("##")
-                    release_message = body[:index]
-                    # The message should contain a couple of newlines at the end.
-                    # Just in case, we get rid of them and add new ones.
-                    release_message = release_message.rstrip("\r\n")
-                    release_message += "\n\n"
-                    release_message += "Read the release notes with "
-                    release_message += f"`{bot._prefix}version notes` "
-                    release_message += "or in the changelog below."
-
-                    em.add_field(
-                        name="Release message", value=f"{release_message}", inline=False
-                    )
-
-                    changelog_url = "https://github.com/JulioLoayzaM/CroissantBot/releases"  # noqa: 501
-                    em.add_field(name="Changelog", value=changelog_url, inline=False)
-
-                else:
-                    status_message = "Your version is more recent than mine! "
-                    status_message += "How'd you do that?\n"
-                    status_message += "(If you believe this to be an error, "
-                    status_message += "don't hesitate to report it in the repo below!)"
-                    em.add_field(name="Status", value=status_message, inline=False)
-
-                    em.add_field(
-                        name="Repo",
-                        value="https://github.com/JulioLoayzaM/CroissantBot",
-                        inline=False,
-                    )
-
-                await ctx.send(embed=em)
+            em = await self._remote_version_embed(local_ver, remote_ver, latest)
+            await ctx.send(embed=em)
 
         elif option == "notes":
 
@@ -361,9 +377,7 @@ class Base(commands.Cog):
             remote_ver = version.parse(latest.get("tag_name"))
 
             title = f"CroissantBot version {remote_ver} release notes:"
-
             body = latest.get("body")
-
             em = Embed(title=title, description=body)
 
             changelog_url = "https://github.com/JulioLoayzaM/CroissantBot/releases"
