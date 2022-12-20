@@ -33,6 +33,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
+import asyncio
 import logging
 import os
 
@@ -150,48 +151,51 @@ def setup_streamlink_logger():
 	logging.addLevelName(logging.CRITICAL, 'CRITICAL')
 
 
-def load_cogs(bot: CroissantBot):
+async def load_cogs(bot: CroissantBot):
 	"""Load any enabled cogs.
 
 	Load the cog and mark it as enabled.
 	Start the check functions for the Twitch and Youtube cogs.
 	"""
 
-	bot.load_extension('cogs.base')
+	bot.logger.debug(f"{WARNING}Setting up bot...{ENDC}")
+
+	await bot.load_extension('cogs.base')
 	bot.enabled_cogs.append('BASE')
 
 	if bool(os.getenv('ENABLE_JSONFAV', False)):
-		bot.load_extension("cogs.favourites")
+		await bot.load_extension("cogs.favourites")
 		bot.enabled_cogs.append('FAVS')
 
 	if bool(os.getenv('ENABLE_MEME', False)):
-		bot.load_extension("cogs.meme")
+		await bot.load_extension("cogs.meme")
 		bot.enabled_cogs.append('MEME')
 
 	if bool(os.getenv('ENABLE_MISC', False)):
-		bot.load_extension("cogs.misc")
+		await bot.load_extension("cogs.misc")
 		bot.enabled_cogs.append('MISC')
 
 	if bool(os.getenv('ENABLE_MUSIC', False)):
-		bot.load_extension("cogs.music")
+		await bot.load_extension("cogs.music")
 		bot.enabled_cogs.append('MUSIC')
 
 	if bool(os.getenv('ENABLE_PLAYLISTS', False)):
-		bot.load_extension("cogs.playlist")
+		await bot.load_extension("cogs.playlist")
 		bot.enabled_cogs.append('PLAYLIST')
 
 	if bool(os.getenv('ENABLE_TW', False)):
-		bot.load_extension("cogs.twitch")
+		await bot.load_extension("cogs.twitch")
+		# https://discordpy.readthedocs.io/en/latest/ext/tasks/
 		twitch_initiated = bot.loop.run_until_complete(bot.init_twitch())
 		if twitch_initiated:
-			bot._tw_task = bot.loop.create_task(bot.check_twitch())
+			bot._tw_task = await bot.loop.create_task(bot.check_twitch())
 			bot.enabled_cogs.append('TWITCH')
 		else:
 			bot.logger.warning(f"Can't enable {PURPLE}twitch{ENDC} cog, unloading extension.")
-			bot.unload_extension('cogs.twitch')
+			await bot.unload_extension('cogs.twitch')
 
 	if bool(os.getenv('ENABLE_YT', False)):
-		bot.load_extension("cogs.youtube")
+		await bot.load_extension("cogs.youtube")
 		youtube_initiated = bot.loop.run_until_complete(bot.init_youtube())
 		setup_streamlink_logger()
 		if youtube_initiated:
@@ -199,10 +203,12 @@ def load_cogs(bot: CroissantBot):
 			bot.enabled_cogs.append('YOUTUBE')
 		else:
 			bot.logger.warning(f"Can't enable {PURPLE}youtube{ENDC} cog, unloading extension.")
-			bot.unload_extension('cogs.youtube')
+			await bot.unload_extension('cogs.youtube')
+
+	bot.logger.debug(f"{WARNING}Enabled cogs:{ENDC} {bot.enabled_cogs}")
 
 
-def main():
+async def main():
 	"""Runs the bot.
 
 	- Sets up the loggers
@@ -211,29 +217,32 @@ def main():
 	- Starts running the bot.
 	"""
 
+	# pipenv automatically loads .env when using run or shell, so changes made
+	# to .env aren't used unless override is set to True.
+	# Another option is to use pipenv with PIPENV_DONT_LOAD_ENV, but I prefer
+	# this solution for now.
 	load_dotenv('.env', override=True)
 
 	intents = discord.Intents.default()
 	intents.members = True  # retrieve a guild's member list
-	# intents.message_content = True
+
+	# This bot is intended for small servers that do not require bot verification,
+	# so we can use the message_content intent. I'd still like to implement
+	# slash commands, but that'll have to wait.
+	intents.message_content = True
+
 	prefix = os.getenv('BOT_PREFIX')
 	logger = setup_loggers()
-
 	bot = CroissantBot(prefix, intents, logger)
 
 	token = os.getenv('BOT_TOKEN')
 
-	logger.debug(f"{WARNING}Setting up bot...{ENDC}")
+	await load_cogs(bot)
 
-	load_cogs(bot)
-
-	# Log which cogs got loaded
-	logger.debug(f"{WARNING}Enabled cogs:{ENDC} {bot.enabled_cogs}")
 	logger.debug(f"{WARNING}Bot starting...{ENDC}")
-
-	# Start the bot
-	bot.run(token)
+	async with bot:
+		await bot.start(token)
 
 
 if __name__ == '__main__':
-	main()
+	asyncio.run(main())
