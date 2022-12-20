@@ -5,9 +5,9 @@ name = "pypi"
 
 [packages]
 asyncpraw = "*"
-"discord.py" = {version = "==1.7.3", extras = ["voice"]}
+"discord.py" = {version = "==2.0.0", extras = ["voice"]}
 streamlink = "==2.3.0"
-yt-dlp = "==2021.9.2"
+yt-dlp = "*"
 asyncpg = ">=0.24.0"
 python-dotenv = "*"
 packaging = "*"
