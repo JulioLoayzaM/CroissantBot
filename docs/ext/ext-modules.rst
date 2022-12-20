@@ -17,10 +17,8 @@ For music
 For PostgreSQL databases
 ------------------------
 
-The :py:mod:`db` module provides two classes:
+The :py:mod:`db` module provides the base :py:class:`db.DatabaseConnection` class.
+It can connect and disconnect from a database, and check whether it is currently connected.
 
--  A base class, :py:class:`db.DatabaseConnection`,
-   which can connect and disconnect from a database, and check whether it is currently connected.
-
--  The actual class, :py:class:`db.MusicDatabaseConnection`,
-   to manage the music database used by the :ref:`Playlist cog <cogs/playlist:playlist>`.
+The :py:mod:`music_db` module provides the :py:class:`music_db.MusicDatabaseConnection` class,
+which can manage the music database used by the :ref:`Playlist cog <cogs/playlist:playlist>`.

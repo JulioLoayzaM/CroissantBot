@@ -19,7 +19,7 @@ CroissantBot's documentation is organized as follows:
 
 .. toctree::
    :maxdepth: 1
-   :caption: Cogs:
+   :caption: Cogs
 
    cogs/intro-cogs
    cogs/favourites
@@ -32,16 +32,17 @@ CroissantBot's documentation is organized as follows:
 
 .. toctree::
    :maxdepth: 1
-   :caption: ext modules:
+   :caption: ext modules
 
    ext/ext-modules
    ext/db
+   ext/music_db
    ext/songqueue
    ext/song
 
 .. toctree::
    :maxdepth: 1
-   :caption: Other documents:
+   :caption: Other documents
 
    other/CONTRIBUTING
    other/LICENSE
