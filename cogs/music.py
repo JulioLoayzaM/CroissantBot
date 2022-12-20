@@ -313,12 +313,12 @@ class Music(commands.Cog):
 		except discord.DiscordException as de:
 			await ctx.send(f"The bot is not connected to a voice channel, use `{BOT_PREFIX}join`.")
 			logger.warning("The bot is probably not connected to a voice channel.")
-			logger.debug(f"discord.DiscordException:\n{de}")
+			logger.debug(f"discord.DiscordException: {de}")
 
 		except Exception as e:
 			logger.error("Couldn't play song.")
-			logger.debug(f"Unexpected exception:\n{e}")
-			await ctx.send("The bot is not connected to a voice channel.")
+			logger.debug(f"Unexpected exception: {e}")
+			await ctx.send("An error occurred, please try again.")
 
 	@play.before_invoke
 	async def ensure_voice(self, ctx: commands.Context):
@@ -402,7 +402,7 @@ class Music(commands.Cog):
 
 			return None, em
 
-		with ctx.typing():
+		async with ctx.typing():
 			res, em = play_next()
 
 		if em is None:
