@@ -35,10 +35,10 @@ from discord.ext import commands
 
 from bot import CroissantBot
 
-GREEN   = '\033[92m'
-WARNING = '\033[93m'
-BLUE    = '\033[94m'
-ENDC    = '\033[0m'
+GREEN = "\033[92m"
+WARNING = "\033[93m"
+BLUE = "\033[94m"
+ENDC = "\033[0m"
 VOICE = f"{BLUE}[voice]{ENDC}"
 
 
@@ -56,10 +56,7 @@ class Base(commands.Cog):
         """"""
         self.bot = bot
 
-    @commands.command(
-        name="exit",
-        help="Closes the bot"
-    )
+    @commands.command(name="exit", help="Closes the bot")
     @commands.is_owner()
     async def close_connection(self, ctx: commands.Context):
         """Closes the bot's connection.
@@ -73,8 +70,8 @@ class Base(commands.Cog):
         logger = bot.logger
 
         # Close all voice clients
-        if 'MUSIC' in bot.enabled_cogs:
-            music = bot.get_cog('Music')
+        if "MUSIC" in bot.enabled_cogs:
+            music = bot.get_cog("Music")
             if music is not None:
                 if await music.stop_all():
                     logger.debug(f"{VOICE} stop_all executed.")
@@ -82,8 +79,8 @@ class Base(commands.Cog):
                 logger.error("Couldn't get cog 'Music'.")
 
         # Close connection to the database.
-        if 'PLAYLIST' in bot.enabled_cogs:
-            pl = bot.get_cog('Playlist')
+        if "PLAYLIST" in bot.enabled_cogs:
+            pl = bot.get_cog("Playlist")
             if pl is not None:
                 if await pl.close_db():
                     logger.debug(f"{GREEN}Disconnected from database.{ENDC}")
@@ -93,13 +90,11 @@ class Base(commands.Cog):
                 logger.error("Couldn't get cog 'Playlist'")
 
         # Close the reddit session.
-        if 'MEME' in bot.enabled_cogs:
-            meme = bot.get_cog('Meme')
+        if "MEME" in bot.enabled_cogs:
+            meme = bot.get_cog("Meme")
             if meme is not None:
                 if await meme.close_session():
-                    logger.debug(
-                        f"{WARNING}Closed:{ENDC} Reddit instance."
-                    )
+                    logger.debug(f"{WARNING}Closed:{ENDC} Reddit instance.")
             else:
                 logger.error("Couldn't get cog 'Meme'.")
 
@@ -107,10 +102,7 @@ class Base(commands.Cog):
         await bot._session.close()
         logger.debug(f"{WARNING}Closed:{ENDC} Global aiohttp.ClientSession.")
 
-        em = Embed(
-            description="I'm leaving!",
-            colour=Colour.green()
-        )
+        em = Embed(description="I'm leaving!", colour=Colour.green())
         await ctx.send(embed=em)
         # Close the bot
         await bot.close()
@@ -118,10 +110,7 @@ class Base(commands.Cog):
 
         logging.shutdown()
 
-    @commands.command(
-        name="ping",
-        help="Pings the bot, shows its current latency"
-    )
+    @commands.command(name="ping", help="Pings the bot, shows its current latency")
     async def ping_back(self, ctx: commands.Context):
         """
         Simple ping command. Has a mini easter egg.
@@ -135,34 +124,26 @@ class Base(commands.Cog):
         name = "Latency:ping_pong:" if r == 1 else "Latency"
 
         em = Embed()
-        em.add_field(
-            name=name,
-            value=f"{round(bot.latency * 1000)} ms",
-            inline=False
-        )
+        em.add_field(name=name, value=f"{round(bot.latency * 1000)} ms", inline=False)
 
-        music = bot.get_cog('Music')
+        music = bot.get_cog("Music")
 
-        if ('MUSIC' in self.bot.enabled_cogs) and (music is not None):
+        if ("MUSIC" in self.bot.enabled_cogs) and (music is not None):
             res = await music.get_latency(ctx)
             if res is not None:
                 latency, average = res
-                if latency != float('inf'):
+                if latency != float("inf"):
                     em.add_field(
-                        name="Voice latency",
-                        value=f"{round(latency * 1000)} ms"
+                        name="Voice latency", value=f"{round(latency * 1000)} ms"
                     )
-                if average != float('inf'):
+                if average != float("inf"):
                     em.add_field(
                         name="Voice average latency",
-                        value=f"{round(average * 1000)} ms"
+                        value=f"{round(average * 1000)} ms",
                     )
         await ctx.send(embed=em)
 
-    @commands.command(
-        name="reload",
-        help="Reloads a cog"
-    )
+    @commands.command(name="reload", help="Reloads a cog")
     @commands.is_owner()
     async def reload(self, ctx: commands.Context, name: str):
         """
@@ -186,19 +167,23 @@ class Base(commands.Cog):
             await ctx.send("Couldn't find that cog.")
             logger.debug(error)
         except commands.ExtensionFailed as error:
-            await ctx.send("An error occurred while reloading the cog, \
-                reverting to last working state.")
+            await ctx.send(
+                "An error occurred while reloading the cog, \
+                reverting to last working state."
+            )
             logger.error("The extension setup function had an execution error.")
             logger.debug(error)
         except Exception as error:
-            await ctx.send("An error occurred while reloading the cog, \
-                reverting to last working state.")
+            await ctx.send(
+                "An error occurred while reloading the cog, \
+                reverting to last working state."
+            )
             logger.debug(error)
 
     @commands.command(
         name="version",
         help="Get the bot's current version, use option 'remote' to check the latest version",  # noqa: 501
-        aliases=['ver']
+        aliases=["ver"],
     )
     @commands.is_owner()
     async def check_version(self, ctx: commands.Context, option: str = "local"):
@@ -224,14 +209,14 @@ class Base(commands.Cog):
         # so it's not possible to get local version if the repo wasn't cloned.
         try:
             proc = await asyncio.create_subprocess_shell(
-                'git describe --abbrev=0',
+                "git describe --abbrev=0",
                 stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE
+                stderr=asyncio.subprocess.PIPE,
             )
             stdout, stderr = await proc.communicate()
 
             if stdout:
-                output = stdout.decode('utf-8').rstrip()
+                output = stdout.decode("utf-8").rstrip()
             else:
                 raise Exception(f"stdout is empty: {stdout}\nstderr: {stderr}")
 
@@ -251,7 +236,7 @@ class Base(commands.Cog):
             else:
                 em = Embed(
                     title=f"The bot's current version is {local_ver}",
-                    description=f"Use `{bot._prefix}version remote` to check for updates."
+                    description=f"Use `{bot._prefix}version remote` to check for updates.",
                 )
                 await ctx.send(embed=em)
 
@@ -259,12 +244,12 @@ class Base(commands.Cog):
 
             # Get remote version
             remote_api_url = "https://api.github.com/repos/JulioLoayzaM/CroissantBot/releases/latest"  # noqa: 501
-            header = {'Accept': "application/vnd.github.v3+json"}
+            header = {"Accept": "application/vnd.github.v3+json"}
 
             async with bot._session.get(remote_api_url, headers=header) as response:
                 latest: dict = await response.json()
 
-            remote_ver = version.parse(latest.get('tag_name'))
+            remote_ver = version.parse(latest.get("tag_name"))
 
             # Determine the embed's colour first - the colour has to be set
             # during initialization, but that would mean creating the embed
@@ -287,39 +272,27 @@ class Base(commands.Cog):
                 em.add_field(
                     name="Current version",
                     value="Could not get the current version",
-                    inline=True
+                    inline=True,
                 )
-                em.add_field(
-                    name="Latest version",
-                    value=f"{remote_ver}",
-                    inline=True
-                )
+                em.add_field(name="Latest version", value=f"{remote_ver}", inline=True)
                 em.add_field(
                     name="Changelog",
                     value="https://github.com/JulioLoayzaM/CroissantBot/releases",
-                    inline=False
+                    inline=False,
                 )
                 await ctx.send(embed=em)
 
             else:
 
-                em.add_field(
-                    name="Current version",
-                    value=f"{local_ver}",
-                    inline=True
-                )
-                em.add_field(
-                    name="Latest version",
-                    value=f"{remote_ver}",
-                    inline=True
-                )
+                em.add_field(name="Current version", value=f"{local_ver}", inline=True)
+                em.add_field(name="Latest version", value=f"{remote_ver}", inline=True)
 
                 # MAYBE: add support for release candidates?
                 if local_ver == remote_ver:
                     em.add_field(
                         name="Status",
                         value="Nothing to do, the bot's up to date!",
-                        inline=False
+                        inline=False,
                     )
 
                 elif local_ver < remote_ver:
@@ -343,63 +316,53 @@ class Base(commands.Cog):
                         em.add_field(name="Status", value=status_message, inline=False)
 
                     # Extract the message before the patch notes
-                    body: str = latest.get('body')
+                    body: str = latest.get("body")
                     # The notes start with an H2 header
-                    index = body.index('##')
+                    index = body.index("##")
                     release_message = body[:index]
                     # The message should contain a couple of newlines at the end.
                     # Just in case, we get rid of them and add new ones.
-                    release_message = release_message.rstrip('\r\n')
+                    release_message = release_message.rstrip("\r\n")
                     release_message += "\n\n"
                     release_message += "Read the release notes with "
                     release_message += f"`{bot._prefix}version notes` "
                     release_message += "or in the changelog below."
 
                     em.add_field(
-                        name="Release message",
-                        value=f"{release_message}",
-                        inline=False
+                        name="Release message", value=f"{release_message}", inline=False
                     )
 
                     changelog_url = "https://github.com/JulioLoayzaM/CroissantBot/releases"  # noqa: 501
-                    em.add_field(
-                        name="Changelog",
-                        value=changelog_url,
-                        inline=False
-                    )
+                    em.add_field(name="Changelog", value=changelog_url, inline=False)
 
                 else:
                     status_message = "Your version is more recent than mine! "
                     status_message += "How'd you do that?\n"
                     status_message += "(If you believe this to be an error, "
                     status_message += "don't hesitate to report it in the repo below!)"
-                    em.add_field(
-                        name="Status",
-                        value=status_message,
-                        inline=False
-                    )
+                    em.add_field(name="Status", value=status_message, inline=False)
 
                     em.add_field(
                         name="Repo",
                         value="https://github.com/JulioLoayzaM/CroissantBot",
-                        inline=False
+                        inline=False,
                     )
 
                 await ctx.send(embed=em)
 
-        elif option == 'notes':
+        elif option == "notes":
 
             remote_api_url = "https://api.github.com/repos/JulioLoayzaM/CroissantBot/releases/latest"  # noqa: 501
-            header = {'Accept': "application/vnd.github.v3+json"}
+            header = {"Accept": "application/vnd.github.v3+json"}
 
             async with bot._session.get(remote_api_url, headers=header) as response:
                 latest: dict = await response.json()
 
-            remote_ver = version.parse(latest.get('tag_name'))
+            remote_ver = version.parse(latest.get("tag_name"))
 
             title = f"CroissantBot version {remote_ver} release notes:"
 
-            body = latest.get('body')
+            body = latest.get("body")
 
             em = Embed(title=title, description=body)
 
@@ -416,10 +379,7 @@ class Base(commands.Cog):
                 indicates if an update is available.\n"
             message += "- `notes`: shows the release notes of the latest version.\n"
             message += "- anything else: shows this help message."
-            em = Embed(
-                title="Version options",
-                description=message
-            )
+            em = Embed(title="Version options", description=message)
 
             await ctx.send(embed=em)
 

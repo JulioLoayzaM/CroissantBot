@@ -27,18 +27,18 @@ Small class to represent a song for the queue.
 # DEALINGS IN THE SOFTWARE.
 
 
-class Song():
-	"""
-	A class to represent a song. Stores the title, the name of the downloaded file,
-	the URL and the thumbnail URL.
-	"""
+class Song:
+    """
+    A class to represent a song. Stores the title, the name of the downloaded file,
+    the URL and the thumbnail URL.
+    """
 
-	def __init__(self, title: str, file: str, url: str, thumbnail: str):
+    def __init__(self, title: str, file: str, url: str, thumbnail: str):
 
-		self.title = title
-		self.file  = file
-		self.url   = url
-		self.thumbnail = thumbnail
+        self.title = title
+        self.file = file
+        self.url = url
+        self.thumbnail = thumbnail
 
-	def __str__(self):
-		return f"{self.title} - {self.url}"
+    def __str__(self):
+        return f"{self.title} - {self.url}"
