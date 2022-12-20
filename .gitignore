@@ -8,7 +8,7 @@ __pycache__/
 test/
 
 # sphinx docs
-docs/build/
+docs/_build/
 docs/source/
 docs/make.bat
 docs/Makefile
@@ -25,6 +25,7 @@ memes/
 
 # private files
 logs/
-rsc/.*
+rsc/*.json
+rsc/*.txt
 .env
 .env.bck
