@@ -1,5 +1,36 @@
 # Changelog
 
+## CroissantBot 3.0.0 (2022-12-20)
+
+CroissantBot's second major update!
+
+After being a WIP for months, I can finally say that CroissantBot works with
+discord.py 2.0.0! :)
+
+This update brings the `config.py` script to make the initial configuration a
+bit easier. The rest mainly focuses on cleaning up the code and the documentation,
+so there aren't many new shiny features.
+
+### Version 3.0.0 highlights
+- Added a new configuration script:
+  the previous version relied a lot on users reading a good part of the documentation just to get the bot running.
+  Now, `config.py` takes care of a lot of small configuration steps that weren't important to the user.
+- Added a new main file: separates the custom Bot class from the code that actually runs it.
+- **Breaking**: with this new update some `.env` vars were changed.
+  Most notably, the bot token variable `DISCORD_TOKEN` is now called `BOT_TOKEN`.
+- **Breaking**: The bot no longer uses `yt-dl`, just `yt-dlp`.
+- Instead of using `venv` I now use `pipenv`. The `requirements.txt` is still maintained,
+  but will probably be removed at some point in the future.
+- The English version of the documentation was updated, but the Spanish version was not.
+  As I don't know if anyone is using the bot, let alone with the Spanish documentation,
+  it makes little sense to continue translating everything. That being said, if you use
+  this bot with the Spanish docs don't hesitate to create issues.
+
+### Patch notes
+A couple of changes worth mentioning:
+- Override the env vars, so that changes to `.env` are applied when using `pipenv`.
+- Fixed a bug where the bot only searched the first word it was given when using the `play` command.
+
 ## CroissantBot 2.0.0 (2021-11-10)
 
 CroissantBot's first major update!
