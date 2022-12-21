@@ -118,7 +118,7 @@ class CroissantBot(commands.Bot):
             await ctx.send("This command is currently disabled.")
 
         else:
-            self.logger.error(f"Unexpected command error:\n{error}")
+            self.logger.error(f"Unexpected command error: {error}")
 
     async def check_token(self) -> bool:
         """Check the validity of _tw_token.
@@ -176,8 +176,8 @@ class CroissantBot(commands.Bot):
             try:
                 set_key(".env", "TW_TOKEN", new_token)
             except Exception as e:
-                logger.error("Error while updating TW_TOKEN.")
-                logger.debug(f"Could not set the new value in .env:\n{e}")
+                logger.error("Error while setting new TW_TOKEN.")
+                logger.debug(f"Could not set the new value in .env: {e}")
                 return False
 
             logger.info(f"Updated {PURPLE}TW_TOKEN{ENDC} in '.env'.")
@@ -211,12 +211,12 @@ class CroissantBot(commands.Bot):
 
         except IOError as ioe:
             logger.error(f"Could not open {self._yt_file }")
-            logger.debug(f"IOError:\n{ioe}")
+            logger.debug(f"IOError: {ioe}")
             return False
 
         except Exception as e:
             logger.error(f"Could not open {self._yt_file }")
-            logger.debug(f"Unexpected exception:\n{e}")
+            logger.debug(f"Unexpected exception: {e}")
             return False
 
         self._yt_streamers = youtube.init_streamers(ids)
@@ -253,12 +253,12 @@ class CroissantBot(commands.Bot):
 
         except IOError as ioe:
             logger.error(f'Could not open "{self._tw_file}"')
-            logger.debug(f"IOError:\n{ioe}")
+            logger.debug(f"IOError: {ioe}")
             return False
 
         except Exception as e:
             logger.error(f'Could not open "{self._tw_file}"')
-            logger.debug(f"Unexpected exception:\n{e}")
+            logger.debug(f"Unexpected exception: {e}")
             return False
 
         # Check the token when starting the bot to get the expiration time
@@ -311,8 +311,7 @@ class CroissantBot(commands.Bot):
 
             if not check:
                 logger.warning("TW_TOKEN refresh failed, skipping current check.")
-                # instead of using continue, emulate a successful loop
-                # that way, we don't end up in a 0-delay loop
+                # Simulate a successful loop before continuing.
                 await asyncio.sleep(self._tw_frequency * 60)
                 continue
 

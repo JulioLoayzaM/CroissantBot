@@ -378,6 +378,7 @@ class Base(commands.Cog):
 
             title = f"CroissantBot version {remote_ver} release notes:"
             body = latest.get("body")
+
             em = Embed(title=title, description=body)
 
             changelog_url = "https://github.com/JulioLoayzaM/CroissantBot/releases"
